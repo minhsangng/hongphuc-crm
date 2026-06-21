@@ -1,24 +1,24 @@
-import React from 'react'
+import { useEffect, useState } from 'react'
 import { Plus } from 'lucide-react'
 import DataTable from '../components/DataTable'
 import Avatar from '../components/Avatar'
-import { childrenData } from '../data/mockData'
+import axios from 'axios'
 
 const columns = [
   { key: 'id', label: '#', sortable: false, render: v => <span className="text-dark-400 text-xs">#{String(v).padStart(3,'0')}</span> },
-  { key: 'name', label: 'Họ tên', render: (v, row) => (
+  { key: 'fullName', label: 'Họ tên', render: (v, row) => (
     <div className="flex items-center gap-2.5">
       <Avatar name={v} size="sm" />
       <div>
         <p className="font-medium text-dark-900 dark:text-white text-sm">{v}</p>
-        <p className="text-xs text-dark-400">Ngày sinh: {row.dob}</p>
+        <p className="text-xs text-dark-400">Ngày sinh: {row.dateOfBirth}</p>
       </div>
     </div>
   )},
-  { key: 'class', label: 'Lớp', render: v => <span className="badge badge-blue">{v}</span> },
-  { key: 'parent', label: 'Phụ huynh' },
-  { key: 'phone', label: 'Điện thoại', sortable: false },
-  { key: 'tuition', label: 'Học phí', render: v => {
+  { key: 'classId', label: 'Lớp', render: v => <span className="badge badge-blue">{v}</span> },
+  { key: 'guardianName', label: 'Phụ huynh' },
+  { key: 'phoneNumber', label: 'Điện thoại', sortable: false },
+  { key: 'fee', label: 'Học phí', render: v => {
     const map = { 'Đã đóng': 'badge-green', 'Chưa đóng': 'badge-red', 'Trễ hạn': 'badge-yellow' }
     return <span className={`badge ${map[v] || 'badge-gray'}`}>{v}</span>
   }},
@@ -30,6 +30,22 @@ const columns = [
 ]
 
 export default function Childrens() {
+  const [data, setData] = useState([]);
+
+  async function fetchData() {
+    try {
+      const response = await axios.get("/api/get-all-childrens");
+      if (response) setData(response.data);
+      console.log(response.data)
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <div className="p-4 lg:p-6 space-y-6 animate-fade-in">
       <div className="flex items-center justify-between">
@@ -44,10 +60,10 @@ export default function Childrens() {
 
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         {[
-          { label: 'Tổng học sinh', value: childrenData.length, color: 'text-accent-600 dark:text-accent-400', bg: 'bg-accent-50 dark:bg-accent-900/20' },
-          { label: 'Đang theo học', value: childrenData.filter(c => c.status === 'active').length, color: 'text-green-600 dark:text-green-400', bg: 'bg-green-50 dark:bg-green-900/20' },
-          { label: 'Học phí trễ hạn', value: childrenData.filter(c => c.tuition === 'Trễ hạn').length, color: 'text-yellow-600 dark:text-yellow-400', bg: 'bg-yellow-50 dark:bg-yellow-900/20' },
-          { label: 'Chưa đóng HP', value: childrenData.filter(c => c.tuition === 'Chưa đóng').length, color: 'text-red-600 dark:text-red-400', bg: 'bg-red-50 dark:bg-red-900/20' },
+          { label: 'Tổng học sinh', value: data.length, color: 'text-accent-600 dark:text-accent-400', bg: 'bg-accent-50 dark:bg-accent-900/20' },
+          { label: 'Đang theo học', value: data.filter(c => c.status === 'Đang học').length, color: 'text-green-600 dark:text-green-400', bg: 'bg-green-50 dark:bg-green-900/20' },
+          { label: 'Học phí trễ hạn', value: data.filter(c => c.fee === 'Trễ hạn').length, color: 'text-yellow-600 dark:text-yellow-400', bg: 'bg-yellow-50 dark:bg-yellow-900/20' },
+          { label: 'Chưa đóng HP', value: data.filter(c => c.fee === 'Chưa đóng').length, color: 'text-red-600 dark:text-red-400', bg: 'bg-red-50 dark:bg-red-900/20' },
         ].map(s => (
           <div key={s.label} className={`${s.bg} rounded-2xl p-4 border border-dark-100/50 dark:border-dark-700/50`}>
             <p className={`text-2xl font-bold ${s.color}`}>{s.value}</p>
@@ -59,7 +75,7 @@ export default function Childrens() {
       <DataTable
         title="Danh sách học sinh"
         columns={columns}
-        data={childrenData}
+        data={data}
         pageSize={6}
       />
     </div>

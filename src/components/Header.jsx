@@ -1,10 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { Bell, Search, Menu, X, Sun, Moon, ChevronDown, LogOut, User, Settings } from 'lucide-react'
+import { Bell, Search, Menu, X, Sun, Moon, ChevronDown, LogOut, User, Settings, Home } from 'lucide-react'
 import { useTheme, useSidebar } from '../context/AppContext'
 import { notifications } from '../data/mockData'
 import Avatar from './Avatar'
 
-export default function Header({ currentPage }) {
+export default function Header({ currentPage, onExitAdmin }) {
   const { dark, toggle } = useTheme()
   const { setMobileOpen, mobileOpen } = useSidebar()
   const [showNotif, setShowNotif] = useState(false)
@@ -152,6 +152,12 @@ export default function Header({ currentPage }) {
                   ))}
                 </div>
                 <div className="py-1 border-t border-dark-100 dark:border-dark-700">
+                  {onExitAdmin && (
+                    <button onClick={onExitAdmin} className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors">
+                      <Home size={15} />
+                      Về trang chủ
+                    </button>
+                  )}
                   <button className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors">
                     <LogOut size={15} />
                     Đăng xuất

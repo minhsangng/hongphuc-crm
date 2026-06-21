@@ -12,6 +12,7 @@ import DataTable from '../components/DataTable'
 import Avatar from '../components/Avatar'
 import { statsData, tuitionChartData, enrollmentChartData, childrenData, teachersData } from '../data/mockData'
 import { formatVND, formatVNDShort } from '../utils/helpers'
+import { year } from 'drizzle-orm/mysql-core'
 
 // Custom recharts tooltip
 function CustomTooltip({ active, payload, label, formatter }) {
@@ -93,7 +94,7 @@ export default function Dashboard() {
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-xl font-bold text-dark-900 dark:text-white">Tổng quan</h2>
-          <p className="text-sm text-dark-400 dark:text-dark-500 mt-0.5">Tháng 12 năm 2025 • Cập nhật lúc {new Date().toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' })}</p>
+          <p className="text-sm text-dark-400 dark:text-dark-500 mt-0.5">{ new Date().toLocaleDateString('vi-VN', {month: 'long'}) } năm { new Date().toLocaleDateString('vi-VN', {year: 'numeric'}) } • Cập nhật lúc {new Date().toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' })}</p>
         </div>
         <div className="flex items-center gap-2">
           <button className="btn-secondary gap-1.5 text-xs hidden sm:inline-flex">

@@ -6,6 +6,13 @@
   :root {
     --scrollbar-thumb: #cbd5e1;
     --scrollbar-track: #f1f5f9;
+    --color-primary: #E6223A;
+    --color-secondary: #690722;
+    --color-accent: #621D43;
+    --color-bg-light: #644765;
+    --color-border: #374365;
+    --color-bg-dark: #062A48;
+    --color-button: #03213D;
   }
   .dark {
     --scrollbar-thumb: #475569;
@@ -34,6 +41,10 @@
 
   body {
     @apply bg-dark-50 text-dark-900 dark:bg-dark-950 dark:text-dark-100 antialiased;
+  }
+  
+  button, a {
+    cursor: pointer;
   }
 }
 
