@@ -11,7 +11,7 @@ const columns = [
       <Avatar name={v} size="sm" />
       <div>
         <p className="font-medium text-dark-900 dark:text-white text-sm">{v}</p>
-        <p className="text-xs text-dark-400">Ngày sinh: {row.dateOfBirth}</p>
+        <p className="text-xs text-dark-400">Ngày sinh: {row.dob}</p>
       </div>
     </div>
   )},
@@ -36,7 +36,6 @@ export default function Childrens() {
     try {
       const response = await axios.get("/api/get-all-childrens");
       if (response) setData(response.data);
-      console.log(response.data)
     } catch (err) {
       console.log(err);
     }

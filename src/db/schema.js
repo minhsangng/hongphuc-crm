@@ -1,4 +1,5 @@
-import { pgTable, date, timestamp, varchar, boolean, text, integer, numeric } from "drizzle-orm/pg-core";
+import { sql } from "drizzle-orm";
+import { pgTable, date, timestamp, varchar, text, integer, smallint, numeric } from "drizzle-orm/pg-core";
 
 export const classes = pgTable("classes", {
   id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
@@ -10,10 +11,10 @@ export const classes = pgTable("classes", {
 
 export const teachers = pgTable("teachers", {
   id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
-  fullName: varchar("full_name", { length: 30 }).notNull(),
   gender: varchar("gender").notNull().default("Nam"),
-  dateOfBirth: date("date_of_birth").notNull().default("01/01/2000"),
-  role: varchar("role", { length: 30 }).notNull().default("Giáo viên"),
+  dob: date("date_of_birth").notNull().default("01/01/2000"),
+  userId: integer("user_id").notNull(),
+  title: varchar("title", { length: 30 }).notNull().default("Giáo viên"),
   gross: numeric("gross").notNull().default(0),
   status: varchar("status").notNull().default("Đang làm"),
 });
@@ -21,23 +22,26 @@ export const teachers = pgTable("teachers", {
 export const childrens = pgTable("childrens", {
   id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
   fullName: varchar("full_name", { length: 30 }).notNull(),
-  dateOfBirth: date("date_of_birth").notNull().default("01/01/2026"),
+  gender: varchar("gender").notNull().default("Nam"),
+  dob: date("date_of_birth").notNull().default("01/01/2026"),
   classId: integer("class_id").notNull(),
   fee: numeric("fee").notNull().default(0),
   guardianName: varchar("guardian_name", { length: 30 }).notNull(),
   guardianship: varchar("guardianship", { length: 10 }).notNull().default("Mẹ"),
-  bankName: varchar("bank_name", { length: 50 }).notNull().default("Chưa có"),
-  bankNumber: varchar("bank_number", { length: 20 }).notNull().default("Chưa có"),
-  phoneNumber: varchar("phone_number", { length: 10 }).notNull().default("Chưa có"),
+  bankName: varchar("bank_name", { length: 50 }).notNull().default("Banking"),
+  bankNumber: varchar("bank_number", { length: 20 }).notNull().default("000-000-000-000"),
+  phoneNumber: varchar("phone_number", { length: 10 }).notNull().default("0000-000-000"),
   status: varchar("status").notNull().default("Đang học"),
 });
 
 export const users = pgTable("users", {
   id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
-  fullName: varchar("full_name").notNull(),
-  userName: varchar("user_name").notNull().unique(),
+  fullName: varchar("full_name", { length: 30 }),
+  loginName: varchar("login_name").notNull().unique(),
   password: text("password").notNull(),
+  phoneNumber: varchar("phone_number", { length: 10 }).notNull().default("0000-000-000"),
   email: varchar("email", { length: 20 }).notNull().unique(),
+  role: varchar("role", { length: 10 }).notNull().default("Vãng lai"),
   status: varchar("status").notNull().default("Hoạt động"),
 });
 
@@ -47,12 +51,28 @@ export const attendances = pgTable("attendances", {
   teacherId: integer("teacher_id").notNull(),
   classId: integer("class_id").notNull(),
   childrenId: integer("children_id").notNull(),
-  permission: boolean("permission").notNull().default(true),
+  permission: smallint("permission").notNull().default(1),
+});
+
+export const cookTables = pgTable("cook_tables", {
+  id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
+  startDate: date("start_date").notNull().defaultNow(),
+  endDate: date("end_date").notNull().default(sql`CURRENT_DATE + INTERVAL '5 days'`),
+});
+
+export const cookTableDetails = pgTable("cook_table_details", {
+  id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
+  cookTableId: integer("cook_table_id").notNull(),
+  dayweek: varchar("dayweek", { length: 10 }).notNull(),
+  breakfast: varchar("breakfast", { length: 30 }).notNull(),
+  lunch: varchar("lunch", { length: 30 }).notNull(),
+  afternoon: varchar("afternoon", { length: 30 }).notNull(),
+  dessert: varchar("dessert", { length: 30 }).notNull(),
 });
 
 export const logs = pgTable("logs", {
   id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
-  action: varchar("action", { length: 200 }).notNull(),
+  action: varchar("action", { length: 255 }).notNull(),
   userId: integer("user_id").notNull(),
   timeAction: timestamp("time_action").notNull().defaultNow(),
 });
