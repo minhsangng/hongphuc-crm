@@ -15,7 +15,7 @@ export const teachers = pgTable("teachers", {
   dob: date("date_of_birth").notNull().default("01/01/2000"),
   userId: integer("user_id").notNull(),
   title: varchar("title", { length: 30 }).notNull().default("Giáo viên"),
-  gross: numeric("gross").notNull().default(0),
+  gross: numeric("gross", { precision: 0 }).notNull().default(0),
   status: varchar("status").notNull().default("Đang làm"),
 });
 
@@ -25,8 +25,8 @@ export const childrens = pgTable("childrens", {
   gender: varchar("gender").notNull().default("Nam"),
   dob: date("date_of_birth").notNull().default("01/01/2026"),
   classId: integer("class_id").notNull(),
-  fee: numeric("fee").notNull().default(0),
-  guardianName: varchar("guardian_name", { length: 30 }).notNull(),
+  fee: numeric("fee", { precision: 0 }).notNull().default(1690000),
+  parentName: varchar("parent_name", { length: 30 }).notNull(),
   guardianship: varchar("guardianship", { length: 10 }).notNull().default("Mẹ"),
   bankName: varchar("bank_name", { length: 50 }).notNull().default("Banking"),
   bankNumber: varchar("bank_number", { length: 20 }).notNull().default("000-000-000-000"),
@@ -68,6 +68,14 @@ export const cookTableDetails = pgTable("cook_table_details", {
   lunch: varchar("lunch", { length: 30 }).notNull(),
   afternoon: varchar("afternoon", { length: 30 }).notNull(),
   dessert: varchar("dessert", { length: 30 }).notNull(),
+});
+
+export const fees = pgTable("fees", {
+  id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
+  time: timestamp("time").notNull().defaultNow(),
+  childrenId: integer("children_id").notNull(),
+  total: numeric("total", { precision: 0 }).notNull().default(1690000),
+  status: varchar("status").notNull().default("Chưa thu")
 });
 
 export const logs = pgTable("logs", {
