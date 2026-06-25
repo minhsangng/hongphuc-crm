@@ -5,7 +5,7 @@ import Avatar from '../components/Avatar'
 import axios from 'axios'
 
 const columns = [
-  { key: 'id', label: '#', sortable: false, render: v => <span className="text-dark-400 text-xs">#{String(v).padStart(3,'0')}</span> },
+  { key: 'id', label: '#ID', sortable: false, render: v => <span className="text-dark-400 text-xs">#{String(v).padStart(3,'0')}</span> },
   { key: 'fullName', label: 'Họ tên', render: (v, row) => (
     <div className="flex items-center gap-2.5">
       <Avatar name={v} size="sm" />
@@ -16,16 +16,18 @@ const columns = [
     </div>
   )},
   { key: 'classId', label: 'Lớp', render: v => <span className="badge badge-blue">{v}</span> },
-  { key: 'guardianName', label: 'Phụ huynh' },
+  { key: 'parentName', label: 'Phụ huynh' },
   { key: 'phoneNumber', label: 'Điện thoại', sortable: false },
   { key: 'fee', label: 'Học phí', render: v => {
-    const map = { 'Đã đóng': 'badge-green', 'Chưa đóng': 'badge-red', 'Trễ hạn': 'badge-yellow' }
-    return <span className={`badge ${map[v] || 'badge-gray'}`}>{v}</span>
+    return <span className='badge-red'>{Number(v).toLocaleString('vi-VN')} <sup>đ</sup></span>
   }},
   { key: 'status', label: 'Trạng thái', render: v => {
-    const map = { active: ['badge-green','Đang học'], inactive: ['badge-red','Đã nghỉ'], warning: ['badge-yellow','Theo dõi'] }
-    const [cls, label] = map[v] || ['badge-gray', v]
-    return <span className={`badge ${cls}`}>{label}</span>
+    const map = {
+      'Đang học': 'badge-green',
+      'Đã nghỉ': 'badge-red',
+      'Theo dõi': 'badge-yellow'
+    }
+    return <span className={`badge ${map[v] || 'badge-gray'}`}>{v}</span>
   }},
 ]
 

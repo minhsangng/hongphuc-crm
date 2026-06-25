@@ -10,7 +10,7 @@ app.use(express.json());
 
 /* HEALTHZ */
 app.get("/api/healthz", (req, res) => {
-  res.status(200).json({ success: true });
+  res.json({ status: 200, success: true });
 });
 
 app.get("/api/get-all-childrens", async (req, res) => {
