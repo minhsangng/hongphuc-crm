@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "full_name": "Nguyễn Vân An",
+    "gender": "Nữ",
+    "date_of_birth": "2004-11-08",
+    "class_id": 1,
+    "fee": "1690000",
+    "parent_name": "Nguyễn Thị Mộng Vân",
+    "guardianship": "Mẹ",
+    "bank_name": "Banking",
+    "bank_number": "000-000-000-000",
+    "phone_number": "0000-000-000",
+    "status": "Đang học"
+  }
+]

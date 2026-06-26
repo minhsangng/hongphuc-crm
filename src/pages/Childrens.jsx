@@ -27,7 +27,7 @@ const columns = [
       'Đã nghỉ': 'badge-red',
       'Theo dõi': 'badge-yellow'
     }
-    return <span className={`badge ${map[v] || 'badge-gray'}`}>{v}</span>
+    return <span className={`badge ${map[v] || 'baddge-gray'}`}>{v}</span>
   }},
 ]
 

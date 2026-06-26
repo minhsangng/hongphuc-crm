@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "class_name": "Mầm 1",
+    "quantity": 27,
+    "teacher_id": 1,
+    "status": "Hoạt động"
+  },
+  {
+    "id": 2,
+    "class_name": "Mầm 2",
+    "quantity": 22,
+    "teacher_id": 2,
+    "status": "Hoạt động"
+  },
+  {
+    "id": 3,
+    "class_name": "Chồi 1",
+    "quantity": 24,
+    "teacher_id": 3,
+    "status": "Hoạt động"
+  },
+  {
+    "id": 4,
+    "class_name": "Chồi 2",
+    "quantity": 22,
+    "teacher_id": 4,
+    "status": "Hoạt động"
+  },
+  {
+    "id": 5,
+    "class_name": "Thỏ ngọc 1",
+    "quantity": 25,
+    "teacher_id": 5,
+    "status": "Hoạt động"
+  },
+  {
+    "id": 6,
+    "class_name": "Thỏ ngọc 2",
+    "quantity": 19,
+    "teacher_id": 6,
+    "status": "Hoạt động"
+  }
+]
