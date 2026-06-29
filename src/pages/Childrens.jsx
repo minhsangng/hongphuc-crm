@@ -1,21 +1,21 @@
-import { useEffect, useState } from 'react'
-import { Plus } from 'lucide-react'
-import DataTable from '../components/DataTable'
-import Avatar from '../components/Avatar'
-import axios from 'axios'
+import { useEffect, useState } from 'react';
+import { Plus } from 'lucide-react';
+import DataTable from '../components/DataTable';
+import Avatar from '../components/Avatar';
+import axios from 'axios';
 
 const columns = [
-  { key: 'id', label: '#ID', sortable: false, render: v => <span className="text-dark-400 text-xs">#{String(v).padStart(3,'0')}</span> },
+  { key: 'id', label: 'ID', sortable: false, render: v => <span className="text-dark-400 text-xs">#HPS{String(v).padStart(3,'0')}</span> },
   { key: 'fullName', label: 'Họ tên', render: (v, row) => (
     <div className="flex items-center gap-2.5">
       <Avatar name={v} size="sm" />
       <div>
         <p className="font-medium text-dark-900 dark:text-white text-sm">{v}</p>
-        <p className="text-xs text-dark-400">Ngày sinh: {row.dob}</p>
+        <p className="text-xs text-dark-400">Ngày sinh: {new Date(row.dob).toLocaleDateString("vi-VN")}</p>
       </div>
     </div>
   )},
-  { key: 'classId', label: 'Lớp', render: v => <span className="badge badge-blue">{v}</span> },
+  { key: 'className', label: 'Lớp', render: v => <span className="badge badge-blue">{v}</span> },
   { key: 'parentName', label: 'Phụ huynh' },
   { key: 'phoneNumber', label: 'Điện thoại', sortable: false },
   { key: 'fee', label: 'Học phí', render: v => {
@@ -29,30 +29,32 @@ const columns = [
     }
     return <span className={`badge ${map[v] || 'baddge-gray'}`}>{v}</span>
   }},
-]
+];
 
 export default function Childrens() {
   const [data, setData] = useState([]);
+  const [classId, setClassId] = useState(1);
+  const [user, setUser] = useState({});
 
-  async function fetchData() {
+  async function getChildrenData() {
     try {
-      const response = await axios.get("/api/get-all-childrens");
+      const response = await axios.get('/api/get-' + (classId === 0 ? 'all-childrens' : 'children-by-class/' + classId));
       if (response) setData(response.data);
     } catch (err) {
-      console.log(err);
+      console.log("Get children data failed: ", err);
     }
   };
   
   useEffect(() => {
-    fetchData();
-  }, []);
+    getChildrenData();
+  }, [classId]);
 
   return (
     <div className="p-4 lg:p-6 space-y-6 animate-fade-in">
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-xl font-bold text-dark-900 dark:text-white">Học sinh</h2>
-          <p className="text-sm text-dark-400 dark:text-dark-500 mt-0.5">Quản lý danh sách học sinh toàn trường</p>
+          <p className="text-sm text-dark-400 dark:text-dark-500 mt-0.5">Quản lý danh sách học sinh <span class="text-red-100 underline">{(classId !== 0 ? 'lớp ' + user.className ?? 'default' : 'toàn trường')}</span></p>
         </div>
         <button className="btn-primary text-xs">
           <Plus size={13} /> Nhập học mới
@@ -73,12 +75,7 @@ export default function Childrens() {
         ))}
       </div>
 
-      <DataTable
-        title="Danh sách học sinh"
-        columns={columns}
-        data={data}
-        pageSize={6}
-      />
+      <DataTable title="Danh sách học sinh" columns={columns} data={data} pageSize={6} />
     </div>
   )
 }

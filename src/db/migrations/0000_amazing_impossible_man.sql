@@ -51,7 +51,7 @@ CREATE TABLE "enrollments" (
 	"id" integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY (sequence name "enrollments_id_seq" INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START WITH 1 CACHE 1),
 	"parent_name" varchar(50) NOT NULL,
 	"phone_number" varchar(12) NOT NULL,
-	"email" varchar(20),
+	"email" varchar(30),
 	"desired_class" varchar(30),
 	"note" varchar(255),
 	"status" varchar(20) DEFAULT 'Chờ duyệt' NOT NULL
@@ -106,7 +106,7 @@ CREATE TABLE "users" (
 	"login_name" varchar NOT NULL,
 	"password" text NOT NULL,
 	"phone_number" varchar(12) DEFAULT '0000-000-000' NOT NULL,
-	"email" varchar(20) NOT NULL,
+	"email" varchar(30) NOT NULL,
 	"role" varchar(10) DEFAULT 'Vãng lai' NOT NULL,
 	"status" varchar DEFAULT 'Hoạt động' NOT NULL,
 	CONSTRAINT "users_login_name_unique" UNIQUE("login_name"),

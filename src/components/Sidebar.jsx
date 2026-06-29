@@ -1,17 +1,15 @@
-import React from 'react'
-import {
-  LayoutDashboard, Users, Baby, GraduationCap,
-  BarChart3, Settings, ChevronLeft, ChevronRight, X, Heart
-} from 'lucide-react'
-import { useSidebar } from '../context/AppContext'
+import React from 'react';
+import { LayoutDashboard, Users, Baby, GraduationCap, ChefHat, BarChart3, Settings, ChevronLeft, ChevronRight, X, Heart } from 'lucide-react';
+import { useSidebar } from '../context/AppContext';
 
 const navItems = [
-  { id: 'dashboard',  label: 'Dashboard',   icon: LayoutDashboard },
-  { id: 'parents',    label: 'Phụ huynh',   icon: Users           },
-  { id: 'childrens',  label: 'Học sinh',    icon: Baby            },
-  { id: 'classes',    label: 'Lớp học',     icon: GraduationCap   },
-  { id: 'reports',    label: 'Báo cáo',     icon: BarChart3       },
-  { id: 'settings',   label: 'Cài đặt',     icon: Settings        },
+  { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
+  { id: 'teachers', label: 'Giáo viên', icon: Users },
+  { id: 'childrens', label: 'Học sinh', icon: Baby },
+  { id: 'classes', label: 'Lớp học', icon: GraduationCap },
+  { id: 'kitchens', label: 'Bếp ăn', icon: ChefHat },
+  { id: 'reports', label: 'Báo cáo', icon: BarChart3 },
+  { id: 'settings', label: 'Cài đặt', icon: Settings },
 ]
 
 export default function Sidebar({ currentPage, onNavigate }) {
@@ -41,20 +39,20 @@ export default function Sidebar({ currentPage, onNavigate }) {
   const sidebarContent = (
     <div className={`flex flex-col h-full ${collapsed ? 'w-16' : 'w-60'} transition-all duration-300`}>
       {/* Logo */}
-      <div className={`flex items-center gap-3 px-4 py-5 border-b border-dark-100 dark:border-dark-800 ${collapsed ? 'justify-center px-2' : ''}`}>
-        <div className="w-9 h-9 rounded-xl gradient-primary flex items-center justify-center flex-shrink-0 shadow-lg shadow-primary-600/30">
-          <Heart size={18} className="text-white" fill="currentColor" />
+      <a href="/">
+        <div className={`flex items-center gap-3 px-4 py-5 border-b border-dark-100 dark:border-dark-800 ${collapsed ? 'justify-center px-2' : ''}`}>
+          <div><img src="/favicon.svg" alt="Logo" height={"50px"} class="h-20" /></div>
+          {!collapsed && (
+            <div className="min-w-0">
+              <p className="font-bold text-sm text-dark-900 dark:text-white leading-tight truncate">Hồng Phúc</p>
+              <p className="text-[10px] text-dark-400 dark:text-dark-500 truncate">Lớp Trẻ Tư Thục</p>
+            </div>
+          )}
         </div>
-        {!collapsed && (
-          <div className="min-w-0">
-            <p className="font-bold text-sm text-dark-900 dark:text-white leading-tight truncate">Hồng Phúc</p>
-            <p className="text-[10px] text-dark-400 dark:text-dark-500 truncate">Lớp Trẻ Tư Thục</p>
-          </div>
-        )}
-      </div>
+      </a>
 
       {/* Nav */}
-      <nav className="flex-1 overflow-y-auto py-4 px-2">
+      <nav className="flex-1 overflow-y-auto pb-4 px-2">
         <ul className="space-y-0.5">
           {navItems.map(item => <NavLink key={item.id} item={item} />)}
         </ul>

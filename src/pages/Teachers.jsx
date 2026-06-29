@@ -28,7 +28,7 @@ const columns = [
   }},
 ]
 
-export default function Parents() {
+export default function Teachers() {
   return (
     <div className="p-4 lg:p-6 space-y-6 animate-fade-in">
       <div className="flex items-center justify-between">

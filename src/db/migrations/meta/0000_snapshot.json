@@ -378,7 +378,7 @@
         },
         "email": {
           "name": "email",
-          "type": "varchar(20)",
+          "type": "varchar(30)",
           "primaryKey": false,
           "notNull": false
         },
@@ -757,7 +757,7 @@
         },
         "email": {
           "name": "email",
-          "type": "varchar(20)",
+          "type": "varchar(30)",
           "primaryKey": false,
           "notNull": true
         },
