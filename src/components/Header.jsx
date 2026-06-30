@@ -26,7 +26,7 @@ export default function Header({ user, currentPage, onExitAdmin }) {
 
   const pageNames = {
     dashboard: 'Dashboard',
-    parents: 'Phụ huynh',
+    teachers: 'Giáo viên',
     childrens: 'Học sinh',
     classes: 'Lớp học',
     kitchens: 'Bếp ăn',

@@ -59,8 +59,8 @@ export default function Classes({ user }) {
   async function fetchClassData() {
     try {
       if (user) {
-        const teacherId = (user.role === 'Quản lý' ? 1 : parseInt(user.userId));
-        const response = await axios.get('/api/get-' + (teacherId === 1 ? 'all-classes' : ('class-by-teacher/' + teacherId)));
+        const teacherId = (user.role === 'Quản lý' ? 0 : parseInt(user.userId));
+        const response = await axios.get('/api/get-' + (teacherId === 0 ? 'all-classes' : ('class-by-teacher/' + teacherId)));
         if (response.data) setData(response.data);
       }
     } catch (err) {

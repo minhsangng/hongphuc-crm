@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
-import { Plus, Phone, Mail, MapPin, UserCheck } from 'lucide-react'
-import DataTable from '../components/DataTable'
-import Avatar from '../components/Avatar'
-import { parentsData } from '../data/mockData'
+import React, { useState } from 'react';
+import { Plus, Phone, Mail, MapPin, UserCheck } from 'lucide-react';
+import DataTable from '../components/DataTable';
+import Avatar from '../components/Avatar';
+import { parentsData } from '../data/mockData';
 
 const columns = [
   { key: 'name', label: 'Họ tên', render: (v) => (
@@ -17,7 +17,7 @@ const columns = [
   { key: 'email', label: 'Email', sortable: false, render: v => (
     <span className="flex items-center gap-1 text-dark-600 dark:text-dark-400 text-xs"><Mail size={12} />{v}</span>
   )},
-  { key: 'children', label: 'Con em', render: v => <span className="badge badge-blue">{v}</span> },
+  { key: 'children', label: 'Lớp', render: v => <span className="badge badge-blue">{v}</span> },
   { key: 'address', label: 'Địa chỉ', sortable: false, render: v => (
     <span className="flex items-center gap-1 text-xs text-dark-500 dark:text-dark-400"><MapPin size={12} className="flex-shrink-0" />{v}</span>
   )},
@@ -33,18 +33,18 @@ export default function Teachers() {
     <div className="p-4 lg:p-6 space-y-6 animate-fade-in">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-xl font-bold text-dark-900 dark:text-white">Phụ huynh</h2>
-          <p className="text-sm text-dark-400 dark:text-dark-500 mt-0.5">Quản lý thông tin phụ huynh học sinh</p>
+          <h2 className="text-xl font-bold text-dark-900 dark:text-white">Giáo viên</h2>
+          <p className="text-sm text-dark-400 dark:text-dark-500 mt-0.5">Quản lý thông tin giáo viên toàn trường</p>
         </div>
         <button className="btn-primary text-xs">
-          <Plus size={13} /> Thêm phụ huynh
+          <Plus size={13} /> Thêm giáo viên
         </button>
       </div>
 
       {/* Summary cards */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         {[
-          { label: 'Tổng phụ huynh', value: parentsData.length, color: 'text-accent-600 dark:text-accent-400', bg: 'bg-accent-50 dark:bg-accent-900/20' },
+          { label: 'Tổng giáo viên', value: parentsData.length, color: 'text-accent-600 dark:text-accent-400', bg: 'bg-accent-50 dark:bg-accent-900/20' },
           { label: 'Hợp tác tốt', value: parentsData.filter(p => p.status === 'active').length, color: 'text-green-600 dark:text-green-400', bg: 'bg-green-50 dark:bg-green-900/20' },
           { label: 'Cần theo dõi', value: parentsData.filter(p => p.status === 'warning').length, color: 'text-yellow-600 dark:text-yellow-400', bg: 'bg-yellow-50 dark:bg-yellow-900/20' },
           { label: 'Chưa liên hệ', value: parentsData.filter(p => p.status === 'inactive').length, color: 'text-red-600 dark:text-red-400', bg: 'bg-red-50 dark:bg-red-900/20' },
@@ -57,7 +57,7 @@ export default function Teachers() {
       </div>
 
       <DataTable
-        title="Danh sách phụ huynh"
+        title="Danh sách giáo viên"
         columns={columns}
         data={parentsData}
         pageSize={6}
