@@ -67,7 +67,6 @@ const teacherColumns = [
 
 export default function Dashboard() {
   const navigate = useNavigate();
-  const [user, setUser] = useState({});
   const [loading, setLoading] = useState(true);
   const [activeChart, setActiveChart] = useState('tuition');
 

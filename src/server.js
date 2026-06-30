@@ -1,8 +1,8 @@
 import express from "express";
 import { ENV } from "./config/env.js";
 import { db } from "./config/db.js";
-import { childrens, classes, users } from "./db/schema.js";
-import { eq } from "drizzle-orm";
+import { childrens, classes, teachers, users } from "./db/schema.js";
+import { eq, and } from "drizzle-orm";
 import session from "express-session";
 
 const app = express();
@@ -44,6 +44,27 @@ app.get("/api/get-children-by-class/:id", async (req, res) => {
   else res.json({ status: 404, message: `Not found children in class ID: ${id}` });
 });
 
+/* CLASSES */
+app.get("/api/get-all-classes", async (req, res) => {
+  const results = await db.select({...classes, teacherName: users.fullName}).from(classes).innerJoin(teachers, eq(teachers.id, classes.teacherId)).innerJoin(users, eq(users.id, teachers.userId));
+  if (results.length > 0) res.json(results);
+  else res.json({ status: 404, message: "Empty list" });
+});
+
+app.get("/api/get-class-by-teacher/:id", async (req, res) => {
+  const { id } = req.params;
+  const results = await db.select({...classes, teacherName: users.fullName}).from(classes).innerJoin(teachers, eq(teachers.id, classes.teacherId)).innerJoin(users, eq(users.id, teachers.userId)).where(eq(classes.teacherId, parseInt(id)));
+  if (results.length > 0) res.json(results);
+  else res.json({ status: 404, message: `Not found class of teacher with ID: ${id}` });
+});
+
+/* TEACHERS */
+app.get("/api/get-all-teachers", async (req, res) => {
+  const results = await db.select({...classes, teacherName: users.fullName}).from(classes).innerJoin(users, eq(users.id, teachers.userId));
+  if (results.length > 0) res.json(results);
+  else res.json({ status: 404, message: "Empty list" });
+});
+
 /* AUTH */
 app.post("/api/login-acount", async (req, res) => {
   const { userName, password } = req.body;
@@ -51,7 +72,7 @@ app.post("/api/login-acount", async (req, res) => {
   if (result.length === 1) {
     const id = parseInt(result[0].id);
     const role = result[0].role.trim();
-    req.session.user = { userName: userName, userId: id, role: role, signAt: new Date() };
+    req.session.user = { userName: userName, userId: id, role: role };
     res.json({ status: 200, navigate: ["Giáo viên", "Quản lý"].includes(role) ? "/admin" : "/" });
   } else res.json({ status: 401, message: "Login failed" });
 });

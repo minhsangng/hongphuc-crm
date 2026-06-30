@@ -26,6 +26,7 @@ CREATE TABLE "classes" (
 	"id" integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY (sequence name "classes_id_seq" INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START WITH 1 CACHE 1),
 	"class_name" varchar(30) NOT NULL,
 	"quantity" integer DEFAULT 0 NOT NULL,
+	"approximate_age" varchar(30),
 	"teacher_id" integer NOT NULL,
 	"status" varchar DEFAULT 'Hoạt động' NOT NULL,
 	CONSTRAINT "classes_teacher_id_unique" UNIQUE("teacher_id")

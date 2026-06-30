@@ -24,6 +24,7 @@ const pages = {
 };
 
 function AdminShell() {
+  const [user, setUser] = useState({ userId: 1, userName: "Hồng Phúc", role: "Quản lý", classId: 1, className: "Mầm 1" });
   const [currentPage, setCurrentPage] = useState("dashboard");
   const navigate = useNavigate();
   const PageComponent = pages[currentPage] || Dashboard;
@@ -36,12 +37,9 @@ function AdminShell() {
     <div className="flex h-screen overflow-hidden bg-dark-50 dark:bg-dark-950">
       <Sidebar currentPage={currentPage} onNavigate={setCurrentPage} />
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
-        <Header
-          currentPage={currentPage}
-          onExitAdmin={() => navigate('/')}
-        />
+        <Header user={user} currentPage={currentPage} onExitAdmin={() => navigate('/')} />
         <main className="flex-1 overflow-y-auto">
-          <PageComponent />
+          <PageComponent user={user} />
         </main>
       </div>
     </div>

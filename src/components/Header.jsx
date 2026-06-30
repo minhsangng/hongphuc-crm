@@ -1,19 +1,19 @@
-import React, { useState, useRef, useEffect } from 'react'
-import { Bell, Search, Menu, X, Sun, Moon, ChevronDown, LogOut, User, Settings, Home } from 'lucide-react'
-import { useTheme, useSidebar } from '../context/AppContext'
-import { notifications } from '../data/mockData'
-import Avatar from './Avatar'
+import React, { useState, useRef, useEffect } from 'react';
+import { Bell, Search, Menu, X, Sun, Moon, ChevronDown, LogOut, User, Settings, Home } from 'lucide-react';
+import { useTheme, useSidebar } from '../context/AppContext';
+import { notifications } from '../data/mockData';
+import Avatar from './Avatar';
 
-export default function Header({ currentPage, onExitAdmin }) {
-  const { dark, toggle } = useTheme()
-  const { setMobileOpen, mobileOpen } = useSidebar()
-  const [showNotif, setShowNotif] = useState(false)
-  const [showProfile, setShowProfile] = useState(false)
-  const [search, setSearch] = useState('')
-  const notifRef = useRef()
-  const profileRef = useRef()
+export default function Header({ user, currentPage, onExitAdmin }) {
+  const { dark, toggle } = useTheme();
+  const { setMobileOpen, mobileOpen } = useSidebar();
+  const [showNotif, setShowNotif] = useState(false);
+  const [showProfile, setShowProfile] = useState(false);
+  const [search, setSearch] = useState('');
+  const notifRef = useRef();
+  const profileRef = useRef();
 
-  const unread = notifications.filter(n => !n.read).length
+  const unread = notifications.filter(n => !n.read).length;
 
   useEffect(() => {
     function handle(e) {
@@ -22,13 +22,14 @@ export default function Header({ currentPage, onExitAdmin }) {
     }
     document.addEventListener('mousedown', handle)
     return () => document.removeEventListener('mousedown', handle)
-  }, [])
+  }, []);
 
   const pageNames = {
     dashboard: 'Dashboard',
     parents: 'Phụ huynh',
     childrens: 'Học sinh',
     classes: 'Lớp học',
+    kitchens: 'Bếp ăn',
     reports: 'Báo cáo',
     settings: 'Cài đặt',
   }
@@ -130,15 +131,15 @@ export default function Header({ currentPage, onExitAdmin }) {
               className="flex items-center gap-2 pl-1 pr-2 py-1 rounded-xl hover:bg-dark-100 dark:hover:bg-dark-800 transition-colors"
             >
               <Avatar name="Nguyễn Hồng Phúc" size="sm" />
-              <span className="hidden sm:block text-sm font-medium text-dark-700 dark:text-dark-200">Hồng Phúc</span>
+              <span className="hidden sm:block text-sm font-medium text-dark-700 dark:text-dark-200">{user.userName || 'Hồng Phúc'}</span>
               <ChevronDown size={14} className="hidden sm:block text-dark-400" />
             </button>
 
             {showProfile && (
               <div className="absolute right-0 mt-2 w-56 bg-white dark:bg-dark-800 rounded-2xl shadow-xl border border-dark-100 dark:border-dark-700 overflow-hidden animate-fade-in z-50">
                 <div className="px-4 py-3 border-b border-dark-100 dark:border-dark-700">
-                  <p className="font-semibold text-sm text-dark-900 dark:text-white">Nguyễn Hồng Phúc</p>
-                  <p className="text-xs text-dark-500 dark:text-dark-400">Quản trị viên</p>
+                  <p className="font-semibold text-sm text-dark-900 dark:text-white">Hi, {user.userName || 'Hồng Phúc'}!</p>
+                  <p className="text-xs text-dark-500 dark:text-dark-400">{user.role || 'Quản trị viên'}</p>
                 </div>
                 <div className="py-1">
                   {[
@@ -158,7 +159,7 @@ export default function Header({ currentPage, onExitAdmin }) {
                       Về trang chủ
                     </button>
                   )}
-                  <button className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors">
+                  <button onClick={onExitAdmin} className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors">
                     <LogOut size={15} />
                     Đăng xuất
                   </button>
@@ -170,4 +171,4 @@ export default function Header({ currentPage, onExitAdmin }) {
       </div>
     </header>
   )
-}
+};

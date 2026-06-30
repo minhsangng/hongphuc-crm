@@ -5,6 +5,7 @@ export const classes = pgTable("classes", {
   id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
   className: varchar("class_name", { length: 30 }).notNull(),
   quantity: integer("quantity").notNull().default(0),
+  approximateAge: varchar("approximate_age", { length: 30 }),
   teacherId: integer("teacher_id").notNull().unique(),
   status: varchar("status").notNull().default("Hoạt động"),
 });
@@ -40,7 +41,7 @@ export const users = pgTable("users", {
   loginName: varchar("login_name").notNull().unique(),
   password: text("password").notNull(),
   phoneNumber: varchar("phone_number", { length: 12 }).notNull().default("0000-000-000"),
-  email: varchar("email", { length: 20 }).notNull().unique(),
+  email: varchar("email", { length: 30 }).notNull().unique(),
   role: varchar("role", { length: 10 }).notNull().default("Vãng lai"),
   status: varchar("status").notNull().default("Hoạt động"),
 });
@@ -100,7 +101,7 @@ export const enrollments = pgTable("enrollments", {
   id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
   parentName: varchar("parent_name", { length: 50 }).notNull(),
   phoneNumber: varchar("phone_number", { length: 12 }).notNull(),
-  email: varchar("email", { length: 20 }),
+  email: varchar("email", { length: 30 }),
   desiredClass: varchar("desired_class", { length: 30 }),
   note: varchar("note", { length: 255 }),
   status: varchar("status", { length: 20 }).notNull().default("Chờ duyệt"),

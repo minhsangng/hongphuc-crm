@@ -13,7 +13,7 @@ const navItems = [
 ]
 
 export default function Sidebar({ currentPage, onNavigate }) {
-  const { collapsed, setCollapsed, mobileOpen, setMobileOpen } = useSidebar()
+  const { collapsed, setCollapsed, mobileOpen, setMobileOpen } = useSidebar();
 
   function NavLink({ item }) {
     const isActive = currentPage === item.id

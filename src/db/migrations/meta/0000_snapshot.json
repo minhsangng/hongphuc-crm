@@ -1,5 +1,5 @@
 {
-  "id": "58623556-1787-4442-900d-868c36ffdd6e",
+  "id": "3ccf332a-259d-4cf1-9f60-514161814f46",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -202,6 +202,12 @@
           "primaryKey": false,
           "notNull": true,
           "default": 0
+        },
+        "approximate_age": {
+          "name": "approximate_age",
+          "type": "varchar(30)",
+          "primaryKey": false,
+          "notNull": false
         },
         "teacher_id": {
           "name": "teacher_id",

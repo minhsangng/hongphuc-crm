@@ -3,6 +3,7 @@ import { Plus } from 'lucide-react';
 import DataTable from '../components/DataTable';
 import Avatar from '../components/Avatar';
 import axios from 'axios';
+import { formatVND, formatDateVN } from '../utils/helpers';
 
 const columns = [
   { key: 'id', label: 'ID', sortable: false, render: v => <span className="text-dark-400 text-xs">#HPS{String(v).padStart(3,'0')}</span> },
@@ -11,7 +12,7 @@ const columns = [
       <Avatar name={v} size="sm" />
       <div>
         <p className="font-medium text-dark-900 dark:text-white text-sm">{v}</p>
-        <p className="text-xs text-dark-400">Ngày sinh: {new Date(row.dob).toLocaleDateString("vi-VN")}</p>
+        <p className="text-xs text-dark-400">Ngày sinh: {formatDateVN(row.dob)}</p>
       </div>
     </div>
   )},
@@ -19,7 +20,7 @@ const columns = [
   { key: 'parentName', label: 'Phụ huynh' },
   { key: 'phoneNumber', label: 'Điện thoại', sortable: false },
   { key: 'fee', label: 'Học phí', render: v => {
-    return <span className='badge-red'>{Number(v).toLocaleString('vi-VN')} <sup>đ</sup></span>
+    return <span className='badge-red'>{formatVND(Number(v))}</span>
   }},
   { key: 'status', label: 'Trạng thái', render: v => {
     const map = {
@@ -33,12 +34,11 @@ const columns = [
 
 export default function Childrens() {
   const [data, setData] = useState([]);
-  const [classId, setClassId] = useState(1);
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState({ userId: 1, userName: "Hồng Phúc", role: "Quản lý", classId: 1, className: "Mầm 1", signAt: new Date() });
 
   async function getChildrenData() {
     try {
-      const response = await axios.get('/api/get-' + (classId === 0 ? 'all-childrens' : 'children-by-class/' + classId));
+      const response = await axios.get('/api/get-' + (user.classId === 0 ? 'all-childrens' : ('children-by-class/' + user.classId)));
       if (response) setData(response.data);
     } catch (err) {
       console.log("Get children data failed: ", err);
@@ -47,14 +47,14 @@ export default function Childrens() {
   
   useEffect(() => {
     getChildrenData();
-  }, [classId]);
+  }, [user]);
 
   return (
     <div className="p-4 lg:p-6 space-y-6 animate-fade-in">
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-xl font-bold text-dark-900 dark:text-white">Học sinh</h2>
-          <p className="text-sm text-dark-400 dark:text-dark-500 mt-0.5">Quản lý danh sách học sinh <span class="text-red-100 underline">{(classId !== 0 ? 'lớp ' + user.className ?? 'default' : 'toàn trường')}</span></p>
+          <p className="text-sm text-dark-400 dark:text-dark-500 mt-0.5">Quản lý danh sách học sinh <span class="text-red-100 underline">{(user.classId !== 0 ? 'lớp ' + user.className || 'default' : 'toàn trường')}</span></p>
         </div>
         <button className="btn-primary text-xs">
           <Plus size={13} /> Nhập học mới
