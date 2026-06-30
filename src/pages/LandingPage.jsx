@@ -30,7 +30,7 @@ function LoadingScreen({ onDone }) {
       {/* Logo */}
       <div className="relative z-10 flex flex-col items-center gap-6">
         <div className="w-24 h-24 bg-white rounded-3xl shadow-2xl flex items-center justify-center animate-pulse">
-          <span className="text-5xl">🌸</span>
+          <img src="./favicon.svg" alt="Logo" />
         </div>
         <div className="text-center">
           <h1 className="text-3xl font-black text-white tracking-tight drop-shadow-lg">Hồng Phúc</h1>
@@ -117,8 +117,8 @@ function Navbar() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16">
         {/* Logo */}
         <a href="#" className="flex items-center gap-2.5 group">
-          <div className="w-9 h-9 bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center shadow-md group-hover:scale-110 transition-transform">
-            <span className="text-lg">🌸</span>
+          <div className="w-10 h-10 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+            <img src="./favicon.svg" alt="Logo" />
           </div>
           <div>
             <p className={`font-black text-base leading-tight transition-colors ${scrolled ? 'text-gray-900' : 'text-white'}`}>Hồng Phúc</p>
@@ -144,7 +144,7 @@ function Navbar() {
             className={`hidden sm:flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-semibold transition-all hover:scale-105 active:scale-95 shadow-sm ${
               scrolled ? 'bg-blue-600 text-white hover:bg-blue-700 shadow-blue-200' : 'bg-white/20 text-white border border-white/30 hover:bg-white/30'
             }`}>
-            🔐 Đăng nhập
+            Đăng nhập
           </Link>
           <button
             className="px-4 py-2 rounded-xl text-sm font-bold bg-gradient-to-r from-red-500 to-red-600 text-white shadow-lg shadow-red-400/40 hover:shadow-red-400/60 hover:scale-105 active:scale-95 transition-all"
@@ -278,8 +278,8 @@ function HeroSection() {
               <div className="absolute inset-0 bg-white/15 rounded-full border-4 border-white/25 backdrop-blur-sm" />
               {/* Center emoji */}
               <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-[120px] sm:text-[140px] drop-shadow-2xl select-none animate-bounce"
-                  style={{ animationDuration: '3s' }}>🌸</div>
+                <div className="text-[80px] sm:text-[100px] drop-shadow-2xl select-none animate-bounce"
+                  style={{ animationDuration: '3s' }}><img class="h-44 xs:h-32" src="./favicon.svg" alt="Logo" /></div>
               </div>
               {/* Orbiting icons */}
               {[
@@ -677,7 +677,7 @@ function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-10">
           <div className="sm:col-span-2 lg:col-span-1">
             <div className="flex items-center gap-2.5 mb-4">
-              <div className="w-9 h-9 bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center">🌸</div>
+              <div className="w-9 h-9 bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center"><img src="./favicon.svg" alt="Logo" /></div>
               <div>
                 <p className="font-black text-white">Hồng Phúc</p>
                 <p className="text-gray-500 text-xs">Lớp Trẻ Tư Thục</p>
@@ -704,7 +704,6 @@ function Footer() {
           <p className="text-gray-500 text-xs">© 2025 Lớp Trẻ Tư Thục Hồng Phúc. All rights reserved.</p>
           <Link to="/login"
             className="text-xs text-gray-500 hover:text-blue-400 transition-colors flex items-center gap-1.5 group">
-            <span className="w-5 h-5 rounded-md bg-gray-800 group-hover:bg-blue-900/40 flex items-center justify-center transition-colors">🔐</span>
             Đăng nhập
           </Link>
         </div>
