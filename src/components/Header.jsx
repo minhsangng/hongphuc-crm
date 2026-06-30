@@ -20,12 +20,12 @@ export default function Header({ user, currentPage, onExitAdmin }) {
       if (notifRef.current && !notifRef.current.contains(e.target)) setShowNotif(false)
       if (profileRef.current && !profileRef.current.contains(e.target)) setShowProfile(false)
     }
-    document.addEventListener('mousedown', handle)
-    return () => document.removeEventListener('mousedown', handle)
+    document.addEventListener('mousedown', handle);
+    return () => document.removeEventListener('mousedown', handle);
   }, []);
 
   const pageNames = {
-    dashboard: 'Dashboard',
+    dashboard: 'Tổng quan',
     teachers: 'Giáo viên',
     childrens: 'Học sinh',
     classes: 'Lớp học',
@@ -40,6 +40,10 @@ export default function Header({ user, currentPage, onExitAdmin }) {
     success: 'bg-green-500',
     error:   'bg-red-500',
   }
+  
+  useEffect(() => {
+    document.title = "Mầm non Hồng Phúc - " + pageNames[currentPage];
+  }, [currentPage]);
 
   return (
     <header className="sticky top-0 z-30 bg-white/90 dark:bg-dark-900/90 backdrop-blur-md border-b border-dark-100 dark:border-dark-800">

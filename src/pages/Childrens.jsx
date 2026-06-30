@@ -33,6 +33,7 @@ const columns = [
 ];
 
 export default function Childrens() {
+  const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
   const [user, setUser] = useState({ userId: 1, userName: "Hồng Phúc", role: "Quản lý", classId: 1, className: "Mầm 1", signAt: new Date() });
 
@@ -40,6 +41,7 @@ export default function Childrens() {
     try {
       const response = await axios.get('/api/get-' + (user.classId === 0 ? 'all-childrens' : ('children-by-class/' + user.classId)));
       if (response) setData(response.data);
+      setLoading(false);
     } catch (err) {
       console.log("Get children data failed: ", err);
     }
@@ -75,7 +77,7 @@ export default function Childrens() {
         ))}
       </div>
 
-      <DataTable title="Danh sách học sinh" columns={columns} data={data} pageSize={6} />
+      <DataTable title="Danh sách học sinh" columns={columns} data={data} loading={loading} pageSize={6} />
     </div>
   )
 }

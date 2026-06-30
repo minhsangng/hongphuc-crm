@@ -28,10 +28,6 @@ function AdminShell() {
   const [currentPage, setCurrentPage] = useState("dashboard");
   const navigate = useNavigate();
   const PageComponent = pages[currentPage] || Dashboard;
-  
-  useEffect(()=> {
-    document.title = "Mầm non Hồng Phúc - " + (currentPage.charAt(0).toUpperCase() + currentPage.slice(1));
-  }, [currentPage]);
 
   return (
     <div className="flex h-screen overflow-hidden bg-dark-50 dark:bg-dark-950">
