@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { Link } from 'react-router-dom';
+import { Palette, Music, Flower, Brain, Trophy, Earth, HandHeart, Heart, GraduationCap, ShieldCheck, Rainbow, MapPin, PhoneCall, Clock, Mail } from 'lucide-react';
 
 /* ─── Loading Screen ─── */
 function LoadingScreen({ onDone }) {
@@ -102,7 +103,7 @@ function Navbar() {
     const h = () => setScrolled(window.scrollY > 40)
     window.addEventListener('scroll', h, { passive: true })
     return () => window.removeEventListener('scroll', h)
-  }, [])
+  }, []);
 
   const links = [
     { label: 'Giới thiệu', href: '#about' },
@@ -283,15 +284,16 @@ function HeroSection() {
               </div>
               {/* Orbiting icons */}
               {[
-                { emoji: '🎨', deg: 0  }, { emoji: '📚', deg: 60  },
-                { emoji: '🎵', deg: 120 }, { emoji: '⚽', deg: 180 },
-                { emoji: '🧩', deg: 240 }, { emoji: '🌱', deg: 300 },
+                { emoji: Palette, deg: 0  }, { emoji: Brain, deg: 60  },
+                { emoji: Music, deg: 120 }, { emoji: Earth, deg: 180 },
+                { emoji: HandHeart, deg: 240 }, { emoji: Trophy, deg: 300 },
               ].map(({ emoji, deg }) => {
-                const r = 130, rad = (deg * Math.PI) / 180
+                const r = 130, rad = (deg * Math.PI) / 180;
+                const Icon = emoji;
                 return (
-                  <div key={deg} className="absolute w-12 h-12 bg-white rounded-2xl shadow-xl flex items-center justify-center text-2xl hover:scale-125 transition-transform cursor-default select-none"
+                  <div key={deg} className="absolute w-12 h-12 bg-red-300 rounded-2xl shadow-xl flex items-center justify-center text-2xl hover:scale-125 transition-transform cursor-default select-none"
                     style={{ left: `calc(50% + ${Math.cos(rad) * r}px - 24px)`, top: `calc(50% + ${Math.sin(rad) * r}px - 24px)` }}>
-                    {emoji}
+                    <Icon />
                   </div>
                 )
               })}
@@ -314,10 +316,10 @@ function HeroSection() {
 /* ─── About Section ─── */
 function AboutSection() {
   const values = [
-    { icon: '❤️', title: 'Yêu thương', desc: 'Mỗi bé được chăm sóc như con của chính mình, trong vòng tay ấm áp của các cô.' },
-    { icon: '🎓', title: 'Chất lượng', desc: 'Đội ngũ giáo viên được đào tạo bài bản, tâm huyết với nghề, tận tình với trẻ.' },
-    { icon: '🛡️', title: 'An toàn', desc: 'Môi trường học tập sạch sẽ, an toàn tuyệt đối, camera giám sát 24/7.' },
-    { icon: '🌈', title: 'Sáng tạo', desc: 'Khơi dậy tiềm năng sáng tạo qua nghệ thuật, âm nhạc, thể chất và vui chơi.' },
+    { icon: <Heart color="#E6223A" size={42} />, title: 'Yêu thương', desc: 'Mỗi bé được chăm sóc như con của chính mình, trong vòng tay ấm áp của các cô.' },
+    { icon: <GraduationCap color="#E6223A" size={42} />, title: 'Chất lượng', desc: 'Đội ngũ giáo viên được đào tạo bài bản, tâm huyết với nghề, tận tình với trẻ.' },
+    { icon: <ShieldCheck color="#E6223A" size={42} />, title: 'An toàn', desc: 'Môi trường học tập sạch sẽ, an toàn tuyệt đối, camera giám sát 24/7.' },
+    { icon: <Rainbow color="#E6223A" size={42} />, title: 'Sáng tạo', desc: 'Khơi dậy tiềm năng sáng tạo qua nghệ thuật, âm nhạc, thể chất và vui chơi.' },
   ]
 
   return (
@@ -334,15 +336,16 @@ function AboutSection() {
         </FadeIn>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {values.map((v, i) => (
+          {values.map((v, i) => {
+            return (
             <FadeIn key={v.title} delay={i * 100}>
               <div className="group p-6 rounded-3xl border-2 border-transparent hover:border-red-200 bg-gray-50 hover:bg-red-50 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:shadow-red-100 cursor-default text-center">
                 <div className="text-5xl mb-4 group-hover:scale-110 transition-transform duration-300 inline-block">{v.icon}</div>
                 <h3 className="font-bold text-gray-900 text-lg mb-2">{v.title}</h3>
                 <p className="text-gray-500 text-sm leading-relaxed">{v.desc}</p>
               </div>
-            </FadeIn>
-          ))}
+            </FadeIn>)
+          })}
         </div>
 
         {/* Image-like banner */}
@@ -354,7 +357,7 @@ function AboutSection() {
                 <h3 className="text-2xl font-black text-gray-900 mb-3">Cơ sở hiện đại — Không gian vui chơi thoải mái</h3>
                 <p className="text-gray-500 leading-relaxed mb-4">Trường được xây dựng với không gian rộng rãi, thoáng mát. Mỗi lớp học đều được trang bị đầy đủ thiết bị học tập hiện đại, khu vui chơi ngoài trời an toàn và vệ sinh sạch sẽ.</p>
                 <div className="flex flex-wrap gap-3">
-                  {['📍 Quận 3, TP.HCM', '🕗 6:30 – 18:00', '📞 028-1234-5678'].map(tag => (
+                  {['📍 Chợ Gạo, Đồng Tháp', '🕗 6:30 - 16:30', '📞 028-1234-5678'].map(tag => (
                     <span key={tag} className="inline-flex items-center gap-1 px-3 py-1.5 bg-red-50 text-red-700 text-sm font-medium rounded-full">{tag}</span>
                   ))}
                 </div>
@@ -373,11 +376,11 @@ function ProgramsSection() {
   const programs = [
     { emoji: '🌱', name: 'Lớp Mầm', age: '2–3 tuổi', color: 'from-green-400 to-green-500', shadow: 'shadow-green-200', desc: 'Khám phá thế giới qua cảm giác & vận động. Phát triển ngôn ngữ và kỹ năng xã hội đầu đời.', features: ['Vận động tinh', 'Phát triển ngôn ngữ', 'Kỹ năng tự phục vụ'] },
     { emoji: '🌿', name: 'Lớp Chồi', age: '3–4 tuổi', color: 'from-blue-400 to-blue-600', shadow: 'shadow-blue-200', desc: 'Học qua chơi, vui qua học. Bé khám phá màu sắc, âm nhạc và thế giới xung quanh.', features: ['Nghệ thuật sáng tạo', 'Âm nhạc vận động', 'Làm quen với chữ số'] },
-    { emoji: '🌸', name: 'Lớp Lá', age: '4–5 tuổi', color: 'from-red-500 to-red-600', shadow: 'shadow-red-200', desc: 'Chuẩn bị nền tảng vững chắc cho lớp 1. Bé tự tin, sáng tạo và yêu thích học hỏi.', features: ['Tiền đọc viết', 'Toán tư duy', 'Kỹ năng sống'] },
+    { emoji: '🌸', name: 'Lớp Thỏ Ngọc', age: '4–5 tuổi', color: 'from-red-500 to-red-600', shadow: 'shadow-red-200', desc: 'Chuẩn bị nền tảng vững chắc cho lớp 1. Bé tự tin, sáng tạo và yêu thích học hỏi.', features: ['Tiền đọc viết', 'Toán tư duy', 'Kỹ năng sống'] },
   ]
 
   return (
-    <section id="programs" className="py-20 overflow-hidden relative">
+    <section id="programs" className="py-20 overflow-hidden relative bg-white">
       {/* Parallax background */}
       <div className="absolute inset-0 bg-gradient-to-b from-gray-50 to-blue-50"
         style={{ transform: `translateY(${offset * 0.06}px)` }} />
@@ -446,7 +449,7 @@ function FacilitiesSection() {
   ]
 
   return (
-    <section id="facilities" className="py-20 relative overflow-hidden">
+    <section id="facilities" className="py-20 relative overflow-hidden bg-white">
       {/* Parallax BG */}
       <div className="absolute inset-0 bg-gradient-to-br from-red-600 to-blue-700"
         style={{ transform: `translateY(${offset * 0.08}px)` }} />
@@ -459,7 +462,7 @@ function FacilitiesSection() {
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6">
         <FadeIn className="text-center mb-14">
           <span className="inline-block px-4 py-1.5 bg-white/20 text-white text-sm font-bold rounded-full mb-4">Cơ sở vật chất</span>
-          <h2 className="text-4xl sm:text-5xl font-black text-white mb-4">Không Gian <span className="text-yellow-300">Lý Tưởng</span></h2>
+          <h2 className="text-4xl sm:text-5xl font-black text-primary mb-4">Không Gian <span className="text-yellow-300">Lý Tưởng</span></h2>
           <p className="text-white/80 max-w-xl mx-auto text-lg">Mọi góc trong trường đều được thiết kế để kích thích sự tò mò và sáng tạo của bé.</p>
         </FadeIn>
 
@@ -536,7 +539,7 @@ function TestimonialsSection() {
   ]
 
   return (
-    <section className="py-20 relative overflow-hidden">
+    <section className="py-20 relative overflow-hidden bg-white">
       <div className="absolute inset-0 bg-gradient-to-r from-blue-50 to-red-50"
         style={{ transform: `translateY(${offset * 0.05}px)` }} />
 
@@ -639,19 +642,21 @@ function ContactSection() {
           <FadeIn delay={200}>
             <div className="space-y-6">
               {[
-                { icon: '📍', title: 'Địa chỉ', lines: ['123 Đường Hồng Phúc, Phường 5', 'Quận 3, TP. Hồ Chí Minh'] },
-                { icon: '📞', title: 'Điện thoại', lines: ['028-1234-5678', '0901 234 567 (Zalo)'] },
-                { icon: '🕗', title: 'Giờ hoạt động', lines: ['Thứ 2 – Thứ 6: 6:30 – 18:00', 'Thứ 7: 7:00 – 12:00'] },
-                { icon: '📧', title: 'Email', lines: ['info@hongphuc.edu.vn', 'tuyensinh@hongphuc.edu.vn'] },
-              ].map((item, i) => (
-                <div key={item.title} className="group flex gap-4 p-4 rounded-2xl hover:bg-red-50 transition-colors cursor-default">
-                  <div className="w-12 h-12 bg-gradient-to-br from-red-500 to-blue-600 rounded-2xl flex items-center justify-center text-2xl flex-shrink-0 group-hover:scale-110 transition-transform">{item.icon}</div>
+                { icon: MapPin, title: 'Địa chỉ', lines: ['Lộ Vàm, Xã Chợ Gạo, Tỉnh Đồng Tháp'] },
+                { icon: PhoneCall, title: 'Điện thoại', lines: ['028-1234-5678 (Cô Vân)', '0901 234 567 (Cô Trang)'] },
+                { icon: Clock, title: 'Giờ hoạt động', lines: ['Thứ 2 - Thứ 7: 6:30 - 16:30'] },
+                { icon: Mail, title: 'Email', lines: ['hongphuc.info@gmail.com'] },
+              ].map((item, i) => {
+                const Icon = item.icon;
+                
+                return (<div key={item.title} className="group flex gap-4 p-4 rounded-2xl hover:bg-red-50 transition-colors cursor-default">
+                  <div className="w-12 h-12 bg-gradient-to-br from-red-500 to-blue-600 rounded-2xl flex items-center justify-center text-2xl flex-shrink-0 group-hover:scale-110 transition-transform"><Icon /></div>
                   <div>
                     <p className="font-bold text-gray-900 text-sm">{item.title}</p>
                     {item.lines.map(l => <p key={l} className="text-gray-500 text-sm">{l}</p>)}
                   </div>
-                </div>
-              ))}
+                </div>)
+              })}
 
               {/* Map placeholder */}
               <div className="rounded-2xl overflow-hidden border-2 border-red-100 h-48 bg-gradient-to-br from-red-100 to-blue-100 flex items-center justify-center">
