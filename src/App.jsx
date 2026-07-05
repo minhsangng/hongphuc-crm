@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import { ThemeProvider, SidebarProvider } from './context/AppContext';
 import Sidebar from './components/Sidebar';
@@ -24,7 +24,7 @@ const pages = {
 };
 
 function AdminShell() {
-  const [user, setUser] = useState({ userId: 1, userName: "Hồng Phúc", role: "Quản lý", classId: 1, className: "Mầm 1" });
+  const [user, setUser] = useState({ userId: 1, userName: "Hồng Phúc", role: "Giáo viên", classId: 1, className: "Mầm 1" });
   const [currentPage, setCurrentPage] = useState("dashboard");
   const navigate = useNavigate();
   const PageComponent = pages[currentPage] || Dashboard;
@@ -44,17 +44,24 @@ function AdminShell() {
 
 export default function App() {
   return (
-    <ThemeProvider>
-      <SidebarProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/"       element={<LandingPage />} />
-            <Route path="/login"  element={<LoginPage />} />
-            <Route path="/admin"  element={<AdminShell />} />
-            <Route path="*"       element={<Navigate to="/" replace />} />
-          </Routes>
-        </BrowserRouter>
-      </SidebarProvider>
-    </ThemeProvider>
-  )
-};
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/login" element={<LoginPage />} />
+
+        <Route
+          path="/admin"
+          element={
+            <ThemeProvider>
+              <SidebarProvider>
+                <AdminShell />
+              </SidebarProvider>
+            </ThemeProvider>
+          }
+        />
+
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}

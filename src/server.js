@@ -46,7 +46,7 @@ app.get("/api/get-children-by-class/:id", async (req, res) => {
 
 /* CLASSES */
 app.get("/api/get-all-classes", async (req, res) => {
-  const results = await db.select({...classes, teacherName: users.fullName}).from(classes).innerJoin(teachers, eq(teachers.id, classes.teacherId)).innerJoin(users, eq(users.id, teachers.userId));
+  const results = await db.select({...classes, teacherName: users.fullName}).from(classes).leftJoin(teachers, eq(teachers.id, classes.teacherId)).leftJoin(users, eq(users.id, teachers.userId));
   if (results.length > 0) res.json(results);
   else res.json({ status: 404, message: "Empty list" });
 });

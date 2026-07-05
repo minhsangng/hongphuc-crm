@@ -1,6 +1,20 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { Palette, Music, Flower, Brain, Trophy, Earth, HandHeart, Heart, GraduationCap, ShieldCheck, Rainbow, MapPin, PhoneCall, Clock, Mail } from 'lucide-react';
+import { Palette, Music, Brain, Trophy, Earth, HandHeart, MapPin, PhoneCall, Clock, Mail, Share2, X, ArrowUp } from 'lucide-react';
+import Facebook from '../assets/facebook.svg';
+import Tiktok from '../assets/tiktok.svg';
+import Zalo from '../assets/zalo.svg';
+import Heart from '../assets/heart.svg';
+import Quality from '../assets/quality.svg';
+import Book from '../assets/book.svg';
+import Light from '../assets/light.svg';
+import Student from '../assets/student.svg';
+import Teacher from '../assets/teacher.svg';
+import School from '../assets/school.svg';
+import Experience from '../assets/experience.svg';
+import Child1 from '../assets/child-range-1.svg';
+import Child2 from '../assets/child-range-2.svg';
+import Child3 from '../assets/child-range-3.svg';
 
 /* ─── Loading Screen ─── */
 function LoadingScreen({ onDone }) {
@@ -34,8 +48,8 @@ function LoadingScreen({ onDone }) {
           <img src="./favicon.svg" alt="Logo" />
         </div>
         <div className="text-center">
+          <p className="text-white/80 text-sm mt-1 font-medium">Trường Mầm non</p>
           <h1 className="text-3xl font-black text-white tracking-tight drop-shadow-lg">Hồng Phúc</h1>
-          <p className="text-white/80 text-sm mt-1 font-medium">Lớp Trẻ Tư Thục</p>
         </div>
         {/* Progress bar */}
         <div className="w-56 h-2.5 bg-white/30 rounded-full overflow-hidden">
@@ -114,7 +128,7 @@ function Navbar() {
   ]
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-white/95 backdrop-blur-md shadow-lg' : 'bg-transparent'}`}>
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-white/60 backdrop-blur-md shadow-lg' : 'bg-transparent'}`}>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16">
         {/* Logo */}
         <a href="#" className="flex items-center gap-2.5 group">
@@ -122,8 +136,8 @@ function Navbar() {
             <img src="./favicon.svg" alt="Logo" />
           </div>
           <div>
+            <p className={`text-[10px] transition-colors ${scrolled ? 'text-gray-500' : 'text-white/70'}`}>Mầm non</p>
             <p className={`font-black text-base leading-tight transition-colors ${scrolled ? 'text-gray-900' : 'text-white'}`}>Hồng Phúc</p>
-            <p className={`text-[10px] transition-colors ${scrolled ? 'text-gray-500' : 'text-white/70'}`}>Lớp Trẻ Tư Thục</p>
           </div>
         </a>
 
@@ -142,13 +156,11 @@ function Navbar() {
         {/* CTA */}
         <div className="flex items-center gap-2">
           <Link to="/login"
-            className={`hidden sm:flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-semibold transition-all hover:scale-105 active:scale-95 shadow-sm ${
-              scrolled ? 'bg-blue-600 text-white hover:bg-blue-700 shadow-blue-200' : 'bg-white/20 text-white border border-white/30 hover:bg-white/30'
-            }`}>
+            className={`hidden sm:flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-semibold transition-all hover:scale-105 active:scale-95 shadow-sm ${scrolled ? 'btn-active shadow-blue-200' : 'bg-white/20 text-white border border-white/30 hover:bg-white/30'}`}>
             Đăng nhập
           </Link>
           <button
-            className="px-4 py-2 rounded-xl text-sm font-bold bg-gradient-to-r from-red-500 to-red-600 text-white shadow-lg shadow-red-400/40 hover:shadow-red-400/60 hover:scale-105 active:scale-95 transition-all"
+            className={`px-4 py-2 rounded-xl text-sm font-bold shadow-lg shadow-red-400/40 hover:shadow-red-400/60 hover:scale-105 active:scale-95 transition-all ${scrolled ? 'btn-inactive' : 'bg-gradient-to-r from-red-500 to-red-600 text-white'}`}
             onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}>
             Đăng ký ngay
           </button>
@@ -224,7 +236,7 @@ function HeroSection() {
       {[...Array(12)].map((_, i) => (
         <div key={i} className="absolute text-white/40 animate-pulse select-none pointer-events-none"
           style={{ left: `${(i * 8.7) % 95}%`, top: `${(i * 7.3) % 90}%`, fontSize: `${12 + (i % 4) * 6}px`, animationDelay: `${i * 0.3}s` }}>
-          {'⭐🌟✨'[i % 3]}
+          {'ABCDEFGHI'[i % 8]}
         </div>
       ))}
 
@@ -234,20 +246,20 @@ function HeroSection() {
           {/* Left text */}
           <div className="flex-1 text-center lg:text-left">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full text-white text-sm font-medium mb-6 border border-white/30">
-              <span className="w-2 h-2 rounded-full bg-yellow-300 animate-pulse" />
-              Đang tuyển sinh năm học 2025–2026
+              <span className="w-2 h-2 rounded-full bg-green-300 animate-pulse" />
+              Đang tuyển sinh HK1 năm học 2026-2027
             </div>
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black text-white leading-tight mb-6 drop-shadow-lg">
               Nơi Ươm Mầm
               <span className="block text-yellow-300 drop-shadow-[0_2px_8px_rgba(0,0,0,0.3)]">Tương Lai</span>
             </h1>
             <p className="text-lg sm:text-xl text-white/85 max-w-xl mx-auto lg:mx-0 leading-relaxed mb-8">
-              Trường mầm non <strong className="text-yellow-200">Hồng Phúc</strong> — nơi con yêu được vui chơi, học tập và phát triển toàn diện trong môi trường an toàn, yêu thương.
+              Trường mầm non <strong className="text-yellow-200">Hồng Phúc</strong> — nơi con trẻ được vui chơi, học tập, trải nghiệm và phát triển toàn diện trong môi trường giáo dục an toàn.
             </p>
             <div className="flex flex-wrap gap-3 justify-center lg:justify-start">
               <button onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
                 className="group px-8 py-4 bg-yellow-400 hover:bg-yellow-300 text-gray-900 font-bold rounded-2xl shadow-2xl shadow-yellow-500/40 hover:shadow-yellow-400/60 hover:scale-105 active:scale-95 transition-all text-base flex items-center gap-2">
-                <span>Đăng ký tham quan</span>
+                <span>Ghi danh trẻ</span>
                 <span className="group-hover:translate-x-1 transition-transform">→</span>
               </button>
               <button onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
@@ -258,13 +270,13 @@ function HeroSection() {
             {/* Mini stats */}
             <div className="flex flex-wrap gap-6 mt-10 justify-center lg:justify-start">
               {[
-                { value: '87', label: 'Học sinh', icon: '👶' },
-                { value: '12', label: 'Giáo viên', icon: '👩‍🏫' },
-                { value: '6',  label: 'Lớp học',  icon: '🏫' },
-                { value: '10+', label: 'Năm kinh nghiệm', icon: '⭐' },
+                { value: '100+', label: 'Học sinh', icon: Student },
+                { value: '10+', label: 'Giáo viên', icon: Teacher },
+                { value: '5+',  label: 'Lớp học',  icon: School },
+                { value: '10+', label: 'Năm kinh nghiệm', icon: Experience },
               ].map(s => (
                 <div key={s.label} className="text-center">
-                  <div className="text-2xl font-black text-yellow-300 flex items-center gap-1">{s.icon} {s.value}</div>
+                  <div className="text-2xl font-black text-yellow-300 flex items-center gap-1"><img src={s.icon} className="h-10" alt={s.label} /> {s.value}</div>
                   <div className="text-white/70 text-xs mt-0.5">{s.label}</div>
                 </div>
               ))}
@@ -278,22 +290,21 @@ function HeroSection() {
               {/* Big circle bg */}
               <div className="absolute inset-0 bg-white/15 rounded-full border-4 border-white/25 backdrop-blur-sm" />
               {/* Center emoji */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-[80px] sm:text-[100px] drop-shadow-2xl select-none animate-bounce"
-                  style={{ animationDuration: '3s' }}><img class="h-44 xs:h-32" src="./favicon.svg" alt="Logo" /></div>
+              <div className="absolute transform-center flex items-center justify-center">
+                <div className="drop-shadow-2xl select-none animate-pulse"
+                  style={{ animationDuration: '3s' }}><img class="h-48 xs:h-40" src="./favicon.svg" alt="Logo" /></div>
               </div>
               {/* Orbiting icons */}
               {[
-                { emoji: Palette, deg: 0  }, { emoji: Brain, deg: 60  },
-                { emoji: Music, deg: 120 }, { emoji: Earth, deg: 180 },
-                { emoji: HandHeart, deg: 240 }, { emoji: Trophy, deg: 300 },
+                { emoji: <Palette color="white" />, deg: 0  }, { emoji: <Brain color="white" />, deg: 60  },
+                { emoji: <Music color="white" />, deg: 120 }, { emoji: <Earth color="white" />, deg: 180 },
+                { emoji: <HandHeart color="white" />, deg: 240 }, { emoji: <Trophy color="white" />, deg: 300 },
               ].map(({ emoji, deg }) => {
                 const r = 130, rad = (deg * Math.PI) / 180;
-                const Icon = emoji;
                 return (
-                  <div key={deg} className="absolute w-12 h-12 bg-red-300 rounded-2xl shadow-xl flex items-center justify-center text-2xl hover:scale-125 transition-transform cursor-default select-none"
+                  <div key={deg} className="absolute w-12 h-12 bg-red-300 rounded-2xl shadow-xl flex items-center justify-center text-2xl hover:scale-125 transition-transform cursor-pointer select-none"
                     style={{ left: `calc(50% + ${Math.cos(rad) * r}px - 24px)`, top: `calc(50% + ${Math.sin(rad) * r}px - 24px)` }}>
-                    <Icon />
+                    {emoji}
                   </div>
                 )
               })}
@@ -316,14 +327,14 @@ function HeroSection() {
 /* ─── About Section ─── */
 function AboutSection() {
   const values = [
-    { icon: <Heart color="#E6223A" size={42} />, title: 'Yêu thương', desc: 'Mỗi bé được chăm sóc như con của chính mình, trong vòng tay ấm áp của các cô.' },
-    { icon: <GraduationCap color="#E6223A" size={42} />, title: 'Chất lượng', desc: 'Đội ngũ giáo viên được đào tạo bài bản, tâm huyết với nghề, tận tình với trẻ.' },
-    { icon: <ShieldCheck color="#E6223A" size={42} />, title: 'An toàn', desc: 'Môi trường học tập sạch sẽ, an toàn tuyệt đối, camera giám sát 24/7.' },
-    { icon: <Rainbow color="#E6223A" size={42} />, title: 'Sáng tạo', desc: 'Khơi dậy tiềm năng sáng tạo qua nghệ thuật, âm nhạc, thể chất và vui chơi.' },
+    { icon: Heart, title: 'Yêu thương', desc: 'Mỗi bé được chăm sóc như con của chính mình, trong vòng tay ấm áp của các cô.' },
+    { icon: Quality, title: 'Chất lượng', desc: 'Đội ngũ giáo viên được đào tạo bài bản, tâm huyết với nghề, tận tình với trẻ.' },
+    { icon: Book, title: 'An toàn', desc: 'Môi trường học tập sạch sẽ, an toàn tuyệt đối, camera giám sát 24/7.' },
+    { icon: Light, title: 'Sáng tạo', desc: 'Khơi dậy tiềm năng sáng tạo qua nghệ thuật, âm nhạc, thể chất và vui chơi.' },
   ]
 
   return (
-    <section id="about" className="py-20 bg-white">
+    <section id="about" className="py-20">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <FadeIn className="text-center mb-14">
           <span className="inline-block px-4 py-1.5 bg-red-100 text-red-600 text-sm font-bold rounded-full mb-4">Về chúng tôi</span>
@@ -339,8 +350,8 @@ function AboutSection() {
           {values.map((v, i) => {
             return (
             <FadeIn key={v.title} delay={i * 100}>
-              <div className="group p-6 rounded-3xl border-2 border-transparent hover:border-red-200 bg-gray-50 hover:bg-red-50 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:shadow-red-100 cursor-default text-center">
-                <div className="text-5xl mb-4 group-hover:scale-110 transition-transform duration-300 inline-block">{v.icon}</div>
+              <div className="group p-6 rounded-3xl border-2 border-transparent hover:border-red-200 bg-gray-50 hover:bg-red-50 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:shadow-red-100 cursor-pointer text-center">
+                <div className="text-5xl mb-4 group-hover:scale-110 transition-transform duration-300 inline-block"><img src={v.icon} className="h-24" alt="Icon" /></div>
                 <h3 className="font-bold text-gray-900 text-lg mb-2">{v.title}</h3>
                 <p className="text-gray-500 text-sm leading-relaxed">{v.desc}</p>
               </div>
@@ -355,9 +366,9 @@ function AboutSection() {
               <div className="text-7xl sm:text-8xl flex-shrink-0 animate-bounce" style={{ animationDuration: '2.5s' }}>🏡</div>
               <div>
                 <h3 className="text-2xl font-black text-gray-900 mb-3">Cơ sở hiện đại — Không gian vui chơi thoải mái</h3>
-                <p className="text-gray-500 leading-relaxed mb-4">Trường được xây dựng với không gian rộng rãi, thoáng mát. Mỗi lớp học đều được trang bị đầy đủ thiết bị học tập hiện đại, khu vui chơi ngoài trời an toàn và vệ sinh sạch sẽ.</p>
+                <p className="text-gray-500 leading-relaxed mb-4">Trường được xây dựng với không gian rộng rãi, thoáng mát. Mỗi lớp học đều được trang bị đầy đủ thiết bị học tập hiện đại, khu vui chơi an toàn và vệ sinh sạch sẽ.</p>
                 <div className="flex flex-wrap gap-3">
-                  {['📍 Chợ Gạo, Đồng Tháp', '🕗 6:30 - 16:30', '📞 028-1234-5678'].map(tag => (
+                  {['📍 Lộ Vàm, Chợ Gạo, Đồng Tháp', '🕗 6:30 - 17:00', '📞 028-1234-5678'].map(tag => (
                     <span key={tag} className="inline-flex items-center gap-1 px-3 py-1.5 bg-red-50 text-red-700 text-sm font-medium rounded-full">{tag}</span>
                   ))}
                 </div>
@@ -374,13 +385,13 @@ function AboutSection() {
 function ProgramsSection() {
   const offset = useParallax()
   const programs = [
-    { emoji: '🌱', name: 'Lớp Mầm', age: '2–3 tuổi', color: 'from-green-400 to-green-500', shadow: 'shadow-green-200', desc: 'Khám phá thế giới qua cảm giác & vận động. Phát triển ngôn ngữ và kỹ năng xã hội đầu đời.', features: ['Vận động tinh', 'Phát triển ngôn ngữ', 'Kỹ năng tự phục vụ'] },
-    { emoji: '🌿', name: 'Lớp Chồi', age: '3–4 tuổi', color: 'from-blue-400 to-blue-600', shadow: 'shadow-blue-200', desc: 'Học qua chơi, vui qua học. Bé khám phá màu sắc, âm nhạc và thế giới xung quanh.', features: ['Nghệ thuật sáng tạo', 'Âm nhạc vận động', 'Làm quen với chữ số'] },
-    { emoji: '🌸', name: 'Lớp Thỏ Ngọc', age: '4–5 tuổi', color: 'from-red-500 to-red-600', shadow: 'shadow-red-200', desc: 'Chuẩn bị nền tảng vững chắc cho lớp 1. Bé tự tin, sáng tạo và yêu thích học hỏi.', features: ['Tiền đọc viết', 'Toán tư duy', 'Kỹ năng sống'] },
+    { emoji: Child1, name: 'Lớp Mầm', age: '2–3 tuổi', color: 'from-green-400 to-green-500', shadow: 'shadow-green-200', desc: 'Khám phá thế giới qua cảm giác & vận động. Phát triển ngôn ngữ và kỹ năng xã hội đầu đời.', features: ['Vận động tinh', 'Phát triển ngôn ngữ', 'Kỹ năng tự phục vụ'] },
+    { emoji: Child2, name: 'Lớp Chồi', age: '3–4 tuổi', color: 'from-blue-400 to-blue-600', shadow: 'shadow-blue-200', desc: 'Học qua chơi, vui qua học. Bé khám phá màu sắc, âm nhạc và thế giới xung quanh.', features: ['Nghệ thuật sáng tạo', 'Âm nhạc vận động', 'Làm quen với chữ số'] },
+    { emoji: Child3, name: 'Lớp Thỏ Ngọc', age: '4–5 tuổi', color: 'from-red-500 to-red-600', shadow: 'shadow-red-200', desc: 'Chuẩn bị nền tảng vững chắc cho lớp 1. Bé tự tin, sáng tạo và yêu thích học hỏi.', features: ['Tiền đọc viết', 'Toán tư duy', 'Kỹ năng sống'] },
   ]
 
   return (
-    <section id="programs" className="py-20 overflow-hidden relative bg-white">
+    <section id="programs" className="py-20 overflow-hidden relative">
       {/* Parallax background */}
       <div className="absolute inset-0 bg-gradient-to-b from-gray-50 to-blue-50"
         style={{ transform: `translateY(${offset * 0.06}px)` }} />
@@ -405,15 +416,15 @@ function ProgramsSection() {
             <FadeIn key={p.name} delay={i * 150}>
               <div className={`group relative rounded-3xl overflow-hidden shadow-xl ${p.shadow} hover:shadow-2xl hover:-translate-y-3 transition-all duration-400 cursor-default`}>
                 {/* Header */}
-                <div className={`bg-gradient-to-br ${p.color} px-6 pt-8 pb-12 text-center relative overflow-hidden`}>
+                <div className={`bg-gradient-to-br ${p.color} px-6 pt-8 pb-8 text-center relative overflow-hidden`}>
                   <div className="absolute -right-4 -top-4 w-24 h-24 bg-white/10 rounded-full" />
                   <div className="absolute -left-6 -bottom-6 w-32 h-32 bg-white/10 rounded-full" />
-                  <div className="text-7xl mb-3 group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300 inline-block">{p.emoji}</div>
+                  <div className="text-7xl mb-3 group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300 inline-block"><img src={p.emoji} className="h-20" alt="Icon" /></div>
                   <h3 className="text-2xl font-black text-white">{p.name}</h3>
                   <span className="inline-block mt-2 px-3 py-1 bg-white/25 text-white text-sm font-semibold rounded-full">{p.age}</span>
                 </div>
                 {/* Body */}
-                <div className="bg-white px-6 py-5 -mt-6 rounded-t-3xl">
+                <div className="bg-white px-6 py-5 mt-2 rounded-t-3xl">
                   <p className="text-gray-500 text-sm leading-relaxed mb-4">{p.desc}</p>
                   <ul className="space-y-2">
                     {p.features.map(f => (
@@ -449,10 +460,9 @@ function FacilitiesSection() {
   ]
 
   return (
-    <section id="facilities" className="py-20 relative overflow-hidden bg-white">
+    <section id="facilities" className="py-20 relative overflow-hidden bg-gradient-to-br from-red-600 to-blue-700">
       {/* Parallax BG */}
-      <div className="absolute inset-0 bg-gradient-to-br from-red-600 to-blue-700"
-        style={{ transform: `translateY(${offset * 0.08}px)` }} />
+      <div className="absolute inset-0" style={{ transform: `translateY(${offset * 0.08}px)` }} />
       <div className="absolute inset-0 opacity-10"
         style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23fff' fill-opacity='1'%3E%3Ccircle cx='40' cy='40' r='3'/%3E%3C/g%3E%3C/svg%3E")`,
@@ -462,7 +472,7 @@ function FacilitiesSection() {
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6">
         <FadeIn className="text-center mb-14">
           <span className="inline-block px-4 py-1.5 bg-white/20 text-white text-sm font-bold rounded-full mb-4">Cơ sở vật chất</span>
-          <h2 className="text-4xl sm:text-5xl font-black text-primary mb-4">Không Gian <span className="text-yellow-300">Lý Tưởng</span></h2>
+          <h2 className="text-4xl sm:text-5xl font-black text-white mb-4">Không Gian <span className="text-yellow-300">Lý Tưởng</span></h2>
           <p className="text-white/80 max-w-xl mx-auto text-lg">Mọi góc trong trường đều được thiết kế để kích thích sự tò mò và sáng tạo của bé.</p>
         </FadeIn>
 
@@ -640,17 +650,15 @@ function ContactSection() {
 
           {/* Info */}
           <FadeIn delay={200}>
-            <div className="space-y-6">
+            <div class="cursor-pointer">
               {[
-                { icon: MapPin, title: 'Địa chỉ', lines: ['Lộ Vàm, Xã Chợ Gạo, Tỉnh Đồng Tháp'] },
-                { icon: PhoneCall, title: 'Điện thoại', lines: ['028-1234-5678 (Cô Vân)', '0901 234 567 (Cô Trang)'] },
-                { icon: Clock, title: 'Giờ hoạt động', lines: ['Thứ 2 - Thứ 7: 6:30 - 16:30'] },
-                { icon: Mail, title: 'Email', lines: ['hongphuc.info@gmail.com'] },
-              ].map((item, i) => {
-                const Icon = item.icon;
-                
-                return (<div key={item.title} className="group flex gap-4 p-4 rounded-2xl hover:bg-red-50 transition-colors cursor-default">
-                  <div className="w-12 h-12 bg-gradient-to-br from-red-500 to-blue-600 rounded-2xl flex items-center justify-center text-2xl flex-shrink-0 group-hover:scale-110 transition-transform"><Icon /></div>
+                { icon: <Clock color="white" />, title: 'Giờ hoạt động', lines: ['Thứ 2 - Thứ 7: 6:30 - 16:30'] },
+                { icon: <PhoneCall color="white" />, title: 'Điện thoại', lines: ['0396-053-054 (Cô Vân)', '0843-363-639 (Cô Trang)'] },
+                { icon: <Mail color="white" />, title: 'Email', lines: ['hongphuc.info@gmail.com'] },
+                { icon: <MapPin color="white" />, title: 'Địa chỉ', lines: ['Lộ Vàm, Xã Chợ Gạo, Tỉnh Đồng Tháp'] },
+              ].map((item) => {
+                return (<div key={item.title} className="group flex items-center gap-4 px-4 py-2 rounded-2xl hover:bg-red-50 transition-colors">
+                  <div className="w-12 h-12 bg-gradient-to-br from-red-500 to-blue-600 rounded-2xl flex items-center justify-center text-2xl flex-shrink-0 group-hover:scale-110 transition-transform">{item.icon}</div>
                   <div>
                     <p className="font-bold text-gray-900 text-sm">{item.title}</p>
                     {item.lines.map(l => <p key={l} className="text-gray-500 text-sm">{l}</p>)}
@@ -659,11 +667,9 @@ function ContactSection() {
               })}
 
               {/* Map placeholder */}
-              <div className="rounded-2xl overflow-hidden border-2 border-red-100 h-48 bg-gradient-to-br from-red-100 to-blue-100 flex items-center justify-center">
+              <div className="rounded-2xl overflow-hidden border-2 border-red-100 bg-gradient-to-br from-red-100 to-blue-100 flex items-center justify-center mt-2">
                 <div className="text-center">
-                  <div className="text-5xl mb-2">🗺️</div>
-                  <p className="text-gray-500 text-sm font-medium">Google Maps</p>
-                  <p className="text-gray-400 text-xs">123 Hồng Phúc, Q.3, HCM</p>
+                  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3924.950473041777!2d106.40804457481173!3d10.345845389777931!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310aae472ef969f1%3A0xf3f19f963e2485d5!2zTeG6pk0gTk9OIEjhu5JORyBQSMOaQw!5e0!3m2!1svi!2s!4v1783098350804!5m2!1svi!2s" width="800" height="250" style={{ border: 0 }} allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
                 </div>
               </div>
             </div>
@@ -684,16 +690,16 @@ function Footer() {
             <div className="flex items-center gap-2.5 mb-4">
               <div className="w-9 h-9 bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center"><img src="./favicon.svg" alt="Logo" /></div>
               <div>
+                <p className="text-gray-500 text-xs">Mầm non</p>
                 <p className="font-black text-white">Hồng Phúc</p>
-                <p className="text-gray-500 text-xs">Lớp Trẻ Tư Thục</p>
               </div>
             </div>
             <p className="text-gray-400 text-sm leading-relaxed">Nơi ươm mầm những ước mơ, vun đắp những tâm hồn trong sáng và hạnh phúc.</p>
           </div>
           {[
             { title: 'Liên kết nhanh', items: ['Giới thiệu', 'Chương trình', 'Cơ sở vật chất', 'Đội ngũ', 'Liên hệ'] },
-            { title: 'Chương trình', items: ['Lớp Mầm (2–3 tuổi)', 'Lớp Chồi (3–4 tuổi)', 'Lớp Lá (4–5 tuổi)', 'Ngoại khóa', 'Tiếng Anh'] },
-            { title: 'Liên hệ', items: ['028-1234-5678', '0901 234 567', 'Quận 3, HCM', 'T2–T6: 6:30–18:00', ''] },
+            { title: 'Chương trình', items: ['Lớp Mầm (2-3 tuổi)', 'Lớp Chồi (3-4 tuổi)', 'Lớp Thỏ Ngọc (4-5 tuổi)', 'Thể dục nhịp điệu'] },
+            { title: 'Liên hệ', items: ['0396-053-054 (Cô Vân)', '0843-363-639 (Cô Trang)', 'Lộ Vàm, Chợ Gạo, Đồng Tháp', 'T2-T7: 6:30-17:00', ''] },
           ].map(col => (
             <div key={col.title}>
               <h4 className="font-bold text-white text-sm mb-4">{col.title}</h4>
@@ -706,36 +712,55 @@ function Footer() {
           ))}
         </div>
         <div className="border-t border-gray-800 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-gray-500 text-xs">© 2025 Lớp Trẻ Tư Thục Hồng Phúc. All rights reserved.</p>
-          <Link to="/login"
-            className="text-xs text-gray-500 hover:text-blue-400 transition-colors flex items-center gap-1.5 group">
-            Đăng nhập
-          </Link>
+          <p className="text-gray-500 text-xs">©2026 <Link to="/" className="text-slate-200">Trường Mầm non Hồng Phúc</Link>. All rights reserved.</p>
+          <p className="text-gray-500 text-xs flex items-center">Thiết kế & phát triển &nbsp;<Link to="https://github.com/minhsangng" className="text-xs text-slate-200 hover:text-blue-400 transition-colors flex items-center gap-1.5 group">minhsangng</Link></p>
         </div>
       </div>
     </footer>
   )
 }
 
+/* ─── Active link menu ─── */
+function ActiveLinkMenu() {
+  const [action, setAction] = useState(false);
+  
+  return (
+    <button className="fixed bottom-6 right-6 z-50 w-12 h-12 group bg-gradient-to-br from-red-500 to-red-600 text-white rounded-2xl shadow-md shadow-red-300/50 hover:scale-110 active:scale-95 transition-all flex items-center justify-center text-xl" 
+      onMouseEnter={() => setAction(true)}
+      onMouseLeave={() => setAction(false)}
+      >
+      {!action ? <Share2 /> : <X />}
+      
+      <ul className="group-hover:block hidden flex-col gap-2 absolute right-0 bottom-0 w-24 h-24 transition ease-linear">
+        <li className="absolute right-0 top-0 p-2 bg-black/65 rounded-full size-9 border border-white shadow-md shadow-white/75"><Link to=""><img src={Facebook} alt="Facebook" /></Link></li>
+        <li className="absolute left-3 top-3 p-2 bg-black/65 rounded-full size-9 border border-white shadow-md shadow-white/75"><Link to=""><img src={Tiktok} alt="Tiktok" /></Link></li>
+        <li className="absolute left-0 bottom-0 p-2 bg-black/65 rounded-full size-9 border border-white shadow-md shadow-white/75"><Link to=""><img src={Zalo} alt="Zalo" /></Link></li>
+      </ul>
+    </button>
+  )
+}
+
 /* ─── Scroll-to-top ─── */
 function ScrollTop() {
-  const [show, setShow] = useState(false)
+  const [show, setShow] = useState(false);
+  
   useEffect(() => {
     const h = () => setShow(window.scrollY > 400)
     window.addEventListener('scroll', h, { passive: true })
     return () => window.removeEventListener('scroll', h)
-  }, [])
+  }, []);
+  
   return show ? (
     <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-      className="fixed bottom-6 right-6 z-40 w-12 h-12 bg-gradient-to-br from-red-500 to-red-600 text-white rounded-2xl shadow-xl shadow-red-300/50 hover:scale-110 active:scale-95 transition-all flex items-center justify-center text-xl">
-      ↑
+      className="fixed bottom-24 right-6 z-40 w-12 h-12 bg-gradient-to-br from-red-500 to-red-600 text-white rounded-2xl shadow-md shadow-red-300/50 hover:scale-110 active:scale-95 transition-all flex items-center justify-center text-xl">
+      <ArrowUp />
     </button>
   ) : null
 }
 
 /* ─── Main LandingPage ─── */
 export default function LandingPage() {
-  const [loaded, setLoaded] = useState(false)
+  const [loaded, setLoaded] = useState(false);
 
   return (
     <>
@@ -765,6 +790,7 @@ export default function LandingPage() {
         <ContactSection />
         <Footer />
         <ScrollTop />
+        <ActiveLinkMenu />
       </div>
     </>
   )

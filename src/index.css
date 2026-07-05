@@ -6,13 +6,13 @@
   :root {
     --scrollbar-thumb: #cbd5e1;
     --scrollbar-track: #f1f5f9;
-    --color-primary: #E6223A;
-    --color-secondary: #690722;
-    --color-accent: #621D43;
-    --color-bg-light: #644765;
+    --color-primary: #C70039;
+    --color-secondary: #F37121;
+    --color-accent: #111D5E;
+    --color-bg-light: #FFBD69;
     --color-border: #374365;
     --color-bg-dark: #062A48;
-    --color-button: #03213D;
+    --color-button: #111D5E;
   }
   .dark {
     --scrollbar-thumb: #475569;
@@ -36,7 +36,7 @@
   }
 
   html {
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: "Archivo", sans-serif;
   }
 
   body {
@@ -45,6 +45,48 @@
   
   button, a {
     cursor: pointer;
+  }
+  
+  .text-primary {
+    color: var(--color-primary);
+  }
+  
+  .text-secondary {
+    color: var(--color-secondary);
+  }
+  
+  .text-accent {
+    color: var(--color-accent);
+  }
+  
+  .btn-active {
+    background-color: var(--color-button);
+    color: var(--color-secondary);
+  }
+  
+  .btn-active:hover, .btn-inactive:hover {
+    color: #ffffff;
+  }
+  
+  .btn-inactive {
+    background-color: var(--color-primary);
+    color: var(--color-bg-light);
+  }
+  
+  .transform-center {
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  .transform-x-center {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .transform-y-center {
+    top: 50%;
+    transform: translateY(-50%);
   }
 }
 

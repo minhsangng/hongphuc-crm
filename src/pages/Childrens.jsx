@@ -32,10 +32,9 @@ const columns = [
   }},
 ];
 
-export default function Childrens() {
+export default function Childrens({ user }) {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
-  const [user, setUser] = useState({ userId: 1, userName: "Hồng Phúc", role: "Quản lý", classId: 1, className: "Mầm 1", signAt: new Date() });
 
   async function getChildrenData() {
     try {

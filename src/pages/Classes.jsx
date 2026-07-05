@@ -3,7 +3,7 @@ import { Plus, Users, BookOpen } from 'lucide-react';
 import Avatar from '../components/Avatar';
 import axios from 'axios';
 
-function ClassCard({ cls }) {
+function ClassCard({ cls, active }) {
   const occupancy = Math.round((cls.quantity / cls.quantity) * 100);
   const barColor = occupancy >= 90 ? 'bg-green-500' : occupancy >= 70 ? 'bg-yellow-500' : 'bg-red-500';
   
@@ -26,7 +26,7 @@ function ClassCard({ cls }) {
 
       <div className="space-y-3 mb-4">
         <div className="flex items-center gap-2 text-sm">
-          <Avatar name={cls.teacherName} size="xs" />
+          <Avatar name={cls.teacherName || "Hồng Phúc"} size="xs" />
           <span className="text-dark-600 dark:text-dark-300 text-xs">{cls.teacherName}</span>
         </div>
         <div className="flex items-center gap-2 text-xs text-dark-500 dark:text-dark-400">
@@ -46,8 +46,8 @@ function ClassCard({ cls }) {
       </div>
 
       <div className="mt-4 pt-4 border-t border-dark-100 dark:border-dark-700 flex gap-2">
-        <button className="flex-1 btn-secondary text-xs justify-center">Chi tiết</button>
-        <button className="flex-1 btn-accent text-xs justify-center">Điểm danh</button>
+        <button className={`flex-1 btn-secondary text-xs justify-center ${!active ? 'cursor-pointer' : 'cursor-not-allowed'}`} disabled={active}>Chi tiết</button>
+        <button className={`flex-1 btn-accent text-xs justify-center ${!active ? 'cursor-pointer' : 'cursor-not-allowed'}`} disabled={active}>Điểm danh</button>
       </div>
     </div>
   )
@@ -59,8 +59,7 @@ export default function Classes({ user }) {
   async function fetchClassData() {
     try {
       if (user) {
-        const teacherId = (user.role === 'Quản lý' ? 0 : parseInt(user.userId));
-        const response = await axios.get('/api/get-' + (teacherId === 0 ? 'all-classes' : ('class-by-teacher/' + teacherId)));
+        const response = await axios.get('/api/get-all-classes');
         if (response.data) setData(response.data);
       }
     } catch (err) {
@@ -79,7 +78,7 @@ export default function Classes({ user }) {
           <h2 className="text-xl font-bold text-dark-900 dark:text-white">Lớp học</h2>
           <p className="text-sm text-dark-400 dark:text-dark-500 mt-0.5">Quản lý <span class="text-red-100 underline">{(user.classId !== 0 ? 'lớp ' + user.className || 'default' : 'các lớp học trong trường')}</span></p>
         </div>
-        <button className="btn-primary text-xs">
+        <button className={`btn-primary text-xs ${user.role !== 'Quản lý' ? 'cursor-not-allowed' : 'cursor-pointer'}`} disabled={user.role !== 'Quản lý'}>
           <Plus size={13} /> Thêm lớp học
         </button>
       </div>
@@ -101,7 +100,7 @@ export default function Classes({ user }) {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {data.map(cls => <ClassCard key={cls.id} cls={cls} />)}
+        {data.map(cls => <ClassCard key={cls.id} cls={cls} active={user.classId !== cls.id} />)}
       </div>
     </div>
   )
