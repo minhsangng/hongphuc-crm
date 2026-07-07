@@ -59,7 +59,7 @@ export default function Classes({ user }) {
   async function fetchClassData() {
     try {
       if (user) {
-        const response = await axios.get('/api/get-all-classes');
+        const response = await axios.get("/api/get-all-classes");
         if (response.data) setData(response.data);
       }
     } catch (err) {

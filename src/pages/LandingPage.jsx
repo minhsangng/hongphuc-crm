@@ -722,19 +722,17 @@ function Footer() {
 
 /* ─── Active link menu ─── */
 function ActiveLinkMenu() {
-  const [action, setAction] = useState(false);
+  const [show, setShow] = useState(false);
   
   return (
     <button className="fixed bottom-6 right-6 z-50 w-12 h-12 group bg-gradient-to-br from-red-500 to-red-600 text-white rounded-2xl shadow-md shadow-red-300/50 hover:scale-110 active:scale-95 transition-all flex items-center justify-center text-xl" 
-      onMouseEnter={() => setAction(true)}
-      onMouseLeave={() => setAction(false)}
-      >
-      {!action ? <Share2 /> : <X />}
+      onMouseEnter={() => setShow(true)} onMouseLeave={() => setShow(false)}>
+      {!show ? <Share2 /> : <X />}
       
-      <ul className="group-hover:block hidden flex-col gap-2 absolute right-0 bottom-0 w-24 h-24 transition ease-linear">
-        <li className="absolute right-0 top-0 p-2 bg-black/65 rounded-full size-9 border border-white shadow-md shadow-white/75"><Link to=""><img src={Facebook} alt="Facebook" /></Link></li>
-        <li className="absolute left-3 top-3 p-2 bg-black/65 rounded-full size-9 border border-white shadow-md shadow-white/75"><Link to=""><img src={Tiktok} alt="Tiktok" /></Link></li>
-        <li className="absolute left-0 bottom-0 p-2 bg-black/65 rounded-full size-9 border border-white shadow-md shadow-white/75"><Link to=""><img src={Zalo} alt="Zalo" /></Link></li>
+      <ul className="group-hover:block flex-col gap-2 absolute right-0 bottom-0 w-24 h-24 transition ease-linear">
+        <li className="absolute right-0 top-0 p-2 bg-white/50 rounded-full size-9 border border-white shadow-md shadow-white/75 hover:inset-shadow-white transition ease-linear"><Link to=""><img src={Facebook} alt="Facebook" /></Link></li>
+        <li className="absolute left-3 top-3 p-2 bg-white/50 rounded-full size-9 border border-white shadow-md shadow-white/75 hover:inset-shadow-white transition ease-linear"><Link to=""><img src={Tiktok} alt="Tiktok" /></Link></li>
+        <li className="absolute left-0 bottom-0 p-2 bg-white/50 rounded-full size-9 border border-white shadow-md shadow-white/75 hover:inset-shadow-white transition ease-linear"><Link to=""><img src={Zalo} alt="Zalo" /></Link></li>
       </ul>
     </button>
   )
