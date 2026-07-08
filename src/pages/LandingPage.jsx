@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { Palette, Music, Brain, Trophy, Earth, HandHeart, MapPin, PhoneCall, Clock, Mail, Share2, X, ArrowUp } from 'lucide-react';
+import { Palette, Music, Brain, Trophy, Earth, HandHeart, MapPin, PhoneCall, Clock, Mail, Share2, X, ArrowUp, Send, RefreshCcw } from 'lucide-react';
 import Facebook from '../assets/facebook.svg';
 import Tiktok from '../assets/tiktok.svg';
 import Zalo from '../assets/zalo.svg';
@@ -15,6 +15,7 @@ import Experience from '../assets/experience.svg';
 import Child1 from '../assets/child-range-1.svg';
 import Child2 from '../assets/child-range-2.svg';
 import Child3 from '../assets/child-range-3.svg';
+import Classroom  from '../assets/classroom.jpg';
 
 function useInView(threshold = 0.12) {
   const ref = useRef();
@@ -357,11 +358,11 @@ function AboutSection() {
 
         {/* Info banner */}
         <FadeIn delay={300}>
-          <div className="mt-14 rounded-3xl overflow-hidden bg-white border border-gray-100 shadow-xl shadow-gray-100 flex flex-col sm:flex-row items-center gap-0">
+          <div className="mt-14 rounded-3xl bg-white border border-gray-100 shadow-xl shadow-gray-100 flex flex-col sm:flex-row items-center gap-0">
             {/* Left accent strip */}
             <div className="w-full sm:w-2 sm:h-full h-2 bg-red-500 flex-shrink-0" style={{ borderRadius: 0 }} />
             <div className="flex flex-col sm:flex-row items-center gap-8 p-8 sm:p-10 w-full">
-              <div className="text-7xl flex-shrink-0 animate-bounce" style={{ animationDuration: '3s' }}>🏡</div>
+              <div className="flex-shrink-0 animate-bounce" style={{ animationDuration: '3s' }}><img src={Classroom} className="h-44 w-44 rounded-lg shadow-md shadow-red-200" alt="Classroom" /></div>
               <div>
                 <h3 className="text-xl font-black text-gray-900 mb-2">Cơ sở hiện đại — Không gian vui chơi thoải mái</h3>
                 <p className="text-gray-500 text-sm leading-relaxed mb-4">Trường được xây dựng với không gian rộng rãi, thoáng mát. Mỗi lớp học đều được trang bị đầy đủ thiết bị học tập hiện đại, khu vui chơi an toàn và vệ sinh sạch sẽ.</p>
@@ -580,11 +581,8 @@ function TestimonialsSection() {
   ];
 
   return (
-    <section className="py-24 bg-white relative overflow-hidden">
-      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-red-400 via-orange-300 to-red-400 opacity-40" />
-      <div className="absolute right-0 top-20 w-72 h-72 rounded-full blur-3xl opacity-10 pointer-events-none" style={{ background: 'radial-gradient(circle, #fca5a5, transparent)' }} />
-
-      <div className="relative max-w-6xl mx-auto px-4 sm:px-6">
+    <section className="py-24 bg-gradient-to-r from-red-400 via-orange-300 to-red-400 relative overflow-hidden">
+      <div className="relative max-w-6xl mx-auto px-4 sm:px-6" style={{ background: 'radial-gradient(circle, #fca5a5, transparent)' }}>
         <FadeIn className="text-center mb-14">
           <span className="inline-block px-4 py-1.5 bg-yellow-100 text-yellow-700 text-xs font-bold rounded-full mb-4 tracking-wide uppercase">Phụ huynh nói gì</span>
           <h2 className="text-4xl sm:text-5xl font-black text-gray-900 mb-4">
@@ -667,26 +665,25 @@ function ContactSection() {
                   {[
                     { key: 'name',  label: 'Họ tên phụ huynh',   placeholder: 'Nguyễn Thị An',   type: 'text' },
                     { key: 'phone', label: 'Số điện thoại',       placeholder: '0901 234 567',     type: 'tel'  },
-                    { key: 'child', label: 'Tên & tuổi của bé',   placeholder: 'Bé Minh, 3 tuổi', type: 'text' },
+                    { key: 'child', label: 'Độ tuổi của bé',   placeholder: '3 tuổi', type: 'text' },
+                    { key: 'date', label: 'Ngày có thể nhập học',   placeholder: '', type: 'date' },
                   ].map(f => (
                     <div key={f.key}>
-                      <label className="block text-xs font-bold text-gray-600 uppercase tracking-wide mb-1.5">{f.label}</label>
+                      <label className="block text-xs font-bold text-gray-600 uppercase tracking-wide mb-1.5">{f.label} <span className="text-red-600">*</span></label>
                       <input type={f.type} required value={form[f.key]} onChange={e => setForm(v => ({ ...v, [f.key]: e.target.value }))}
                         placeholder={f.placeholder}
                         className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:border-red-400 focus:ring-2 focus:ring-red-100 outline-none text-sm transition-all" />
                     </div>
                   ))}
                   <div>
-                    <label className="block text-xs font-bold text-gray-600 uppercase tracking-wide mb-1.5">Ghi chú thêm</label>
+                    <label className="block text-xs font-bold text-gray-600 uppercase tracking-wide mb-1.5">Ghi chú thêm (nếu có)</label>
                     <textarea rows={3} value={form.message} onChange={e => setForm(v => ({ ...v, message: e.target.value }))}
                       placeholder="Thắc mắc hoặc yêu cầu đặc biệt..."
                       className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:border-red-400 focus:ring-2 focus:ring-red-100 outline-none text-sm transition-all resize-none" />
                   </div>
                   <button type="submit" disabled={loading}
                     className="w-full py-4 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl active:scale-95 transition-all shadow-lg shadow-red-500/25 flex items-center justify-center gap-2 disabled:opacity-70 text-sm">
-                    {loading ? (
-                      <><div className="w-4 h-4 border-2 border-white/40 border-t-white rounded-full animate-spin" /> Đang gửi...</>
-                    ) : '🎯 Đăng ký tham quan miễn phí'}
+                    {loading ? (<><RefreshCcw className="animate-spin" /> Đang gửi...</>) : (<><Send /> Đăng ký tư vấn</>)}
                   </button>
                 </form>
               )}
@@ -716,7 +713,7 @@ function ContactSection() {
               <div className="rounded-2xl overflow-hidden border border-gray-100 shadow-md mt-2">
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3924.950473041777!2d106.40804457481173!3d10.345845389777931!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310aae472ef969f1%3A0xf3f19f963e2485d5!2zTeG6pk0gTk9OIEjhu5JORyBQSMOaQw!5e0!3m2!1svi!2s!4v1783098350804!5m2!1svi!2s"
-                  width="100%" height="200" style={{ border: 0, display: 'block' }}
+                  width="100%" height="240" style={{ border: 0, display: 'block' }}
                   allowFullScreen loading="lazy" referrerPolicy="strict-origin-when-cross-origin" />
               </div>
             </div>
