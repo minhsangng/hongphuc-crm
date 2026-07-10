@@ -294,8 +294,12 @@ function HeroSection() {
 
       {/* Bottom wave into next section */}
       <div className="absolute bottom-0 left-0 right-0 pointer-events-none">
-        <svg viewBox="0 0 1440 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+        {/* <svg viewBox="0 0 1440 64" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M0 32 Q360 64 720 32 Q1080 0 1440 32 L1440 64 H0 Z" fill="#fef2f2" fillOpacity="0.8" />
+        </svg> */}
+        
+        <svg viewBox="0 0 1440 100" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+          <path fill="#fef2f2" d="M0 36 Q45 0 90 60 T180 52 T290 66 T420 56 T530 43 T640 52 T690 42 T720 42 T810 42 T900 42 T990 53 T1110 42 T1170 47 T1230 66 T1300 44 T1380 38 L1440 0 L0 0 Z"/>
         </svg>
       </div>
     </section>
