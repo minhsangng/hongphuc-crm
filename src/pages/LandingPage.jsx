@@ -168,6 +168,7 @@ function HeroSection() {
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden bg-white">
       {/* Large blurred blobs — parallax */}
+      {/*
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-[-10%] right-[-5%] w-[600px] h-[600px] rounded-full blur-3xl opacity-30"
           style={{ background: 'radial-gradient(circle, #fca5a5 0%, #ef4444 60%, transparent 100%)' }} />
@@ -178,17 +179,14 @@ function HeroSection() {
         <div className="absolute top-[20%] right-[25%] w-48 h-48 rounded-full blur-2xl opacity-20"
           style={{ background: 'radial-gradient(circle, #c7d2fe, #6366f1)' }} />
       </div>
+      */}
 
       {/* Subtle dot pattern */}
-      <div className="absolute inset-0 opacity-[0.035]" style={{
-        backgroundImage: 'radial-gradient(circle, #dc2626 1.5px, transparent 1.5px)',
-        backgroundSize: '32px 32px'
-      }} />
+      <div className="absolute inset-0 opacity-[0.035]" style={{ backgroundImage: 'radial-gradient(circle, #dc2626 1.5px, transparent 1.5px)', backgroundSize: '32px 32px' }} />
 
       {/* Content */}
-      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 pt-24">
-        <div className="flex flex-col lg:flex-row items-center gap-14 pb-20">
-
+      <div className="relative w-screen z-10">
+        <div className="flex flex-col lg:flex-row items-center bg-[#fef2f2] gap-14 pt-24 pb-20 px-4 sm:px-6">
           {/* Left */}
           <div className="flex-1 text-center lg:text-left">
             {/* Badge */}
@@ -274,7 +272,7 @@ function HeroSection() {
         </div>
         
         {/* Bottom wave into next section */}
-        <div className="pointer-events-none w-screen">
+        <div className="pointer-events-none w-full">
           {/* <svg viewBox="0 0 1440 64" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M0 32 Q360 64 720 32 Q1080 0 1440 32 L1440 64 H0 Z" fill="#fef2f2" fillOpacity="0.8" />
           </svg> */}
@@ -291,16 +289,16 @@ function HeroSection() {
 /* ABOUT SECTION */
 function AboutSection() {
   const values = [
-    { icon: 'heart.svg',   title: 'Yêu thương', desc: 'Mỗi bé được chăm sóc như con của chính mình, trong vòng tay ấm áp của các cô.', accent: 'red' },
-    { icon: 'quality.svg', title: 'Chất lượng',  desc: 'Đội ngũ giáo viên được đào tạo bài bản, tâm huyết với nghề, tận tình với trẻ.', accent: 'orange' },
-    { icon: 'book.svg',    title: 'An toàn',     desc: 'Môi trường học tập sạch sẽ, an toàn tuyệt đối, camera giám sát 24/7.', accent: 'green' },
-    { icon: 'light.svg',   title: 'Sáng tạo',   desc: 'Khơi dậy tiềm năng sáng tạo qua nghệ thuật, âm nhạc, thể chất và vui chơi.', accent: 'yellow' },
+    { icon: 'heart.svg', title: 'Yêu thương', desc: 'Mỗi bé được chăm sóc như con của chính mình, trong vòng tay ấm áp của các cô.', accent: 'red' },
+    { icon: 'quality.svg', title: 'Chất lượng', desc: 'Đội ngũ giáo viên được đào tạo bài bản, tâm huyết với nghề, tận tình với trẻ.', accent: 'orange' },
+    { icon: 'book.svg', title: 'An toàn', desc: 'Môi trường học tập sạch sẽ, an toàn tuyệt đối, camera giám sát 24/7.', accent: 'green' },
+    { icon: 'light.svg', title: 'Sáng tạo', desc: 'Khơi dậy tiềm năng sáng tạo qua nghệ thuật, âm nhạc, thể chất và vui chơi.', accent: 'yellow' },
   ];
 
   const accentMap = {
-    red:    { pill: 'bg-red-100 text-red-600',    hover: 'hover:border-red-200 hover:bg-red-50/60',    glow: 'shadow-red-100' },
+    red: { pill: 'bg-red-100 text-red-600', hover: 'hover:border-red-200 hover:bg-red-50/60', glow: 'shadow-red-100' },
     orange: { pill: 'bg-orange-100 text-orange-600', hover: 'hover:border-orange-200 hover:bg-orange-50/60', glow: 'shadow-orange-100' },
-    green:  { pill: 'bg-green-100 text-green-600', hover: 'hover:border-green-200 hover:bg-green-50/60',  glow: 'shadow-green-100' },
+    green: { pill: 'bg-green-100 text-green-600', hover: 'hover:border-green-200 hover:bg-green-50/60', glow: 'shadow-green-100' },
     yellow: { pill: 'bg-yellow-100 text-yellow-700', hover: 'hover:border-yellow-200 hover:bg-yellow-50/60', glow: 'shadow-yellow-100' },
   };
 
@@ -446,12 +444,12 @@ function ProgramsSection() {
 /* FACILITIES SECTION */
 function FacilitiesSection() {
   const items = [
-    { emoji: '🎨', title: 'Phòng Nghệ Thuật',    desc: 'Khu vực tô màu, vẽ tranh và làm thủ công sáng tạo cho bé', color: 'from-rose-400 to-pink-500' },
-    { emoji: '🎵', title: 'Phòng Âm Nhạc',       desc: 'Học đàn, hát và nhảy múa trong không gian tràn ngập âm thanh', color: 'from-violet-400 to-purple-500' },
-    { emoji: '📚', title: 'Thư Viện Mini',        desc: 'Hàng trăm đầu sách tranh, sách kỹ năng phù hợp lứa tuổi', color: 'from-amber-400 to-orange-500' },
+    { emoji: '🎨', title: 'Phòng Nghệ Thuật', desc: 'Khu vực tô màu, vẽ tranh và làm thủ công sáng tạo cho bé', color: 'from-rose-400 to-pink-500' },
+    { emoji: '🎵', title: 'Phòng Âm Nhạc', desc: 'Học đàn, hát và nhảy múa trong không gian tràn ngập âm thanh', color: 'from-violet-400 to-purple-500' },
+    { emoji: '📚', title: 'Thư Viện Mini', desc: 'Hàng trăm đầu sách tranh, sách kỹ năng phù hợp lứa tuổi', color: 'from-amber-400 to-orange-500' },
     { emoji: '🌳', title: 'Sân Chơi Ngoài Trời', desc: 'Cầu trượt, xích đu, bãi cát an toàn dưới bóng cây xanh', color: 'from-emerald-400 to-teal-500' },
     { emoji: '🍱', title: 'Nhà Bếp Dinh Dưỡng', desc: 'Thực đơn phong phú, chế biến tại chỗ đảm bảo vệ sinh an toàn', color: 'from-blue-400 to-cyan-500' },
-    { emoji: '😴', title: 'Phòng Nghỉ Trưa',     desc: 'Phòng yên tĩnh, điều hòa mát mẻ để bé nghỉ ngơi thoải mái', color: 'from-indigo-400 to-blue-500' },
+    { emoji: '😴', title: 'Phòng Nghỉ Trưa', desc: 'Phòng yên tĩnh, điều hòa mát mẻ để bé nghỉ ngơi thoải mái', color: 'from-indigo-400 to-blue-500' },
   ];
 
   return (
@@ -497,10 +495,10 @@ function FacilitiesSection() {
 /* TEACHERS SECTION */
 function TeachersSection() {
   const teachers = [
-    { name: 'Cô Nguyễn Thị Hoa', role: 'Giáo viên Lớp Lá 1',  exp: '8 năm kinh nghiệm',  emoji: '👩‍🏫', gradient: 'from-red-400 to-rose-500', glow: 'shadow-red-200' },
-    { name: 'Cô Trần Thị Lan',   role: 'Giáo viên Lớp Lá 2',   exp: '5 năm kinh nghiệm',  emoji: '👩‍🎨', gradient: 'from-blue-400 to-indigo-500', glow: 'shadow-blue-200' },
-    { name: 'Cô Lê Thị Mai',     role: 'Giáo viên Lớp Chồi',   exp: '6 năm kinh nghiệm',  emoji: '👩‍🎵', gradient: 'from-emerald-400 to-teal-500', glow: 'shadow-emerald-200' },
-    { name: 'Cô Hoàng Thị Oanh', role: 'Giáo viên Lớp Mầm',    exp: '10 năm kinh nghiệm', emoji: '🧑‍🏫', gradient: 'from-violet-400 to-purple-500', glow: 'shadow-violet-200' },
+    { name: 'Cô Nguyễn Thị Hoa', role: 'Giáo viên Lớp Lá 1', exp: '8 năm kinh nghiệm', emoji: '👩‍🏫', gradient: 'from-red-400 to-rose-500', glow: 'shadow-red-200' },
+    { name: 'Cô Trần Thị Lan', role: 'Giáo viên Lớp Lá 2', exp: '5 năm kinh nghiệm', emoji: '👩‍🎨', gradient: 'from-blue-400 to-indigo-500', glow: 'shadow-blue-200' },
+    { name: 'Cô Lê Thị Mai', role: 'Giáo viên Lớp Chồi', exp: '6 năm kinh nghiệm', emoji: '👩‍🎵', gradient: 'from-emerald-400 to-teal-500', glow: 'shadow-emerald-200' },
+    { name: 'Cô Hoàng Thị Oanh', role: 'Giáo viên Lớp Mầm', exp: '10 năm kinh nghiệm', emoji: '🧑‍🏫', gradient: 'from-violet-400 to-purple-500', glow: 'shadow-violet-200' },
   ];
 
   return (
@@ -513,9 +511,7 @@ function TeachersSection() {
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6">
         <FadeIn className="text-center mb-14">
           <span className="inline-block px-4 py-1.5 bg-red-100 text-red-600 text-xs font-bold rounded-full mb-4 tracking-wide uppercase">Đội ngũ giáo viên</span>
-          <h2 className="text-4xl sm:text-5xl font-black text-gray-900 mb-4">
-            Những <span className="text-red-600">Người Mẹ Thứ Hai</span>
-          </h2>
+          <h2 className="text-4xl sm:text-5xl font-black text-gray-900 mb-4">Những <span className="text-red-600">Người Mẹ Thứ Hai</span></h2>
           <p className="text-gray-500 max-w-lg mx-auto text-lg">Mỗi cô giáo đều là người bạn đồng hành tâm huyết trên hành trình khám phá của bé.</p>
         </FadeIn>
 
@@ -550,8 +546,8 @@ function TeachersSection() {
 function TestimonialsSection() {
   const reviews = [
     { name: 'Chị Nguyễn Thị Minh', child: 'Mẹ bé An (Lớp Thỏ Ngọc)', text: 'Con tôi rất vui và háo hức đến trường mỗi ngày. Các cô rất tận tâm và yêu thương trẻ. Tôi hoàn toàn yên tâm khi gửi con ở đây!', stars: 5, color: 'from-red-400 to-rose-500' },
-    { name: 'Anh Trần Văn Hùng',   child: 'Ba bé Bảo (Lớp Chồi)',     text: 'Trường sạch sẽ, an toàn và có camera. Thực đơn dinh dưỡng, bé ăn ngon và lên cân đều. Cảm ơn các cô Hồng Phúc rất nhiều!', stars: 5, color: 'from-blue-400 to-indigo-500' },
-    { name: 'Chị Lê Thị Hoa',      child: 'Mẹ bé Linh (Lớp Mầm)',     text: 'Từ khi học ở đây, con nói chuyện rõ hơn, biết chia sẻ và tự lập hơn. Chương trình học rất bài bản và vui vẻ cho bé.', stars: 5, color: 'from-emerald-400 to-teal-500' },
+    { name: 'Anh Trần Văn Hùng', child: 'Ba bé Bảo (Lớp Chồi)', text: 'Trường sạch sẽ, an toàn và có camera. Thực đơn dinh dưỡng, bé ăn ngon và lên cân đều. Cảm ơn các cô Hồng Phúc rất nhiều!', stars: 5, color: 'from-blue-400 to-indigo-500' },
+    { name: 'Chị Lê Thị Hoa', child: 'Mẹ bé Linh (Lớp Mầm)', text: 'Từ khi học ở đây, con nói chuyện rõ hơn, biết chia sẻ và tự lập hơn. Chương trình học rất bài bản và vui vẻ cho bé.', stars: 5, color: 'from-emerald-400 to-teal-500' },
   ];
 
   return (
@@ -635,10 +631,10 @@ function ContactSection() {
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <h3 className="font-bold text-gray-900 text-lg mb-5">Thông tin đăng ký</h3>
                   {[
-                    { key: 'name',  label: 'Họ tên phụ huynh',   placeholder: 'Nguyễn Thị An',   type: 'text' },
-                    { key: 'phone', label: 'Số điện thoại',       placeholder: '0901 234 567',     type: 'tel'  },
-                    { key: 'child', label: 'Độ tuổi của bé',   placeholder: '3 tuổi', type: 'text' },
-                    { key: 'date', label: 'Ngày có thể nhập học',   placeholder: '', type: 'date' },
+                    { key: 'name', label: 'Họ tên phụ huynh', placeholder: 'Nguyễn Thị An', type: 'text' },
+                    { key: 'phone', label: 'Số điện thoại', placeholder: '0901 234 567', type: 'tel'  },
+                    { key: 'child', label: 'Độ tuổi của bé',  placeholder: '3 tuổi', type: 'text' },
+                    { key: 'date', label: 'Ngày có thể nhập học', placeholder: '', type: 'date' },
                   ].map(f => (
                     <div key={f.key}>
                       <label className="block text-xs font-bold text-gray-600 uppercase tracking-wide mb-1.5">{f.label} <span className="text-red-600">*</span></label>
@@ -666,10 +662,10 @@ function ContactSection() {
           <FadeIn direction="right" delay={150}>
             <div className="space-y-3">
               {[
-                { icon: <Clock size={18} color="#dc2626" />,    title: 'Giờ hoạt động', lines: ['Thứ 2 – Thứ 7: 6:30 – 17:00'] },
-                { icon: <PhoneCall size={18} color="#dc2626" />, title: 'Điện thoại',    lines: ['0396-053-054 (Cô Vân)', '0843-363-639 (Cô Trang)'] },
-                { icon: <Mail size={18} color="#dc2626" />,      title: 'Email',         lines: ['hongphuc.info@gmail.com'] },
-                { icon: <MapPin size={18} color="#dc2626" />,    title: 'Địa chỉ',       lines: ['Lộ Vàm, Xã Chợ Gạo, Tỉnh Đồng Tháp'] },
+                { icon: <Clock size={18} color="#dc2626" />, title: 'Giờ hoạt động', lines: ['Thứ 2 – Thứ 7: 6:30 – 17:00'] },
+                { icon: <PhoneCall size={18} color="#dc2626" />, title: 'Điện thoại', lines: ['0396-053-054 (Cô Vân)', '0843-363-639 (Cô Trang)'] },
+                { icon: <Mail size={18} color="#dc2626" />, title: 'Email', lines: ['hongphuc.info@gmail.com'] },
+                { icon: <MapPin size={18} color="#dc2626" />, title: 'Địa chỉ', lines: ['Lộ Vàm, Xã Chợ Gạo, Tỉnh Đồng Tháp'] },
               ].map(item => (
                 <div key={item.title} className="group flex items-start gap-4 p-4 bg-white/80 backdrop-blur-sm rounded-2xl border border-gray-100 hover:border-red-100 hover:shadow-md transition-all cursor-default">
                   <div className="w-10 h-10 bg-red-50 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
@@ -720,8 +716,8 @@ function Footer() {
 
           {[
             { title: 'Liên kết nhanh', items: ['Giới thiệu', 'Chương trình', 'Cơ sở vật chất', 'Đội ngũ', 'Liên hệ'] },
-            { title: 'Chương trình',   items: ['Lớp Mầm (2–3 tuổi)', 'Lớp Chồi (3–4 tuổi)', 'Lớp Thỏ Ngọc (4–5 tuổi)', 'Thể dục nhịp điệu'] },
-            { title: 'Liên hệ',        items: ['0396-053-054 (Cô Vân)', '0843-363-639 (Cô Trang)', 'Lộ Vàm, Chợ Gạo, Đồng Tháp', 'T2–T7: 6:30–17:00'] },
+            { title: 'Chương trình', items: ['Lớp Mầm (2–3 tuổi)', 'Lớp Chồi (3–4 tuổi)', 'Lớp Thỏ Ngọc (4–5 tuổi)', 'Thể dục nhịp điệu'] },
+            { title: 'Liên hệ', items: ['0396-053-054 (Cô Vân)', '0843-363-639 (Cô Trang)', 'Lộ Vàm, Chợ Gạo, Đồng Tháp', 'T2–T7: 6:30–17:00'] },
           ].map(col => (
             <div key={col.title}>
               <h4 className="font-bold text-white text-xs uppercase tracking-wider mb-4">{col.title}</h4>
