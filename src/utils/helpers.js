@@ -33,4 +33,7 @@ export function avatarColor(name) {
   return colors[hash];
 };
 
-export const images = Object.fromEntries(Object.entries(import.meta.glob('../assets/*', { eager: true, import: 'default' })).map(([key, value]) => [key.split('/').pop(), value]));
+export function images(path) {
+  const image = Object.fromEntries(Object.entries(import.meta.glob('../assets/*', { eager: true, import: 'default' })).map(([key, value]) => [key.split('/').pop(), value]));
+  return image[path];
+}

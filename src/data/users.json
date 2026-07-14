@@ -1,1 +1,12 @@
-[{"id":1,"full_name":"Phạm Thị Lệ Sương","login_name":"suongpham","password":"123","phone_number":"0000-000-000","email":"phamsuong@gmail.com","role":"Giáo viên","status":"Hoạt động"}]
+[
+    {
+        "id": 1,
+        "full_name": "Phạm Thị Lệ Sương",
+        "login_name": "suongpham",
+        "password": "123",
+        "phone_number": "0000-000-000",
+        "email": "phamsuong@gmail.com",
+        "role": "Giáo viên",
+        "status": "Hoạt động"
+    }
+]
