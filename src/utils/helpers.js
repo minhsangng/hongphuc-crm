@@ -32,3 +32,5 @@ export function avatarColor(name) {
   for (const c of name) hash = (hash * 31 + c.charCodeAt(0)) % colors.length;
   return colors[hash];
 };
+
+export const images = Object.fromEntries(Object.entries(import.meta.glob('../assets/*', { eager: true, import: 'default' })).map(([key, value]) => [key.split('/').pop(), value]));

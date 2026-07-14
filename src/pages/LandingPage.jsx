@@ -8,14 +8,11 @@ import Heart from '../assets/heart.svg';
 import Quality from '../assets/quality.svg';
 import Book from '../assets/book.svg';
 import Light from '../assets/light.svg';
-import Student from '../assets/student.svg';
-import Teacher from '../assets/teacher.svg';
-import School from '../assets/school.svg';
-import Experience from '../assets/experience.svg';
 import Child1 from '../assets/child-range-1.svg';
 import Child2 from '../assets/child-range-2.svg';
 import Child3 from '../assets/child-range-3.svg';
 import Classroom  from '../assets/classroom.jpg';
+import { images } from '../utils/helper';
 
 function useInView(threshold = 0.12) {
   const ref = useRef();
@@ -244,13 +241,13 @@ function HeroSection() {
             {/* Stats */}
             <div className="flex flex-wrap gap-5 justify-center lg:justify-start">
               {[
-                { value: '100+', label: 'Học sinh', icon: Student },
-                { value: '10+',  label: 'Giáo viên', icon: Teacher },
-                { value: '5+',   label: 'Lớp học', icon: School },
-                { value: '10+',  label: 'Năm kinh nghiệm', icon: Experience },
+                { value: '100+', label: 'Học sinh', icon: 'student.svg' },
+                { value: '10+',  label: 'Giáo viên', icon: 'teacher.svg' },
+                { value: '5+',   label: 'Lớp học', icon: 'school.svg' },
+                { value: '10+',  label: 'Năm kinh nghiệm', icon: 'experience.svg' },
               ].map(s => (
                 <div key={s.label} className="flex items-center gap-2.5 px-4 py-2.5 bg-white/80 backdrop-blur-sm rounded-2xl border border-gray-100 shadow-sm">
-                  <img src={s.icon} className="h-8 w-8" alt={s.label} />
+                  <img src={images[s.icon]} className="h-8 w-8" alt={s.label} />
                   <div>
                     <p className="text-lg font-black text-gray-900 leading-none">{s.value}</p>
                     <p className="text-xs text-gray-400 mt-0.5">{s.label}</p>
