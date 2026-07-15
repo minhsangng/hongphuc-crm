@@ -6,11 +6,11 @@
   :root {
     --scrollbar-thumb: #cbd5e1;
     --scrollbar-track: #f1f5f9;
-    --color-primary: #C70039;
-    --color-secondary: #F37121;
+    --color-primary: #DC0000;
+    --color-secondary: #850000;
     --color-accent: #111D5E;
     --color-bg-light: #FFBD69;
-    --color-border: #374365;
+    --color-border: #FFDB89;
     --color-bg-dark: #062A48;
     --color-button: #111D5E;
   }
