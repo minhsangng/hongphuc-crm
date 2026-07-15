@@ -20,15 +20,14 @@ export default function Navbar() {
 
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-400 ${scrolled ? 'bg-white/80 backdrop-blur-xl shadow-sm shadow-red-100/50 border-b border-red-50' : 'bg-transparent'}`}>
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16">
-        {/* Logo */}
+      <div className="px-4 sm:px-6 flex items-center justify-between h-16">
         <a href="#" className="flex items-center gap-2.5 group">
-          <div className={`w-9 h-9 rounded-xl flex items-center justify-center transition-all group-hover:scale-110 ${scrolled ? 'bg-red-50 shadow-sm' : 'bg-white/20 backdrop-blur-sm'}`}>
-            <img src="./favicon.svg" alt="Logo" className="w-6 h-6" />
+          <div className={`rounded-xl flex items-center justify-center transition-all group-hover:scale-110`}>
+            <img src="./logo.svg" alt="Logo" className="w-12 h-12" />
           </div>
           <div>
-            <p className={`text-[10px] font-medium transition-colors leading-none ${scrolled ? 'text-red-400' : 'text-red-400'}`}>Mầm non</p>
-            <p className={`font-black text-sm leading-tight transition-colors ${scrolled ? 'text-gray-900' : 'text-gray-900'}`}>Hồng Phúc</p>
+            <p className={`text-[10px] font-medium transition-colors ${scrolled ? 'test-secondary' : 'test-secondary'}`}>Mầm non</p>
+            <p className={`font-black text-xl uppercase leading-[1.5em] transition-colors ${scrolled ? 'text-primary' : 'text-primary'}`}>Hồng Phúc</p>
           </div>
         </a>
 
@@ -41,9 +40,11 @@ export default function Navbar() {
             </a>
           ))}
         </div>
+        
+        <div></div>
 
         {/* CTAs */}
-        <div className="flex items-center gap-2">
+        {/* <div className="flex items-center gap-2">
           <Link to="/login"
             className={`hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-semibold transition-all hover:scale-105 active:scale-95 ${scrolled ? 'text-gray-600 hover:text-red-600 hover:bg-red-50 border border-gray-200' : 'text-red-500 bg-white/10 hover:bg-white/20 border border-red-400/25 backdrop-blur-sm'}`}>
             Đăng nhập
@@ -60,7 +61,7 @@ export default function Navbar() {
               <div className="h-0.5 bg-current rounded-full transition-all" style={{ transform: menuOpen ? 'rotate(-45deg) translateY(-6px)' : 'none' }} />
             </div>
           </button>
-        </div>
+        </div> */}
       </div>
 
       {/* Mobile menu */}
@@ -72,10 +73,10 @@ export default function Navbar() {
               {l.label}
             </a>
           ))}
-          <Link to="/login" onClick={() => setMenuOpen(false)}
+          {/* <Link to="/login" onClick={() => setMenuOpen(false)}
             className="block px-4 py-2.5 rounded-xl text-sm font-semibold text-red-600 bg-red-50 mt-2">
             Đăng nhập
-          </Link>
+          </Link> */}
         </div>
       )}
     </nav>
