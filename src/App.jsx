@@ -10,7 +10,7 @@ import Classes from './pages/Classes';
 import Kitchens from './pages/Kitchens';
 import Reports from './pages/Reports';
 import Settings from './pages/Settings';
-import LandingPage from './pages/LandingPage';
+import Index from './pages/Index';
 import LoginPage from './pages/LoginPage';
 
 const pages = {
@@ -46,7 +46,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<LandingPage />} />
+        <Route path="/" element={<Index />} />
         <Route path="/login" element={<LoginPage />} />
 
         <Route

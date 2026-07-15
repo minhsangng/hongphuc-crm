@@ -1,7 +1,18 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Palette, Music, Brain, Trophy, Earth, HandHeart, MapPin, PhoneCall, Clock, Mail, Share2, X, ArrowUp, Send, RefreshCcw } from 'lucide-react';
-import { images } from '../utils/helpers';
+import Facebook from '../assets/facebook.svg';
+import Tiktok from '../assets/tiktok.svg';
+import Zalo from '../assets/zalo.svg';
+import Heart from '../assets/heart.svg';
+import Quality from '../assets/quality.svg';
+import Book from '../assets/book.svg';
+import Light from '../assets/light.svg';
+import Child1 from '../assets/child-range-1.svg';
+import Child2 from '../assets/child-range-2.svg';
+import Child3 from '../assets/child-range-3.svg';
+import Classroom  from '../assets/classroom.jpg';
+import { images } from '../utils/helper';
 
 function useInView(threshold = 0.12) {
   const ref = useRef();
@@ -26,7 +37,9 @@ function FadeIn({ children, delay = 0, direction = 'up', className = '' }) {
   );
 }
 
-/* LOADING SCREEN */
+/* ══════════════════════════════════════════
+   LOADING SCREEN
+══════════════════════════════════════════ */
 function LoadingScreen({ onDone }) {
   const [progress, setProgress] = useState(0);
   useEffect(() => {
@@ -79,7 +92,9 @@ function LoadingScreen({ onDone }) {
   );
 }
 
-/* NAVBAR */
+/* ══════════════════════════════════════════
+   NAVBAR
+══════════════════════════════════════════ */
 function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -168,7 +183,6 @@ function HeroSection() {
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden bg-white">
       {/* Large blurred blobs — parallax */}
-      {/*
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-[-10%] right-[-5%] w-[600px] h-[600px] rounded-full blur-3xl opacity-30"
           style={{ background: 'radial-gradient(circle, #fca5a5 0%, #ef4444 60%, transparent 100%)' }} />
@@ -179,14 +193,17 @@ function HeroSection() {
         <div className="absolute top-[20%] right-[25%] w-48 h-48 rounded-full blur-2xl opacity-20"
           style={{ background: 'radial-gradient(circle, #c7d2fe, #6366f1)' }} />
       </div>
-      */}
 
       {/* Subtle dot pattern */}
-      <div className="absolute inset-0 opacity-[0.035]" style={{ backgroundImage: 'radial-gradient(circle, #dc2626 1.5px, transparent 1.5px)', backgroundSize: '32px 32px' }} />
+      <div className="absolute inset-0 opacity-[0.035]" style={{
+        backgroundImage: 'radial-gradient(circle, #dc2626 1.5px, transparent 1.5px)',
+        backgroundSize: '32px 32px'
+      }} />
 
       {/* Content */}
-      <div className="relative w-screen z-10">
-        <div className="flex flex-col lg:flex-row items-center bg-[#fef2f2] gap-14 pt-24 pb-20 px-4 sm:px-6">
+      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 pt-24 pb-20">
+        <div className="flex flex-col lg:flex-row items-center gap-14">
+
           {/* Left */}
           <div className="flex-1 text-center lg:text-left">
             {/* Badge */}
@@ -230,7 +247,7 @@ function HeroSection() {
                 { value: '10+',  label: 'Năm kinh nghiệm', icon: 'experience.svg' },
               ].map(s => (
                 <div key={s.label} className="flex items-center gap-2.5 px-4 py-2.5 bg-white/80 backdrop-blur-sm rounded-2xl border border-gray-100 shadow-sm">
-                  <img src={images(s.icon)} className="h-8 w-8" alt={s.label} />
+                  <img src={images[s.icon]} className="h-8 w-8" alt={s.label} />
                   <div>
                     <p className="text-lg font-black text-gray-900 leading-none">{s.value}</p>
                     <p className="text-xs text-gray-400 mt-0.5">{s.label}</p>
@@ -270,35 +287,37 @@ function HeroSection() {
             })}
           </div>
         </div>
+      </div>
+
+      {/* Bottom wave into next section */}
+      <div className="absolute bottom-0 left-0 right-0 pointer-events-none">
+        {/* <svg viewBox="0 0 1440 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0 32 Q360 64 720 32 Q1080 0 1440 32 L1440 64 H0 Z" fill="#fef2f2" fillOpacity="0.8" />
+        </svg> */}
         
-        {/* Bottom wave into next section */}
-        <div className="pointer-events-none w-full">
-          {/* <svg viewBox="0 0 1440 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M0 32 Q360 64 720 32 Q1080 0 1440 32 L1440 64 H0 Z" fill="#fef2f2" fillOpacity="0.8" />
-          </svg> */}
-          
-          <svg viewBox="0 0 1440 100" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-            <path fill="#fef2f2" d="M0 36 Q45 0 90 60 T180 52 T290 66 T420 56 T530 43 T640 52 T690 42 T720 42 T810 42 T900 42 T990 53 T1110 42 T1170 47 T1230 66 T1300 44 T1380 38 L1440 0 L0 0 Z"/>
-          </svg>
-        </div>
+        <svg viewBox="0 0 1440 100" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+          <path fill="#fef2f2" d="M0 36 Q45 0 90 60 T180 52 T290 66 T420 56 T530 43 T640 52 T690 42 T720 42 T810 42 T900 42 T990 53 T1110 42 T1170 47 T1230 66 T1300 44 T1380 38 L1440 0 L0 0 Z"/>
+        </svg>
       </div>
     </section>
   );
 }
 
-/* ABOUT SECTION */
+/* ══════════════════════════════════════════
+   ABOUT SECTION
+══════════════════════════════════════════ */
 function AboutSection() {
   const values = [
-    { icon: 'heart.svg', title: 'Yêu thương', desc: 'Mỗi bé được chăm sóc như con của chính mình, trong vòng tay ấm áp của các cô.', accent: 'red' },
-    { icon: 'quality.svg', title: 'Chất lượng', desc: 'Đội ngũ giáo viên được đào tạo bài bản, tâm huyết với nghề, tận tình với trẻ.', accent: 'orange' },
-    { icon: 'book.svg', title: 'An toàn', desc: 'Môi trường học tập sạch sẽ, an toàn tuyệt đối, camera giám sát 24/7.', accent: 'green' },
-    { icon: 'light.svg', title: 'Sáng tạo', desc: 'Khơi dậy tiềm năng sáng tạo qua nghệ thuật, âm nhạc, thể chất và vui chơi.', accent: 'yellow' },
+    { icon: Heart,   title: 'Yêu thương', desc: 'Mỗi bé được chăm sóc như con của chính mình, trong vòng tay ấm áp của các cô.', accent: 'red' },
+    { icon: Quality, title: 'Chất lượng',  desc: 'Đội ngũ giáo viên được đào tạo bài bản, tâm huyết với nghề, tận tình với trẻ.', accent: 'orange' },
+    { icon: Book,    title: 'An toàn',     desc: 'Môi trường học tập sạch sẽ, an toàn tuyệt đối, camera giám sát 24/7.', accent: 'green' },
+    { icon: Light,   title: 'Sáng tạo',   desc: 'Khơi dậy tiềm năng sáng tạo qua nghệ thuật, âm nhạc, thể chất và vui chơi.', accent: 'yellow' },
   ];
 
   const accentMap = {
-    red: { pill: 'bg-red-100 text-red-600', hover: 'hover:border-red-200 hover:bg-red-50/60', glow: 'shadow-red-100' },
+    red:    { pill: 'bg-red-100 text-red-600',    hover: 'hover:border-red-200 hover:bg-red-50/60',    glow: 'shadow-red-100' },
     orange: { pill: 'bg-orange-100 text-orange-600', hover: 'hover:border-orange-200 hover:bg-orange-50/60', glow: 'shadow-orange-100' },
-    green: { pill: 'bg-green-100 text-green-600', hover: 'hover:border-green-200 hover:bg-green-50/60', glow: 'shadow-green-100' },
+    green:  { pill: 'bg-green-100 text-green-600', hover: 'hover:border-green-200 hover:bg-green-50/60',  glow: 'shadow-green-100' },
     yellow: { pill: 'bg-yellow-100 text-yellow-700', hover: 'hover:border-yellow-200 hover:bg-yellow-50/60', glow: 'shadow-yellow-100' },
   };
 
@@ -327,7 +346,7 @@ function AboutSection() {
                 <div className={`group p-7 rounded-3xl border-2 border-gray-100 bg-white/70 backdrop-blur-sm ${a.hover} hover:-translate-y-2 hover:shadow-xl ${a.glow} transition-all duration-300 cursor-default text-center`}>
                   <div className="flex justify-center mb-5">
                     <div className="w-16 h-16 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                      <img src={images(v.icon)} className="h-14" alt={v.title} />
+                      <img src={v.icon} className="h-14" alt={v.title} />
                     </div>
                   </div>
                   <h3 className="font-bold text-gray-900 text-base mb-2">{v.title}</h3>
@@ -344,14 +363,14 @@ function AboutSection() {
             {/* Left accent strip */}
             <div className="w-full sm:w-2 sm:h-full h-2 bg-red-500 flex-shrink-0" style={{ borderRadius: 0 }} />
             <div className="flex flex-col sm:flex-row items-center gap-8 p-8 sm:p-10 w-full">
-              <div className="flex-shrink-0 animate-bounce" style={{ animationDuration: '3s' }}><img src={images('classroom.jpg')} className="h-44 w-44 rounded-lg shadow-md shadow-red-200" alt="Classroom" /></div>
+              <div className="flex-shrink-0 animate-bounce" style={{ animationDuration: '3s' }}><img src={Classroom} className="h-44 w-44 rounded-lg shadow-md shadow-red-200" alt="Classroom" /></div>
               <div>
                 <h3 className="text-xl font-black text-gray-900 mb-2">Cơ sở hiện đại — Không gian vui chơi thoải mái</h3>
                 <p className="text-gray-500 text-sm leading-relaxed mb-4">Trường được xây dựng với không gian rộng rãi, thoáng mát. Mỗi lớp học đều được trang bị đầy đủ thiết bị học tập hiện đại, khu vui chơi an toàn và vệ sinh sạch sẽ.</p>
                 <div className="flex flex-wrap gap-2">
-                  <span className="inline-flex items-center gap-1 hover:scale-105 transition linear px-3 py-1.5 bg-red-50 text-red-700 text-xs font-semibold rounded-full border border-red-100"><MapPin size={16} /> Lộ Vàm, Chợ Gạo, Đồng Tháp</span>
-                  <span className="inline-flex items-center gap-1 hover:scale-105 transition linear px-3 py-1.5 bg-red-50 text-red-700 text-xs font-semibold rounded-full border border-red-100"><Clock size={16} /> 6:30 – 17:00</span>
-                  <span className="inline-flex items-center gap-1 hover:scale-105 transition linear px-3 py-1.5 bg-red-50 text-red-700 text-xs font-semibold rounded-full border border-red-100"><PhoneCall size={16} /> 0396-053-054</span>
+                  {['📍 Lộ Vàm, Chợ Gạo, Đồng Tháp', '🕗 6:30 – 17:00', '📞 0396-053-054'].map(tag => (
+                    <span key={tag} className="inline-flex items-center gap-1 px-3 py-1.5 bg-red-50 text-red-700 text-xs font-semibold rounded-full border border-red-100">{tag}</span>
+                  ))}
                 </div>
               </div>
             </div>
@@ -362,23 +381,25 @@ function AboutSection() {
   );
 }
 
-/* PROGRAMS SECTION */
+/* ══════════════════════════════════════════
+   PROGRAMS SECTION
+══════════════════════════════════════════ */
 function ProgramsSection() {
   const programs = [
     {
-      emoji: 'child-range-1.svg', name: 'Lớp Mầm', age: '2–3 tuổi',
+      emoji: Child1, name: 'Lớp Mầm', age: '2–3 tuổi',
       gradient: 'from-emerald-400 to-teal-500', lightBg: 'bg-emerald-50', textColor: 'text-emerald-700', borderColor: 'border-emerald-200',
       desc: 'Khám phá thế giới qua cảm giác & vận động. Phát triển ngôn ngữ và kỹ năng xã hội đầu đời.',
       features: ['Vận động tinh', 'Phát triển ngôn ngữ', 'Kỹ năng tự phục vụ'],
     },
     {
-      emoji: 'child-range-2.svg', name: 'Lớp Chồi', age: '3–4 tuổi',
+      emoji: Child2, name: 'Lớp Chồi', age: '3–4 tuổi',
       gradient: 'from-blue-400 to-indigo-500', lightBg: 'bg-blue-50', textColor: 'text-blue-700', borderColor: 'border-blue-200',
       desc: 'Học qua chơi, vui qua học. Bé khám phá màu sắc, âm nhạc và thế giới xung quanh.',
       features: ['Nghệ thuật sáng tạo', 'Âm nhạc vận động', 'Làm quen với chữ số'],
     },
     {
-      emoji: 'child-range-3.svg', name: 'Lớp Thỏ Ngọc', age: '4–5 tuổi',
+      emoji: Child3, name: 'Lớp Thỏ Ngọc', age: '4–5 tuổi',
       gradient: 'from-red-500 to-rose-600', lightBg: 'bg-red-50', textColor: 'text-red-700', borderColor: 'border-red-200',
       desc: 'Chuẩn bị nền tảng vững chắc cho lớp 1. Bé tự tin, sáng tạo và yêu thích học hỏi.',
       features: ['Tiền đọc viết', 'Toán tư duy', 'Kỹ năng sống'],
@@ -412,7 +433,7 @@ function ProgramsSection() {
                   <div className="absolute -left-8 -bottom-8 w-36 h-36 bg-white/10 rounded-full" />
                   <div className="relative z-10">
                     <div className="group-hover:scale-110 group-hover:-rotate-3 transition-all duration-400 inline-block mb-3">
-                      <img src={images(p.emoji)} className="h-24 mx-auto drop-shadow-xl" alt={p.name} />
+                      <img src={p.emoji} className="h-24 mx-auto drop-shadow-xl" alt={p.name} />
                     </div>
                     <h3 className="text-xl font-black text-white">{p.name}</h3>
                     <span className="inline-block mt-2 px-3 py-1 bg-white/25 backdrop-blur-sm text-white text-xs font-semibold rounded-full">{p.age}</span>
@@ -430,7 +451,9 @@ function ProgramsSection() {
                       </li>
                     ))}
                   </ul>
-                  <button className={`w-full py-2.5 rounded-xl text-sm font-bold text-white bg-gradient-to-r ${p.gradient} hover:opacity-90 active:scale-95 transition-all shadow-md`}>Tìm hiểu thêm →</button>
+                  <button className={`w-full py-2.5 rounded-xl text-sm font-bold text-white bg-gradient-to-r ${p.gradient} hover:opacity-90 active:scale-95 transition-all shadow-md`}>
+                    Tìm hiểu thêm →
+                  </button>
                 </div>
               </div>
             </FadeIn>
@@ -441,15 +464,17 @@ function ProgramsSection() {
   );
 }
 
-/* FACILITIES SECTION */
+/* ══════════════════════════════════════════
+   FACILITIES SECTION
+══════════════════════════════════════════ */
 function FacilitiesSection() {
   const items = [
-    { emoji: '🎨', title: 'Phòng Nghệ Thuật', desc: 'Khu vực tô màu, vẽ tranh và làm thủ công sáng tạo cho bé', color: 'from-rose-400 to-pink-500' },
-    { emoji: '🎵', title: 'Phòng Âm Nhạc', desc: 'Học đàn, hát và nhảy múa trong không gian tràn ngập âm thanh', color: 'from-violet-400 to-purple-500' },
-    { emoji: '📚', title: 'Thư Viện Mini', desc: 'Hàng trăm đầu sách tranh, sách kỹ năng phù hợp lứa tuổi', color: 'from-amber-400 to-orange-500' },
+    { emoji: '🎨', title: 'Phòng Nghệ Thuật',    desc: 'Khu vực tô màu, vẽ tranh và làm thủ công sáng tạo cho bé', color: 'from-rose-400 to-pink-500' },
+    { emoji: '🎵', title: 'Phòng Âm Nhạc',       desc: 'Học đàn, hát và nhảy múa trong không gian tràn ngập âm thanh', color: 'from-violet-400 to-purple-500' },
+    { emoji: '📚', title: 'Thư Viện Mini',        desc: 'Hàng trăm đầu sách tranh, sách kỹ năng phù hợp lứa tuổi', color: 'from-amber-400 to-orange-500' },
     { emoji: '🌳', title: 'Sân Chơi Ngoài Trời', desc: 'Cầu trượt, xích đu, bãi cát an toàn dưới bóng cây xanh', color: 'from-emerald-400 to-teal-500' },
     { emoji: '🍱', title: 'Nhà Bếp Dinh Dưỡng', desc: 'Thực đơn phong phú, chế biến tại chỗ đảm bảo vệ sinh an toàn', color: 'from-blue-400 to-cyan-500' },
-    { emoji: '😴', title: 'Phòng Nghỉ Trưa', desc: 'Phòng yên tĩnh, điều hòa mát mẻ để bé nghỉ ngơi thoải mái', color: 'from-indigo-400 to-blue-500' },
+    { emoji: '😴', title: 'Phòng Nghỉ Trưa',     desc: 'Phòng yên tĩnh, điều hòa mát mẻ để bé nghỉ ngơi thoải mái', color: 'from-indigo-400 to-blue-500' },
   ];
 
   return (
@@ -492,13 +517,15 @@ function FacilitiesSection() {
   );
 }
 
-/* TEACHERS SECTION */
+/* ══════════════════════════════════════════
+   TEACHERS SECTION
+══════════════════════════════════════════ */
 function TeachersSection() {
   const teachers = [
-    { name: 'Cô Nguyễn Thị Hoa', role: 'Giáo viên Lớp Lá 1', exp: '8 năm kinh nghiệm', emoji: '👩‍🏫', gradient: 'from-red-400 to-rose-500', glow: 'shadow-red-200' },
-    { name: 'Cô Trần Thị Lan', role: 'Giáo viên Lớp Lá 2', exp: '5 năm kinh nghiệm', emoji: '👩‍🎨', gradient: 'from-blue-400 to-indigo-500', glow: 'shadow-blue-200' },
-    { name: 'Cô Lê Thị Mai', role: 'Giáo viên Lớp Chồi', exp: '6 năm kinh nghiệm', emoji: '👩‍🎵', gradient: 'from-emerald-400 to-teal-500', glow: 'shadow-emerald-200' },
-    { name: 'Cô Hoàng Thị Oanh', role: 'Giáo viên Lớp Mầm', exp: '10 năm kinh nghiệm', emoji: '🧑‍🏫', gradient: 'from-violet-400 to-purple-500', glow: 'shadow-violet-200' },
+    { name: 'Cô Nguyễn Thị Hoa', role: 'Giáo viên Lớp Lá 1',  exp: '8 năm kinh nghiệm',  emoji: '👩‍🏫', gradient: 'from-red-400 to-rose-500', glow: 'shadow-red-200' },
+    { name: 'Cô Trần Thị Lan',   role: 'Giáo viên Lớp Lá 2',   exp: '5 năm kinh nghiệm',  emoji: '👩‍🎨', gradient: 'from-blue-400 to-indigo-500', glow: 'shadow-blue-200' },
+    { name: 'Cô Lê Thị Mai',     role: 'Giáo viên Lớp Chồi',   exp: '6 năm kinh nghiệm',  emoji: '👩‍🎵', gradient: 'from-emerald-400 to-teal-500', glow: 'shadow-emerald-200' },
+    { name: 'Cô Hoàng Thị Oanh', role: 'Giáo viên Lớp Mầm',    exp: '10 năm kinh nghiệm', emoji: '🧑‍🏫', gradient: 'from-violet-400 to-purple-500', glow: 'shadow-violet-200' },
   ];
 
   return (
@@ -511,7 +538,9 @@ function TeachersSection() {
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6">
         <FadeIn className="text-center mb-14">
           <span className="inline-block px-4 py-1.5 bg-red-100 text-red-600 text-xs font-bold rounded-full mb-4 tracking-wide uppercase">Đội ngũ giáo viên</span>
-          <h2 className="text-4xl sm:text-5xl font-black text-gray-900 mb-4">Những <span className="text-red-600">Người Mẹ Thứ Hai</span></h2>
+          <h2 className="text-4xl sm:text-5xl font-black text-gray-900 mb-4">
+            Những <span className="text-red-600">Người Mẹ Thứ Hai</span>
+          </h2>
           <p className="text-gray-500 max-w-lg mx-auto text-lg">Mỗi cô giáo đều là người bạn đồng hành tâm huyết trên hành trình khám phá của bé.</p>
         </FadeIn>
 
@@ -542,12 +571,14 @@ function TeachersSection() {
   );
 }
 
-/* TESTIMONIALS */
+/* ══════════════════════════════════════════
+   TESTIMONIALS
+══════════════════════════════════════════ */
 function TestimonialsSection() {
   const reviews = [
     { name: 'Chị Nguyễn Thị Minh', child: 'Mẹ bé An (Lớp Thỏ Ngọc)', text: 'Con tôi rất vui và háo hức đến trường mỗi ngày. Các cô rất tận tâm và yêu thương trẻ. Tôi hoàn toàn yên tâm khi gửi con ở đây!', stars: 5, color: 'from-red-400 to-rose-500' },
-    { name: 'Anh Trần Văn Hùng', child: 'Ba bé Bảo (Lớp Chồi)', text: 'Trường sạch sẽ, an toàn và có camera. Thực đơn dinh dưỡng, bé ăn ngon và lên cân đều. Cảm ơn các cô Hồng Phúc rất nhiều!', stars: 5, color: 'from-blue-400 to-indigo-500' },
-    { name: 'Chị Lê Thị Hoa', child: 'Mẹ bé Linh (Lớp Mầm)', text: 'Từ khi học ở đây, con nói chuyện rõ hơn, biết chia sẻ và tự lập hơn. Chương trình học rất bài bản và vui vẻ cho bé.', stars: 5, color: 'from-emerald-400 to-teal-500' },
+    { name: 'Anh Trần Văn Hùng',   child: 'Ba bé Bảo (Lớp Chồi)',     text: 'Trường sạch sẽ, an toàn và có camera. Thực đơn dinh dưỡng, bé ăn ngon và lên cân đều. Cảm ơn các cô Hồng Phúc rất nhiều!', stars: 5, color: 'from-blue-400 to-indigo-500' },
+    { name: 'Chị Lê Thị Hoa',      child: 'Mẹ bé Linh (Lớp Mầm)',     text: 'Từ khi học ở đây, con nói chuyện rõ hơn, biết chia sẻ và tự lập hơn. Chương trình học rất bài bản và vui vẻ cho bé.', stars: 5, color: 'from-emerald-400 to-teal-500' },
   ];
 
   return (
@@ -588,7 +619,9 @@ function TestimonialsSection() {
   );
 }
 
-/* CONTACT SECTION */
+/* ══════════════════════════════════════════
+   CONTACT SECTION
+══════════════════════════════════════════ */
 function ContactSection() {
   const [form, setForm] = useState({ name: '', phone: '', child: '', message: '' });
   const [sent, setSent] = useState(false);
@@ -631,10 +664,10 @@ function ContactSection() {
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <h3 className="font-bold text-gray-900 text-lg mb-5">Thông tin đăng ký</h3>
                   {[
-                    { key: 'name', label: 'Họ tên phụ huynh', placeholder: 'Nguyễn Thị An', type: 'text' },
-                    { key: 'phone', label: 'Số điện thoại', placeholder: '0901 234 567', type: 'tel'  },
-                    { key: 'child', label: 'Độ tuổi của bé',  placeholder: '3 tuổi', type: 'text' },
-                    { key: 'date', label: 'Ngày có thể nhập học', placeholder: '', type: 'date' },
+                    { key: 'name',  label: 'Họ tên phụ huynh',   placeholder: 'Nguyễn Thị An',   type: 'text' },
+                    { key: 'phone', label: 'Số điện thoại',       placeholder: '0901 234 567',     type: 'tel'  },
+                    { key: 'child', label: 'Độ tuổi của bé',   placeholder: '3 tuổi', type: 'text' },
+                    { key: 'date', label: 'Ngày có thể nhập học',   placeholder: '', type: 'date' },
                   ].map(f => (
                     <div key={f.key}>
                       <label className="block text-xs font-bold text-gray-600 uppercase tracking-wide mb-1.5">{f.label} <span className="text-red-600">*</span></label>
@@ -662,10 +695,10 @@ function ContactSection() {
           <FadeIn direction="right" delay={150}>
             <div className="space-y-3">
               {[
-                { icon: <Clock size={18} color="#dc2626" />, title: 'Giờ hoạt động', lines: ['Thứ 2 – Thứ 7: 6:30 – 17:00'] },
-                { icon: <PhoneCall size={18} color="#dc2626" />, title: 'Điện thoại', lines: ['0396-053-054 (Cô Vân)', '0843-363-639 (Cô Trang)'] },
-                { icon: <Mail size={18} color="#dc2626" />, title: 'Email', lines: ['hongphuc.info@gmail.com'] },
-                { icon: <MapPin size={18} color="#dc2626" />, title: 'Địa chỉ', lines: ['Lộ Vàm, Xã Chợ Gạo, Tỉnh Đồng Tháp'] },
+                { icon: <Clock size={18} color="#dc2626" />,    title: 'Giờ hoạt động', lines: ['Thứ 2 – Thứ 7: 6:30 – 17:00'] },
+                { icon: <PhoneCall size={18} color="#dc2626" />, title: 'Điện thoại',    lines: ['0396-053-054 (Cô Vân)', '0843-363-639 (Cô Trang)'] },
+                { icon: <Mail size={18} color="#dc2626" />,      title: 'Email',         lines: ['hongphuc.info@gmail.com'] },
+                { icon: <MapPin size={18} color="#dc2626" />,    title: 'Địa chỉ',       lines: ['Lộ Vàm, Xã Chợ Gạo, Tỉnh Đồng Tháp'] },
               ].map(item => (
                 <div key={item.title} className="group flex items-start gap-4 p-4 bg-white/80 backdrop-blur-sm rounded-2xl border border-gray-100 hover:border-red-100 hover:shadow-md transition-all cursor-default">
                   <div className="w-10 h-10 bg-red-50 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
@@ -692,7 +725,9 @@ function ContactSection() {
   );
 }
 
-/* FOOTER */
+/* ══════════════════════════════════════════
+   FOOTER
+══════════════════════════════════════════ */
 function Footer() {
   return (
     <footer className="bg-gray-950 pt-14 pb-8 relative overflow-hidden">
@@ -716,8 +751,8 @@ function Footer() {
 
           {[
             { title: 'Liên kết nhanh', items: ['Giới thiệu', 'Chương trình', 'Cơ sở vật chất', 'Đội ngũ', 'Liên hệ'] },
-            { title: 'Chương trình', items: ['Lớp Mầm (2–3 tuổi)', 'Lớp Chồi (3–4 tuổi)', 'Lớp Thỏ Ngọc (4–5 tuổi)', 'Thể dục nhịp điệu'] },
-            { title: 'Liên hệ', items: ['0396-053-054 (Cô Vân)', '0843-363-639 (Cô Trang)', 'Lộ Vàm, Chợ Gạo, Đồng Tháp', 'T2–T7: 6:30–17:00'] },
+            { title: 'Chương trình',   items: ['Lớp Mầm (2–3 tuổi)', 'Lớp Chồi (3–4 tuổi)', 'Lớp Thỏ Ngọc (4–5 tuổi)', 'Thể dục nhịp điệu'] },
+            { title: 'Liên hệ',        items: ['0396-053-054 (Cô Vân)', '0843-363-639 (Cô Trang)', 'Lộ Vàm, Chợ Gạo, Đồng Tháp', 'T2–T7: 6:30–17:00'] },
           ].map(col => (
             <div key={col.title}>
               <h4 className="font-bold text-white text-xs uppercase tracking-wider mb-4">{col.title}</h4>
@@ -743,27 +778,28 @@ function Footer() {
   );
 }
 
-/* FLOATING SOCIAL MENU */
+/* ══════════════════════════════════════════
+   FLOATING SOCIAL MENU
+══════════════════════════════════════════ */
 function ActiveLinkMenu() {
-  const [hover, setHover] = useState(false);
-  const [opened, setOpened] = useState(false);
-  const show = hover || opened;
-  
+  const [show, setShow] = useState(false);
   return (
     <button
       className="fixed bottom-6 right-6 z-50 w-12 h-12 group bg-red-600 hover:bg-red-700 text-white rounded-2xl shadow-lg shadow-red-400/40 hover:scale-110 active:scale-95 transition-all flex items-center justify-center"
-      onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} onClick={() => setOpened(v => !v)}>
-      {show ? <X size={20} /> : <Share2 size={20} />}
-      <ul className="group-hover:flex hidden flex-col gap-2 absolute right-0 bottom-0 w-24 h-24 transition linear">
-        <li className="absolute right-0 top-0 p-2 bg-white/90 backdrop-blur-sm rounded-full size-9 border border-gray-100 hover:border-red-300 shadow-md hover:scale-110 transition linear"><Link to=""><img src={images('facebook.svg')} alt="Facebook" /></Link></li>
-        <li className="absolute left-3 top-3 p-2 bg-white/90 backdrop-blur-sm rounded-full size-9 border border-gray-100 hover:border-red-300 shadow-md hover:scale-110 transition linear"><Link to=""><img src={images('tiktok.svg')} alt="Tiktok" /></Link></li>
-        <li className="absolute left-0 bottom-0 p-2 bg-white/90 backdrop-blur-sm rounded-full size-9 border border-gray-100 hover:border-red-300 shadow-md hover:scale-110 transition linear"><Link to=""><img src={images('zalo.svg')} alt="Zalo" /></Link></li>
+      onMouseEnter={() => setShow(true)} onMouseLeave={() => setShow(false)}>
+      {!show ? <Share2 size={20} /> : <X size={20} />}
+      <ul className="group-hover:flex hidden flex-col gap-2 absolute right-0 bottom-0 w-24 h-24 transition ease-linear">
+        <li className="absolute right-0 top-0 p-2 bg-white/90 backdrop-blur-sm rounded-full size-9 border border-gray-100 hover:border-red-300 shadow-md hover:scale-110 transition-transform"><Link to=""><img src={Facebook} alt="Facebook" /></Link></li>
+        <li className="absolute left-3 top-3 p-2 bg-white/90 backdrop-blur-sm rounded-full size-9 border border-gray-100 hover:border-red-300 shadow-md hover:scale-110 transition-transform"><Link to=""><img src={Tiktok} alt="Tiktok" /></Link></li>
+        <li className="absolute left-0 bottom-0 p-2 bg-white/90 backdrop-blur-sm rounded-full size-9 border border-gray-100 hover:border-red-300 shadow-md hover:scale-110 transition-transform"><Link to=""><img src={Zalo} alt="Zalo" /></Link></li>
       </ul>
     </button>
   );
 }
 
-/* SCROLL TO TOP */
+/* ══════════════════════════════════════════
+   SCROLL TO TOP
+══════════════════════════════════════════ */
 function ScrollTop() {
   const [show, setShow] = useState(false);
   useEffect(() => {
@@ -779,7 +815,9 @@ function ScrollTop() {
   ) : null;
 }
 
-/* MAIN EXPORT */
+/* ══════════════════════════════════════════
+   MAIN EXPORT
+══════════════════════════════════════════ */
 export default function LandingPage() {
   const [loaded, setLoaded] = useState(false);
 
