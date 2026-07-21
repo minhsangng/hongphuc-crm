@@ -51,6 +51,7 @@ export default {
         'slide-in': 'slideIn 0.3s ease-in-out',
         'pulse-soft': 'pulseSoft 2s infinite',
         'spin-slow': 'spin 3s linear infinite',
+        'float-x': 'floatX 1.5s linear infinite',
       },
       keyframes: {
         fadeIn: {
@@ -65,6 +66,10 @@ export default {
           '0%, 100%': { opacity: '1' },
           '50%': { opacity: '0.6' },
         },
+        floatX: {
+          '0%': { transform: 'translateX(10px)' },
+          '50%': { transform: 'translateX(0)' },
+        }
       },
       boxShadow: {
         'card': '0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)',

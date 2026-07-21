@@ -35,8 +35,8 @@
     border-radius: 3px;
   }
 
-  html {
-    font-family: "Archivo", sans-serif;
+  * {
+    font-family: "Quicksand", sans-serif;
   }
 
   body {
