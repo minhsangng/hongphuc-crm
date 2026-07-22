@@ -1,17 +1,13 @@
-import React, { useState, useEffect } from 'react'
-import {
-  DollarSign, Users, Baby, GraduationCap, BookOpen, TrendingUp,
-  Download, RefreshCw, Plus
-} from 'lucide-react'
-import {
-  BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid,
-  Tooltip, Legend, ResponsiveContainer, Area, AreaChart
-} from 'recharts'
-import StatCard from '../components/StatCard'
-import DataTable from '../components/DataTable'
-import Avatar from '../components/Avatar'
-import { statsData, tuitionChartData, enrollmentChartData, childrenData, teachersData } from '../data/mockData'
-import { formatVND, formatVNDShort } from '../utils/helpers'
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
+import { DollarSign, Users, Baby, GraduationCap, BookOpen, TrendingUp, Download, RefreshCw, Plus } from 'lucide-react';
+import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Area, AreaChart } from 'recharts';
+import StatCard from '../components/StatCard';
+import DataTable from '../components/DataTable';
+import Avatar from '../components/Avatar';
+import { statsData, tuitionChartData, enrollmentChartData, childrenData, teachersData } from '../data/mockData';
+import { formatVND, formatVNDShort } from '../utils/helpers';
+import { year } from 'drizzle-orm/mysql-core';
 
 // Custom recharts tooltip
 function CustomTooltip({ active, payload, label, formatter }) {
@@ -70,21 +66,35 @@ const teacherColumns = [
 ]
 
 export default function Dashboard() {
-  const [loading, setLoading] = useState(true)
-  const [activeChart, setActiveChart] = useState('tuition')
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
+  const [activeChart, setActiveChart] = useState('tuition');
 
+  async function CheckAuth() {
+    try {
+      const response = await axios.get("/api/check-auth", { withCredentials: true });
+      if (response.data.status === 200 && response.data.authenticated) {
+        setUser(response.data.user);
+      } else navigate("/login");
+    } catch (err) {
+      console.log("Auth role failed: ", err);
+      navigate("/login");
+    }
+  };
+  
   useEffect(() => {
-    const t = setTimeout(() => setLoading(false), 1200)
-    return () => clearTimeout(t)
-  }, [])
+    // CheckAuth();
+    const t = setTimeout(() => setLoading(false), 1200);
+    return () => clearTimeout(t);
+  }, []);
 
   const stats = [
     { icon: DollarSign, label: 'Tổng chi tháng 12', value: formatVND(statsData.totalExpense), change: statsData.expenseChange, changeLabel: 'So với tháng trước', color: 'primary' },
-    { icon: TrendingUp,  label: 'Học phí tháng 12',  value: formatVND(statsData.totalTuition), change: statsData.tuitionChange,  changeLabel: 'So với tháng trước', color: 'accent'  },
-    { icon: Baby,        label: 'Tổng học sinh',      value: statsData.totalChildren,           change: statsData.childrenChange,  changeLabel: 'Tháng này nhập học thêm 4', color: 'green'   },
-    { icon: Users,       label: 'Giáo viên & NV',     value: statsData.totalTeachers,           change: statsData.teachersChange,  changeLabel: 'Ổn định',                   color: 'purple'  },
-    { icon: BookOpen,    label: 'Lớp học',             value: statsData.totalClasses,            change: statsData.classesChange,   changeLabel: '2 lá, 2 chồi, 2 mầm',      color: 'yellow'  },
-    { icon: TrendingUp,  label: 'Tỷ lệ tăng trưởng',  value: `${statsData.growthRate}%`,        change: statsData.growthChange,    changeLabel: 'Năm học 2025–2026',         color: 'pink'    },
+    { icon: TrendingUp, label: 'Học phí tháng 12', value: formatVND(statsData.totalTuition), change: statsData.tuitionChange, changeLabel: 'So với tháng trước', color: 'accent' },
+    { icon: Baby, label: 'Tổng học sinh', value: statsData.totalChildren, change: statsData.childrenChange, changeLabel: 'Tháng này nhập học thêm 4', color: 'green' },
+    { icon: Users, label: 'Giáo viên & NV', value: statsData.totalTeachers, change: statsData.teachersChange, changeLabel: 'Ổn định', color: 'purple' },
+    { icon: BookOpen, label: 'Lớp học', value: statsData.totalClasses, change: statsData.classesChange, changeLabel: '2 lá, 2 chồi, 2 mầm', color: 'yellow' },
+    { icon: TrendingUp, label: 'Tỷ lệ tăng trưởng', value: `${statsData.growthRate}%`, change: statsData.growthChange, changeLabel: 'Năm học 2025–2026', color: 'pink' },
   ]
 
   return (
@@ -93,7 +103,7 @@ export default function Dashboard() {
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-xl font-bold text-dark-900 dark:text-white">Tổng quan</h2>
-          <p className="text-sm text-dark-400 dark:text-dark-500 mt-0.5">Tháng 12 năm 2025 • Cập nhật lúc {new Date().toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' })}</p>
+          <p className="text-sm text-dark-400 dark:text-dark-500 mt-0.5">{ new Date().toLocaleDateString('vi-VN', {month: 'long'}) } năm { new Date().toLocaleDateString('vi-VN', {year: 'numeric'}) } • Cập nhật lúc {new Date().toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' })}</p>
         </div>
         <div className="flex items-center gap-2">
           <button className="btn-secondary gap-1.5 text-xs hidden sm:inline-flex">
