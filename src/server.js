@@ -1,12 +1,17 @@
 import express from "express";
+import path from "path";
+import { fileURLToPath } from "url";
 import { ENV } from "./config/env.js";
 import { db } from "./config/db.js";
 import { childrens, classes, teachers, users } from "./db/schema.js";
 import { eq, and } from "drizzle-orm";
 import session from "express-session";
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
 const PORT = ENV.PORT || 5001;
+
+app.set("trust proxy", 1);
 
 app.use(express.json());
 
@@ -15,7 +20,11 @@ app.use(session({
   secret: ENV.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
-  cookie: { maxAge: 1000 * 60 * 15 } // Clear after 15 mins
+  cookie: {
+    maxAge: 1000 * 60 * 15,
+    secure: ENV.NODE_ENV === "production",
+    sameSite: "lax",
+  }
 }));
 
 /* HEALTHZ */
@@ -82,6 +91,14 @@ app.get("/api/check-auth", (req, res) => {
     return res.json({ status: 401, authenticated: false });
   }
   res.json({ status: 200, authenticated: true, user: req.session.user });
+});
+
+/* SERVE REACT BUILD */
+const distPath = path.join(__dirname, "..", "dist");
+app.use(express.static(distPath));
+
+app.get(/^(?!\/api).*/, (req, res) => {
+  res.sendFile(path.join(distPath, "index.html"));
 });
 
 /* MESSAGE RUNNING */
