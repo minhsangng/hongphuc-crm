@@ -49,16 +49,13 @@ export default function App() {
         <Route path="/" element={<Index />} />
         <Route path="/login" element={<LoginPage />} />
 
-        <Route
-          path="/admin"
-          element={
+        <Route path="/admin" element={
             <ThemeProvider>
               <SidebarProvider>
                 <AdminShell />
               </SidebarProvider>
             </ThemeProvider>
-          }
-        />
+        } />
 
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
