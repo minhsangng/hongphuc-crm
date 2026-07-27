@@ -3,7 +3,7 @@ export function formatVND(amount) {
     return (amount / 1_000_000_000).toFixed(1) + ' tỷ';
   }
   if (amount >= 10_000_000) {
-    return (amount / 1_000_000).toFixed(1) + ' triệu';
+    return (amount / 10_000_000).toFixed(1) + ' triệu';
   }
   return amount.toLocaleString('vi-VN') + ' đ';
 };

@@ -10,14 +10,18 @@ export const classes = pgTable("classes", {
   status: varchar("status").notNull().default("Hoạt động"),
 });
 
-export const teachers = pgTable("teachers", {
+export const users = pgTable("users", {
   id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
+  fullName: varchar("full_name", { length: 30 }),
   gender: varchar("gender").notNull().default("Nam"),
   dob: date("date_of_birth"),
-  userId: integer("user_id").notNull(),
-  title: varchar("title", { length: 30 }).notNull().default("Giáo viên"),
+  loginName: varchar("login_name").notNull().unique(),
+  password: text("password").notNull(),
+  phoneNumber: varchar("phone_number", { length: 12 }).notNull().default("0000-000-000"),
+  email: varchar("email", { length: 30 }).notNull().unique(),
   gross: numeric("gross", { precision: 10, scale: 0 }).notNull().default(0),
-  status: varchar("status").notNull().default("Đang làm"),
+  role: varchar("role", { length: 10 }).notNull().default("Giáo viên"),
+  status: varchar("status").notNull().default("Hoạt động"),
 });
 
 export const childrens = pgTable("childrens", {
@@ -33,17 +37,6 @@ export const childrens = pgTable("childrens", {
   bankNumber: varchar("bank_number", { length: 20 }).notNull().default("000-000-000-000"),
   phoneNumber: varchar("phone_number", { length: 12 }).notNull().default("0000-000-000"),
   status: varchar("status").notNull().default("Đang học"),
-});
-
-export const users = pgTable("users", {
-  id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
-  fullName: varchar("full_name", { length: 30 }),
-  loginName: varchar("login_name").notNull().unique(),
-  password: text("password").notNull(),
-  phoneNumber: varchar("phone_number", { length: 12 }).notNull().default("0000-000-000"),
-  email: varchar("email", { length: 30 }).notNull().unique(),
-  role: varchar("role", { length: 10 }).notNull().default("Vãng lai"),
-  status: varchar("status").notNull().default("Hoạt động"),
 });
 
 export const semesters = pgTable("semesters", {

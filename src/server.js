@@ -3,7 +3,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { ENV } from "./config/env.js";
 import { db } from "./config/db.js";
-import { childrens, classes, teachers, users } from "./db/schema.js";
+import { childrens, classes, users } from "./db/schema.js";
 import { eq, and } from "drizzle-orm";
 import session from "express-session";
 
@@ -55,21 +55,21 @@ app.get("/api/get-children-by-class/:id", async (req, res) => {
 
 /* CLASSES */
 app.get("/api/get-all-classes", async (req, res) => {
-  const results = await db.select({...classes, teacherName: users.fullName}).from(classes).leftJoin(teachers, eq(teachers.id, classes.teacherId)).leftJoin(users, eq(users.id, teachers.userId));
+  const results = await db.select({...classes, teacherName: users.fullName}).from(classes).leftJoin(users, eq(users.id, classes.userId));
   if (results.length > 0) res.json(results);
   else res.json({ status: 404, message: "Empty list" });
 });
 
 app.get("/api/get-class-by-teacher/:id", async (req, res) => {
   const { id } = req.params;
-  const results = await db.select({...classes, teacherName: users.fullName}).from(classes).innerJoin(teachers, eq(teachers.id, classes.teacherId)).innerJoin(users, eq(users.id, teachers.userId)).where(eq(classes.teacherId, parseInt(id)));
+  const results = await db.select({...classes, teacherName: users.fullName}).from(classes).innerJoin(users, eq(users.id, classes.teacherId)).where(eq(classes.teacherId, parseInt(id)));
   if (results.length > 0) res.json(results);
   else res.json({ status: 404, message: `Not found class of teacher with ID: ${id}` });
 });
 
 /* TEACHERS */
 app.get("/api/get-all-teachers", async (req, res) => {
-  const results = await db.select({...classes, teacherName: users.fullName}).from(classes).innerJoin(users, eq(users.id, teachers.userId));
+  const results = await db.select({...classes, teacherName: users.fullName}).from(classes).innerJoin(users, eq(users.id, classes.teacherId));
   if (results.length > 0) res.json(results);
   else res.json({ status: 404, message: "Empty list" });
 });
