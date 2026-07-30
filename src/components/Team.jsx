@@ -9,11 +9,11 @@ const team = [
 export default function Team() {
   return (
     <section className="team-section section-padding pt-0 fix">
-      <div className="container">
+      <div className="w-[80%] mx-auto">
         <div className="flower-shape">
           <img src={images("flower.png")} alt="shape-img" />
         </div>
-        <div className="section-title-area text-center text-lg-start">
+        <div className="section-title-area text-center">
           <div className="section-title">
             <span className="sub-title">Our Teacher</span>
             <h2>
@@ -26,9 +26,9 @@ export default function Team() {
           </p>
         </div>
 
-        <div className="row text-center">
+        <div className="grid grid-cols-3 gap-2 text-center">
           {team.map((t) => (
-            <div key={t.name} className="col-lg-4 col-md-6 col-sm-6">
+            <div key={t.name} className="">
               <div className="team-card-item">
                 <div className="team-image">
                   <img src={images(t.img)} alt="team-image" />

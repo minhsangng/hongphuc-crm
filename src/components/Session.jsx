@@ -8,10 +8,10 @@ const sessions = [
 export default function Session() {
   return (
     <section className="session-section fix">
-      <div className="container">
+      <div className="w-[80%] mx-auto mb-8">
         <div className="session-wrapper zoom-effect-style">
-          <div className="row g-4 align-items-center">
-            <div className="col-xl-6 col-lg-6">
+          <div className="grid grid-cols-2 gap-4 items-center">
+            <div className="">
               <div className="session-content">
                 <div className="section-title">
                   <span className="sub-title">session Times</span>
@@ -19,14 +19,11 @@ export default function Session() {
                     Our <span>session Times</span>
                   </h2>
                 </div>
-                <p>
-                  Dolor sit amet, consectetur adipiscing elit. Nibh <br />
-                  ullamcorper felis arcu elementum.
-                </p>
+                <p>Dolor sit amet, consectetur adipiscing elit. Nibh <br /> ullamcorper felis arcu elementum.</p>
               </div>
               <span className="vertical-dashed" />
             </div>
-            <div className="col-xl-6 col-lg-6">
+            <div className="">
               {sessions.map((s) => (
                 <div key={s.title} className="session-box">
                   <h3>{s.title}</h3>

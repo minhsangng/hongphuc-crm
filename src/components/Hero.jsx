@@ -1,3 +1,4 @@
+import { ArrowRight, Play } from "lucide-react";
 import { images } from "../utils/helpers";
 
 export default function Hero() {
@@ -19,12 +20,12 @@ export default function Hero() {
         <img src={images("frame.png")} alt="shape-img" />
       </div>
       <div className="line-shape">
-        <img src={images("hero-line.png")} alt="" />
+        <img src={images("hero-line.png")} alt="Line" />
       </div>
 
       <div className="container hero-container">
-        <div className="row g-4 align-items-center">
-          <div className="col-lg-5">
+        <div className="flex gap-4 items-center">
+          <div className="">
             <div className="hero-content">
               <h1>A Happy Place to Grow, Play And Learn</h1>
               <p>
@@ -32,8 +33,8 @@ export default function Hero() {
                 where <br /> most young for your children life.
               </p>
               <div className="hero-button">
-                <a href="/contact" className="theme-btn">
-                  Online Admission <i className="icon-arrow-icon" />
+                <a href="/contact" className="theme-btn flex items-center gap-2">
+                  Online Admission <ArrowRight />
                 </a>
                 <div className="wave-area">
                   <div className="promo-video">
@@ -42,13 +43,8 @@ export default function Hero() {
                       <div className="waves wave-2" />
                       <div className="waves wave-3" />
                     </div>
-                    <a
-                      className="video-popup"
-                      href="https://www.youtube.com/watch?v=Cn4G2lZ_g2I"
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      <i className="fas fa-play" />
+                    <a className="video-popup" href="https://www.youtube.com/watch?v=Cn4G2lZ_g2I" target="_blank" rel="noreferrer">
+                      <Play color="white"/>
                     </a>
                   </div>
                   <p className="video-text">Paly Video</p>
@@ -56,7 +52,7 @@ export default function Hero() {
               </div>
             </div>
           </div>
-          <div className="col-lg-6">
+          <div className="">
             <div className="hero-img">
               <img src={images("hero1.png")} alt="hero-img" />
               <div className="text-shape float-bob-y">

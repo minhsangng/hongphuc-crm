@@ -19,7 +19,7 @@ export default function Testimonial() {
         <img src={images("follwer.png")} alt="icon-image" />
       </div>
 
-      <div className="container">
+      <div className="w-[80%] mx-auto">
         <div className="section-title text-center">
           <span className="sub-title">Our Testimonials</span>
           <h2>
@@ -37,7 +37,7 @@ export default function Testimonial() {
                   className="swiper-slide"
                   style={{ display: i === active ? "block" : "none" }}
                 >
-                  <div className="testimonial-item">
+                  <div className="testimonial-item flex flex-col items-center">
                     <div className="client-image">
                       <img src={images(t.img)} alt="client-image" />
                       <ul className="icon">

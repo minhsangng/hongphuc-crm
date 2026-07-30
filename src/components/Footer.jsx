@@ -13,10 +13,10 @@ export default function Footer() {
         <img src={images("ball.png")} alt="shape-img" />
       </div>
 
-      <div className="container">
+      <div className="w-[80%] mx-auto">
         <div className="footer-widgets-wrapper">
-          <div className="row">
-            <div className="col-xl-4 col-lg-6 col-md-8">
+          <div className="grid grid-cols-4 grid-rows-1 gap-2">
+            <div className="">
               <div className="single-footer-widget">
                 <div className="widget-head">
                   <a href="/">
@@ -55,12 +55,12 @@ export default function Footer() {
               </div>
             </div>
 
-            <div className="col-xl-2 col-lg-3 col-md-4 col-sm-6">
+            <div className="">
               <div className="single-footer-widget">
-                <div className="widget-head">
+                <div className="widget-head text-center font-bold underline underline-offset-4">
                   <h3>Quick Links</h3>
                 </div>
-                <div className="widget-content">
+                <div className="widget-content text-center mt-4">
                   <ul className="list-area">
                     <li>
                       <a href="/program">Courses</a>
@@ -79,12 +79,12 @@ export default function Footer() {
               </div>
             </div>
 
-            <div className="col-xl-2 col-lg-3 col-md-6 col-sm-6">
+            <div className="">
               <div className="single-footer-widget">
-                <div className="widget-head">
+                <div className="widget-head text-center font-bold underline underline-offset-4">
                   <h3>Company info</h3>
                 </div>
-                <div className="widget-content">
+                <div className="widget-content text-center mt-4">
                   <ul className="list-area">
                     <li>
                       <a href="/contact">Our Support</a>
@@ -103,30 +103,27 @@ export default function Footer() {
               </div>
             </div>
 
-            <div className="col-xl-4 col-lg-6 col-md-6">
+            <div className="">
               <div className="single-footer-widget">
                 <div className="widget-content">
-                  <div className="contact-info">
+                  <div className="contact-info !m-0">
                     <div className="icon">
-                      <img src={images("email.svg")} alt="icon-image" />
+                      <img src={images("email.svg")} alt="icon-image" className="w-6" />
                     </div>
                     <div className="content">
-                      <h3>Email us</h3>
+                      <h3>Email</h3>
                       <p>
-                        <a href="mailto:support@kidza.com">support@kidza.com</a>
+                        <a href="mailto:mnhongphuc.info@gmail.com">mnhongphuc.info@gmail.com</a>
                       </p>
                     </div>
                   </div>
-                  <div className="contact-info">
+                  <div className="contact-info !m-0">
                     <div className="icon">
-                      <img src={images("location(1).svg")} alt="icon-image" />
+                      <img src={images("location(1).svg")} alt="icon-image" className="w-8" />
                     </div>
                     <div className="content">
-                      <h3>Location</h3>
-                      <p>
-                        Office: 2220 Plymouth R02 Road,
-                        <br /> Hopkins, Minnesota(MN), UK
-                      </p>
+                      <h3>Địa chỉ</h3>
+                      <p>Lộ Vàm, Chợ Gạo, Đồng Tháp</p>
                     </div>
                   </div>
                 </div>

@@ -1,3 +1,4 @@
+import { ArrowRight } from "lucide-react";
 import { images } from "../utils/helpers";
 
 const programs = [
@@ -42,13 +43,10 @@ const programs = [
 export default function Program() {
   return (
     <section className="program-section section-padding pt-0 fix">
-      <div className="container">
-        <div className="row g-4">
+      <div className="w-[80%] mx-auto">
+        <div className="flex gap-4">
           {programs.map((p) => (
-            <div
-              key={p.title}
-              className="col-xl-3 col-lg-4 col-md-6 col-sm-6"
-            >
+            <div key={p.title} className="xl-w-1/4 lg:w-1/4 md:w-1/2 sm:w-1/2" >
               <div className={`program-box-item ${p.style}`}>
                 <div className="top-bar">
                   <img src={images(p.top)} alt="icon-image" />
@@ -63,12 +61,9 @@ export default function Program() {
                 <div className="program-content">
                   <h3>{p.title}</h3>
                   <span>{p.age}</span>
-                  <p>
-                    Dolor sit amet, adipiscing elit. Nibh ullamcorper felis
-                    arcu elementum.
-                  </p>
-                  <a href="/program-details" className="link-btn">
-                    Learn More <i className="icon-arrow-icon" />
+                  <p>Dolor sit amet, adipiscing elit. Nibh ullamcorper felis arcu elementum.</p>
+                  <a href="/program-details" className="link-btn flex items-center gap-2">
+                    Learn More <ArrowRight />
                   </a>
                 </div>
               </div>

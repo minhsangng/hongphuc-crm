@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { images } from "../utils/helpers";
+import { Send } from "lucide-react";
 
 export default function Contact() {
   const [form, setForm] = useState({
@@ -31,7 +32,7 @@ export default function Contact() {
         <img src={images("emoji.png")} alt="shape-img" />
       </div>
 
-      <div className="container">
+      <div className="w-[80%] mx-auto">
         <div className="section-title-area custom-padding-top2">
           <div className="section-title">
             <span className="sub-title">Quick Contact</span>
@@ -45,8 +46,8 @@ export default function Contact() {
         </div>
 
         <div className="contact-wrapper">
-          <div className="row g-4">
-            <div className="col-xl-4 col-lg-5 col-md-4">
+          <div className="grid grid-cols-2 gap-4">
+            <div className="">
               <div className="contact-info">
                 <div className="icon">
                   <img src={images("microphone.svg")} alt="icon-image" />
@@ -87,11 +88,11 @@ export default function Contact() {
               </div>
             </div>
 
-            <div className="col-xl-8 col-lg-7 col-md-8">
+            <div className="">
               <div className="contact-from">
                 <h3 className="text-white mb-3">Send Your Message</h3>
                 <form className="contFrm" onSubmit={handleSubmit}>
-                  <div className="row">
+                  <div className="flex flex-col">
                     <div className="col-sm-6">
                       <input
                         type="text"
@@ -143,9 +144,9 @@ export default function Contact() {
                     </div>
                   </div>
                   <div className="contact-button">
-                    <button type="submit" className="theme-btn style-2">
+                    <button type="submit" className="theme-btn style-2 flex items-center gap-2">
                       Send Your Message
-                      <i className="icon-arrow-icon" />
+                      <Send />
                     </button>
                   </div>
                 </form>

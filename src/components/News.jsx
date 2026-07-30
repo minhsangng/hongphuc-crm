@@ -1,3 +1,4 @@
+import { Calendar, User } from "lucide-react";
 import { images } from "../utils/helpers";
 
 const news = [
@@ -34,13 +35,13 @@ export default function News() {
   return (
     <section className="news-section section-padding fix">
       <div className="hut-shape float-bob-x">
-        <img src="/assets/img/hute.png" alt="shape-img" />
+        <img src={images("hute.png")} alt="shape-img" />
       </div>
       <div className="sky-shape float-bob-y">
-        <img src="/assets/img/sky.png" alt="shape-img" />
+        <img src={images("sky.png")} alt="shape-img" />
       </div>
 
-      <div className="container">
+      <div className="w-[80%] mx-auto">
         <div className="section-title text-center">
           <span className="sub-title">Our Blog &amp; News</span>
           <h2>
@@ -48,9 +49,9 @@ export default function News() {
           </h2>
         </div>
 
-        <div className="row">
+        <div className="grid grid-cols-3 gap-4">
           {news.map((n) => (
-            <div key={n.title} className="col-xl-4 col-lg-6 col-md-6">
+            <div key={n.title} className="">
               <div className="news-card-items">
                 <div className="news-image">
                   <img src={images(n.img)} alt="news-image" />
@@ -66,11 +67,11 @@ export default function News() {
                   </h3>
                   <p>{n.excerpt}</p>
                   <ul className="author-items">
-                    <li>
-                      <i className="far fa-user" /> {n.author}
+                    <li className="flex items-center gap-1">
+                      <User /> {n.author}
                     </li>
-                    <li className="calendar">
-                      <i className="far fa-calendar-alt" /> {n.date}
+                    <li className="calendar flex items-center gap-1">
+                      <Calendar /> {n.date}
                     </li>
                   </ul>
                 </div>

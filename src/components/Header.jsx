@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Mails, PhoneCall, MapPinSearch, ArrowRight, Menu, X } from "lucide-react";
 import { images } from "../utils/helpers";
 
 export default function Header() {
@@ -15,22 +16,19 @@ export default function Header() {
           </div>
           <div className="container">
             <div className="header-top-wrapper">
-              <p>
-                Kindergarten is an early childhood educational environment{" "}
-                <a href="/contact">Learn More</a>
-              </p>
+              <div></div>
               <ul className="header-contact-list">
                 <li>
-                  <i className="fal fa-envelope" />
-                  <a href="mailto:kidza@gmial.com">kidza@gmial.com</a>
+                  <Mails />
+                  <a href="mailto:mnhongphuc.info@gmail.com">mnhongphuc.info@gmail.com</a>
                 </li>
                 <li>
-                  <i className="far fa-phone-alt" />
-                  <a href="tel:+00479394888">+00 (47) 939 4888</a>
+                  <PhoneCall />
+                  <a href="tel:0396-053-054">0396-053-054</a>
                 </li>
                 <li>
-                  <i className="fa-regular fa-location-dot" />
-                  Graaf Floriss 22A CH NY
+                  <MapPinSearch />
+                  <a href="https://maps.app.goo.gl/xKfybraM1K1Ldof38">Lộ Vàm, Chợ Gạo, Đồng Tháp</a>
                 </li>
               </ul>
             </div>
@@ -72,28 +70,13 @@ export default function Header() {
                   </div>
                 </div>
 
-                <div className="header-right d-flex justify-content-end align-items-center">
-                  <div className="header-right-icon">
-                    <a href="#search" className="main-header__search search-toggler">
-                      <i className="far fa-search" />
-                    </a>
-                    <button
-                      id="openButton"
-                      className="cart-icon"
-                      onClick={() => setCartOpen(true)}
-                    >
-                      <i className="fas fa-shopping-cart" />
-                    </button>
-                  </div>
-                  <a href="/contact" className="theme-btn">
-                    Start Learning <i className="icon-arrow-icon" />
+                <div className="header-right flex justify-end items-center">
+                  <a href="/contact" className="theme-btn flex items-center gap-2">
+                    Start Learning <ArrowRight />
                   </a>
-                  <div
-                    className="header__hamburger my-auto d-xl-none"
-                    onClick={() => setMenuOpen(true)}
-                  >
+                  <div className="header__hamburger my-auto xl:hidden" onClick={() => setMenuOpen(true)}>
                     <div className="sidebar__toggle">
-                      <i className="fal fa-bars" />
+                      <Menu />
                     </div>
                   </div>
                 </div>
@@ -108,24 +91,19 @@ export default function Header() {
         <div className={`offcanvas__info ${menuOpen ? "info-open" : ""}`}>
           <div className="offcanvas__wrapper">
             <div className="offcanvas__content">
-              <div className="offcanvas__top mb-5 d-flex justify-content-between align-items-center">
+              <div className="offcanvas__top mb-5 flex justify-between items-center">
                 <div className="offcanvas__logo">
                   <a href="/">
                     <img src={images("black-logo.svg")} alt="logo-img" />
                   </a>
                 </div>
                 <div className="offcanvas__close">
-                  <button onClick={() => setMenuOpen(false)}>
-                    <i className="fas fa-times" />
-                  </button>
+                  <button onClick={() => setMenuOpen(false)}><X /></button>
                 </div>
               </div>
               <h3 className="offcanvas-title">Hello There!</h3>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi
-                natus quasi sunt eum ducimus.
-              </p>
-              <div className="social-icon d-flex align-items-center">
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi natus quasi sunt eum ducimus.</p>
+              <div className="social-icon flex items-center">
                 <a href="#!">
                   <i className="fab fa-facebook-f" />
                 </a>
@@ -256,7 +234,7 @@ export default function Header() {
           </div>
         </div>
         <button id="closeButton" className="x-mark-icon" onClick={() => setCartOpen(false)}>
-          <i className="fas fa-times" />
+          <X />
         </button>
       </div>
     </>

@@ -1,7 +1,3 @@
-import { useState, useEffect, useRef } from 'react';
-import { PlayCircle, ArrowRight } from 'lucide-react';
-import { images } from '../utils/helpers';
-
 import Header from "../components/Header";
 import Hero from "../components/Hero";
 import About from "../components/About";

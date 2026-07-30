@@ -1,3 +1,4 @@
+import { ArrowRight } from "lucide-react";
 import { images } from "../utils/helpers";
 
 export default function ChooseUs() {
@@ -16,10 +17,10 @@ export default function ChooseUs() {
         <img src={images("coun-shape.png")} alt="shape-img" />
       </div>
 
-      <div className="container">
+      <div className="w-[80%] mx-auto">
         <div className="choose-us-wrapper">
-          <div className="row g-4">
-            <div className="col-lg-6">
+          <div className="grid grid-cols-2 gap-4">
+            <div className="">
               <div className="choose-img-box">
                 <img
                   className="style-2" src={images("choose2.jpg")} alt="choose-image"
@@ -31,7 +32,7 @@ export default function ChooseUs() {
               </div>
             </div>
 
-            <div className="col-lg-6">
+            <div className="">
               <div className="choose-us-content">
                 <div className="section-title text-left">
                   <span className="sub-title">Why Choose Us</span>
@@ -40,7 +41,7 @@ export default function ChooseUs() {
                     Leads to Big Discoveries
                   </h2>
                 </div>
-                <p className="mt-3 mt-md-0">
+                <p className="mt-3 md:mt-0">
                   Dolor sit amet, consectetur adipiscing elit. Nibh
                   ullamcorper felis arcu elementum. Viverra lectus nullam
                   sagittis nunc imperdiet.
@@ -89,8 +90,8 @@ export default function ChooseUs() {
                   </div>
                 </div>
                 <div className="choose-button">
-                  <a href="/contact" className="theme-btn">
-                    Start Your Learning <i className="icon-arrow-icon" />
+                  <a href="/contact" className="theme-btn w-fit flex items-center gap-2">
+                    Start Your Learning <ArrowRight />
                   </a>
                 </div>
               </div>

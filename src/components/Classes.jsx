@@ -1,3 +1,4 @@
+import { ArrowRight, Calendar, MapPin, Star } from "lucide-react";
 import { images } from "../utils/helpers";
 
 const classes = [
@@ -40,7 +41,7 @@ export default function Classes() {
         <img src={images("border.png")} alt="shape-img" />
       </div>
 
-      <div className="container">
+      <div className="w-[80%] mx-auto">
         <div className="section-title text-center custom-padding-top">
           <span className="sub-title tittle-bg-2">Our Classes</span>
           <h2 className="text-white">
@@ -49,38 +50,36 @@ export default function Classes() {
           </h2>
         </div>
 
-        <div className="row">
+        <div className="grid grid-cols-3 grid-rows-1 gap-8">
           {classes.map((c) => (
-            <div key={c.title} className="col-xl-4 col-lg-6 col-md-6">
+            <div key={c.title} className="group">
               <div className="classes-box-item">
                 <div className="classes-image">
                   <img src={images(c.img)} alt="classes-image" />
                   <div className="date-box">
                     <span>
-                      <i className="far fa-calendar-alt" /> {c.date}
+                      <Calendar /> {c.date}
                     </span>
                   </div>
                 </div>
                 <div className="classes-content">
                   <div className="location">
-                    <span>
-                      <i className="fa-solid fa-location-dot" /> {c.location}
-                    </span>
+                    <span className="flex items-center gap-2"><MapPin /> {c.location}</span>
                   </div>
-                  <h3>
+                  <h3 className="min-h-20">
                     <a href="/program-details">{c.title}</a>
                   </h3>
                   <div className="classes-rate">
-                    <a href="/program-details" className="theme-btn">
+                    <a href="/program-details" className="theme-btn flex items-center gap-2">
                       Get Ticket
-                      <i className="icon-arrow-icon" />
+                      <ArrowRight />
                     </a>
                     <div className="rate">
                       <p>(10 Review)</p>
                       <ul>
                         {Array.from({ length: 5 }).map((_, i) => (
                           <li key={i}>
-                            <i className="fas fa-star" />
+                            <Star color="yellow" className="group-hover:stroke-white"/>
                           </li>
                         ))}
                       </ul>
