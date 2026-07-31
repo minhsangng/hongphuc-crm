@@ -43,7 +43,7 @@ const programs = [
 export default function Program() {
   return (
     <section className="program-section section-padding pt-0 fix">
-      <div className="w-[80%] mx-auto">
+      <div className="w-[90%] mx-auto">
         <div className="flex gap-4">
           {programs.map((p) => (
             <div key={p.title} className="xl-w-1/4 lg:w-1/4 md:w-1/2 sm:w-1/2" >

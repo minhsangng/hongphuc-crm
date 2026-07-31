@@ -1,242 +1,178 @@
-import { useState } from "react";
-import { Mails, PhoneCall, MapPinSearch, ArrowRight, Menu, X } from "lucide-react";
-import { images } from "../utils/helpers";
+import React, { useState, useRef, useEffect } from 'react';
+import { Bell, Search, Menu, X, Sun, Moon, ChevronDown, LogOut, User, Settings, Home } from 'lucide-react';
+import { useTheme, useSidebar } from '../context/AppContext';
+import { notifications } from '../data/mockData';
+import Avatar from './Avatar';
 
-export default function Header() {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [cartOpen, setCartOpen] = useState(false);
+export default function Header({ user, currentPage, onExitAdmin }) {
+  const { dark, toggle } = useTheme();
+  const { setMobileOpen, mobileOpen } = useSidebar();
+  const [showNotif, setShowNotif] = useState(false);
+  const [showProfile, setShowProfile] = useState(false);
+  const [search, setSearch] = useState('');
+  const notifRef = useRef();
+  const profileRef = useRef();
+
+  const unread = notifications.filter(n => !n.read).length;
+
+  useEffect(() => {
+    function handle(e) {
+      if (notifRef.current && !notifRef.current.contains(e.target)) setShowNotif(false)
+      if (profileRef.current && !profileRef.current.contains(e.target)) setShowProfile(false)
+    }
+    document.addEventListener('mousedown', handle);
+    return () => document.removeEventListener('mousedown', handle);
+  }, []);
+
+  const pageNames = {
+    dashboard: 'Tổng quan',
+    teachers: 'Giáo viên',
+    childrens: 'Học sinh',
+    classes: 'Lớp học',
+    kitchens: 'Bếp ăn',
+    reports: 'Báo cáo',
+    settings: 'Cài đặt',
+  }
+
+  const notifTypeColor = {
+    warning: 'bg-yellow-400',
+    info:    'bg-accent-500',
+    success: 'bg-green-500',
+    error:   'bg-red-500',
+  }
+  
+  useEffect(() => {
+    document.title = "Mầm non Hồng Phúc - " + pageNames[currentPage];
+  }, [currentPage]);
 
   return (
-    <>
-      <header className="header-section">
-        {/* Top bar */}
-        <div className="header-top-section">
-          <div className="header-shape">
-            <img src={images("header1.png")} alt="img" />
+    <header className="sticky top-0 z-30 bg-white/90 dark:bg-dark-900/90 backdrop-blur-md border-b border-dark-100 dark:border-dark-800">
+      <div className="flex items-center justify-between h-16 px-4 lg:px-6 gap-4">
+        {/* Left: hamburger + breadcrumb */}
+        <div className="flex items-center gap-3 min-w-0">
+          <button
+            onClick={() => setMobileOpen(!mobileOpen)}
+            className="lg:hidden p-2 rounded-lg hover:bg-dark-100 dark:hover:bg-dark-800 text-dark-500 dark:text-dark-400 transition-colors"
+          >
+            {mobileOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
+          <div className="hidden sm:flex items-center gap-1 text-sm">
+            <span className="text-dark-400 dark:text-dark-500">Hồng Phúc</span>
+            <span className="text-dark-300 dark:text-dark-600 mx-1">/</span>
+            <span className="font-semibold text-dark-800 dark:text-dark-100">{pageNames[currentPage] || currentPage}</span>
           </div>
-          <div className="container">
-            <div className="header-top-wrapper">
-              <div></div>
-              <ul className="header-contact-list">
-                <li>
-                  <Mails />
-                  <a href="mailto:mnhongphuc.info@gmail.com">mnhongphuc.info@gmail.com</a>
-                </li>
-                <li>
-                  <PhoneCall />
-                  <a href="tel:0396-053-054">0396-053-054</a>
-                </li>
-                <li>
-                  <MapPinSearch />
-                  <a href="https://maps.app.goo.gl/xKfybraM1K1Ldof38">Lộ Vàm, Chợ Gạo, Đồng Tháp</a>
-                </li>
-              </ul>
-            </div>
-          </div>
+          <h1 className="sm:hidden font-bold text-dark-900 dark:text-white text-base">{pageNames[currentPage]}</h1>
         </div>
 
-        {/* Main nav */}
-        <div id="header-sticky" className="header-1">
-          <div className="container">
-            <div className="mega-menu-wrapper">
-              <div className="header-main">
-                <div className="header-left">
-                  <a href="/" className="header-logo">
-                    <img src={images("black-logo.svg")} alt="img" />
-                  </a>
-                </div>
-
-                <div className="mean__menu-wrapper">
-                  <div className="main-menu">
-                    <nav id="mobile-menu">
-                      <ul>
-                        <li>
-                          <a href="/">Home</a>
-                        </li>
-                        <li>
-                          <a href="/about">About Us</a>
-                        </li>
-                        <li>
-                          <a href="/program">Our Programs</a>
-                        </li>
-                        <li>
-                          <a href="/news">Blog</a>
-                        </li>
-                        <li>
-                          <a href="/contact">Contact</a>
-                        </li>
-                      </ul>
-                    </nav>
-                  </div>
-                </div>
-
-                <div className="header-right flex justify-end items-center">
-                  <a href="/contact" className="theme-btn flex items-center gap-2">
-                    Start Learning <ArrowRight />
-                  </a>
-                  <div className="header__hamburger my-auto xl:hidden" onClick={() => setMenuOpen(true)}>
-                    <div className="sidebar__toggle">
-                      <Menu />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+        {/* Center: search */}
+        <div className="flex-1 max-w-md hidden md:block">
+          <div className="relative">
+            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-dark-400" />
+            <input
+              type="text"
+              placeholder="Tìm học sinh, lớp học, phụ huynh..."
+              value={search}
+              onChange={e => setSearch(e.target.value)}
+              className="input-field pl-9 h-9 text-xs"
+            />
           </div>
         </div>
-      </header>
 
-      {/* Mobile sidebar menu */}
-      <div className={`fix-area ${menuOpen ? "active" : ""}`}>
-        <div className={`offcanvas__info ${menuOpen ? "info-open" : ""}`}>
-          <div className="offcanvas__wrapper">
-            <div className="offcanvas__content">
-              <div className="offcanvas__top mb-5 flex justify-between items-center">
-                <div className="offcanvas__logo">
-                  <a href="/">
-                    <img src={images("black-logo.svg")} alt="logo-img" />
-                  </a>
-                </div>
-                <div className="offcanvas__close">
-                  <button onClick={() => setMenuOpen(false)}><X /></button>
-                </div>
-              </div>
-              <h3 className="offcanvas-title">Hello There!</h3>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi natus quasi sunt eum ducimus.</p>
-              <div className="social-icon flex items-center">
-                <a href="#!">
-                  <i className="fab fa-facebook-f" />
-                </a>
-                <a href="#!">
-                  <i className="fab fa-twitter" />
-                </a>
-                <a href="#!">
-                  <i className="fab fa-youtube" />
-                </a>
-                <a href="#!">
-                  <i className="fab fa-linkedin-in" />
-                </a>
-              </div>
-              <div className="offcanvas__contact">
-                <h3>Contact Us</h3>
-                <ul className="contact-list">
-                  <li>
-                    <div className="icon">
-                      <i className="far fa-phone-alt" />
-                    </div>
-                    <div className="content">
-                      <p>Call Us</p>
-                      <h4>
-                        <a href="tel:+4903983493999">+49 (03) 9834 939 99</a>
-                      </h4>
-                    </div>
-                  </li>
-                  <li>
-                    <div className="icon">
-                      <i className="fal fa-envelope" />
-                    </div>
-                    <div className="content">
-                      <p>Send Email</p>
-                      <h4>
-                        <a href="mailto:yordomain@gmial.com">
-                          yordomain@gmial.com
-                        </a>
-                      </h4>
-                    </div>
-                  </li>
-                  <li>
-                    <div className="icon">
-                      <i className="fal fa-map-marker-alt" />
-                    </div>
-                    <div className="content">
-                      <p>Location</p>
-                      <h4>Chicago 53755 NY, USA</h4>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-              <a href="/contact" className="theme-btn">
-                Start Learning <i className="icon-arrow-icon" />
-              </a>
-            </div>
-          </div>
-        </div>
-        {menuOpen && (
-          <div
-            className="offcanvas__overlay active"
-            onClick={() => setMenuOpen(false)}
-          />
-        )}
-      </div>
+        {/* Right: actions */}
+        <div className="flex items-center gap-1.5">
+          {/* Theme toggle */}
+          <button
+            onClick={toggle}
+            title={dark ? 'Chế độ sáng' : 'Chế độ tối'}
+            className="w-9 h-9 rounded-lg flex items-center justify-center text-dark-500 dark:text-dark-400 hover:bg-dark-100 dark:hover:bg-dark-800 transition-colors"
+          >
+            {dark ? <Sun size={18} /> : <Moon size={18} />}
+          </button>
 
-      {/* Cart sidebar */}
-      <div
-        className={`side_bar slideInRight ${
-          cartOpen ? "" : "side_bar_hidden"
-        }`}
-      >
-        <div className="side_bar_overlay" onClick={() => setCartOpen(false)} />
-        <div className="cart-title mb-50">
-          <h4>Shopping cart</h4>
-        </div>
-        <div className="cartmini__widget">
-          <div className="cartmini__widget-item">
-            <div className="cartmini__thumb">
-              <a href="/shop-details">
-                <img src={images("shop-cart1.png")} alt="img" />
-              </a>
-            </div>
-            <div className="cartmini__content">
-              <h5>
-                <a href="/shop-details">Baby Bib Pink</a>
-              </h5>
-              <div className="cartmini__price-wrapper">
-                <span className="cartmini__price">$46.00</span>
-                <span className="cartmini__quantity">x2</span>
-              </div>
-            </div>
-            <button className="cartmini__del">
-              <i className="fal fa-times" />
+          {/* Notifications */}
+          <div className="relative" ref={notifRef}>
+            <button
+              onClick={() => { setShowNotif(v => !v); setShowProfile(false) }}
+              className="relative w-9 h-9 rounded-lg flex items-center justify-center text-dark-500 dark:text-dark-400 hover:bg-dark-100 dark:hover:bg-dark-800 transition-colors"
+            >
+              <Bell size={18} />
+              {unread > 0 && (
+                <span className="absolute top-1.5 right-1.5 w-4 h-4 bg-primary-600 text-white text-[10px] font-bold rounded-full flex items-center justify-center">
+                  {unread}
+                </span>
+              )}
             </button>
-          </div>
-          <div className="cartmini__widget-item">
-            <div className="cartmini__thumb">
-              <a href="/shop-details">
-                <img src={images("shop-cart2.png")} alt="img" />
-              </a>
-            </div>
-            <div className="cartmini__content">
-              <h5>
-                <a href="/shop-details">Plastic Roller Mop</a>
-              </h5>
-              <div className="cartmini__price-wrapper">
-                <span className="cartmini__price">$78.00</span>
-                <span className="cartmini__quantity">x1</span>
+
+            {showNotif && (
+              <div className="absolute right-0 mt-2 w-80 bg-white dark:bg-dark-800 rounded-2xl shadow-xl border border-dark-100 dark:border-dark-700 overflow-hidden animate-fade-in z-50">
+                <div className="flex items-center justify-between px-4 py-3 border-b border-dark-100 dark:border-dark-700">
+                  <h3 className="font-semibold text-dark-900 dark:text-white text-sm">Thông báo</h3>
+                  <span className="badge badge-red">{unread} mới</span>
+                </div>
+                <div className="divide-y divide-dark-50 dark:divide-dark-700/50 max-h-72 overflow-y-auto">
+                  {notifications.map(n => (
+                    <div key={n.id} className={`flex gap-3 px-4 py-3 hover:bg-dark-50 dark:hover:bg-dark-700/50 transition-colors cursor-pointer ${!n.read ? 'bg-accent-50/50 dark:bg-accent-900/10' : ''}`}>
+                      <div className={`mt-1 w-2 h-2 rounded-full flex-shrink-0 ${notifTypeColor[n.type]}`} />
+                      <div className="min-w-0">
+                        <p className={`text-sm font-medium truncate ${!n.read ? 'text-dark-900 dark:text-white' : 'text-dark-600 dark:text-dark-400'}`}>{n.title}</p>
+                        <p className="text-xs text-dark-500 dark:text-dark-500 truncate">{n.desc}</p>
+                        <p className="text-xs text-dark-400 dark:text-dark-600 mt-0.5">{n.time}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <div className="px-4 py-2.5 border-t border-dark-100 dark:border-dark-700">
+                  <button className="text-xs text-accent-600 dark:text-accent-400 font-medium hover:underline">Xem tất cả thông báo</button>
+                </div>
               </div>
-            </div>
-            <button className="cartmini__del">
-              <i className="fal fa-times" />
-            </button>
+            )}
           </div>
-          <div className="cartmini__checkout">
-            <div className="cartmini__checkout-title mb-4">
-              <h4>Subtotal:</h4>
-              <span>$113.00</span>
-            </div>
-            <div className="cartmini__checkout-btn">
-              <a href="/shop-cart" className="theme-btn mb-2 w-100">
-                view cart
-              </a>
-              <a href="/checkout" className="theme-btn w-100 style-2">
-                checkout
-              </a>
-            </div>
+
+          {/* Profile */}
+          <div className="relative" ref={profileRef}>
+            <button
+              onClick={() => { setShowProfile(v => !v); setShowNotif(false) }}
+              className="flex items-center gap-2 pl-1 pr-2 py-1 rounded-xl hover:bg-dark-100 dark:hover:bg-dark-800 transition-colors"
+            >
+              <Avatar name="Nguyễn Hồng Phúc" size="sm" />
+              <span className="hidden sm:block text-sm font-medium text-dark-700 dark:text-dark-200">{user.userName || 'Hồng Phúc'}</span>
+              <ChevronDown size={14} className="hidden sm:block text-dark-400" />
+            </button>
+
+            {showProfile && (
+              <div className="absolute right-0 mt-2 w-56 bg-white dark:bg-dark-800 rounded-2xl shadow-xl border border-dark-100 dark:border-dark-700 overflow-hidden animate-fade-in z-50">
+                <div className="px-4 py-3 border-b border-dark-100 dark:border-dark-700">
+                  <p className="font-semibold text-sm text-dark-900 dark:text-white">Hi, {user.userName || 'Hồng Phúc'}!</p>
+                  <p className="text-xs text-dark-500 dark:text-dark-400">{user.role || 'Quản trị viên'}</p>
+                </div>
+                <div className="py-1">
+                  {[
+                    { icon: User, label: 'Hồ sơ cá nhân' },
+                    { icon: Settings, label: 'Cài đặt' },
+                  ].map(({ icon: Icon, label }) => (
+                    <button key={label} className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-dark-700 dark:text-dark-300 hover:bg-dark-50 dark:hover:bg-dark-700 transition-colors">
+                      <Icon size={15} />
+                      {label}
+                    </button>
+                  ))}
+                </div>
+                <div className="py-1 border-t border-dark-100 dark:border-dark-700">
+                  {onExitAdmin && (
+                    <button onClick={onExitAdmin} className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors">
+                      <Home size={15} />
+                      Về trang chủ
+                    </button>
+                  )}
+                  <button onClick={onExitAdmin} className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors">
+                    <LogOut size={15} />
+                    Đăng xuất
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         </div>
-        <button id="closeButton" className="x-mark-icon" onClick={() => setCartOpen(false)}>
-          <X />
-        </button>
       </div>
-    </>
-  );
-}
+    </header>
+  )
+};

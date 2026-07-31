@@ -1,84 +1,242 @@
-import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useState } from "react";
+import { Mails, PhoneCall, MapPinSearch, ArrowRight, Menu, X } from "lucide-react";
+import { images } from "../utils/helpers";
 
-export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
+export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
-  useEffect(() => {
-    const h = () => setScrolled(window.scrollY > 50);
-    window.addEventListener('scroll', h, { passive: true });
-    return () => window.removeEventListener('scroll', h);
-  }, []);
-
-  const links = [
-    { label: 'Giới thiệu', href: '#about' },
-    { label: 'Chương trình', href: '#programs' },
-    { label: 'Cơ sở vật chất', href: '#facilities' },
-    { label: 'Giáo viên', href: '#teachers' },
-    { label: 'Liên hệ', href: '#contact' },
-  ];
+  const [cartOpen, setCartOpen] = useState(false);
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-400 ${scrolled ? 'bg-white/80 backdrop-blur-xl shadow-sm shadow-red-100/50 border-b border-red-50' : 'bg-transparent'}`}>
-      <div className="px-4 sm:px-6 flex items-center justify-between h-16">
-        <a href="#" className="flex items-center gap-2.5 group">
-          <div className={`rounded-xl flex items-center justify-center transition-all group-hover:scale-110`}>
-            <img src="./logo.svg" alt="Logo" className="w-12 h-12" />
+    <>
+      <header className="header-section">
+        {/* Top bar */}
+        <div className="header-top-section">
+          <div className="header-shape">
+            <img src={images("header1.png")} alt="img" />
           </div>
-          <div>
-            <p className={`text-[10px] font-medium transition-colors ${scrolled ? 'test-secondary' : 'test-secondary'}`}>Mầm non</p>
-            <p className={`font-black text-xl uppercase leading-[1.5em] transition-colors ${scrolled ? 'text-primary' : 'text-primary'}`}>Hồng Phúc</p>
-          </div>
-        </a>
-
-        {/* Desktop links */}
-        <div className="hidden md:flex items-center gap-0.5">
-          {links.map(l => (
-            <a key={l.href} href={l.href}
-              className={`px-3 py-2 rounded-xl text-sm font-medium transition-all hover:scale-105 active:scale-95 ${scrolled ? 'text-gray-600 hover:text-red-600 hover:bg-red-50' : 'text-red-600 hover:text-gray-600 hover:bg-gray-50'}`}>
-              {l.label}
-            </a>
-          ))}
-        </div>
-        
-        <div></div>
-
-        {/* CTAs */}
-        {/* <div className="flex items-center gap-2">
-          <Link to="/login"
-            className={`hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-semibold transition-all hover:scale-105 active:scale-95 ${scrolled ? 'text-gray-600 hover:text-red-600 hover:bg-red-50 border border-gray-200' : 'text-red-500 bg-white/10 hover:bg-white/20 border border-red-400/25 backdrop-blur-sm'}`}>
-            Đăng nhập
-          </Link>
-          <button
-            onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-            className="px-4 py-2 rounded-xl text-sm font-bold bg-red-600 hover:bg-red-700 text-white shadow-lg shadow-red-500/30 hover:shadow-red-500/50 hover:scale-105 active:scale-95 transition-all">
-            Đăng ký ngay
-          </button>
-          <button onClick={() => setMenuOpen(v => !v)} className={`md:hidden p-2 rounded-xl transition-colors ${scrolled ? 'text-gray-700 hover:bg-gray-100' : 'text-white hover:bg-white/15'}`}>
-            <div className="w-5 space-y-1">
-              <div className="h-0.5 bg-current rounded-full transition-all" style={{ transform: menuOpen ? 'rotate(45deg) translateY(6px)' : 'none' }} />
-              <div className="h-0.5 bg-current rounded-full transition-all" style={{ opacity: menuOpen ? 0 : 1 }} />
-              <div className="h-0.5 bg-current rounded-full transition-all" style={{ transform: menuOpen ? 'rotate(-45deg) translateY(-6px)' : 'none' }} />
+          <div className="container">
+            <div className="header-top-wrapper">
+              <div></div>
+              <ul className="header-contact-list">
+                <li>
+                  <Mails />
+                  <a href="mailto:mnhongphuc.info@gmail.com">mnhongphuc.info@gmail.com</a>
+                </li>
+                <li>
+                  <PhoneCall />
+                  <a href="tel:0396-053-054">0396-053-054</a>
+                </li>
+                <li>
+                  <MapPinSearch />
+                  <a href="https://maps.app.goo.gl/xKfybraM1K1Ldof38">Lộ Vàm, Chợ Gạo, Đồng Tháp</a>
+                </li>
+              </ul>
             </div>
-          </button>
-        </div> */}
+          </div>
+        </div>
+
+        {/* Main nav */}
+        <div id="header-sticky" className="header-1">
+          <div className="w-[90%] mx-auto">
+            <div className="mega-menu-wrapper">
+              <div className="header-main">
+                <div className="header-left">
+                  <a href="/" className="header-logo">
+                    <img src={images("black-logo.svg")} alt="img" />
+                  </a>
+                </div>
+
+                <div className="mean__menu-wrapper hidden lg:flex">
+                  <div className="main-menu">
+                    <nav id="mobile-menu">
+                      <ul>
+                        <li>
+                          <a href="/">Home</a>
+                        </li>
+                        <li>
+                          <a href="/about">About Us</a>
+                        </li>
+                        <li>
+                          <a href="/program">Our Programs</a>
+                        </li>
+                        <li>
+                          <a href="/news">Blog</a>
+                        </li>
+                        <li>
+                          <a href="/contact">Contact</a>
+                        </li>
+                      </ul>
+                    </nav>
+                  </div>
+                </div>
+
+                <div className="header-right flex justify-end items-center">
+                  <a href="/contact" className="theme-btn items-center gap-2 hidden lg:flex">
+                    Start Learning <ArrowRight />
+                  </a>
+                  <div className="header__hamburger my-auto flex lg:hidden" onClick={() => setMenuOpen(true)}>
+                    <div className="sidebar__toggle">
+                      <Menu />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      {/* Mobile sidebar menu */}
+      <div className={`fix-area ${menuOpen ? "active" : ""}`}>
+        <div className={`offcanvas__info ${menuOpen ? "info-open" : ""}`}>
+          <div className="offcanvas__wrapper">
+            <div className="offcanvas__content">
+              <div className="offcanvas__top mb-5 flex justify-between items-center">
+                <div className="offcanvas__logo">
+                  <a href="/">
+                    <img src={images("black-logo.svg")} alt="logo-img" />
+                  </a>
+                </div>
+                <div className="offcanvas__close">
+                  <button onClick={() => setMenuOpen(false)}><X /></button>
+                </div>
+              </div>
+              <h3 className="offcanvas-title">Hello There!</h3>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi natus quasi sunt eum ducimus.</p>
+              <div className="social-icon flex items-center">
+                <a href="#!">
+                  <i className="fab fa-facebook-f" />
+                </a>
+                <a href="#!">
+                  <i className="fab fa-twitter" />
+                </a>
+                <a href="#!">
+                  <i className="fab fa-youtube" />
+                </a>
+                <a href="#!">
+                  <i className="fab fa-linkedin-in" />
+                </a>
+              </div>
+              <div className="offcanvas__contact">
+                <h3>Contact Us</h3>
+                <ul className="contact-list">
+                  <li>
+                    <div className="icon">
+                      <i className="far fa-phone-alt" />
+                    </div>
+                    <div className="content">
+                      <p>Call Us</p>
+                      <h4>
+                        <a href="tel:+4903983493999">+49 (03) 9834 939 99</a>
+                      </h4>
+                    </div>
+                  </li>
+                  <li>
+                    <div className="icon">
+                      <i className="fal fa-envelope" />
+                    </div>
+                    <div className="content">
+                      <p>Send Email</p>
+                      <h4>
+                        <a href="mailto:yordomain@gmial.com">
+                          yordomain@gmial.com
+                        </a>
+                      </h4>
+                    </div>
+                  </li>
+                  <li>
+                    <div className="icon">
+                      <i className="fal fa-map-marker-alt" />
+                    </div>
+                    <div className="content">
+                      <p>Location</p>
+                      <h4>Chicago 53755 NY, USA</h4>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <a href="/contact" className="theme-btn flex items-center gap-2">
+                Start Learning <ArrowRight />
+              </a>
+            </div>
+          </div>
+        </div>
+        {menuOpen && (
+          <div
+            className="offcanvas__overlay active"
+            onClick={() => setMenuOpen(false)}
+          />
+        )}
       </div>
 
-      {/* Mobile menu */}
-      {menuOpen && (
-        <div className="md:hidden bg-white/90 backdrop-blur-xl border-t border-red-50 px-4 py-3 space-y-1">
-          {links.map(l => (
-            <a key={l.href} href={l.href} onClick={() => setMenuOpen(false)}
-              className="block px-4 py-2.5 rounded-xl text-sm font-medium text-gray-700 hover:bg-red-50 hover:text-red-600 transition-colors">
-              {l.label}
-            </a>
-          ))}
-          {/* <Link to="/login" onClick={() => setMenuOpen(false)}
-            className="block px-4 py-2.5 rounded-xl text-sm font-semibold text-red-600 bg-red-50 mt-2">
-            Đăng nhập
-          </Link> */}
+      {/* Cart sidebar */}
+      <div
+        className={`side_bar slideInRight ${
+          cartOpen ? "" : "side_bar_hidden"
+        }`}
+      >
+        <div className="side_bar_overlay" onClick={() => setCartOpen(false)} />
+        <div className="cart-title mb-50">
+          <h4>Shopping cart</h4>
         </div>
-      )}
-    </nav>
+        <div className="cartmini__widget">
+          <div className="cartmini__widget-item">
+            <div className="cartmini__thumb">
+              <a href="/shop-details">
+                <img src={images("shop-cart1.png")} alt="img" />
+              </a>
+            </div>
+            <div className="cartmini__content">
+              <h5>
+                <a href="/shop-details">Baby Bib Pink</a>
+              </h5>
+              <div className="cartmini__price-wrapper">
+                <span className="cartmini__price">$46.00</span>
+                <span className="cartmini__quantity">x2</span>
+              </div>
+            </div>
+            <button className="cartmini__del">
+              <i className="fal fa-times" />
+            </button>
+          </div>
+          <div className="cartmini__widget-item">
+            <div className="cartmini__thumb">
+              <a href="/shop-details">
+                <img src={images("shop-cart2.png")} alt="img" />
+              </a>
+            </div>
+            <div className="cartmini__content">
+              <h5>
+                <a href="/shop-details">Plastic Roller Mop</a>
+              </h5>
+              <div className="cartmini__price-wrapper">
+                <span className="cartmini__price">$78.00</span>
+                <span className="cartmini__quantity">x1</span>
+              </div>
+            </div>
+            <button className="cartmini__del">
+              <i className="fal fa-times" />
+            </button>
+          </div>
+          <div className="cartmini__checkout">
+            <div className="cartmini__checkout-title mb-4">
+              <h4>Subtotal:</h4>
+              <span>$113.00</span>
+            </div>
+            <div className="cartmini__checkout-btn">
+              <a href="/shop-cart" className="theme-btn mb-2 w-100">
+                view cart
+              </a>
+              <a href="/checkout" className="theme-btn w-100 style-2">
+                checkout
+              </a>
+            </div>
+          </div>
+        </div>
+        <button id="closeButton" className="x-mark-icon" onClick={() => setCartOpen(false)}>
+          <X />
+        </button>
+      </div>
+    </>
   );
 }

@@ -13,7 +13,7 @@ export default function Newsletter() {
 
   return (
     <section className="newsletter-section section-padding pt-0 fix">
-      <div className="w-[80%] mx-auto">
+      <div className="w-[90%] mx-auto">
         <div className="section-title text-center">
           <span className="sub-title">Subscribe Now</span>
           <h2>

@@ -72,7 +72,7 @@ function CounterItem({ icon, value, label, border }) {
 export default function Counter() {
   return (
     <section className="counter-section section-padding">
-      <div className="w-[80%] mx-auto">
+      <div className="w-[90%] mx-auto">
         <div className="grid grid-cols-4 gap-2">
           {stats.map((s, i) => (
             <CounterItem key={s.label} {...s} border={i === stats.length - 1} />

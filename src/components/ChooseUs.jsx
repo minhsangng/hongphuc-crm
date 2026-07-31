@@ -17,7 +17,7 @@ export default function ChooseUs() {
         <img src={images("coun-shape.png")} alt="shape-img" />
       </div>
 
-      <div className="w-[80%] mx-auto">
+      <div className="w-[90%] mx-auto">
         <div className="choose-us-wrapper">
           <div className="grid grid-cols-2 gap-4">
             <div className="">

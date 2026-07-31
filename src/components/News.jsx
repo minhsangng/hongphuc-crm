@@ -41,7 +41,7 @@ export default function News() {
         <img src={images("sky.png")} alt="shape-img" />
       </div>
 
-      <div className="w-[80%] mx-auto">
+      <div className="w-[90%] mx-auto">
         <div className="section-title text-center">
           <span className="sub-title">Our Blog &amp; News</span>
           <h2>

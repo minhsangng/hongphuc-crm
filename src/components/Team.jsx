@@ -9,7 +9,7 @@ const team = [
 export default function Team() {
   return (
     <section className="team-section section-padding pt-0 fix">
-      <div className="w-[80%] mx-auto">
+      <div className="w-[90%] mx-auto">
         <div className="flower-shape">
           <img src={images("flower.png")} alt="shape-img" />
         </div>

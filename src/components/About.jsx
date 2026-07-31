@@ -20,7 +20,7 @@ export default function About() {
         <img src={images("frame(1).png")} alt="shape-img" />
       </div>
 
-      <div className="w-[80%] mx-auto">
+      <div className="w-[90%] mx-auto">
         <div className="about-wrapper">
           <div className="flex gap-4 items-center">
             <div className="w-1/2">

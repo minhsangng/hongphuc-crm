@@ -19,7 +19,7 @@ export default function Testimonial() {
         <img src={images("follwer.png")} alt="icon-image" />
       </div>
 
-      <div className="w-[80%] mx-auto">
+      <div className="w-[90%] mx-auto">
         <div className="section-title text-center">
           <span className="sub-title">Our Testimonials</span>
           <h2>

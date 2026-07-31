@@ -32,7 +32,7 @@ export default function Contact() {
         <img src={images("emoji.png")} alt="shape-img" />
       </div>
 
-      <div className="w-[80%] mx-auto">
+      <div className="w-[90%] mx-auto">
         <div className="section-title-area custom-padding-top2">
           <div className="section-title">
             <span className="sub-title">Quick Contact</span>

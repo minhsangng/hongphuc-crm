@@ -41,7 +41,7 @@ export default function Classes() {
         <img src={images("border.png")} alt="shape-img" />
       </div>
 
-      <div className="w-[80%] mx-auto">
+      <div className="w-[90%] mx-auto">
         <div className="section-title text-center custom-padding-top">
           <span className="sub-title tittle-bg-2">Our Classes</span>
           <h2 className="text-white">

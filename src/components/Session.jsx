@@ -8,7 +8,7 @@ const sessions = [
 export default function Session() {
   return (
     <section className="session-section fix">
-      <div className="w-[80%] mx-auto mb-8">
+      <div className="w-[90%] mx-auto mb-8">
         <div className="session-wrapper zoom-effect-style">
           <div className="grid grid-cols-2 gap-4 items-center">
             <div className="">
