@@ -1,3 +1,4 @@
+import { Mail, MapPin } from "lucide-react";
 import { images } from "../utils/helpers";
 
 export default function Footer() {
@@ -106,24 +107,24 @@ export default function Footer() {
             <div className="">
               <div className="single-footer-widget">
                 <div className="widget-content">
-                  <div className="contact-info !m-0">
+                  <div className="contact-info">
                     <div className="icon">
-                      <img src={images("email.svg")} alt="icon-image" className="w-6" />
+                      <Mail />
                     </div>
                     <div className="content">
                       <h3>Email</h3>
-                      <p>
+                      <p className="text-base">
                         <a href="mailto:mnhongphuc.info@gmail.com">mnhongphuc.info@gmail.com</a>
                       </p>
                     </div>
                   </div>
-                  <div className="contact-info !m-0">
+                  <div className="contact-info">
                     <div className="icon">
-                      <img src={images("location(1).svg")} alt="icon-image" className="w-8" />
+                      <MapPin />
                     </div>
                     <div className="content">
                       <h3>Địa chỉ</h3>
-                      <p>Lộ Vàm, Chợ Gạo, Đồng Tháp</p>
+                      <p className="text-base">Lộ Vàm, Chợ Gạo, Đồng Tháp</p>
                     </div>
                   </div>
                 </div>
@@ -132,8 +133,7 @@ export default function Footer() {
           </div>
 
           <p className="footer-bottom">
-            © <a href="/">Kidza</a> {new Date().getFullYear()} . All Rights
-            Reserved, Modinatheme
+            © <a href="/">Mầm non Hồng Phúc</a> 2026. All Rights Reserved, <a href="https://github.com/minhsangng">minhsangng</a>
           </p>
         </div>
       </div>

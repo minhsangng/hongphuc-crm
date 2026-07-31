@@ -70,12 +70,11 @@ export default function Classes() {
                     <a href="/program-details">{c.title}</a>
                   </h3>
                   <div className="classes-rate">
-                    <a href="/program-details" className="theme-btn flex items-center gap-2">
-                      Get Ticket
-                      <ArrowRight />
+                    <a href="/program-details" className="theme-btn group">
+                      Get Ticket <ArrowRight className="opacity-0 group-hover:opacity-100 transition ease-linear absolute top-1/2 right-2 transform -translate-y-1/2" />
                     </a>
                     <div className="rate">
-                      <p>(10 Review)</p>
+                      <p className="!text-xs">(10 Review)</p>
                       <ul>
                         {Array.from({ length: 5 }).map((_, i) => (
                           <li key={i}>

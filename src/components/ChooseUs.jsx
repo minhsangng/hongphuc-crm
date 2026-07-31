@@ -47,7 +47,7 @@ export default function ChooseUs() {
                   sagittis nunc imperdiet.
                 </p>
                 <div className="icon-items">
-                  <div className="icon">
+                  <div className="icon flex justify-center items-center">
                     <img src={images("bricks-1.svg")} alt="svg-image" />
                   </div>
                   <div className="content">

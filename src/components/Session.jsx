@@ -11,7 +11,7 @@ export default function Session() {
       <div className="w-[90%] mx-auto mb-8">
         <div className="session-wrapper zoom-effect-style">
           <div className="grid grid-cols-2 gap-4 items-center">
-            <div className="">
+            <div>
               <div className="session-content">
                 <div className="section-title">
                   <span className="sub-title">session Times</span>
@@ -23,7 +23,7 @@ export default function Session() {
               </div>
               <span className="vertical-dashed" />
             </div>
-            <div className="">
+            <div>
               {sessions.map((s) => (
                 <div key={s.title} className="session-box">
                   <h3>{s.title}</h3>

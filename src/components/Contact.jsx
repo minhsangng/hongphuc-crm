@@ -33,19 +33,18 @@ export default function Contact() {
       </div>
 
       <div className="w-[90%] mx-auto">
-        <div className="section-title-area custom-padding-top2">
-          <div className="section-title">
-            <span className="sub-title">Quick Contact</span>
-            <h2 className="text-white">Quick Contact With Us</h2>
-          </div>
-          <p className="text-white">
-            Dolor sit amet, consectetur adipiscing elit. Nibh ullamcorper as{" "}
-            <br /> felis arcu elementum viverra lectus nullam. Dolor sit amet,{" "}
-            <br /> consectetur adipiscing elit. Nibh ullamcorper.
-          </p>
-        </div>
-
         <div className="contact-wrapper">
+          <div className="section-title-area custom-padding-top2 grid grid-cols-2 gap-4">
+            <div className="section-title">
+              <span className="sub-title">Quick Contact</span>
+              <h2 className="text-white">Quick Contact With Us</h2>
+            </div>
+            <p className="text-white">
+              Dolor sit amet, consectetur adipiscing elit. Nibh ullamcorper as{" "}
+              <br /> felis arcu elementum viverra lectus nullam. Dolor sit amet,{" "}
+              <br /> consectetur adipiscing elit. Nibh ullamcorper.
+            </p>
+          </div>
           <div className="grid grid-cols-2 gap-4">
             <div className="">
               <div className="contact-info">
