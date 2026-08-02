@@ -62,7 +62,7 @@ export default function Program() {
                   <h3>{p.title}</h3>
                   <span>{p.age}</span>
                   <p>Dolor sit amet, adipiscing elit. Nibh ullamcorper felis arcu elementum.</p>
-                  <a href="/program-details" className="link-btn flex items-center gap-2">
+                  <a href="/program-details" className="link-btn flex items-center justify-center gap-2">
                     Learn More <ArrowRight />
                   </a>
                 </div>

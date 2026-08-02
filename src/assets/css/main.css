@@ -7365,13 +7365,13 @@ p {
 }
 .program-box-item .top-bar {
   position: absolute;
-  top: 6%;
-  left: 5%;
+  top: 8%;
+  left: 14%;
 }
 .program-box-item .bottom-bar {
   position: absolute;
   bottom: 4%;
-  right: 6%;
+  right: 16%;
 }
 .program-box-item .program-bg {
   position: absolute;
@@ -7398,6 +7398,10 @@ p {
 }
 .program-box-item .program-icon {
   margin-bottom: 20px;
+  padding: .75rem 3rem 0;
+}
+.program-box-item .program-content {
+  padding: 0 1.5rem;
 }
 .program-box-item .program-content h3 {
   margin-bottom: 5px;

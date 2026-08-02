@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Mails, PhoneCall, MapPinSearch, ArrowRight, Menu, X } from "lucide-react";
+import { Mails, PhoneCall, MapPinSearch, ArrowRight, Menu, X, Timer } from "lucide-react";
 import { images } from "../utils/helpers";
 
 export default function Header() {
@@ -24,7 +24,7 @@ export default function Header() {
                 </li>
                 <li>
                   <PhoneCall />
-                  <a href="tel:0396-053-054">0396-053-054</a>
+                  <a href="tel:0396-053-054">0396.053.054</a>
                 </li>
                 <li>
                   <MapPinSearch />
@@ -51,19 +51,19 @@ export default function Header() {
                     <nav id="mobile-menu">
                       <ul>
                         <li>
-                          <a href="/">Home</a>
+                          <a href="/">Trang chủ</a>
                         </li>
                         <li>
-                          <a href="/about">About Us</a>
+                          <a href="/about">Giới thiệu</a>
                         </li>
                         <li>
-                          <a href="/program">Our Programs</a>
+                          <a href="/program">Chương trình học</a>
                         </li>
                         <li>
-                          <a href="/news">Blog</a>
+                          <a href="/news">Tin tức</a>
                         </li>
                         <li>
-                          <a href="/contact">Contact</a>
+                          <a href="/contact">Liên hệ</a>
                         </li>
                       </ul>
                     </nav>
@@ -71,13 +71,9 @@ export default function Header() {
                 </div>
 
                 <div className="header-right flex justify-end items-center">
-                  <a href="/contact" className="theme-btn items-center gap-2 hidden lg:flex">
-                    Start Learning <ArrowRight />
-                  </a>
+                  <a href="/contact" className="theme-btn items-center gap-2 hidden lg:flex">Ghi danh trẻ <ArrowRight /></a>
                   <div className="header__hamburger my-auto flex lg:hidden" onClick={() => setMenuOpen(true)}>
-                    <div className="sidebar__toggle">
-                      <Menu />
-                    </div>
+                    <div className="sidebar__toggle"><Menu /></div>
                   </div>
                 </div>
               </div>
@@ -101,8 +97,8 @@ export default function Header() {
                   <button onClick={() => setMenuOpen(false)}><X /></button>
                 </div>
               </div>
-              <h3 className="offcanvas-title">Hello There!</h3>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi natus quasi sunt eum ducimus.</p>
+              <h3 className="offcanvas-title">Xin chào ba mẹ!</h3>
+              <p>Trường mầm non chúng tôi luôn đồng hành cùng con yêu trong những năm tháng đầu đời, mang đến môi trường học tập an toàn, vui tươi và bổ ích.</p>
               <div className="social-icon flex items-center">
                 <a href="#!">
                   <i className="fab fa-facebook-f" />
@@ -118,66 +114,49 @@ export default function Header() {
                 </a>
               </div>
               <div className="offcanvas__contact">
-                <h3>Contact Us</h3>
+                <h3>Liên hệ với chúng tôi</h3>
                 <ul className="contact-list">
                   <li>
                     <div className="icon">
-                      <i className="far fa-phone-alt" />
+                      <PhoneCall />
                     </div>
                     <div className="content">
-                      <p>Call Us</p>
+                      <p>Gọi ngay</p>
                       <h4>
-                        <a href="tel:+4903983493999">+49 (03) 9834 939 99</a>
+                        <a href="tel:0396053054">0396.053.054</a>
                       </h4>
                     </div>
                   </li>
                   <li>
-                    <div className="icon">
-                      <i className="fal fa-envelope" />
-                    </div>
+                    <div className="icon"><Mails /></div>
                     <div className="content">
-                      <p>Send Email</p>
+                      <p>Gửi email</p>
                       <h4>
-                        <a href="mailto:yordomain@gmial.com">
-                          yordomain@gmial.com
-                        </a>
+                        <a href="mailto:mnhongphuc.info@gmail.com">mnhongphuc.info@gmail.com </a>
                       </h4>
                     </div>
                   </li>
                   <li>
-                    <div className="icon">
-                      <i className="fal fa-map-marker-alt" />
-                    </div>
+                    <div className="icon"><MapPinSearch /></div>
                     <div className="content">
-                      <p>Location</p>
-                      <h4>Chicago 53755 NY, USA</h4>
+                      <p>Địa chỉ</p>
+                      <h4>Lộ Vàm, Chợ Gạo, Đồng Tháp</h4>
                     </div>
                   </li>
                 </ul>
               </div>
-              <a href="/contact" className="theme-btn flex items-center gap-2">
-                Start Learning <ArrowRight />
-              </a>
+              <a href="/contact" className="theme-btn flex items-center gap-2">Ghi danh trẻ <ArrowRight /></a>
             </div>
           </div>
         </div>
-        {menuOpen && (
-          <div
-            className="offcanvas__overlay active"
-            onClick={() => setMenuOpen(false)}
-          />
-        )}
+        {menuOpen && (<div className="offcanvas__overlay active" onClick={() => setMenuOpen(false)}/>)}
       </div>
 
       {/* Cart sidebar */}
-      <div
-        className={`side_bar slideInRight ${
-          cartOpen ? "" : "side_bar_hidden"
-        }`}
-      >
+      <div className={`side_bar slideInRight ${ cartOpen ? "" : "side_bar_hidden" }`}>
         <div className="side_bar_overlay" onClick={() => setCartOpen(false)} />
         <div className="cart-title mb-50">
-          <h4>Shopping cart</h4>
+          <h4>Giỏ hàng</h4>
         </div>
         <div className="cartmini__widget">
           <div className="cartmini__widget-item">
@@ -188,15 +167,15 @@ export default function Header() {
             </div>
             <div className="cartmini__content">
               <h5>
-                <a href="/shop-details">Baby Bib Pink</a>
+                <a href="/shop-details">Yếm ăn dặm cho bé</a>
               </h5>
               <div className="cartmini__price-wrapper">
-                <span className="cartmini__price">$46.00</span>
+                <span className="cartmini__price">1.100.000đ</span>
                 <span className="cartmini__quantity">x2</span>
               </div>
             </div>
             <button className="cartmini__del">
-              <i className="fal fa-times" />
+              <Timer />
             </button>
           </div>
           <div className="cartmini__widget-item">
@@ -207,35 +186,29 @@ export default function Header() {
             </div>
             <div className="cartmini__content">
               <h5>
-                <a href="/shop-details">Plastic Roller Mop</a>
+                <a href="/shop-details">Bộ đồ chơi lắp ráp</a>
               </h5>
               <div className="cartmini__price-wrapper">
-                <span className="cartmini__price">$78.00</span>
+                <span className="cartmini__price">1.850.000đ</span>
                 <span className="cartmini__quantity">x1</span>
               </div>
             </div>
             <button className="cartmini__del">
-              <i className="fal fa-times" />
+              <Timer />
             </button>
           </div>
           <div className="cartmini__checkout">
             <div className="cartmini__checkout-title mb-4">
-              <h4>Subtotal:</h4>
-              <span>$113.00</span>
+              <h4>Tạm tính:</h4>
+              <span>2.950.000đ</span>
             </div>
             <div className="cartmini__checkout-btn">
-              <a href="/shop-cart" className="theme-btn mb-2 w-100">
-                view cart
-              </a>
-              <a href="/checkout" className="theme-btn w-100 style-2">
-                checkout
-              </a>
+              <a href="/shop-cart" className="theme-btn mb-2 w-100">Xem giỏ hàng</a>
+              <a href="/checkout" className="theme-btn w-100 style-2">Thanh toán</a>
             </div>
           </div>
         </div>
-        <button id="closeButton" className="x-mark-icon" onClick={() => setCartOpen(false)}>
-          <X />
-        </button>
+        <button id="closeButton" className="x-mark-icon" onClick={() => setCartOpen(false)}><X /></button>
       </div>
     </>
   );
