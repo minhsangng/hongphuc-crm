@@ -2,10 +2,10 @@ import { useEffect, useRef, useState } from "react";
 import { images } from "../utils/helpers";
 
 const stats = [
-  { icon: "icon1.svg", value: 38, label: "Experts Instructors" },
-  { icon: "icon2.svg", value: 6539, label: "Class Completed" },
-  { icon: "icon3.svg", value: 34, label: "Year of Experience" },
-  { icon: "icon4.svg", value: 6632, label: "Students Enroll" },
+  { icon: "icon1.svg", value: 38, label: "Giáo Viên Giỏi" },
+  { icon: "icon2.svg", value: 6539, label: "Buổi Học Đã Hoàn Thành" },
+  { icon: "icon3.svg", value: 34, label: "Năm Kinh Nghiệm" },
+  { icon: "icon4.svg", value: 6632, label: "Học Sinh Đã Ghi Danh" },
 ];
 
 function useCountUp(target, start) {
@@ -36,15 +36,7 @@ function CounterItem({ icon, value, label, border }) {
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setInView(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.3 }
-    );
+    const observer = new IntersectionObserver(([entry]) => { if (entry.isIntersecting) { setInView(true); observer.disconnect(); } }, { threshold: 0.3 });
     observer.observe(el);
     return () => observer.disconnect();
   }, []);
@@ -54,9 +46,7 @@ function CounterItem({ icon, value, label, border }) {
   return (
     <div ref={ref}>
       <div className={`counter-items flex flex-col items-center ${border ? "border-none" : ""}`}>
-        <div className="icon">
-          <img src={images(icon)} alt="icon-image" />
-        </div>
+        <div className="icon"><img src={images(icon)} alt="icon-image" /></div>
         <div className="counter-box">
           <div className="count">
             <h3 className="text-white font-bold" style={{fontSize: "1.75rem"}}>{count.toLocaleString()}</h3>
@@ -74,9 +64,7 @@ export default function Counter() {
     <section className="counter-section section-padding">
       <div className="w-[90%] mx-auto">
         <div className="grid grid-cols-4 gap-2">
-          {stats.map((s, i) => (
-            <CounterItem key={s.label} {...s} border={i === stats.length - 1} />
-          ))}
+          {stats.map((s, i) => (<CounterItem key={s.label} {...s} border={i === stats.length - 1} />))}
         </div>
       </div>
     </section>

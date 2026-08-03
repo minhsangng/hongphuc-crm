@@ -1,8 +1,8 @@
 const sessions = [
-  { title: "Early Drop Off", time: "8.00am – 10.00am" },
-  { title: "Morning", time: "10.30am – 12.00am" },
-  { title: "Lunch", time: "12pm – 1.00pm" },
-  { title: "Afternoon", time: "2.00am – 4.00am" },
+  { title: "Giờ Đón Sớm", time: "8:00 – 10:00" },
+  { title: "Buổi Sáng", time: "10:30 – 12:00" },
+  { title: "Giờ Ăn Trưa", time: "12:00 – 13:00" },
+  { title: "Buổi Chiều", time: "14:00 – 16:00" },
 ];
 
 export default function Session() {
@@ -14,22 +14,15 @@ export default function Session() {
             <div>
               <div className="session-content">
                 <div className="section-title">
-                  <span className="sub-title">session Times</span>
-                  <h2>
-                    Our <span>session Times</span>
-                  </h2>
+                  <span className="sub-title">Lịch Trình Trong Ngày</span>
+                  <h2>Lịch Trình <span>Trong Ngày</span></h2>
                 </div>
-                <p>Dolor sit amet, consectetur adipiscing elit. Nibh <br /> ullamcorper felis arcu elementum.</p>
+                <p>Lịch sinh hoạt hằng ngày được sắp xếp khoa học, <br /> giúp bé phát triển toàn diện và đúng giờ giấc.</p>
               </div>
               <span className="vertical-dashed" />
             </div>
             <div>
-              {sessions.map((s) => (
-                <div key={s.title} className="session-box">
-                  <h3>{s.title}</h3>
-                  <p>{s.time}</p>
-                </div>
-              ))}
+              {sessions.map((s) => (<div key={s.title} className="session-box"><h3>{s.title}</h3><p>{s.time}</p></div>))}
             </div>
           </div>
         </div>
