@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import { Plus } from 'lucide-react';
 import DataTable from '../components/DataTable';
 import Avatar from '../components/Avatar';
-import axios from 'axios';
 import { formatVND, formatDateVN } from '../utils/helpers';
+import { getDataFromAPI } from '../utils/helpers';
 
 const columns = [
   { key: 'id', label: 'ID', sortable: false, render: v => <span className="text-dark-400 text-xs">#HPS{String(v).padStart(3,'0')}</span> },
@@ -38,8 +38,8 @@ export default function Childrens({ user }) {
 
   async function getChildrenData() {
     try {
-      const response = await axios.get('/api/get-' + (user.classId === 0 ? 'all-childrens' : ('children-by-class/' + user.classId)));
-      if (response) setData(response.data);
+      const response = await getDataFromAPI("get-" + (user.classId === 0 ? "all-childrens" : "children-by-class/" + user.classId), "get");
+      setData(response);
       setLoading(false);
     } catch (err) {
       console.log("Get children data failed: ", err);

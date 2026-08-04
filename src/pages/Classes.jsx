@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Plus, Users, BookOpen } from 'lucide-react';
 import Avatar from '../components/Avatar';
-import axios from 'axios';
+import { getDataFromAPI } from '../utils/helpers';
 
 function ClassCard({ cls, active }) {
   const occupancy = Math.round((cls.quantity / cls.quantity) * 100);
@@ -59,8 +59,8 @@ export default function Classes({ user }) {
   async function fetchClassData() {
     try {
       if (user) {
-        const response = await axios.get("/api/get-all-classes");
-        if (response.data) setData(response.data);
+        const response = await getDataFromAPI("get-all-classes", "get");
+        setData(response);
       }
     } catch (err) {
       console.error("Fetch class data failed: ", err);

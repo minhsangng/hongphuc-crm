@@ -2148,7 +2148,7 @@ p {
   color: var(--white);
 }
 
-.sticky {
+#index-page .sticky {
   position: fixed !important;
   top: 0 !important;
   left: 0;

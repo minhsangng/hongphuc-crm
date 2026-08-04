@@ -1,19 +1,20 @@
 import nodemailer from "nodemailer";
 import "dotenv/config";
+import { ENV } from "./config.js";
 
 export async function sendEmail(to, subject, html) {
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS
+      user: ENV.EMAIL_USER,
+      pass: ENV.EMAIL_PASS
     }
   });
 
   return await transporter.sendMail({
-    from: "BANANA Food Delivery",
-    to,
-    subject,
-    html
+    from: "Mầm non Hồng Phúc",
+    to: to,
+    subject: subject,
+    html: html
   });
 }

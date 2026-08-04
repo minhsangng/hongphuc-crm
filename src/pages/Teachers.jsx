@@ -3,7 +3,7 @@ import { Plus, Phone, Mail, MapPin, UserCheck } from 'lucide-react';
 import DataTable from '../components/DataTable';
 import Avatar from '../components/Avatar';
 import { parentsData } from '../data/mockData';
-import axios from 'axios';
+import { getDataFromAPI } from '../utils/helpers';
 
 const columns = [
   { key: 'fullName', label: 'Họ tên', render: (v) => (
@@ -34,10 +34,8 @@ export default function Teachers() {
   
   async function fetchTeacherData() {
     try {
-      const response = await axios.get("/api/get-all-teachers");
-      
-      if (response) setData(response.data);
-      console.log(data)
+      const response = await getDataFromAPI("get-all-teachers", "get");
+      setData(response);
     } catch (err) {
       console.error("Fetch class data failed: ", err);
     }
@@ -64,7 +62,7 @@ export default function Teachers() {
         {[
           { label: 'Tổng giáo viên', value: data.length, color: 'text-accent-600 dark:text-accent-400', bg: 'bg-accent-50 dark:bg-accent-900/20' },
           { label: 'Hợp tác tốt', value: data.filter(p => p.status === 'Đang làm').length, color: 'text-green-600 dark:text-green-400', bg: 'bg-green-50 dark:bg-green-900/20' },
-          { label: 'Cần theo dõi', value: data.filter(p => p.status === 'Tạm nghỉ').length, color: 'text-yellow-600 dark:text-yellow-400', bg: 'bg-yellow-50 dark:bg-yellow-900/20' },
+          { label: 'Cần theo dõi', value: data.filter(p => p.status !== 'Đang làm' && p.status !== 'Đã nghỉ').length, color: 'text-yellow-600 dark:text-yellow-400', bg: 'bg-yellow-50 dark:bg-yellow-900/20' },
           { label: 'Chưa liên hệ', value: data.filter(p => p.status === 'Đã nghỉ').length, color: 'text-red-600 dark:text-red-400', bg: 'bg-red-50 dark:bg-red-900/20' },
         ].map(s => (
           <div key={s.label} className={`${s.bg} rounded-2xl p-4 border border-dark-100/50 dark:border-dark-700/50`}>
@@ -74,12 +72,7 @@ export default function Teachers() {
         ))}
       </div>
 
-      <DataTable
-        title="Danh sách giáo viên"
-        columns={columns}
-        data={data}
-        pageSize={6}
-      />
+      <DataTable title="Danh sách giáo viên" columns={columns} data={data} pageSize={6} />
     </div>
   )
 }

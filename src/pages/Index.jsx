@@ -15,7 +15,7 @@ import Footer from "../components/Footer";
 
 export default function Index() {
   return (
-    <>
+    <div id="index-page">
       <Navbar />
       <main>
         <Hero />
@@ -32,6 +32,6 @@ export default function Index() {
         <Newsletter />
       </main>
       <Footer />
-    </>
+    </div>
   );
 }
