@@ -68,7 +68,7 @@ app.get("/api/v1/get-class-by-teacher/:id", async (req, res) => {
 
 /* TEACHERS */
 app.get("/api/v1/get-all-teachers", async (req, res) => {
-  const results = await db.select({...classes, teacherName: users.fullName}).from(classes).innerJoin(users, eq(users.id, classes.teacherId));
+  const results = await db.select({...classes, fullName: users.fullName, phoneNumber: users.phoneNumber, email: users.email, status: users.status }).from(classes).innerJoin(users, eq(users.id, classes.teacherId));
   if (results.length > 0) res.json(results);
   else res.json({ status: 404, message: "Empty list" });
 });

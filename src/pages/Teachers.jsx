@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
-import { Plus, Phone, Mail, MapPin, UserCheck } from 'lucide-react';
+import { Plus, Phone, Mail } from 'lucide-react';
 import DataTable from '../components/DataTable';
 import Avatar from '../components/Avatar';
-import { parentsData } from '../data/mockData';
 import { getDataFromAPI } from '../utils/helpers';
 
 const columns = [
@@ -13,14 +12,14 @@ const columns = [
     </div>
   )},
   { key: 'phoneNumber', label: 'Điện thoại', sortable: false, render: v => (
-    <span className="flex items-center gap-1 text-dark-600 dark:text-dark-400"><Phone size={12} />{v}</span>
+    <span className="flex items-center gap-1 text-dark-600 dark:text-dark-400"><Phone size={12} />{v ? v : '0000-000-000'}</span>
   )},
   { key: 'email', label: 'Email', sortable: false, render: v => (
-    <span className="flex items-center gap-1 text-dark-600 dark:text-dark-400 text-xs"><Mail size={12} />{v}</span>
+    <span className="flex items-center gap-1 text-dark-600 dark:text-dark-400 text-xs"><Mail size={12} />{v ? v : 'N/A'}</span>
   )},
-  { key: 'dob', label: 'Ngày sinh', render: v => <span className="badge badge-blue">{v}</span> },
+  { key: 'dob', label: 'Ngày sinh', render: v => <span className="badge badge-blue">{v ? v : '00-00-0000'}</span> },
   { key: 'gross', label: 'Lương', sortable: false, render: v => (
-    <span className="flex items-center gap-1 text-xs text-dark-500 dark:text-dark-400"><MapPin size={12} className="flex-shrink-0" />{v}</span>
+    <span className="flex items-center gap-1 text-xs text-dark-500 dark:text-dark-400">{v ? v : 'N/A'}</span>
   )},
   { key: 'status', label: 'Trạng thái', render: v => {
     const map = { active: ['badge-green', 'Đang làm'], warning: ['badge-yellow', 'Tạm nghỉ'], inactive: ['badge-red', 'Đã nghỉ'] }
