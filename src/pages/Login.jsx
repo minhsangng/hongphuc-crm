@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { User, LockKeyhole, UserKey, MessageCircleWarning } from "lucide-react";
+import { User, LockKeyhole, UserKey, MessageCircleWarning, Eye, EyeClosed } from "lucide-react";
 import { images } from "../utils/helpers";
 import { getDataFromAPI } from "../utils/helpers";
 
@@ -90,22 +90,35 @@ export default function LoginPage() {
         .input-hp:focus {
           box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.15);
         }
+        /* Ẩn icon con mắt mặc định của Edge / Chrome / Firefox */
+        input[type="password"]::-ms-reveal,
+        input[type="password"]::-ms-clear {
+          display: none;
+        }
+        input[type="password"]::-webkit-credentials-auto-fill-button,
+        input[type="password"]::-webkit-textfield-decoration-container {
+          visibility: hidden;
+          display: none !important;
+        }
+        input[type="password"]::-moz-reveal {
+          display: none;
+        }
       `}</style>
 
       <div className="min-h-screen max-h-screen relative overflow-hidden flex items-center justify-center p-4">
         <div className="absolute inset-0" style={{backgroundImage: `url("${images("background_login.png")}")`, backgroundSize: "100%", backgroundPosition: "center"}}></div>
         {bubbles.map((b, i) => <Bubble key={i} {...b} />)}
-        {['🌸','⭐','🎨','📚','🎵','🌈','🌟','🎠'].map((em, i) => (
+        {["sky.png","zikzak.png","sun.png","pencil.png","tubelight.png","experience.svg","coun-shape.png","follwer.png"].map((em, i) => (
           <div key={i} className="absolute text-2xl pointer-events-none select-none"
             style={{ left: `${8 + i * 12}%`, top: `${15 + (i % 3) * 25}%`, opacity: 0.25, animation: `floatBubble ${3 + i * 0.4}s ease-in-out ${i * 0.3}s infinite alternate`,
-          }}>{em}</div>
+          }}><img src={images(em)} alt="Icon" /></div>
         ))}
         <Link to="/" className="absolute top-5 left-5 flex items-center gap-2 text-red-500 hover:text-red-400 text-sm font-bold transition-all hover:gap-3 group">
           <span className="group-hover:-translate-x-1 transition-transform">←</span>Về trang chủ
         </Link>
 
         <div className={`relative z-10 w-full max-w-md card-enter ${mounted ? "card-enter-active" : ""}`} style={{ transitionDelay: "150ms" }} >
-          <div className="relative bg-white rounded-3xl shadow-2xl overflow-hidden">
+          <div className="relative bg-white rounded-3xl shadow-2xl shadow-gray/50 overflow-hidden">
             <div className="relative bg-gradient-to-r from-blue-500 to-red-400 px-8 pt-2 pb-6 text-center overflow-hidden">
               <div className="absolute -right-10 -top-10 w-40 h-40 bg-white/10 rounded-full"></div>
               <div className="absolute -left-8 -bottom-8 w-32 h-32 bg-white/10 rounded-full"></div>
@@ -131,7 +144,7 @@ export default function LoginPage() {
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1.5">Tên đăng nhập</label>
                   <div className="relative">
-                    <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-base"><User/></span>
+                    <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-base"><User size={20}/></span>
                     <input type="text" autoComplete="username" placeholder="Nhập tên đăng nhập..." value={form.userName} onChange={e => setForm(v => ({ ...v, userName: e.target.value }))}
                       className="input-hp w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white text-sm outline-none focus:border-red-400 focus:bg-white dark:focus:bg-gray-700 transition-all"
                     />
@@ -141,16 +154,17 @@ export default function LoginPage() {
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1.5">Mật khẩu</label>
                   <div className="relative">
-                    <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-base"><LockKeyhole/></span>
-                    <input type={showPass ? 'text' : 'password'} autoComplete="current-password" placeholder="Nhập mật khẩu..." value={form.password} onChange={e => setForm(v => ({ ...v, password: e.target.value }))}
+                    <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-base"><LockKeyhole size={20}/></span>
+                    <input type={showPass ? "text" : "password"} autoComplete="current-password" placeholder="Nhập mật khẩu..." value={form.password} onChange={e => setForm(v => ({ ...v, password: e.target.value }))}
                       className="input-hp w-full pl-10 pr-12 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white text-sm outline-none focus:border-red-400 focus:bg-white dark:focus:bg-gray-700 transition-all"
                     />
+                    <button type="button" className="absolute right-3.5 top-1/2 -translate-y-1/2" onClick={()=>setShowPass(!showPass)}>{showPass ? <Eye size={20} /> : <EyeClosed size={20}/>}</button>
                   </div>
                 </div>
 
                 <div className="flex items-center justify-between">
                   <label className="flex items-center gap-2 cursor-pointer group" onClick={() => setForm(v => ({ ...v, remember: !v.remember }))}>
-                    <div className={`w-5 h-5 rounded-md border-2 flex items-center justify-center transition-all ${form.remember ? 'bg-red-500 border-red-500' : 'border-gray-300 dark:border-gray-600 group-hover:border-red-300'}`}>
+                    <div className={`w-3 h-3 rounded-sm border-2 flex items-center justify-center transition-all ${form.remember ? 'bg-red-500 border-red-500' : 'border-gray-300 dark:border-gray-600 group-hover:border-red-300'}`}>
                       {form.remember && <span className="text-white text-xs font-bold">✓</span>}
                     </div>
                     <span className="text-sm text-gray-600 dark:text-gray-400 select-none">Ghi nhớ đăng nhập</span>
