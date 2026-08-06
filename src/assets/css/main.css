@@ -163,7 +163,7 @@ button {
   padding: 0;
 }
 
-input:focus {
+#index input:focus {
   color: var(--white);
   outline: none;
 }
@@ -2148,7 +2148,7 @@ p {
   color: var(--white);
 }
 
-#index-page .sticky {
+#index .sticky {
   position: fixed !important;
   top: 0 !important;
   left: 0;
@@ -6277,11 +6277,6 @@ p {
 }
 .shop-main-sidebar .search_widget form button:hover {
   background-color: var(--header);
-}
-
-.price-range-wrapper {
-  /* Custom thumb styling */
-  /* Remove the default appearance for sliders in Firefox */
 }
 .price-range-wrapper .slider-container {
   position: relative;

@@ -20,7 +20,7 @@ export const users = pgTable("users", {
   phoneNumber: varchar("phone_number", { length: 12 }).notNull().default("0000-000-000"),
   email: varchar("email", { length: 30 }).notNull().unique(),
   gross: numeric("gross", { precision: 10, scale: 0 }).notNull().default(0),
-  role: varchar("role", { length: 10 }).notNull().default("Giáo viên"),
+  role: varchar("role", { length: 15 }).notNull().default("Giáo viên"),
   status: varchar("status").notNull().default("Hoạt động"),
 });
 

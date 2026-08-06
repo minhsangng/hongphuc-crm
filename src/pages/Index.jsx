@@ -15,7 +15,7 @@ import Footer from "../components/Footer";
 
 export default function Index() {
   return (
-    <div id="index-page">
+    <div id="index">
       <Navbar />
       <main>
         <Hero />

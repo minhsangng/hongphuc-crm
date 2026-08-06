@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import axios from "axios";
 
 export function formatVND(amount) {
@@ -36,9 +35,9 @@ export function avatarColor(name) {
 export function images(path) {
   const image = Object.fromEntries(Object.entries(import.meta.glob("../assets/img/*", { eager: true, import: "default" })).map(([key, value]) => [key.split("/").pop(), value]));
   return image[path];
-}
+};
 
-export async function getDataFromAPI(url, type = "get") {
+export async function getDataFromAPI(url, type = "get", body = null) {
   let data = [];
   const fetchUrl = "/api/v1/" + url;
   switch (type) {
@@ -47,11 +46,17 @@ export async function getDataFromAPI(url, type = "get") {
       if (resGet) data = resGet.data;
     break;
     case "post":
-      const resPost = await axios.post(fetchUrl);
+      const resPost = await axios.post(fetchUrl, body);
       if (resPost) data = resPost.data;
+    break;
+    case "put":
+    
+    break;
+    case "delete":
+    
     break;
     default:
       console.error("Invalid request type");
   }
   return data;
-}
+};

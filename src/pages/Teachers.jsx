@@ -33,7 +33,7 @@ export default function Teachers() {
   
   async function fetchTeacherData() {
     try {
-      const response = await getDataFromAPI("get-all-teachers", "get");
+      const response = await getDataFromAPI("get-all-teachers");
       setData(response);
     } catch (err) {
       console.error("Fetch class data failed: ", err);

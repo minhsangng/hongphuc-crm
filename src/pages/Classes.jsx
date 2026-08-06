@@ -16,18 +16,15 @@ function ClassCard({ cls, active }) {
           </div>
           <div>
             <h3 className="font-bold text-dark-900 dark:text-white">Lớp {cls.className}</h3>
-            <p className="text-xs text-dark-400 dark:text-dark-500">{cls.approximateAge}</p>
+            <p className="text-xs text-dark-400 dark:text-dark-500">Giai đoạn: {cls.approximateAge}</p>
           </div>
         </div>
-        <span className={`badge ${occupancy >= 90 ? 'badge-red' : occupancy >= 70 ? 'badge-yellow' : 'badge-green'}`}>
-          {occupancy}% sĩ số
-        </span>
       </div>
 
       <div className="space-y-3 mb-4">
         <div className="flex items-center gap-2 text-sm">
           <Avatar name={cls.teacherName || "Hồng Phúc"} size="xs" />
-          <span className="text-dark-600 dark:text-dark-300 text-xs">{cls.teacherName}</span>
+          <span className="text-dark-600 dark:text-dark-300 text-xs">{cls.teacherName || "N/A"}</span>
         </div>
         <div className="flex items-center gap-2 text-xs text-dark-500 dark:text-dark-400">
           <Users size={13} />
@@ -38,7 +35,7 @@ function ClassCard({ cls, active }) {
       <div>
         <div className="flex justify-between text-xs mb-1.5">
           <span className="text-dark-500 dark:text-dark-400">Sĩ số</span>
-          <span className="font-medium text-dark-700 dark:text-dark-300">{cls.quantity}/{cls.quantity}</span>
+          <span className={`badge ${occupancy >= 90 ? 'badge-red' : occupancy >= 70 ? 'badge-yellow' : 'badge-green'}`}>{occupancy}%</span>
         </div>
         <div className="h-2 rounded-full bg-dark-100 dark:bg-dark-700 overflow-hidden">
           <div className={`h-full rounded-full ${barColor} transition-all duration-700`} style={{ width: `${occupancy}%` }} />
@@ -59,7 +56,7 @@ export default function Classes({ user }) {
   async function fetchClassData() {
     try {
       if (user) {
-        const response = await getDataFromAPI("get-all-classes", "get");
+        const response = await getDataFromAPI("get-all-classes");
         setData(response);
       }
     } catch (err) {

@@ -6,7 +6,7 @@ import { formatVND, formatDateVN } from '../utils/helpers';
 import { getDataFromAPI } from '../utils/helpers';
 
 const columns = [
-  { key: 'id', label: 'ID', sortable: false, render: v => <span className="text-dark-400 text-xs">#HPS{String(v).padStart(3,'0')}</span> },
+  { key: 'id', label: 'ID', sortable: false, render: v => <span className="text-dark-400 text-xs">#{String(v).padStart(3,'0')}</span> },
   { key: 'fullName', label: 'Họ tên', render: (v, row) => (
     <div className="flex items-center gap-2.5">
       <Avatar name={v} size="sm" />
@@ -19,9 +19,7 @@ const columns = [
   { key: 'className', label: 'Lớp', render: v => <span className="badge badge-blue">{v}</span> },
   { key: 'parentName', label: 'Phụ huynh' },
   { key: 'phoneNumber', label: 'Điện thoại', sortable: false },
-  { key: 'fee', label: 'Học phí', render: v => {
-    return <span className='badge-red'>{formatVND(Number(v))}</span>
-  }},
+  { key: 'fee', label: 'Học phí', render: v => { return <span className='badge-red'>{formatVND(Number(v))}</span> }},
   { key: 'status', label: 'Trạng thái', render: v => {
     const map = {
       'Đang học': 'badge-green',
@@ -38,7 +36,7 @@ export default function Childrens({ user }) {
 
   async function getChildrenData() {
     try {
-      const response = await getDataFromAPI("get-" + (user.classId === 0 ? "all-childrens" : "children-by-class/" + user.classId), "get");
+      const response = await getDataFromAPI("get-" + (user.classId === 0 ? "all-childrens" : "children-by-class/" + user.classId));
       setData(response);
       setLoading(false);
     } catch (err) {
