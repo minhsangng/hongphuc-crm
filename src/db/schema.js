@@ -6,7 +6,6 @@ export const classes = pgTable("classes", {
   className: varchar("class_name", { length: 30 }).notNull(),
   quantity: integer("quantity").notNull().default(0),
   approximateAge: varchar("approximate_age", { length: 30 }),
-  teacherId: integer("teacher_id").notNull().unique(),
   status: varchar("status").notNull().default("Hoạt động"),
 });
 
@@ -21,6 +20,8 @@ export const users = pgTable("users", {
   email: varchar("email", { length: 30 }).notNull().unique(),
   gross: numeric("gross", { precision: 10, scale: 0 }).notNull().default(0),
   role: varchar("role", { length: 15 }).notNull().default("Giáo viên"),
+  classId: integer("class_id").notNull().default(0),
+  hireDate: date("hire_date").notNull().defaultNow(),
   status: varchar("status").notNull().default("Hoạt động"),
 });
 

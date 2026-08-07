@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { User, LockKeyhole, UserKey, MessageCircleWarning, Eye, EyeClosed } from "lucide-react";
-import { images } from "../utils/helpers";
-import { getDataFromAPI } from "../utils/helpers";
+import { images, getDataFromAPI } from "../utils/helpers";
+import { generateKey, encryptData, decryptData } from "../utils/webCryptoAPI";
 
 function Bubble({ size, color, x, y, delay, duration }) {
   return (
@@ -19,7 +19,7 @@ export default function LoginPage() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    document.documentElement.removeAttribute("class");
+    if (document.documentElement.hasAttribute("class")) document.documentElement.removeAttribute("class");
     setTimeout(() => setMounted(true), 50);
   }, []);
 

@@ -76,12 +76,13 @@ app.get("/api/v1/get-all-teachers", async (req, res) => {
 /* AUTH */
 app.post("/api/v1/auth-login", async (req, res) => {
   const { userName, password, remember } = req.body;
-  const result = await db.select({ id: users.id, fullName: users.fullName, role: users.role }).from(users).where(and(eq(users.loginName, userName), eq(users.password, password))).limit(1);
+  const result = await db.select({ id: users.id, fullName: users.fullName, role: users.role, classId: users.classId }).from(users).where(and(eq(users.loginName, userName), eq(users.password, password))).limit(1);
   if (result.length === 1) {
     const id = parseInt(result[0].id);
     const fullName = result[0].fullName;
     const role = result[0].role.trim();
-    req.session.user = { fullName: fullName, userName: userName, uid: id, role: role };
+    const classId = result[0].classId;
+    req.session.user = { fullName: fullName, userName: userName, uid: id, role: role, classId: classId };
     res.json({ status: 200, message: "Login successfull" });
   } else res.json({ status: 401, message: "Login failed" });
 });

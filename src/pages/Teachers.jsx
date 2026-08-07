@@ -59,10 +59,10 @@ export default function Teachers() {
       {/* Summary cards */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         {[
-          { label: 'Tổng giáo viên', value: data.length, color: 'text-accent-600 dark:text-accent-400', bg: 'bg-accent-50 dark:bg-accent-900/20' },
-          { label: 'Hợp tác tốt', value: data.filter(p => p.status === 'Đang làm').length, color: 'text-green-600 dark:text-green-400', bg: 'bg-green-50 dark:bg-green-900/20' },
-          { label: 'Cần theo dõi', value: data.filter(p => p.status !== 'Đang làm' && p.status !== 'Đã nghỉ').length, color: 'text-yellow-600 dark:text-yellow-400', bg: 'bg-yellow-50 dark:bg-yellow-900/20' },
-          { label: 'Chưa liên hệ', value: data.filter(p => p.status === 'Đã nghỉ').length, color: 'text-red-600 dark:text-red-400', bg: 'bg-red-50 dark:bg-red-900/20' },
+          { label: 'Tổng giáo viên', value: data.length > 0 ? data.length : 0, color: 'text-accent-600 dark:text-accent-400', bg: 'bg-accent-50 dark:bg-accent-900/20' },
+          { label: 'Hợp tác tốt', value: data.length > 0 ? data.filter(p => p.status === 'Đang làm').length : 0, color: 'text-green-600 dark:text-green-400', bg: 'bg-green-50 dark:bg-green-900/20' },
+          { label: 'Cần theo dõi', value: data.length > 0 ? data.filter(p => p.status !== 'Đang làm' && p.status !== 'Đã nghỉ').length : 0, color: 'text-yellow-600 dark:text-yellow-400', bg: 'bg-yellow-50 dark:bg-yellow-900/20' },
+          { label: 'Chưa liên hệ', value: data.length > 0 ? data.filter(p => p.status === 'Đã nghỉ').length : 0, color: 'text-red-600 dark:text-red-400', bg: 'bg-red-50 dark:bg-red-900/20' },
         ].map(s => (
           <div key={s.label} className={`${s.bg} rounded-2xl p-4 border border-dark-100/50 dark:border-dark-700/50`}>
             <p className={`text-2xl font-bold ${s.color}`}>{s.value}</p>

@@ -1,5 +1,5 @@
 {
-  "id": "fdd23891-4fda-4691-bb53-0da86f7a9c22",
+  "id": "07d06c66-7f4a-466e-b5eb-b570dfd03782",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -209,12 +209,6 @@
           "primaryKey": false,
           "notNull": false
         },
-        "teacher_id": {
-          "name": "teacher_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
-        },
         "status": {
           "name": "status",
           "type": "varchar",
@@ -226,15 +220,7 @@
       "indexes": {},
       "foreignKeys": {},
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {
-        "classes_teacher_id_unique": {
-          "name": "classes_teacher_id_unique",
-          "nullsNotDistinct": false,
-          "columns": [
-            "teacher_id"
-          ]
-        }
-      },
+      "uniqueConstraints": {},
       "policies": {},
       "checkConstraints": {},
       "isRLSEnabled": false
@@ -723,6 +709,20 @@
           "primaryKey": false,
           "notNull": true,
           "default": "'Giáo viên'"
+        },
+        "class_id": {
+          "name": "class_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "hire_date": {
+          "name": "hire_date",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
         },
         "status": {
           "name": "status",

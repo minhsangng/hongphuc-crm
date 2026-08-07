@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Plus, Users, BookOpen } from 'lucide-react';
-import Avatar from '../components/Avatar';
 import { getDataFromAPI } from '../utils/helpers';
+import Avatar from '../components/Avatar';
 
 function ClassCard({ cls, active }) {
   const occupancy = Math.round((cls.quantity / cls.quantity) * 100);
@@ -75,19 +75,19 @@ export default function Classes({ user }) {
           <h2 className="text-xl font-bold text-dark-900 dark:text-white">Lớp học</h2>
           <p className="text-sm text-dark-400 dark:text-dark-500 mt-0.5">Quản lý <span class="text-red-100 underline">{(user.classId !== 0 ? 'lớp ' + user.className || 'default' : 'các lớp học trong trường')}</span></p>
         </div>
-        <button className={`btn-primary text-xs ${user.role !== 'Quản lý' ? 'cursor-not-allowed' : 'cursor-pointer'}`} disabled={user.role !== 'Quản lý'}>
+        <button className={`btn-primary text-xs ${!["Quản trị viên", "Quản lý"].includes(user.role) ? 'cursor-not-allowed' : 'cursor-pointer'}`} disabled={["Quản trị viên", "Quản lý"].includes(user.role)}>
           <Plus size={13} /> Thêm lớp học
         </button>
       </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
         {[
-          { label: 'Tổng lớp', value: data.length, color: 'text-accent-600 dark:text-accent-400', bg: 'bg-accent-50 dark:bg-accent-900/20' },
+          { label: 'Tổng lớp', value: data.length > 0 ? data.length : 0, color: 'text-accent-600 dark:text-accent-400', bg: 'bg-accent-50 dark:bg-accent-900/20' },
           { label: 'Lớp Mầm', value: 2, color: 'text-green-600 dark:text-green-400', bg: 'bg-green-50 dark:bg-green-900/20' },
           { label: 'Lớp Chồi', value: 2, color: 'text-yellow-600 dark:text-yellow-400', bg: 'bg-yellow-50 dark:bg-yellow-900/20' },
           { label: 'Lớp Thỏ Ngọc', value: 2, color: 'text-purple-600 dark:text-purple-400', bg: 'bg-purple-50 dark:bg-purple-900/20' },
-          { label: 'Tổng học sinh', value: data.reduce((s, c) => s + c.quantity, 0), color: 'text-primary-600 dark:text-primary-400', bg: 'bg-primary-50 dark:bg-primary-900/20' },
-          { label: 'Chỗ trống', value: data.reduce((s, c) => s + (c.quantity - c.quantity), 0), color: 'text-dark-600 dark:text-dark-300', bg: 'bg-dark-100 dark:bg-dark-800' },
+          { label: 'Tổng học sinh', value: data.length > 0 ? data.reduce((s, c) => s + c.quantity, 0) : 0, color: 'text-primary-600 dark:text-primary-400', bg: 'bg-primary-50 dark:bg-primary-900/20' },
+          { label: 'Chỗ trống', value: data.length > 0 ? data.reduce((s, c) => s + (c.quantity - c.quantity), 0) : 0, color: 'text-dark-600 dark:text-dark-300', bg: 'bg-dark-100 dark:bg-dark-800' },
         ].map(s => (
           <div key={s.label} className={`${s.bg} rounded-2xl p-4 border border-dark-100/50 dark:border-dark-700/50`}>
             <p className={`text-2xl font-bold ${s.color}`}>{s.value}</p>
@@ -96,9 +96,11 @@ export default function Classes({ user }) {
         ))}
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      {data.length > 0 
+      ? <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {data.map(cls => <ClassCard key={cls.id} cls={cls} active={user.classId !== cls.id} />)}
-      </div>
+      </div> 
+      : <div className="flex items-center justify-center"><p className="text-sm text-dark-400 dark:text-dark-500">Không có dữ liệu</p></div>}
     </div>
   )
 };

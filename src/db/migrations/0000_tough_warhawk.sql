@@ -27,9 +27,7 @@ CREATE TABLE "classes" (
 	"class_name" varchar(30) NOT NULL,
 	"quantity" integer DEFAULT 0 NOT NULL,
 	"approximate_age" varchar(30),
-	"teacher_id" integer NOT NULL,
-	"status" varchar DEFAULT 'Hoạt động' NOT NULL,
-	CONSTRAINT "classes_teacher_id_unique" UNIQUE("teacher_id")
+	"status" varchar DEFAULT 'Hoạt động' NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE "cook_table_details" (
@@ -102,6 +100,8 @@ CREATE TABLE "users" (
 	"email" varchar(30) NOT NULL,
 	"gross" numeric(10, 0) DEFAULT 0 NOT NULL,
 	"role" varchar(15) DEFAULT 'Giáo viên' NOT NULL,
+	"class_id" integer DEFAULT 0 NOT NULL,
+	"hire_date" date DEFAULT now() NOT NULL,
 	"status" varchar DEFAULT 'Hoạt động' NOT NULL,
 	CONSTRAINT "users_login_name_unique" UNIQUE("login_name"),
 	CONSTRAINT "users_email_unique" UNIQUE("email")

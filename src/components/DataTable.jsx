@@ -1,46 +1,46 @@
-import React, { useState, useMemo } from 'react'
-import { ArrowUpDown, ArrowUp, ArrowDown, Search, Filter } from 'lucide-react'
-import Pagination from './Pagination'
+import React, { useState, useMemo } from "react";
+import { ArrowUpDown, ArrowUp, ArrowDown, Search, Filter } from "lucide-react";
+import Pagination from "./Pagination";
 
 export default function DataTable({
-  title, columns, data, pageSize = 5, loading = false, emptyMessage = 'Không có dữ liệu', searchable = true
+  title, columns, data, pageSize = 5, loading = false, emptyMessage = "Không có dữ liệu", searchable = true
 }) {
-  const [page, setPage] = useState(1)
-  const [sortKey, setSortKey] = useState(null)
-  const [sortDir, setSortDir] = useState('asc')
-  const [search, setSearch] = useState('')
+  const [page, setPage] = useState(1);
+  const [sortKey, setSortKey] = useState(null);
+  const [sortDir, setSortDir] = useState("asc");
+  const [search, setSearch] = useState("");
 
   function handleSort(key) {
-    if (sortKey === key) setSortDir(d => d === 'asc' ? 'desc' : 'asc')
-    else { setSortKey(key); setSortDir('asc') }
-    setPage(1)
+    if (sortKey === key) setSortDir(d => d === "asc" ? "desc" : "asc");
+    else { setSortKey(key); setSortDir("asc"); }
+    setPage(1);
   }
 
   const filtered = useMemo(() => {
-    if (!search.trim()) return data
-    const q = search.toLowerCase()
+    if (!search.trim()) return data;
+    const q = search.toLowerCase();
     return data.filter(row =>
-      columns.some(col => String(row[col.key] ?? '').toLowerCase().includes(q))
+      columns.some(col => String(row[col.key] ?? "").toLowerCase().includes(q))
     )
-  }, [data, search, columns])
+  }, [data, search, columns]);
 
   const sorted = useMemo(() => {
     if (!sortKey) return filtered
     return [...filtered].sort((a, b) => {
       const av = a[sortKey], bv = b[sortKey]
-      const cmp = String(av).localeCompare(String(bv), 'vi')
-      return sortDir === 'asc' ? cmp : -cmp
+      const cmp = String(av).localeCompare(String(bv), "vi")
+      return sortDir === "asc" ? cmp : -cmp
     })
-  }, [filtered, sortKey, sortDir])
+  }, [filtered, sortKey, sortDir]);
 
-  const paged = sorted.slice((page - 1) * pageSize, page * pageSize)
+  const paged = data.length > 0 ? sorted.slice((page - 1) * pageSize, page * pageSize) : [];
 
   const SortIcon = ({ col }) => {
     if (sortKey !== col.key) return <ArrowUpDown size={13} className="text-dark-300 dark:text-dark-600" />
-    return sortDir === 'asc'
+    return sortDir === "asc"
       ? <ArrowUp size={13} className="text-primary-500" />
       : <ArrowDown size={13} className="text-primary-500" />
-  }
+  };
 
   if (loading) {
     return (
@@ -63,27 +63,21 @@ export default function DataTable({
 
   return (
     <div className="bg-white dark:bg-dark-800 rounded-2xl border border-dark-100 dark:border-dark-700 overflow-hidden animate-fade-in">
-      {/* Table header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-5 py-4 border-b border-dark-100 dark:border-dark-700">
         <div>
           <h3 className="font-semibold text-dark-900 dark:text-white text-sm">{title}</h3>
-          <p className="text-xs text-dark-400 dark:text-dark-500 mt-0.5">{filtered.length} kết quả</p>
+          <p className="text-xs text-dark-400 dark:text-dark-500 mt-0.5">{data.length > 0 ? filtered.length : 0} kết quả</p>
         </div>
         {searchable && (
           <div className="relative sm:w-56">
             <Search size={14} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-dark-400" />
-            <input
-              type="text"
-              placeholder="Tìm kiếm..."
-              value={search}
-              onChange={e => { setSearch(e.target.value); setPage(1) }}
-              className="input-field pl-8 h-8 text-xs"
+            <input type="text" placeholder="Tìm kiếm..." value={search}
+              onChange={e => { setSearch(e.target.value); setPage(1) }} className="input-field pl-8 h-8 text-xs"
             />
           </div>
         )}
       </div>
 
-      {/* Table */}
       <div className="overflow-x-auto">
         <table className="w-full min-w-max">
           <thead className="bg-dark-50 dark:bg-dark-900/50">
@@ -91,13 +85,9 @@ export default function DataTable({
               {columns.map(col => (
                 <th key={col.key} className="table-header">
                   {col.sortable !== false ? (
-                    <button
-                      onClick={() => handleSort(col.key)}
+                    <button onClick={() => handleSort(col.key)}
                       className="flex items-center gap-1.5 hover:text-dark-700 dark:hover:text-dark-200 transition-colors group"
-                    >
-                      {col.label}
-                      <SortIcon col={col} />
-                    </button>
+                    >{col.label}<SortIcon col={col} /></button>
                   ) : col.label}
                 </th>
               ))}
@@ -111,7 +101,7 @@ export default function DataTable({
                     <Filter size={32} className="text-dark-200 dark:text-dark-700" />
                     <p className="text-sm text-dark-400 dark:text-dark-500">{emptyMessage}</p>
                     {search && (
-                      <button onClick={() => setSearch('')} className="text-xs text-accent-600 hover:underline">Xóa tìm kiếm</button>
+                      <button onClick={() => setSearch("")} className="text-xs text-accent-600 hover:underline">Xóa tìm kiếm</button>
                     )}
                   </div>
                 </td>
@@ -126,8 +116,7 @@ export default function DataTable({
                     </td>
                   ))}
                 </tr>
-              ))
-            )}
+              )))}
           </tbody>
         </table>
       </div>
