@@ -35,10 +35,14 @@ export default function Childrens({ user }) {
   const [data, setData] = useState([]);
 
   async function getChildrenData() {
+    console.log(user)
     try {
       const response = await getDataFromAPI("get-" + (user.classId === 0 || !user.classId ? "all-childrens" : "children-by-class/" + user.classId));
-      setData(response);
+      if (response.status === 200) {
+        setData(response.data);
+      }
       setLoading(false);
+      console.log(response);
     } catch (err) {
       console.log("Get children data failed: ", err);
     }
@@ -46,14 +50,14 @@ export default function Childrens({ user }) {
   
   useEffect(() => {
     getChildrenData();
-  }, [user]);
+  }, []);
 
   return (
     <div className="p-4 lg:p-6 space-y-6 animate-fade-in">
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-xl font-bold text-dark-900 dark:text-white">Học sinh</h2>
-          <p className="text-sm text-dark-400 dark:text-dark-500 mt-0.5">Quản lý danh sách học sinh <span class="text-red-100 underline">{(user.classId !== 0 ? "lớp " + user.className || "default" : "toàn trường")}</span></p>
+          <p className="text-sm text-dark-400 dark:text-dark-500 mt-0.5">Quản lý danh sách học sinh {(user.classId !== 0 ? "lớp " + user.className || "default" : "toàn trường")}</p>
         </div>
         <button className="btn-primary text-xs">
           <Plus size={13} /> Nhập học mới

@@ -12,7 +12,7 @@ function Bubble({ size, color, x, y, delay, duration }) {
 
 export default function LoginPage() {
   const navigate = useNavigate()
-  const [form, setForm] = useState({ userName: "", password: "", remember: false });
+  const [form, setForm] = useState({ userName: "", password: "" });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [showPass, setShowPass] = useState(false);
@@ -39,15 +39,29 @@ export default function LoginPage() {
     if (!form.userName.trim() || !form.password.trim()) {
       setError("Vui lòng nhập đầy đủ thông tin đăng nhập.");
       return;
-    } else {
-      setLoading(true);
-      const response = await getDataFromAPI("auth-login", "post", form);
+    }
+
+    setLoading(true);
+
+    try {
+      const response = await Promise.race([
+        getDataFromAPI("auth-login", "post", form),
+        new Promise((_, reject) => setTimeout(() => reject(new Error("timeout")), 5000)),
+      ]);
+
       if (response.status === 200) {
         navigate("/admin");
       } else {
-        setLoading(false);
         setError("Tên đăng nhập hoặc mật khẩu không đúng.");
       }
+    } catch (err) {
+      if (err.message === "timeout") {
+        setError("Kết nối quá lâu, vui lòng kiểm tra mạng và thử lại.");
+      } else {
+        setError("Đã có lỗi xảy ra. Vui lòng thử lại.");
+      }
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -108,7 +122,7 @@ export default function LoginPage() {
       <div className="min-h-screen max-h-screen relative overflow-hidden flex items-center justify-center p-4">
         <div className="absolute inset-0" style={{backgroundImage: `url("${images("background_login.png")}")`, backgroundSize: "100%", backgroundPosition: "center"}}></div>
         {bubbles.map((b, i) => <Bubble key={i} {...b} />)}
-        {["sky.png","zikzak.png","sun.png","pencil.png","tubelight.png","experience.svg","coun-shape.png","follwer.png"].map((em, i) => (
+        {["sky.png","tree.png","sun.png","car.png","pencil.png","tubelight.png","coun-shape.png","follwer.png"].map((em, i) => (
           <div key={i} className="absolute text-2xl pointer-events-none select-none"
             style={{ left: `${8 + i * 12}%`, top: `${15 + (i % 3) * 25}%`, opacity: 0.25, animation: `floatBubble ${3 + i * 0.4}s ease-in-out ${i * 0.3}s infinite alternate`,
           }}><img src={images(em)} alt="Icon" /></div>
@@ -162,13 +176,13 @@ export default function LoginPage() {
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between">
-                  <label className="flex items-center gap-2 cursor-pointer group" onClick={() => setForm(v => ({ ...v, remember: !v.remember }))}>
+                <div className="flex items-center justify-end">
+                  {/* <label className="flex items-center gap-2 cursor-pointer group" onClick={() => setForm(v => ({ ...v, remember: !v.remember }))}>
                     <div className={`w-3 h-3 rounded-sm border-2 flex items-center justify-center transition-all ${form.remember ? 'bg-red-500 border-red-500' : 'border-gray-300 dark:border-gray-600 group-hover:border-red-300'}`}>
                       {form.remember && <span className="text-white text-xs font-bold">✓</span>}
                     </div>
                     <span className="text-sm text-gray-600 dark:text-gray-400 select-none">Ghi nhớ đăng nhập</span>
-                  </label>
+                  </label> */}
                   <button type="button" className="text-sm text-red-500 hover:text-red-600 font-medium transition-colors hover:underline">Quên mật khẩu?</button>
                 </div>
 
@@ -190,7 +204,7 @@ export default function LoginPage() {
                 </button>
               </form>
 
-              <p className="text-center text-xs text-gray-400 dark:text-gray-600 mt-3">© <Link to="/">2026 Mầm non Hồng Phúc</Link></p>
+              <p className="text-center text-xs text-gray-400 dark:text-gray-600 mt-3">© 2026 <Link to="/">Mầm non Hồng Phúc</Link></p>
             </div>
           </div>
         </div>

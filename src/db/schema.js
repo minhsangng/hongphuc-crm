@@ -12,8 +12,8 @@ export const classes = pgTable("classes", {
 export const users = pgTable("users", {
   id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
   fullName: varchar("full_name", { length: 30 }),
-  gender: varchar("gender").notNull().default("Nam"),
-  dob: date("date_of_birth"),
+  gender: varchar("gender").notNull().default("Nữ"),
+  dob: date("dob"),
   loginName: varchar("login_name").notNull().unique(),
   password: text("password").notNull(),
   phoneNumber: varchar("phone_number", { length: 12 }).notNull().default("0000-000-000"),
@@ -28,8 +28,8 @@ export const users = pgTable("users", {
 export const childrens = pgTable("childrens", {
   id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
   fullName: varchar("full_name", { length: 30 }).notNull(),
-  gender: varchar("gender").notNull().default("Nam"),
-  dob: date("date_of_birth"),
+  gender: varchar("gender").notNull().default("Nữ"),
+  dob: date("dob"),
   classId: integer("class_id").notNull(),
   fee: numeric("fee", { precision: 10, scale: 0 }).notNull().default(1690000),
   parentName: varchar("parent_name", { length: 30 }).notNull(),

@@ -1,14 +1,15 @@
 import axios from "axios";
 
 export function formatVND(amount) {
+  const trim = (n) => n % 1 === 0 ? n.toFixed(0) : n.toFixed(1);
   if (amount >= 1_000_000_000) {
-    return (amount / 1_000_000_000).toFixed(1) + " tỷ";
+    return trim(amount / 1_000_000_000) + " tỷ";
   }
   if (amount >= 10_000_000) {
-    return (amount / 10_000_000).toFixed(1) + " triệu";
+    return trim(amount / 1_000_000) + " triệu";
   }
-  return amount.toLocaleString("vi-VN") + " đ";
-};
+  return Number(amount).toLocaleString("vi-VN") + " đ";
+}
 
 export function formatVNDShort(amount) {
   if (amount >= 1_000_000_000) return (amount / 1_000_000_000).toFixed(1) + "B";

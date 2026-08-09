@@ -40,8 +40,8 @@ app.get("/api/v1/get-all-childrens", async (req, res) => {
 
 app.get("/api/v1/get-children-by-id/:id", async (req, res) => {
   const { id } = req.params;
-  const results = await db.select().from(childrens).where(eq(childrens.id, parseInt(id)));
-  if (results.length > 0) res.json(results);
+  const results = await db.select().from(childrens).where(eq(childrens.classId, parseInt(id)));
+  if (results.length > 0) res.json({ status: 200, data: results });
   else res.json({ status: 404, message: `Not found children with ID: ${id}` });
 });
 
@@ -54,28 +54,28 @@ app.get("/api/v1/get-children-by-class/:id", async (req, res) => {
 
 /* CLASSES */
 app.get("/api/v1/get-all-classes", async (req, res) => {
-  const results = await db.select({...classes, teacherName: users.fullName}).from(classes).leftJoin(users, eq(users.id, classes.userId));
+  const results = await db.select({...classes, teacherName: users.fullName}).from(classes).leftJoin(users, eq(users.classId, classes.id));
   if (results.length > 0) res.json(results);
   else res.json({ status: 404, message: "Empty list" });
 });
 
 app.get("/api/v1/get-class-by-teacher/:id", async (req, res) => {
   const { id } = req.params;
-  const results = await db.select({...classes, teacherName: users.fullName}).from(classes).innerJoin(users, eq(users.id, classes.teacherId)).where(eq(classes.teacherId, parseInt(id)));
+  const results = await db.select({...classes, teacherName: users.fullName}).from(classes).innerJoin(users, eq(users.classId, classes.id)).where(eq(classes.id, parseInt(id)));
   if (results.length > 0) res.json(results);
   else res.json({ status: 404, message: `Not found class of teacher with ID: ${id}` });
 });
 
 /* TEACHERS */
 app.get("/api/v1/get-all-teachers", async (req, res) => {
-  const results = await db.select({...classes, fullName: users.fullName, phoneNumber: users.phoneNumber, email: users.email, status: users.status }).from(classes).innerJoin(users, eq(users.id, classes.teacherId));
+  const results = await db.select({...classes, ...users }).from(classes).innerJoin(users, eq(users.classId, classes.id));
   if (results.length > 0) res.json(results);
   else res.json({ status: 404, message: "Empty list" });
 });
 
 /* AUTH */
 app.post("/api/v1/auth-login", async (req, res) => {
-  const { userName, password, remember } = req.body;
+  const { userName, password } = req.body;
   const result = await db.select({ id: users.id, fullName: users.fullName, role: users.role, classId: users.classId }).from(users).where(and(eq(users.loginName, userName), eq(users.password, password))).limit(1);
   if (result.length === 1) {
     const id = parseInt(result[0].id);
