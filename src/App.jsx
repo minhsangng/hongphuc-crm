@@ -10,6 +10,7 @@ import Childrens from "./pages/Childrens";
 import Classes from "./pages/Classes";
 import Kitchens from "./pages/Kitchens";
 import Reports from "./pages/Reports";
+import Feedbacks from './pages/Feedbacks';
 import Settings from "./pages/Settings";
 import Index from "./pages/Index";
 import Login from "./pages/Login";
@@ -21,6 +22,7 @@ const pages = {
   classes: Classes,
   kitchens: Kitchens,
   reports: Reports,
+  feedbacks: Feedbacks,
   settings: Settings,
 };
 

@@ -4,9 +4,9 @@ import { images } from "../utils/helpers";
 export default function ChooseUs() {
   return (
     <section className="choose-us-section section-padding fix">
-      <div className="perasute-shape float-bob-y"><img src={images("perasute(1).png")} alt="shape-img" /></div>
+      <div className="perasute-shape float-bob-y"><img src={images("perasute.png")} alt="shape-img" /></div>
       <div className="butterfly-shape float-bob-y"><img src={images("butarfly.png")} alt="shape-img" /></div>
-      <div className="zikzak-shape float-bob-x"><img src={images("zikzak(1).png")} alt="shape-img" /></div>
+      <div className="zikzak-shape float-bob-x"><img src={images("zikzak.png")} alt="shape-img" /></div>
       <div className="coun-shape float-bob-y"><img src={images("coun-shape.png")} alt="shape-img" /></div>
 
       <div className="w-[90%] mx-auto">

@@ -20,7 +20,7 @@ export default function Footer() {
                     <li><a href="https://www.facebook.com/hongphuc2025"><img src={images("facebook.svg")} alt="Facebook" /></a></li>
                     <li><a href="https://www.tiktok.com/@vannguenjkkk"><img src={images("tiktok.svg")} alt="TikTok" /></a></li>
                     <li><a href="https://zalo.me/0396053054"><img src={images("zalo.svg")} alt="Zalo" /></a></li>
-                    <li><a href="tel:0396-053-054"><img src={images("phone-calling.svg")} alt="Phone" /></a></li>
+                    <li><a href="tel:0396053054"><img src={images("phone-calling.svg")} alt="Phone" /></a></li>
                   </ul>
                 </div>
               </div>

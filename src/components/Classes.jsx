@@ -11,8 +11,8 @@ export default function Classes() {
   return (
     <section className="classes-section section-padding fix">
       <div className="perasute-shape float-bob-y"><img src={images("perasute.png")} alt="shape-img" /></div>
-      <div className="crown-shape"><img src={images("crown(1).png")} alt="shape-img" /></div>
-      <div className="star-shape"><img src={images("star(1).png")} alt="shape-img" /></div>
+      <div className="crown-shape"><img src={images("crown.png")} alt="shape-img" /></div>
+      <div className="star-shape"><img src={images("star.png")} alt="shape-img" /></div>
       <div className="zikzak-shape"><img src={images("zikzak.png")} alt="shape-img" /></div>
       <div className="border-shape"><img src={images("border.png")} alt="shape-img" /></div>
 
@@ -31,8 +31,8 @@ export default function Classes() {
                   <div className="date-box"><span><Calendar /> {c.date}</span></div>
                 </div>
                 <div className="classes-content">
-                  <div className="location"><span className="flex items-center gap-2"><MapPin /> {c.location}</span></div>
-                  <h3 className="min-h-20"><a href="/program-details">{c.title}</a></h3>
+                  <div className="location"><span className="flex items-center gap-2 line-clamp-1"><MapPin /> {c.location}</span></div>
+                  <h3><a href="/program-details" className="line-clamp-2">{c.title}</a></h3>
                   <div className="classes-rate">
                     <a href="/program-details" className="theme-btn group">Xem chi tiết <ArrowRight className="opacity-0 group-hover:opacity-100 transition ease-linear absolute top-1/2 right-2 transform -translate-y-1/2" /></a>
                     <div className="rate">

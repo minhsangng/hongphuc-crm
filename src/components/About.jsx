@@ -8,7 +8,7 @@ export default function About() {
       <div className="sun-shape float-bob-y"><img src={images("sun.png")} alt="shape-img" /></div>
       <div className="star-shape"><img src={images("star.png")} alt="shape-img" /></div>
       <div className="love-shape float-bob-x"><img src={images("love.png")} alt="shape-img" /></div>
-      <div className="frame-shape"><img src={images("frame(1).png")} alt="shape-img" /></div>
+      <div className="frame-shape"><img src={images("frame.png")} alt="shape-img" /></div>
 
       <div className="w-[90%] mx-auto">
         <div className="about-wrapper">
@@ -23,7 +23,7 @@ export default function About() {
                   <img src={images("ab-counter.png")} alt="shape-img" />
                   <div className="counter-box">
                     <div className="count">
-                      <h2 className="font-bold text-white" style={{fontSize: "3rem"}}>38</h2>
+                      <h2 className="font-bold text-white" style={{fontSize: "3rem"}}>10</h2>
                       <span className="plus">+</span>
                     </div>
                     <p>Năm kinh nghiệm</p>
@@ -39,7 +39,7 @@ export default function About() {
                   <h2>An Toàn, Vui Vẻ &amp; <span>Giáo Dục</span> – Điều Con Bạn Cần</h2>
                 </div>
                 <div className="content-bottom mt-4 md:mt-0">
-                  <p>Với hơn 38 năm kinh nghiệm trong lĩnh vực giáo dục mầm non, chúng tôi luôn nỗ lực mang đến môi trường học tập an toàn, thân thiện, giúp trẻ phát triển toàn diện cả về thể chất lẫn tinh thần ngay từ những năm tháng đầu đời.</p>
+                  <p>Với hơn 10 năm kinh nghiệm trong lĩnh vực giáo dục mầm non, chúng tôi luôn nỗ lực mang đến môi trường học tập an toàn, thân thiện, giúp trẻ phát triển toàn diện cả về thể chất lẫn tinh thần ngay từ những năm tháng đầu đời.</p>
                   <div className="about-list">
                     <ul>
                       <li className="mb-3"><Check /> Học Mà Chơi, Chơi Mà Học</li>

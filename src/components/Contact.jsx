@@ -15,8 +15,8 @@ export default function Contact() {
 
   return (
     <section className="contact-section section-padding">
-      <div className="perasute-shape float-bob-y"><img src={images("perasute(2).png")} alt="shape-img" /></div>
-      <div className="star-shape"><img src={images("star(2).png")} alt="shape-img" /></div>
+      <div className="perasute-shape float-bob-y"><img src={images("perasute.png")} alt="shape-img" /></div>
+      <div className="star-shape"><img src={images("star.png")} alt="shape-img" /></div>
       <div className="emoji-shape float-bob-x"><img src={images("emoji.png")} alt="shape-img" /></div>
 
       <div className="w-[90%] mx-auto">

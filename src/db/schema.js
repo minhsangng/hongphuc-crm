@@ -22,7 +22,7 @@ export const users = pgTable("users", {
   role: varchar("role", { length: 15 }).notNull().default("Giáo viên"),
   classId: integer("class_id").notNull().default(0),
   hireDate: date("hire_date").notNull().defaultNow(),
-  status: varchar("status").notNull().default("Hoạt động"),
+  status: varchar("status").notNull().default("Đang làm"),
 });
 
 export const childrens = pgTable("childrens", {
@@ -99,6 +99,15 @@ export const enrollments = pgTable("enrollments", {
   desiredClass: varchar("desired_class", { length: 30 }),
   note: varchar("note", { length: 255 }),
   status: varchar("status", { length: 20 }).notNull().default("Chờ duyệt"),
+});
+
+export const suggestions = pgTable("suggestions", {
+  id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
+  fullName: varchar("full_name", { length: 30 }).notNull().default("Phụ huynh ẩn danh"),
+  phoneNumber: varchar("phone_number", { length: 12 }).notNull(),
+  email: varchar("email", { length: 30 }),
+  comment: text("comment").notNull(),
+  status: varchar("status", { length: 20 }).notNull().default("Chưa giải quyết")
 });
 
 export const logs = pgTable("logs", {

@@ -23,7 +23,7 @@ function ClassCard({ cls, active }) {
 
       <div className="space-y-3 mb-4">
         <div className="flex items-center gap-2 text-sm">
-          <Avatar name={cls.teacherName || "Hồng Phúc"} size="xs" />
+          <Avatar name={cls.teacherName || "Vân An"} size="xs" />
           <span className="text-dark-600 dark:text-dark-300 text-xs">{cls.teacherName || "N/A"}</span>
         </div>
         <div className="flex items-center gap-2 text-xs text-dark-500 dark:text-dark-400">
@@ -73,7 +73,7 @@ export default function Classes({ user }) {
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-xl font-bold text-dark-900 dark:text-white">Lớp học</h2>
-          <p className="text-sm text-dark-400 dark:text-dark-500 mt-0.5">Quản lý {(user.classId !== 0 ? "lớp " + user.className || "default" : "các lớp học trong trường")}</p>
+          <p className="text-sm text-dark-400 dark:text-dark-500 mt-0.5">Quản lý {(user.classId === 0 ? "danh sách" : "")} lớp</p>
         </div>
         <button className={`btn-primary text-xs ${!["Quản trị viên", "Quản lý"].includes(user.role) ? "cursor-not-allowed" : "cursor-pointer"}`} disabled={["Quản trị viên", "Quản lý"].includes(user.role)}>
           <Plus size={13} /> Thêm lớp học

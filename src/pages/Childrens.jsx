@@ -6,7 +6,6 @@ import { formatVND, formatDateVN } from "../utils/helpers";
 import { getDataFromAPI } from "../utils/helpers";
 
 const columns = [
-  { key: "id", label: "ID", sortable: false, render: v => <span className="text-dark-400 text-xs">#{String(v).padStart(3,"0")}</span> },
   { key: "fullName", label: "Họ tên", render: (v, row) => (
     <div className="flex items-center gap-2.5">
       <Avatar name={v} size="sm" />
@@ -17,15 +16,21 @@ const columns = [
     </div>
   )},
   { key: "className", label: "Lớp", render: v => <span className="badge badge-blue">{v}</span> },
-  { key: "parentName", label: "Phụ huynh" },
-  { key: "phoneNumber", label: "Điện thoại", sortable: false },
+  { key: "parentName", label: "Phụ huynh", render: (v, row) => 
+    <div>
+      <p>{v}</p><p className="text-xs text-dark-400">({row.phoneNumber})</p>
+    </div>},
+  { key: "bankNumber", label: "Ngân hàng", render: (v, row) => 
+    <div>
+      <p>{v}</p><p className="text-xs text-dark-400">({row.bankName})</p>
+    </div> },
   { key: "fee", label: "Học phí", render: v => { return <span className="badge-red">{formatVND(Number(v))}</span> }},
+  { key: "health", label: "Sức khỏe", render: v => {
+    const map = { "Bình thường": "badge-green", "Cần theo dõi": "badge-red", "Yếu": "badge-yellow" };
+    return <span className={`badge ${map[v] || "baddge-gray"}`}>{v}</span>
+  }},
   { key: "status", label: "Trạng thái", render: v => {
-    const map = {
-      "Đang học": "badge-green",
-      "Đã nghỉ": "badge-red",
-      "Theo dõi": "badge-yellow"
-    }
+    const map = { "Đang học": "badge-green", "Đã nghỉ": "badge-red", "Theo dõi": "badge-yellow" };
     return <span className={`badge ${map[v] || "baddge-gray"}`}>{v}</span>
   }},
 ];
@@ -35,18 +40,17 @@ export default function Childrens({ user }) {
   const [data, setData] = useState([]);
 
   async function getChildrenData() {
-    console.log(user)
     try {
-      const response = await getDataFromAPI("get-" + (user.classId === 0 || !user.classId ? "all-childrens" : "children-by-class/" + user.classId));
-      if (response.status === 200) {
-        setData(response.data);
-      }
-      setLoading(false);
-      console.log(response);
+      const response = await getDataFromAPI(
+        "get-" + (user.classId === 0 ? "all-childrens" : "children-by-class/" + user.classId)
+      );
+      if (response.status === 200) setData(response.items);
     } catch (err) {
       console.log("Get children data failed: ", err);
+    } finally {
+      setLoading(false);
     }
-  };
+  }
   
   useEffect(() => {
     getChildrenData();
@@ -57,10 +61,10 @@ export default function Childrens({ user }) {
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-xl font-bold text-dark-900 dark:text-white">Học sinh</h2>
-          <p className="text-sm text-dark-400 dark:text-dark-500 mt-0.5">Quản lý danh sách học sinh {(user.classId !== 0 ? "lớp " + user.className || "default" : "toàn trường")}</p>
+          <p className="text-sm text-dark-400 dark:text-dark-500 mt-0.5">Quản lý danh sách học sinh {(user.classId !== 0 ? "" : "toàn trường")}</p>
         </div>
         <button className="btn-primary text-xs">
-          <Plus size={13} /> Nhập học mới
+          <Plus size={13} /> Thêm trẻ mới
         </button>
       </div>
 
@@ -68,8 +72,8 @@ export default function Childrens({ user }) {
         {[
           { label: "Tổng học sinh", value: data.length > 0 ? data.length : 0, color: "text-accent-600 dark:text-accent-400", bg: "bg-accent-50 dark:bg-accent-900/20" },
           { label: "Đang theo học", value: data.length > 0 ? data.filter(c => c.status === "Đang học").length : 0, color: "text-green-600 dark:text-green-400", bg: "bg-green-50 dark:bg-green-900/20" },
-          { label: "Học phí trễ hạn", value: data.length > 0 ? data.filter(c => c.fee === "Trễ hạn").length : 0, color: "text-yellow-600 dark:text-yellow-400", bg: "bg-yellow-50 dark:bg-yellow-900/20" },
-          { label: "Chưa đóng HP", value: data.length > 0 ? data.filter(c => c.fee === "Chưa đóng").length : 0, color: "text-red-600 dark:text-red-400", bg: "bg-red-50 dark:bg-red-900/20" },
+          { label: "Đã tốt nghiệp", value: data.length > 0 ? data.filter(c => c.status === "Đã tốt nghiệp").length : 0, color: "text-yellow-600 dark:text-yellow-400", bg: "bg-yellow-50 dark:bg-yellow-900/20" },
+          { label: "Đã nghỉ học", value: data.length > 0 ? data.filter(c => c.status === "Đã nghỉ").length : 0, color: "text-red-600 dark:text-red-400", bg: "bg-red-50 dark:bg-red-900/20" },
         ].map(s => (
           <div key={s.label} className={`${s.bg} rounded-2xl p-4 border border-dark-100/50 dark:border-dark-700/50`}>
             <p className={`text-2xl font-bold ${s.color}`}>{s.value}</p>

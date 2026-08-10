@@ -13,7 +13,7 @@ export default function Hero() {
 
       <div className="container hero-container">
         <div className="flex gap-4">
-          <div className="">
+          <div>
             <div className="hero-content !mt-0">
               <h1 className="text-6xl font-bold">Nơi Con Yêu <br /> Vui Chơi <br /> Và Khôn Lớn <br /> <span>Mỗi Ngày</span></h1>
               <p>Mầm non là môi trường giáo dục đầu đời quan trọng, <br /> đặt nền móng cho hành trình khôn lớn của con.</p>
@@ -26,14 +26,13 @@ export default function Hero() {
                       <div className="waves wave-2" />
                       <div className="waves wave-3" />
                     </div>
-                    <a className="video-popup" href="https://www.youtube.com/watch?v=Cn4G2lZ_g2I" target="_blank" rel="noreferrer"><Play color="white"/></a>
+                    <a className="video-popup" title="Xem video giới thiệu trường" href="https://www.youtube.com/watch?v=Cn4G2lZ_g2I" target="_blank" rel="noreferrer"><Play color="white"/></a>
                   </div>
-                  <p className="video-text text-xs">Giới thiệu trường</p>
                 </div>
               </div>
             </div>
           </div>
-          <div className="">
+          <div>
             <div className="hero-img">
               <img src={images("hero1.png")} alt="hero-img" />
               <div className="text-shape float-bob-y"><img src={images("text.png")} alt="shape-img" /></div>

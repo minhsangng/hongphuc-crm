@@ -1,9 +1,9 @@
-import { useState, useRef, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Bell, Search, Menu, X, Sun, Moon, ChevronDown, LogOut, User, Settings, Home } from 'lucide-react';
-import { useTheme, useSidebar } from '../context/AppContext';
-import { notifications } from '../data/mockData';
-import Avatar from './Avatar';
+import { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { Bell, Search, Menu, X, Sun, Moon, ChevronDown, LogOut, User, Settings, Home } from "lucide-react";
+import { useTheme, useSidebar } from "../context/AppContext";
+import { notifications } from "../data/mockData";
+import Avatar from "./Avatar";
 
 export default function Header({ user, currentPage, onExitAdmin }) {
   const navigate = useNavigate();
@@ -11,7 +11,7 @@ export default function Header({ user, currentPage, onExitAdmin }) {
   const { setMobileOpen, mobileOpen } = useSidebar();
   const [showNotif, setShowNotif] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
   const notifRef = useRef();
   const profileRef = useRef();
 
@@ -22,25 +22,26 @@ export default function Header({ user, currentPage, onExitAdmin }) {
       if (notifRef.current && !notifRef.current.contains(e.target)) setShowNotif(false);
       if (profileRef.current && !profileRef.current.contains(e.target)) setShowProfile(false);
     }
-    document.addEventListener('mousedown', handle);
-    return () => document.removeEventListener('mousedown', handle);
+    document.addEventListener("mousedown", handle);
+    return () => document.removeEventListener("mousedown", handle);
   }, []);
 
   const pageNames = {
-    dashboard: 'Tổng quan',
-    teachers: 'Giáo viên',
-    childrens: 'Học sinh',
-    classes: 'Lớp học',
-    kitchens: 'Bếp ăn',
-    reports: 'Báo cáo',
-    settings: 'Cài đặt',
+    dashboard: "Tổng quan",
+    teachers: "Giáo viên",
+    childrens: "Học sinh",
+    classes: "Lớp học",
+    kitchens: "Bếp ăn",
+    reports: "Báo cáo",
+    feedbacks: "Phản hồi",
+    settings: "Cài đặt",
   }
 
   const notifTypeColor = {
-    warning: 'bg-yellow-400',
-    info:    'bg-accent-500',
-    success: 'bg-green-500',
-    error:   'bg-red-500',
+    warning: "bg-yellow-400",
+    info:    "bg-accent-500",
+    success: "bg-green-500",
+    error:   "bg-red-500",
   }
   
   useEffect(() => {
@@ -50,7 +51,6 @@ export default function Header({ user, currentPage, onExitAdmin }) {
   return (
     <header className="sticky top-0 z-30 bg-white/90 dark:bg-dark-900/90 backdrop-blur-md border-b border-dark-100 dark:border-dark-800">
       <div className="flex items-center justify-between h-16 px-4 lg:px-6 gap-4">
-        {/* Left: hamburger + breadcrumb */}
         <div className="flex items-center gap-3 min-w-0">
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
@@ -66,7 +66,6 @@ export default function Header({ user, currentPage, onExitAdmin }) {
           <h1 className="sm:hidden font-bold text-dark-900 dark:text-white text-base">{pageNames[currentPage]}</h1>
         </div>
 
-        {/* Center: search */}
         <div className="flex-1 max-w-md hidden md:block">
           <div className="relative">
             <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-dark-400" />
@@ -77,16 +76,13 @@ export default function Header({ user, currentPage, onExitAdmin }) {
           </div>
         </div>
 
-        {/* Right: actions */}
         <div className="flex items-center gap-1.5">
-          {/* Theme toggle */}
           <button onClick={toggle} title={dark ? 'Chế độ sáng' : 'Chế độ tối'}
             className="w-9 h-9 rounded-lg flex items-center justify-center text-dark-500 dark:text-dark-400 hover:bg-dark-100 dark:hover:bg-dark-800 transition-colors"
           >
             {dark ? <Sun size={18} /> : <Moon size={18} />}
           </button>
 
-          {/* Notifications */}
           <div className="relative" ref={notifRef}>
             <button onClick={() => { setShowNotif(v => !v); setShowProfile(false) }}
               className="relative w-9 h-9 rounded-lg flex items-center justify-center text-dark-500 dark:text-dark-400 hover:bg-dark-100 dark:hover:bg-dark-800 transition-colors"
@@ -124,7 +120,6 @@ export default function Header({ user, currentPage, onExitAdmin }) {
             )}
           </div>
 
-          {/* Profile */}
           <div className="relative" ref={profileRef}>
             <button
               onClick={() => { setShowProfile(v => !v); setShowNotif(false) }}

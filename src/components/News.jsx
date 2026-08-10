@@ -47,8 +47,8 @@ export default function News() {
                 <div className="news-image"><img src={images(n.img)} alt="news-image" /></div>
                 <div className="news-content">
                   <a href="/news-details"><span className="catagory">{n.category}</span></a>
-                  <h3><a href="/news-details" className="underline">{n.title}</a></h3>
-                  <p>{n.excerpt}</p>
+                  <h3><a href="/news-details" className="underline line-clamp-1">{n.title}</a></h3>
+                  <p className="line-clamp-2">{n.excerpt}</p>
                   <ul className="author-items">
                     <li className="flex items-center gap-1"><User /> {n.author}</li>
                     <li className="calendar flex items-center gap-1"><Calendar /> {n.date}</li>

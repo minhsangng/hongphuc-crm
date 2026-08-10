@@ -1,17 +1,17 @@
-import React, { useState } from 'react'
-import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from 'lucide-react'
+import { useState } from "react";
+import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from "lucide-react";
 
 export default function Pagination({ total, pageSize, page, onChange }) {
-  const totalPages = Math.ceil(total / pageSize)
-  if (totalPages <= 1) return null
+  const totalPages = Math.ceil(total / pageSize);
+  if (totalPages <= 1) return null;
 
-  const pages = []
-  const delta = 1
+  const pages = [];
+  const delta = 1;
   for (let i = 1; i <= totalPages; i++) {
     if (i === 1 || i === totalPages || (i >= page - delta && i <= page + delta)) {
-      pages.push(i)
-    } else if (pages[pages.length - 1] !== '...') {
-      pages.push('...')
+      pages.push(i);
+    } else if (pages[pages.length - 1] !== "...") {
+      pages.push("...");
     }
   }
 
@@ -30,13 +30,13 @@ export default function Pagination({ total, pageSize, page, onChange }) {
           <ChevronLeft size={14} />
         </button>
         {pages.map((p, i) => (
-          p === '...'
+          p === "..."
             ? <span key={`e${i}`} className="w-7 h-7 flex items-center justify-center text-dark-400 text-xs">…</span>
             : <button key={p} onClick={() => onChange(p)}
                 className={`w-7 h-7 rounded-lg text-xs font-medium transition-colors ${
                   p === page
-                    ? 'bg-primary-600 text-white shadow-sm'
-                    : 'text-dark-600 dark:text-dark-400 hover:bg-dark-100 dark:hover:bg-dark-700'
+                    ? "bg-primary-600 text-white shadow-sm"
+                    : "text-dark-600 dark:text-dark-400 hover:bg-dark-100 dark:hover:bg-dark-700"
                 }`}>
                 {p}
               </button>

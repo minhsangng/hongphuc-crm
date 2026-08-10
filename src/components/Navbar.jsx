@@ -20,7 +20,7 @@ export default function Header() {
               <ul className="header-contact-list">
                 <li>
                   <Mails />
-                  <a href="mailto:mnhongphuc.info@gmail.com">mnhongphuc.info@gmail.com</a>
+                  <a href="mailto:mnhongphuc@gmail.com">mnhongphuc@gmail.com</a>
                 </li>
                 <li>
                   <PhoneCall />
@@ -41,8 +41,12 @@ export default function Header() {
             <div className="mega-menu-wrapper">
               <div className="header-main">
                 <div className="header-left">
-                  <a href="/" className="header-logo">
-                    <img src={images("black-logo.svg")} alt="img" />
+                  <a href="/" className="header-logo flex items-center">
+                    <img src="/favicon.svg" className="w-16" alt="Logo" />
+                    <div className="flex flex-col gap-0">
+                      <small className="text-gray-400 opacity-75 font-bold" style={{ filter: "drop-shadow(2px 0px 1px #FDCF8D)" }}>Mầm non</small>
+                      <strong className="bg-[#FDCF8D]/50 px-2 pt-1 rounded-lg lg:text-2xl text-xl uppercase text-[#B591DD]" style={{ filter: "drop-shadow(2px 2px 0px #D3DAEB)" }}>Hồng <span className="text-[#FDA3C2]">Phúc</span></strong>
+                    </div>
                   </a>
                 </div>
 
@@ -89,37 +93,39 @@ export default function Header() {
             <div className="offcanvas__content">
               <div className="offcanvas__top mb-5 flex justify-between items-center">
                 <div className="offcanvas__logo">
-                  <a href="/">
-                    <img src={images("black-logo.svg")} alt="logo-img" />
+                  <a href="/" className="header-logo flex items-center">
+                    <img src="/favicon.svg" className="!w-16" alt="Logo" />
+                    <div className="flex flex-col gap-0">
+                      <small className="text-gray-400 opacity-75 font-bold" style={{ filter: "drop-shadow(2px 0px 1px #FDCF8D)" }}>Mầm non</small>
+                      <strong className="bg-[#FDCF8D]/50 px-2 pt-1 rounded-lg text-lg uppercase text-[#B591DD]" style={{ filter: "drop-shadow(2px 2px 0px #D3DAEB)" }}>Hồng <span className="text-[#FDA3C2]">Phúc</span></strong>
+                    </div>
                   </a>
                 </div>
-                <div className="offcanvas__close">
-                  <button onClick={() => setMenuOpen(false)}><X /></button>
+                <div className="offcanvas__close flex justify-center items-center">
+                  <button onClick={() => setMenuOpen(false)}><X color="white" /></button>
                 </div>
               </div>
               <h3 className="offcanvas-title">Xin chào ba mẹ!</h3>
               <p>Trường mầm non chúng tôi luôn đồng hành cùng con yêu trong những năm tháng đầu đời, mang đến môi trường học tập an toàn, vui tươi và bổ ích.</p>
               <div className="social-icon flex items-center">
-                <a href="#!">
-                  <i className="fab fa-facebook-f" />
+                <a href="https://facbook.com/hongphuc2025" target="_blank">
+                  <img src={images("facebook.svg")} alt="Facbook" />
                 </a>
-                <a href="#!">
-                  <i className="fab fa-twitter" />
+                <a href="https://tiktok.com/@vannguenjkkk" target="_blank">
+                  <img src={images("tiktok.svg")} alt="Tiktok" />
                 </a>
-                <a href="#!">
-                  <i className="fab fa-youtube" />
+                <a href="https://zalo.me/0396053054" target="_blank">
+                  <img src={images("zalo.svg")} alt="Zalo" />
                 </a>
-                <a href="#!">
-                  <i className="fab fa-linkedin-in" />
+                <a href="tel:0396053054" target="_blank">
+                  <img src={images("phone-calling.svg")} alt="Phone" />
                 </a>
               </div>
               <div className="offcanvas__contact">
                 <h3>Liên hệ với chúng tôi</h3>
                 <ul className="contact-list">
                   <li>
-                    <div className="icon">
-                      <PhoneCall />
-                    </div>
+                    <div className="icon flex justify-center items-center"><PhoneCall /></div>
                     <div className="content">
                       <p>Gọi ngay</p>
                       <h4>
@@ -128,16 +134,16 @@ export default function Header() {
                     </div>
                   </li>
                   <li>
-                    <div className="icon"><Mails /></div>
+                    <div className="icon flex justify-center items-center"><Mails /></div>
                     <div className="content">
                       <p>Gửi email</p>
                       <h4>
-                        <a href="mailto:mnhongphuc.info@gmail.com">mnhongphuc.info@gmail.com </a>
+                        <a href="mailto:mnhongphuc@gmail.com">mnhongphuc@gmail.com </a>
                       </h4>
                     </div>
                   </li>
                   <li>
-                    <div className="icon"><MapPinSearch /></div>
+                    <div className="icon flex justify-center items-center"><MapPinSearch /></div>
                     <div className="content">
                       <p>Địa chỉ</p>
                       <h4>Lộ Vàm, Chợ Gạo, Đồng Tháp</h4>
