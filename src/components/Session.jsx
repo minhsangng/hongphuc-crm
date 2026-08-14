@@ -1,8 +1,10 @@
 const sessions = [
-  { title: "Giờ Đón Sớm", time: "8:00 – 10:00" },
-  { title: "Buổi Sáng", time: "10:30 – 12:00" },
-  { title: "Giờ Ăn Trưa", time: "12:00 – 13:00" },
-  { title: "Buổi Chiều", time: "14:00 – 16:00" },
+  { title: "Buổi Sáng", time: "6:30 – 10:00" },
+  { title: "Ăn Trưa", time: "10:00 – 11:00" },  
+  { title: "Ngủ Trưa", time: "11:15 – 13:30" },
+  { title: "Vệ Sinh", time: "13:45 – 14:15" },
+  { title: "Hoạt Động", time: "14:15 – 16:00" },
+  { title: "Đón Trẻ", time: "16:00 – 16:30" },
 ];
 
 export default function Session() {
@@ -15,9 +17,8 @@ export default function Session() {
               <div className="session-content">
                 <div className="section-title">
                   <span className="sub-title">Lịch Trình Trong Ngày</span>
-                  <h2>Lịch Trình <span>Trong Ngày</span></h2>
+                  <p>Lịch sinh hoạt hằng ngày được sắp xếp khoa học, <br /> giúp bé phát triển toàn diện và đúng giờ giấc.</p>
                 </div>
-                <p>Lịch sinh hoạt hằng ngày được sắp xếp khoa học, <br /> giúp bé phát triển toàn diện và đúng giờ giấc.</p>
               </div>
               <span className="vertical-dashed" />
             </div>

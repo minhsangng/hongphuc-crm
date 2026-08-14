@@ -1,23 +1,26 @@
 import { useState, useEffect } from "react";
-import { Plus, Phone, Mail, Ban } from "lucide-react";
+import { Plus, CalendarFold, Phone, Mail, Ban } from "lucide-react";
 import DataTable from "../components/DataTable";
 import Avatar from "../components/Avatar";
 import { getDataFromAPI, formatVND } from "../utils/helpers";
 
 const columns = [
-  { key: "fullName", label: "Họ tên", render: (v) => (
+  { key: "fullName", label: "Họ tên", render: (v, row) => (
     <div className="flex items-center gap-2.5">
       <Avatar name={v} size="sm" />
-      <span className="font-medium text-dark-900 dark:text-white text-sm">{v}</span>
+      <span className="font-medium text-dark-900 dark:text-white text-sm">{v} <br/><span className="text-xs text-gray-400 flex items-center gap-1"><CalendarFold size={10} />{row.dob}</span></span>
     </div>
   )},
-  { key: "phoneNumber", label: "Điện thoại", sortable: false, render: v => (
-    <span className="flex items-center gap-1 text-dark-600 dark:text-dark-400"><Phone size={12} />{v}</span>
+  { key: "phoneNumber", label: "Liên hệ", sortable: false, render: (v, row) => (
+    <div className="flex flex-col gap-1">
+      <span className="flex items-center gap-1 text-dark-600 dark:text-dark-400"><Phone size={12} />{v}</span>
+      <span className="flex items-center gap-1 text-dark-600 dark:text-dark-400 text-xs"><Mail size={10} />{row.email}</span>
+    </div>
   )},
   { key: "email", label: "Email", sortable: false, render: v => (
     <span className="flex items-center gap-1 text-dark-600 dark:text-dark-400 text-xs"><Mail size={12} />{v}</span>
   )},
-  { key: "dob", label: "Ngày sinh", render: v => <span className="badge badge-blue">{v}</span> },
+  { key: "role", label: "Chức danh", render: (v, row) => <div className="flex flex-col items-center gap-1"><span className="badge badge-blue">{v}</span><span className="text-xs">({row.className})</span></div> },
   { key: "gross", label: "Lương", sortable: false, render: v => (
     <span className="flex items-center gap-1 text-xs text-dark-500 dark:text-dark-400">{formatVND(v)}</span>
   )},
@@ -63,9 +66,9 @@ export default function Teachers({ user }) {
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         {[
           { label: "Tổng giáo viên", value: data.length > 0 ? data.length : 0, color: "text-accent-600 dark:text-accent-400", bg: "bg-accent-50 dark:bg-accent-900/20" },
-          { label: "Hợp tác tốt", value: data.length > 0 ? data.filter(p => p.status === "Đang làm").length : 0, color: "text-green-600 dark:text-green-400", bg: "bg-green-50 dark:bg-green-900/20" },
-          { label: "Cần theo dõi", value: data.length > 0 ? data.filter(p => p.status !== "Đang làm" && p.status !== "Đã nghỉ").length : 0, color: "text-yellow-600 dark:text-yellow-400", bg: "bg-yellow-50 dark:bg-yellow-900/20" },
-          { label: "Chưa liên hệ", value: data.length > 0 ? data.filter(p => p.status === "Đã nghỉ").length : 0, color: "text-red-600 dark:text-red-400", bg: "bg-red-50 dark:bg-red-900/20" },
+          { label: "Đang làm", value: data.length > 0 ? data.filter(p => p.status === "Đang làm").length : 0, color: "text-green-600 dark:text-green-400", bg: "bg-green-50 dark:bg-green-900/20" },
+          { label: "Tạm nghỉ", value: data.length > 0 ? data.filter(p => p.status !== "Đang làm" && p.status !== "Đã nghỉ").length : 0, color: "text-yellow-600 dark:text-yellow-400", bg: "bg-yellow-50 dark:bg-yellow-900/20" },
+          { label: "Đã nghỉ", value: data.length > 0 ? data.filter(p => p.status === "Đã nghỉ").length : 0, color: "text-red-600 dark:text-red-400", bg: "bg-red-50 dark:bg-red-900/20" },
         ].map(s => (
           <div key={s.label} className={`${s.bg} rounded-2xl p-4 border border-dark-100/50 dark:border-dark-700/50`}>
             <p className={`text-2xl font-bold ${s.color}`}>{s.value}</p>

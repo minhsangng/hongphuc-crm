@@ -164,7 +164,6 @@ button {
 }
 
 #index input:focus {
-  color: var(--white);
   outline: none;
 }
 
@@ -1793,10 +1792,6 @@ p {
   left: 0;
   width: 100%;
 }
-.header-section .container {
-  max-width: 1510px;
-}
-
 .header-1 {
   background-color: transparent;
   position: relative;
@@ -1904,9 +1899,6 @@ p {
 }
 .header-1 .header-left .sub-menu li {
   padding: 12px 15px;
-}
-.header-1 .container {
-  max-width: 1510px;
 }
 @media (max-width: 1199px) {
   .header-1 .theme-btn {
@@ -11856,7 +11848,7 @@ p {
   color: var(--black);
 }
 .contact-wrapper .contact-from .contFrm textarea {
-  height: 180px;
+  height: auto;
   padding-top: 5px;
 }
 .contact-wrapper .contact-from .contFrm textarea.inptFld-2 {

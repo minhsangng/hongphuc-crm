@@ -41,16 +41,16 @@ export default function Sidebar({ currentPage, onNavigate }) {
     <div className={`flex flex-col h-full ${collapsed ? 'w-16' : 'w-60'} transition-all duration-300`}>
       {/* Logo */}
       <a href="/">
-        <div className={`flex items-center gap-3 px-4 py-5 border-b border-dark-100 dark:border-dark-800 ${collapsed ? 'justify-center px-2' : ''}`}>
+        <div className={`flex justify-center items-center px-4 mb-5 bg-white border-b border-dark-100 dark:border-dark-800 ${collapsed ? 'justify-center px-2' : ''}`}>
           <div className="flex items-center">
-              <img src="/favicon.svg" className="w-16 bg-white rounded-full" alt="Logo" />
+              <img src="/logo.svg" className="h-20" alt="Logo" />
           </div>
-          {!collapsed && (
+          {/* {!collapsed && (
             <div className="flex flex-col gap-0">
               <small className="dark:text-gray-200 text-gray-400 font-bold" style={{ filter: "drop-shadow(2px 0px 1px #FDCF8D)" }}>Mầm non</small>
               <strong className="text-xl uppercase text-[#B591DD] font-black" style={{ filter: "drop-shadow(2px 0px 0px #FDCF8D)" }}>Hồng <span className="text-[#FDA3C2]">Phúc</span></strong>
             </div>
-          )}
+          )} */}
         </div>
       </a>
 

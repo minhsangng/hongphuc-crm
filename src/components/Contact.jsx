@@ -23,8 +23,7 @@ export default function Contact() {
         <div className="contact-wrapper">
           <div className="section-title-area custom-padding-top2 grid grid-cols-2 gap-4">
             <div className="section-title">
-              <span className="sub-title">Liên Hệ Nhanh</span>
-              <h2 className="text-white">Liên Hệ Nhanh Với Chúng Tôi</h2>
+              <span className="sub-title">Liên Hệ với chúng tôi</span>
             </div>
             <p className="text-white">
               Quý phụ huynh có thắc mắc về chương trình học, học phí hay {" "}
@@ -37,7 +36,7 @@ export default function Contact() {
               <div className="contact-info">
                 <div className="icon"><img src={images("microphone.svg")} alt="icon-image" /></div>
                 <div className="content">
-                  <h3>Liên hệ với chúng tôi:</h3>
+                  <h3>Địa chỉ email:</h3>
                   <p>
                     <a href="tel:0396053054" className="text-white d-block">0396.053.054</a>
                     <a href="mailto:mnhongphuc.info@gmail.com" className="text-white">mnhongphuc.info@gmail.com</a>
@@ -55,12 +54,12 @@ export default function Contact() {
                 <div className="icon"><img src={images("clock.svg")} alt="icon-image" /></div>
                 <div className="content">
                   <h3>Giờ làm việc:</h3>
-                  <p>Thứ 2 - Thứ 6: 7:00 - 17:00 <br /> Thứ 7 - Chủ nhật: Nghỉ</p>
+                  <p>Thứ 2 - Thứ 7: 6:30 - 17:00 <br /> Chủ nhật: Nghỉ</p>
                 </div>
               </div>
             </div>
 
-            <div className="">
+            <div>
               <div className="contact-from">
                 <h3 className="text-white mb-3">Gửi Lời Nhắn Cho Chúng Tôi</h3>
                 <form className="contFrm" onSubmit={handleSubmit}>
@@ -78,7 +77,7 @@ export default function Contact() {
                       <input type="text" name="sub" placeholder="Chủ đề" className="inptFld" value={form.sub} onChange={handleChange} />
                     </div>
                     <div className="col-sm-12">
-                      <textarea className="inptFld mb-0" name="message" placeholder="Lời nhắn của bạn..." value={form.message} onChange={handleChange} />
+                      <textarea className="inptFld mb-0" cols="1" rows="4" name="message" placeholder="Lời nhắn của bạn..." value={form.message} onChange={handleChange} />
                     </div>
                   </div>
                   <div className="contact-button">

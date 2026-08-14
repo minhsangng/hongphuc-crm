@@ -37,16 +37,12 @@ export default function Header() {
 
         {/* Main nav */}
         <div id="header-sticky" className="header-1">
-          <div className="w-[90%] mx-auto">
+          <div className="container mx-auto">
             <div className="mega-menu-wrapper">
               <div className="header-main">
                 <div className="header-left">
                   <a href="/" className="header-logo flex items-center">
-                    <img src="/favicon.svg" className="w-16" alt="Logo" />
-                    <div className="flex flex-col gap-0">
-                      <small className="text-gray-400 opacity-75 font-bold" style={{ filter: "drop-shadow(2px 0px 1px #FDCF8D)" }}>Mầm non</small>
-                      <strong className="bg-[#FDCF8D]/50 px-2 pt-1 rounded-lg lg:text-2xl text-xl uppercase text-[#B591DD]" style={{ filter: "drop-shadow(2px 2px 0px #D3DAEB)" }}>Hồng <span className="text-[#FDA3C2]">Phúc</span></strong>
-                    </div>
+                    <img src="/favicon_v2.svg" className="h-20" alt="Logo" />
                   </a>
                 </div>
 
@@ -94,7 +90,7 @@ export default function Header() {
               <div className="offcanvas__top mb-5 flex justify-between items-center">
                 <div className="offcanvas__logo">
                   <a href="/" className="header-logo flex items-center">
-                    <img src="/favicon.svg" className="!w-16" alt="Logo" />
+                    <img src="/favicon_v2.svg" className="!w-16" alt="Logo" />
                     <div className="flex flex-col gap-0">
                       <small className="text-gray-400 opacity-75 font-bold" style={{ filter: "drop-shadow(2px 0px 1px #FDCF8D)" }}>Mầm non</small>
                       <strong className="bg-[#FDCF8D]/50 px-2 pt-1 rounded-lg text-lg uppercase text-[#B591DD]" style={{ filter: "drop-shadow(2px 2px 0px #D3DAEB)" }}>Hồng <span className="text-[#FDA3C2]">Phúc</span></strong>

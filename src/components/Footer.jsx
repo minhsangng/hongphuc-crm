@@ -13,15 +13,17 @@ export default function Footer() {
           <div className="grid grid-cols-4 grid-rows-1 gap-2">
             <div className="">
               <div className="single-footer-widget">
-                <div className="widget-head"><a href="/"><img src={images("Logo.svg")} alt="logo-image" /></a></div>
-                <div className="widget-content">
-                  <p>Mầm Non Hồng Phúc là ngôi trường mầm non nơi các bé từ 4 đến 6 tuổi bắt đầu hành trình học tập đầu đời trong môi trường an toàn và yêu thương.</p>
-                  <ul className="social-icon">
+                <div className="widget-head flex justify-between">
+                  <a href="/"><img src="/favicon_v2.svg" className="h-28" alt="Logo" /></a>
+                  <ul className="social-icon grid grid-cols-2 grid-row-2 gap-4 mt-0">
                     <li><a href="https://www.facebook.com/hongphuc2025"><img src={images("facebook.svg")} alt="Facebook" /></a></li>
                     <li><a href="https://www.tiktok.com/@vannguenjkkk"><img src={images("tiktok.svg")} alt="TikTok" /></a></li>
                     <li><a href="https://zalo.me/0396053054"><img src={images("zalo.svg")} alt="Zalo" /></a></li>
                     <li><a href="tel:0396053054"><img src={images("phone-calling.svg")} alt="Phone" /></a></li>
-                  </ul>
+                  </ul>  
+                </div>
+                <div className="widget-content">
+                  <p className="text-base">Mầm Non Hồng Phúc là ngôi trường mầm non nơi các bé từ 4 đến 6 tuổi bắt đầu hành trình học tập đầu đời trong môi trường an toàn và yêu thương.</p>
                 </div>
               </div>
             </div>
@@ -76,7 +78,7 @@ export default function Footer() {
             </div>
           </div>
 
-          <p className="footer-bottom">
+          <p className="footer-bottom text-base">
             © <a href="/">Mầm non Hồng Phúc</a> 2026. Bảo lưu mọi quyền.
           </p>
         </div>

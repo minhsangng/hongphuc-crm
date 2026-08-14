@@ -138,7 +138,7 @@ export default function LoginPage() {
               <div className="absolute -left-8 -bottom-8 w-32 h-32 bg-white/10 rounded-full"></div>
               <div className="flex justify-center items-center gap-1 flex-wrap mt-4">
                 <div className="relative inline-flex items-center justify-center w-20 h-20 rounded-full shadow-xl mb-4 mx-auto">
-                  <span className="text-4xl bg-white rounded-full"><img src="/favicon.svg" alt="Logo" /></span>
+                  <span className="text-4xl bg-white rounded-full"><img src="/favicon_v2.svg" alt="Logo" /></span>
                   <div className="absolute -inset-1.5 rounded-full border-2 border-dashed border-white/50" style={{ animation: "spinSlow 8s linear infinite" }}/>
                 </div>
                 <h1 className="text-2xl font-black text-white drop-shadow-sm">Hệ thống quản trị</h1>

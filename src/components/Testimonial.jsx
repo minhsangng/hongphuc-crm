@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { images } from "../utils/helpers";
+import { Star } from "lucide-react";
 
 const testimonials = [
   { img: "client1.png", name: "Anh Nguyễn Văn Hùng", role: "Phụ huynh bé Bin" },
@@ -17,8 +18,7 @@ export default function Testimonial() {
 
       <div className="w-[90%] mx-auto">
         <div className="section-title text-center">
-          <span className="sub-title">Cảm Nhận Phụ Huynh</span>
-          <h2>Cảm Nhận Từ <span>Phụ Huynh</span> <br /> Học Sinh</h2>
+          <span className="sub-title">Phụ huynh nói gì về Hồng Phúc?</span>
         </div>
 
         <div className="testimonial-wrapper">
@@ -26,12 +26,12 @@ export default function Testimonial() {
             <div className="swiper-wrapper">
               {testimonials.map((t, i) => (
                 <div key={t.name} className="swiper-slide" style={{ display: i === active ? "block" : "none" }}>
-                  <div className="testimonial-item flex flex-col items-center">
-                    <div className="client-image">
+                  <div className="testimonial-item flex flex-col items-center text-center">
+                    <div className="client-image flex flex-col justify-center gap-2 mb-2">
                       <img src={images(t.img)} alt="client-image" />
-                      <ul className="icon">
-                        {Array.from({ length: 5 }).map((_, s) => (<li key={s}><i className="fas fa-star" /></li>))}
-                      </ul>
+                      <div className="flex gap-1">
+                        {Array.from({ length: 5 }).map((_, s) => (<Star fill="yellow" />))}
+                      </div>
                     </div>
                     <p className="testi-text">"Con tôi rất thích đến trường mỗi ngày. Cô giáo tận tâm, môi trường học tập vui vẻ và an toàn, đúng như những gì gia đình mong muốn cho con."</p>
                     <div className="client-info">

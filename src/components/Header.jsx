@@ -69,8 +69,7 @@ export default function Header({ user, currentPage, onExitAdmin }) {
         <div className="flex-1 max-w-md hidden md:block">
           <div className="relative">
             <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-dark-400" />
-            <input
-              type="text" placeholder="Tìm học sinh, lớp học, phụ huynh..." value={search}
+            <input type="text" placeholder="Tìm học sinh, lớp học, phụ huynh..." value={search}
               onChange={e => setSearch(e.target.value)} className="input-field pl-9 h-9 text-xs"
             />
           </div>
