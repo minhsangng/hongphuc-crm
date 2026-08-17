@@ -14,7 +14,7 @@ export default function Header() {
           <div className="header-shape">
             <img src={images("header1.png")} alt="img" />
           </div>
-          <div className="container">
+          <div className="container mx-auto">
             <div className="header-top-wrapper">
               <div></div>
               <ul className="header-contact-list">

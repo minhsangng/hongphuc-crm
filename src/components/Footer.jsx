@@ -23,7 +23,7 @@ export default function Footer() {
                   </ul>  
                 </div>
                 <div className="widget-content">
-                  <p className="text-base">Mầm Non Hồng Phúc là ngôi trường mầm non nơi các bé từ 4 đến 6 tuổi bắt đầu hành trình học tập đầu đời trong môi trường an toàn và yêu thương.</p>
+                  <p className="text-base text-justify">Mầm Non Hồng Phúc là ngôi trường mầm non nơi các bé từ 6 tháng đến dưới 5 tuổi bắt đầu hành trình học tập đầu đời trong môi trường giáo dục an toàn và yêu thương.</p>
                 </div>
               </div>
             </div>
@@ -78,9 +78,7 @@ export default function Footer() {
             </div>
           </div>
 
-          <p className="footer-bottom text-base">
-            © <a href="/">Mầm non Hồng Phúc</a> 2026. Bảo lưu mọi quyền.
-          </p>
+          <p className="footer-bottom text-base">&copy;2026 <a href="/" className="uppercase text-amber-500">Mầm non Hồng Phúc</a> Mọi quyền được bảo lưu.</p>
         </div>
       </div>
     </footer>
