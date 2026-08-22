@@ -1,15 +1,17 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { Bell, Search, Menu, X, Sun, Moon, ChevronDown, LogOut, User, Settings, Home } from 'lucide-react';
-import { useTheme, useSidebar } from '../context/AppContext';
-import { notifications } from '../data/mockData';
-import Avatar from './Avatar';
+import { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { Bell, Search, Menu, X, Sun, Moon, ChevronDown, LogOut, User, Settings, Home } from "lucide-react";
+import { useTheme, useSidebar } from "../context/AppContext";
+import { notifications } from "../data/mockData";
+import Avatar from "./Avatar";
 
 export default function Header({ user, currentPage, onExitAdmin }) {
+  const navigate = useNavigate();
   const { dark, toggle } = useTheme();
   const { setMobileOpen, mobileOpen } = useSidebar();
   const [showNotif, setShowNotif] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
   const notifRef = useRef();
   const profileRef = useRef();
 
@@ -17,38 +19,38 @@ export default function Header({ user, currentPage, onExitAdmin }) {
 
   useEffect(() => {
     function handle(e) {
-      if (notifRef.current && !notifRef.current.contains(e.target)) setShowNotif(false)
-      if (profileRef.current && !profileRef.current.contains(e.target)) setShowProfile(false)
+      if (notifRef.current && !notifRef.current.contains(e.target)) setShowNotif(false);
+      if (profileRef.current && !profileRef.current.contains(e.target)) setShowProfile(false);
     }
-    document.addEventListener('mousedown', handle);
-    return () => document.removeEventListener('mousedown', handle);
+    document.addEventListener("mousedown", handle);
+    return () => document.removeEventListener("mousedown", handle);
   }, []);
 
   const pageNames = {
-    dashboard: 'Tổng quan',
-    teachers: 'Giáo viên',
-    childrens: 'Học sinh',
-    classes: 'Lớp học',
-    kitchens: 'Bếp ăn',
-    reports: 'Báo cáo',
-    settings: 'Cài đặt',
+    dashboard: "Tổng quan",
+    teachers: "Giáo viên",
+    childrens: "Học sinh",
+    classes: "Lớp học",
+    kitchens: "Bếp ăn",
+    reports: "Báo cáo",
+    feedbacks: "Phản hồi",
+    settings: "Cài đặt",
   }
 
   const notifTypeColor = {
-    warning: 'bg-yellow-400',
-    info:    'bg-accent-500',
-    success: 'bg-green-500',
-    error:   'bg-red-500',
+    warning: "bg-yellow-400",
+    info:    "bg-accent-500",
+    success: "bg-green-500",
+    error:   "bg-red-500",
   }
   
   useEffect(() => {
-    document.title = "Mầm non Hồng Phúc - " + pageNames[currentPage];
+    document.title = "Mầm non Hồng Phúc | " + pageNames[currentPage];
   }, [currentPage]);
 
   return (
     <header className="sticky top-0 z-30 bg-white/90 dark:bg-dark-900/90 backdrop-blur-md border-b border-dark-100 dark:border-dark-800">
       <div className="flex items-center justify-between h-16 px-4 lg:px-6 gap-4">
-        {/* Left: hamburger + breadcrumb */}
         <div className="flex items-center gap-3 min-w-0">
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
@@ -57,42 +59,31 @@ export default function Header({ user, currentPage, onExitAdmin }) {
             {mobileOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
           <div className="hidden sm:flex items-center gap-1 text-sm">
-            <span className="text-dark-400 dark:text-dark-500">Hồng Phúc</span>
+            <span className="text-dark-400 dark:text-dark-500">Quản trị</span>
             <span className="text-dark-300 dark:text-dark-600 mx-1">/</span>
             <span className="font-semibold text-dark-800 dark:text-dark-100">{pageNames[currentPage] || currentPage}</span>
           </div>
           <h1 className="sm:hidden font-bold text-dark-900 dark:text-white text-base">{pageNames[currentPage]}</h1>
         </div>
 
-        {/* Center: search */}
         <div className="flex-1 max-w-md hidden md:block">
           <div className="relative">
             <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-dark-400" />
-            <input
-              type="text"
-              placeholder="Tìm học sinh, lớp học, phụ huynh..."
-              value={search}
-              onChange={e => setSearch(e.target.value)}
-              className="input-field pl-9 h-9 text-xs"
+            <input type="text" placeholder="Tìm học sinh, lớp học, phụ huynh..." value={search}
+              onChange={e => setSearch(e.target.value)} className="input-field pl-9 h-9 text-xs"
             />
           </div>
         </div>
 
-        {/* Right: actions */}
         <div className="flex items-center gap-1.5">
-          {/* Theme toggle */}
-          <button
-            onClick={toggle}
-            title={dark ? 'Chế độ sáng' : 'Chế độ tối'}
+          <button onClick={toggle} title={dark ? 'Chế độ sáng' : 'Chế độ tối'}
             className="w-9 h-9 rounded-lg flex items-center justify-center text-dark-500 dark:text-dark-400 hover:bg-dark-100 dark:hover:bg-dark-800 transition-colors"
           >
             {dark ? <Sun size={18} /> : <Moon size={18} />}
           </button>
 
-          {/* Notifications */}
           <div className="relative" ref={notifRef}>
-            <button
-              onClick={() => { setShowNotif(v => !v); setShowProfile(false) }}
+            <button onClick={() => { setShowNotif(v => !v); setShowProfile(false) }}
               className="relative w-9 h-9 rounded-lg flex items-center justify-center text-dark-500 dark:text-dark-400 hover:bg-dark-100 dark:hover:bg-dark-800 transition-colors"
             >
               <Bell size={18} />
@@ -128,22 +119,21 @@ export default function Header({ user, currentPage, onExitAdmin }) {
             )}
           </div>
 
-          {/* Profile */}
           <div className="relative" ref={profileRef}>
             <button
               onClick={() => { setShowProfile(v => !v); setShowNotif(false) }}
               className="flex items-center gap-2 pl-1 pr-2 py-1 rounded-xl hover:bg-dark-100 dark:hover:bg-dark-800 transition-colors"
             >
-              <Avatar name="Nguyễn Hồng Phúc" size="sm" />
-              <span className="hidden sm:block text-sm font-medium text-dark-700 dark:text-dark-200">{user.userName || 'Hồng Phúc'}</span>
+              <Avatar name={user?.fullName || "Vân An"} size="sm" />
+              <span className="hidden sm:block text-sm font-medium text-dark-700 dark:text-dark-200">{user?.userName || "Vân An"}</span>
               <ChevronDown size={14} className="hidden sm:block text-dark-400" />
             </button>
 
             {showProfile && (
               <div className="absolute right-0 mt-2 w-56 bg-white dark:bg-dark-800 rounded-2xl shadow-xl border border-dark-100 dark:border-dark-700 overflow-hidden animate-fade-in z-50">
                 <div className="px-4 py-3 border-b border-dark-100 dark:border-dark-700">
-                  <p className="font-semibold text-sm text-dark-900 dark:text-white">Hi, {user.userName || 'Hồng Phúc'}!</p>
-                  <p className="text-xs text-dark-500 dark:text-dark-400">{user.role || 'Quản trị viên'}</p>
+                  <p className="font-semibold text-sm text-dark-900 dark:text-white">Hi, {user?.fullName || 'Vân An'}!</p>
+                  <p className="text-xs text-dark-500 dark:text-dark-400">{user?.role || 'Quản trị viên'}</p>
                 </div>
                 <div className="py-1">
                   {[

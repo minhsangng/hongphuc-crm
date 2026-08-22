@@ -6,7 +6,7 @@ import StatCard from '../components/StatCard';
 import DataTable from '../components/DataTable';
 import Avatar from '../components/Avatar';
 import { statsData, tuitionChartData, enrollmentChartData, childrenData, teachersData } from '../data/mockData';
-import { formatVND, formatVNDShort } from '../utils/helpers';
+import { formatVND, formatVNDShort, getDataFromAPI } from '../utils/helpers';
 import { year } from 'drizzle-orm/mysql-core';
 
 // Custom recharts tooltip
@@ -72,9 +72,9 @@ export default function Dashboard() {
 
   async function CheckAuth() {
     try {
-      const response = await axios.get("/api/check-auth", { withCredentials: true });
-      if (response.data.status === 200 && response.data.authenticated) {
-        setUser(response.data.user);
+      const response = await getDataFromAPI("check-auth", "get");
+      if (response.status === 200 && response.authenticated) {
+        setUser(response.user);
       } else navigate("/login");
     } catch (err) {
       console.log("Auth role failed: ", err);
