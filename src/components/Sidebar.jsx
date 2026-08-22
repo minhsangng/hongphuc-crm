@@ -41,9 +41,9 @@ export default function Sidebar({ currentPage, onNavigate }) {
     <div className={`flex flex-col h-full ${collapsed ? 'w-16' : 'w-60'} transition-all duration-300`}>
       {/* Logo */}
       <a href="/">
-        <div className={`flex justify-center items-center px-4 mb-5 bg-white border-b border-dark-100 dark:border-dark-800 ${collapsed ? 'justify-center px-2' : ''}`}>
+        <div className={`flex justify-center items-center px-4 mb-5 border-b border-dark-100 dark:border-dark-800 ${collapsed ? 'justify-center px-2' : ''}`}>
           <div className="flex items-center">
-              <img src="/logo.svg" className="h-20" alt="Logo" />
+              <img src="/favicon_v2.svg" className="h-20" alt="Logo" />
           </div>
           {/* {!collapsed && (
             <div className="flex flex-col gap-0">
