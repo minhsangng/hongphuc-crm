@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { User, LockKeyhole, UserKey, MessageCircleWarning, Eye, EyeClosed } from "lucide-react";
 import { images, getDataFromAPI } from "../utils/helpers";
-import { generateKey, encryptData, decryptData } from "../utils/webCryptoAPI";
+// import { generateKey, encryptData, decryptData } from "../utils/webCryptoAPI";
 
 function Bubble({ size, color, x, y, delay, duration }) {
   return (
@@ -70,22 +70,6 @@ export default function LoginPage() {
   return (
     <div id="login">
       <style>{`
-        @keyframes floatBubble {
-          from { transform: translateY(0px) rotate(0deg) scale(1); }
-          to   { transform: translateY(-24px) rotate(10deg) scale(1.05); }
-        }
-        @keyframes fadeSlideUp {
-          from { opacity: 0; transform: translateY(24px); }
-          to   { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes spinSlow {
-          from { transform: rotate(0deg); }
-          to   { transform: rotate(360deg); }
-        }
-        @keyframes shimmer {
-          0%   { background-position: -200% center; }
-          100% { background-position: 200% center; }
-        }
         .animate-fade-slide-up {
           animation: fadeSlideUp 0.5s ease-out forwards;
         }
@@ -105,19 +89,6 @@ export default function LoginPage() {
         }
         .input-hp:focus {
           box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.15);
-        }
-        /* Ẩn icon con mắt mặc định của Edge / Chrome / Firefox */
-        input[type="password"]::-ms-reveal,
-        input[type="password"]::-ms-clear {
-          display: none;
-        }
-        input[type="password"]::-webkit-credentials-auto-fill-button,
-        input[type="password"]::-webkit-textfield-decoration-container {
-          visibility: hidden;
-          display: none !important;
-        }
-        input[type="password"]::-moz-reveal {
-          display: none;
         }
       `}</style>
 
