@@ -1,5 +1,4 @@
-import React from 'react';
-import { LayoutDashboard, Users, Baby, GraduationCap, ChefHat, BarChart3, Settings, ChevronLeft, ChevronRight, X, Heart, MessageSquareText } from 'lucide-react';
+import { LayoutDashboard, Users, Baby, GraduationCap, ChefHat, BarChart3, Settings, ChevronLeft, ChevronRight, X, MessageSquareText } from 'lucide-react';
 import { useSidebar } from '../context/AppContext';
 
 const navItems = [
