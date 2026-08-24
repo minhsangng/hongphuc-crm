@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
-import { DollarSign, Users, Baby, GraduationCap, BookOpen, TrendingUp, Download, RefreshCw, Plus } from 'lucide-react';
-import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Area, AreaChart } from 'recharts';
+import { DollarSign, Users, Baby, BookOpen, TrendingUp, Download, RefreshCw, Plus } from 'lucide-react';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Area, AreaChart } from 'recharts';
 import StatCard from '../components/StatCard';
 import DataTable from '../components/DataTable';
 import Avatar from '../components/Avatar';
 import { statsData, tuitionChartData, enrollmentChartData, childrenData, teachersData } from '../data/mockData';
 import { formatVND, formatVNDShort, getDataFromAPI } from '../utils/helpers';
-import { year } from 'drizzle-orm/mysql-core';
 
 // Custom recharts tooltip
 function CustomTooltip({ active, payload, label, formatter }) {
@@ -68,7 +67,7 @@ const teacherColumns = [
 export default function Dashboard() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
-  const [activeChart, setActiveChart] = useState('tuition');
+  const [activeChart, setActiveChart] = useState("tuition");
 
   async function CheckAuth() {
     try {
@@ -106,7 +105,7 @@ export default function Dashboard() {
           <p className="text-sm text-dark-400 dark:text-dark-500 mt-0.5">{ new Date().toLocaleDateString('vi-VN', {month: 'long'}) } năm { new Date().toLocaleDateString('vi-VN', {year: 'numeric'}) } • Cập nhật lúc {new Date().toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' })}</p>
         </div>
         <div className="flex items-center gap-2">
-          <button className="btn-secondary gap-1.5 text-xs hidden sm:inline-flex">
+          <button onClick={() => window.location.reload()} className="btn-secondary gap-1.5 text-xs hidden sm:inline-flex">
             <RefreshCw size={13} /> Làm mới
           </button>
           <button className="btn-secondary gap-1.5 text-xs hidden sm:inline-flex">

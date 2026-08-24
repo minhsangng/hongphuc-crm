@@ -4,6 +4,8 @@ import DataTable from "../components/DataTable";
 import Avatar from "../components/Avatar";
 import { formatVND, formatDateVN } from "../utils/helpers";
 import { getDataFromAPI } from "../utils/helpers";
+import Modal from "../components/Modal";
+import Swal from "sweetalert2";
 
 const columns = [
   { key: "fullName", label: "Họ tên", render: (v, row) => (
@@ -38,6 +40,7 @@ const columns = [
 export default function Childrens({ user }) {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
+  const [showModal, setShowModal] = useState({ open: false, title: "", content: null });
 
   async function getChildrenData() {
     try {
@@ -52,18 +55,50 @@ export default function Childrens({ user }) {
     }
   }
   
+  function addChildrenForm() {
+    return (
+      <div>
+        <form onSubmit="">
+          <label htmlFor="name">
+            <b>Họ tên trẻ:</b> <br />
+            <input className="w-full border-b border-l rounded-bl-lg px-2 py-0.5 outline-none" type="text" name="name" id="name" placeholder="Họ và tên trẻ..." />
+          </label>
+          <label htmlFor="dob">
+            <b>Ngày sinh:</b> <br />
+            <input className="w-full border-b border-l rounded-bl-lg px-2 py-0.5 outline-none" type="date" name="dob" id="dob" />
+          </label>
+          <label htmlFor="parent">
+            <b>Họ tên phụ huynh:</b> <br />
+            <input className="w-full border-b border-l rounded-bl-lg px-2 py-0.5 outline-none" type="text" name="parent" id="parent" placeholder="Họ tên phụ huynh..." />
+          </label>
+          
+          <div className="mt-4 mb-6 flex justify-between">
+            <button type="reset" className="bg-gray-200 hover:bg-gray-400 px-4 py-1 rounded-lg">Hủy</button>
+            <button type="submit" className="bg-blue-200 hover:bg-blue-500 hover:text-white transition ease-linear px-4 py-1 rounded-lg">Xác nhận</button>
+          </div>
+        </form>
+      </div>
+    )
+  }
+  
   useEffect(() => {
     getChildrenData();
   }, []);
 
   return (
     <div className="p-4 lg:p-6 space-y-6 animate-fade-in">
+      <Modal isOpen={showModal.open} onClose={() => setShowModal(prev => ({ ...prev, open: false }))} title={showModal.title}>  
+        <div className='bg-white text-black rounded-md px-4 py-2'>
+          {showModal.content}
+        </div>
+      </Modal>
+    
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-xl font-bold text-dark-900 dark:text-white">Học sinh</h2>
           <p className="text-sm text-dark-400 dark:text-dark-500 mt-0.5">Quản lý danh sách học sinh {(user.classId !== 0 ? "" : "toàn trường")}</p>
         </div>
-        <button className="btn-primary text-xs">
+        <button onClick={() => setShowModal({ open: true, title: "Thêm học sinh mới", content: addChildrenForm()})} className="btn-primary text-xs">
           <Plus size={13} /> Thêm trẻ mới
         </button>
       </div>
