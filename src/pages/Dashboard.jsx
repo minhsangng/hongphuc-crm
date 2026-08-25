@@ -108,11 +108,8 @@ export default function Dashboard() {
           <button onClick={() => window.location.reload()} className="btn-secondary gap-1.5 text-xs hidden sm:inline-flex">
             <RefreshCw size={13} /> Làm mới
           </button>
-          <button className="btn-secondary gap-1.5 text-xs hidden sm:inline-flex">
+          <button className="btn-primary gap-1.5 text-xs hidden sm:inline-flex">
             <Download size={13} /> Xuất báo cáo
-          </button>
-          <button className="btn-primary gap-1.5 text-xs">
-            <Plus size={13} /> Thêm học sinh
           </button>
         </div>
       </div>

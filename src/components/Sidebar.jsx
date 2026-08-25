@@ -1,5 +1,6 @@
 import { LayoutDashboard, Users, Baby, GraduationCap, ChefHat, BarChart3, Settings, ChevronLeft, ChevronRight, X, MessageSquareText } from 'lucide-react';
 import { useSidebar } from '../context/AppContext';
+import { images } from "../utils/helpers";
 
 const navItems = [
   { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
@@ -41,15 +42,9 @@ export default function Sidebar({ currentPage, onNavigate }) {
       {/* Logo */}
       <a href="/">
         <div className={`flex justify-center items-center px-4 mb-5 border-b border-dark-100 dark:border-dark-800 ${collapsed ? 'justify-center px-2' : ''}`}>
-          <div className="flex items-center">
+          <div className="flex items-center mt-2">
               <img src="/favicon_v2.svg" className="h-20" alt="Logo" />
           </div>
-          {/* {!collapsed && (
-            <div className="flex flex-col gap-0">
-              <small className="dark:text-gray-200 text-gray-400 font-bold" style={{ filter: "drop-shadow(2px 0px 1px #FDCF8D)" }}>Mầm non</small>
-              <strong className="text-xl uppercase text-[#B591DD] font-black" style={{ filter: "drop-shadow(2px 0px 0px #FDCF8D)" }}>Hồng <span className="text-[#FDA3C2]">Phúc</span></strong>
-            </div>
-          )} */}
         </div>
       </a>
 
@@ -62,11 +57,7 @@ export default function Sidebar({ currentPage, onNavigate }) {
 
       {/* Collapse toggle – desktop only */}
       <div className="hidden lg:flex items-center justify-end p-2 border-t border-dark-100 dark:border-dark-800">
-        <button
-          onClick={() => setCollapsed(c => !c)}
-          className="p-2 rounded-lg text-dark-400 hover:text-dark-700 dark:hover:text-dark-200 hover:bg-dark-100 dark:hover:bg-dark-800 transition-colors"
-          title={collapsed ? 'Mở rộng' : 'Thu gọn'}
-        >
+        <button onClick={() => setCollapsed(c => !c)} className="p-2 rounded-lg text-dark-400 hover:text-dark-700 dark:hover:text-dark-200 hover:bg-dark-100 dark:hover:bg-dark-800 transition-colors" title={collapsed ? 'Mở rộng' : 'Thu gọn'}>
           {collapsed ? <ChevronRight size={16} /> : <ChevronLeft size={16} />}
         </button>
       </div>

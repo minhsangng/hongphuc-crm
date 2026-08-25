@@ -37,6 +37,7 @@ export const childrens = pgTable("childrens", {
   bankName: varchar("bank_name", { length: 50 }).notNull().default("Banking"),
   bankNumber: varchar("bank_number", { length: 20 }).notNull().default("000-000-000-000"),
   phoneNumber: varchar("phone_number", { length: 12 }).notNull().default("0000-000-000"),
+  subsidyType: varchar("subsidy_type", { length: 50 }).notNull().default("Diện bình thường"),
   status: varchar("status").notNull().default("Đang học"),
 });
 

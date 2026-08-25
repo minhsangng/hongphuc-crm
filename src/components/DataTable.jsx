@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from "react";
-import { ArrowUpDown, ArrowUp, ArrowDown, Search, Filter, Square, SquareCheck, MinusSquare, Trash2 } from "lucide-react";
+import { ArrowUpDown, ArrowUp, ArrowDown, Search, Filter, Square, SquareCheck, MinusSquare, Trash2, FilePenLine } from "lucide-react";
 import Pagination from "./Pagination";
 
 export default function DataTable({
@@ -98,7 +98,7 @@ export default function DataTable({
               {data.length > 0 ? filtered.length : 0} kết quả  
               {selectedRows.size > 0 ? ` · ${selectedRows.size} đã chọn` : ""}
             </p>
-            {selectedRows.size > 0 ? (<button className="flex items-center gap-1 bg-red-400 hover:bg-red-500 text-gray-200 hover:text-white transition ease-linear rounded-md px-1.5 py-0.5 text-xs"><Trash2 size="10" /> Xóa mục đã chọn</button>) : "" }
+            {selectedRows.size > 0 ? (<div className="flex items-center gap-1"><button className="flex items-center gap-1 bg-red-400 hover:bg-red-500 text-gray-200 hover:text-white transition ease-linear rounded-md px-1.5 py-0.5 text-xs"><Trash2 size="10" />Xóa {selectedRows.size > 1 ? " tất cả" : ""} dòng</button><button className="flex items-center gap-1 bg-blue-400 hover:bg-blue-500 text-gray-200 hover:text-white transition ease-linear rounded-md px-1.5 py-0.5 text-xs"><FilePenLine size="10" />Sửa dòng</button></div>) : "" }
           </div>
         </div>
         {searchable && (

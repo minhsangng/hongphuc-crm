@@ -27,13 +27,23 @@ const columns = [
       <p>{v}</p><p className="text-xs text-dark-400">({row.bankName})</p>
     </div> },
   { key: "fee", label: "Học phí", render: v => { return <span className="badge-red">{formatVND(Number(v))}</span> }},
-  { key: "health", label: "Sức khỏe", render: v => {
+  { key: "statusHealth", label: "Sức khỏe (BMI)", render: (v, row) => {
     const map = { "Bình thường": "badge-green", "Cần theo dõi": "badge-red", "Yếu": "badge-yellow" };
-    return <span className={`badge ${map[v] || "baddge-gray"}`}>{v}</span>
+    if (!v) return <span className="badge badge-gray">N/A</span>;
+    return (
+      <div>
+        <p className={`badge ${map[v] || "baddge-gray"}`}>{v}</p><p className="px-2 text-xs text-dark-400">({row.bmi})</p>
+      </div>
+    );
   }},
-  { key: "status", label: "Trạng thái", render: v => {
+  { key: "status", label: "Trạng thái", render: (v, row) => {
     const map = { "Đang học": "badge-green", "Đã nghỉ": "badge-red", "Theo dõi": "badge-yellow" };
-    return <span className={`badge ${map[v] || "baddge-gray"}`}>{v}</span>
+    return (
+      <div>
+        <p className={`badge ${map[v] || "baddge-gray"}`}>{v}</p>
+        <p className="px-2 px-2 text-xs text-dark-400">({row.subsidyType})</p>
+      </div>
+    );
   }},
 ];
 
@@ -83,9 +93,9 @@ export default function Childrens({ user }) {
             <input className="w-full border-b border-l rounded-bl-lg px-2 py-0.5 outline-none" value={form.parent} onChange={e => setForm(prev => ({ ...prev, parent: e.target.value }))} type="text" name="parent" id="parent" placeholder="Họ tên phụ huynh..." />
           </label>
           
-          <div className="mt-4 mb-6 flex justify-between">
-            <button type="reset" onClick={()=> setForm({name: "", dob: "", parent: "" })} className="bg-gray-200 hover:bg-gray-400 px-4 py-1 rounded-lg">Hủy</button>
-            <button type="submit" className="bg-blue-200 hover:bg-blue-500 hover:text-white transition ease-linear px-4 py-1 rounded-lg">Xác nhận</button>
+          <div className="mt-4 mb-6 flex justify-between gap-4">
+            <button type="reset" onClick={()=> setForm({name: "", dob: "", parent: "" })} className="w-full justify-center btn-secondary">Hủy</button>
+            <button type="submit" className="w-full justify-center btn-primary">Xác nhận</button>
           </div>
         </form>
       </div>
