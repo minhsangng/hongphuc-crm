@@ -42,7 +42,7 @@ export default function Header() {
               <div className="header-main">
                 <div className="header-left">
                   <a href="/" className="header-logo flex items-center">
-                    <img src="/favicon.svg" className="h-20" alt="Logo" />
+                    <img src="/favicon_v3.svg" className="h-20" alt="Logo" />
                   </a>
                 </div>
 

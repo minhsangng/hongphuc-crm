@@ -43,7 +43,7 @@ export default function Sidebar({ currentPage, onNavigate }) {
       <a href="/">
         <div className={`flex justify-center items-center px-4 mb-5 border-b border-dark-100 dark:border-dark-800 ${collapsed ? 'justify-center px-2' : ''}`}>
           <div className="flex items-center mt-2">
-              <img src="/favicon_v2.svg" className="h-20" alt="Logo" />
+              <img src="/favicon_v3.svg" className="h-20" alt="Logo" />
           </div>
         </div>
       </a>

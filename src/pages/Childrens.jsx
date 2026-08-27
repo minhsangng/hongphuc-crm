@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Plus } from "lucide-react";
+import { Plus, PhoneCall, Cake } from "lucide-react";
 import DataTable from "../components/DataTable";
 import Avatar from "../components/Avatar";
 import { formatVND, formatDateVN } from "../utils/helpers";
@@ -13,14 +13,15 @@ const columns = [
       <Avatar name={v} size="sm" />
       <div>
         <p className="font-medium text-dark-900 dark:text-white text-sm">{v}</p>
-        <p className="text-xs text-dark-400">Ngày sinh: {formatDateVN(row.dob)}</p>
+        <div className="flex items-center gap-1"><Cake size={12} /><p className="text-xs text-dark-400">{formatDateVN(row.dob)}</p></div>
       </div>
     </div>
   )},
   { key: "className", label: "Lớp", render: v => <span className="badge badge-blue">{v}</span> },
   { key: "parentName", label: "Phụ huynh", render: (v, row) => 
     <div>
-      <p>{v}</p><p className="text-xs text-dark-400">({row.phoneNumber})</p>
+      <p>{v}</p>
+      <div className="flex items-center gap-1"><PhoneCall size={10} /><p className="text-xs text-dark-400">({row.phoneNumber})</p></div>
     </div>},
   { key: "bankNumber", label: "Ngân hàng", render: (v, row) => 
     <div>
@@ -32,7 +33,7 @@ const columns = [
     if (!v) return <span className="badge badge-gray">N/A</span>;
     return (
       <div>
-        <p className={`badge ${map[v] || "baddge-gray"}`}>{v}</p><p className="px-2 text-xs text-dark-400">({row.bmi})</p>
+        <p className={`badge ${map[v] || "baddge-gray"}`}>{v}</p><p className="px-2 text-xs text-dark-400">({row.weight} / {row.height})</p>
       </div>
     );
   }},
@@ -41,7 +42,7 @@ const columns = [
     return (
       <div>
         <p className={`badge ${map[v] || "baddge-gray"}`}>{v}</p>
-        <p className="px-2 px-2 text-xs text-dark-400">({row.subsidyType})</p>
+        <p className="px-2 px-2 text-xs text-dark-400">(Diện {row.subsidyType})</p>
       </div>
     );
   }},

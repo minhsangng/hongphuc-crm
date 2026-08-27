@@ -33,7 +33,7 @@ app.get("/api/v1/healthz", (req, res) => {
 
 /* CHILDRENS */
 app.get("/api/v1/get-all-childrens", async (req, res) => {
-  const results = await db.select({ ...childrens, className: classes.className, bmi: sql`ROUND((${healthRecords.weight} / (${healthRecords.height} / 100.0 * ${healthRecords.height} / 100.0))::numeric, 2)`, statusHealth: healthRecords.note }).from(childrens).innerJoin(classes, eq(childrens.classId, classes.id)).leftJoin(healthRecords, eq(childrens.id, healthRecords.childrenId));
+  const results = await db.select({ ...childrens, className: classes.className, weight: healthRecords.weight, height: healthRecords.height, bmi: sql`ROUND((${healthRecords.weight} / (${healthRecords.height} / 100.0 * ${healthRecords.height} / 100.0))::numeric, 2)`, statusHealth: healthRecords.note }).from(childrens).innerJoin(classes, eq(childrens.classId, classes.id)).leftJoin(healthRecords, eq(childrens.id, healthRecords.childrenId));
   if (results.length > 0) res.json({ status: 200, items: results });
   else res.json({ status: 404, message: "Empty list" });
 });
@@ -47,7 +47,7 @@ app.get("/api/v1/get-children-by-id/:id", async (req, res) => {
 
 app.get("/api/v1/get-children-by-class/:id", async (req, res) => {
   const { id } = req.params;
-  const results = await db.select({ ...childrens, className: classes.className, bmi: sql`ROUND((${healthRecords.weight} / (${healthRecords.height} / 100.0 * ${healthRecords.height} / 100.0))::numeric, 2)`, statusHealth: healthRecords.note }).from(childrens).innerJoin(classes, eq(childrens.classId, classes.id)).leftJoin(healthRecords, eq(childrens.id, healthRecords.childrenId)).where(eq(childrens.classId, parseInt(id)));
+  const results = await db.select({ ...childrens, className: classes.className, weight: healthRecords.weight, height: healthRecords.height, bmi: sql`ROUND((${healthRecords.weight} / (${healthRecords.height} / 100.0 * ${healthRecords.height} / 100.0))::numeric, 2)`, statusHealth: healthRecords.note }).from(childrens).innerJoin(classes, eq(childrens.classId, classes.id)).leftJoin(healthRecords, eq(childrens.id, healthRecords.childrenId)).where(eq(childrens.classId, parseInt(id)));
   if (results.length > 0) res.json({ status: 200, items: results});
   else res.json({ status: 404, message: `Not found children in class ID: ${id}` });
 });
