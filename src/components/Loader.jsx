@@ -4,7 +4,7 @@ export default function Loader({ onFinish }) {
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {
-    const minTime = 400;
+    const minTime = 1200;
     const start = Date.now();
   
     function handleLoad() {
@@ -27,8 +27,8 @@ export default function Loader({ onFinish }) {
   if (!visible) return null;
 
   return (
-    <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-white transition-opacity duration-500">
-      <div className="w-12 h-12 border-4 border-gray-200 border-t-blue-500 rounded-full animate-spin" />
+    <div className="fixed inset-0 z-9999 flex items-center justify-center bg-white transition-opacity duration-500">
+      <span className="loader"></span>
     </div>
   );
 }
