@@ -8,7 +8,7 @@ function ClassCard({ cls, active }) {
   const barColor = occupancy >= 90 ? "bg-green-500" : occupancy >= 70 ? "bg-yellow-500" : "bg-red-500";
   
   return (
-    <div className="bg-white dark:bg-dark-800 rounded-2xl p-5 border border-dark-100 dark:border-dark-700 shadow-card hover:shadow-card-hover transition-all duration-300 group animate-fade-in">
+    <div className="relative bg-white dark:bg-dark-800 rounded-2xl p-5 border border-dark-100 dark:border-dark-700 shadow-card hover:shadow-card-hover transition-all duration-300 group animate-fade-in">
       <div className="flex items-start justify-between mb-4">
         <div className="flex items-center gap-3">
           <div className="w-11 h-11 rounded-xl gradient-accent flex items-center justify-center shadow-lg shadow-accent-600/20 group-hover:scale-110 transition-transform duration-300">
@@ -46,6 +46,10 @@ function ClassCard({ cls, active }) {
         <button className={`flex-1 btn-secondary text-xs justify-center ${active ? "cursor-pointer" : "cursor-not-allowed"}`} disabled={active}>Chi tiết</button>
         <button className={`flex-1 btn-accent text-xs justify-center ${active ? "cursor-pointer" : "cursor-not-allowed"}`} disabled={active}>Điểm danh</button>
       </div>
+      
+      {!active && (<div className="absolute top-0 right-0 bg-red-500/50 flex justify-center items-center px-2 py-1 rounded-bl-xl rounded-tr-xl">
+          <span className="text-xs">Không phụ trách</span>
+      </div>)}
     </div>
   )
 };

@@ -1,83 +1,47 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
-  darkMode: 'class',
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ],
   theme: {
     extend: {
-      colors: {
-        primary: {
-          50:  '#fef2f2',
-          100: '#fee2e2',
-          200: '#fecaca',
-          300: '#fca5a5',
-          400: '#f87171',
-          500: '#ef4444',
-          600: '#dc2626',
-          700: '#b91c1c',
-          800: '#991b1b',
-          900: '#7f1d1d',
-        },
-        accent: {
-          50:  '#eff6ff',
-          100: '#dbeafe',
-          200: '#bfdbfe',
-          300: '#93c5fd',
-          400: '#60a5fa',
-          500: '#3b82f6',
-          600: '#2563eb',
-          700: '#1d4ed8',
-          800: '#1e40af',
-          900: '#1e3a8a',
-        },
-        dark: {
-          50:  '#f8fafc',
-          100: '#f1f5f9',
-          200: '#e2e8f0',
-          300: '#cbd5e1',
-          400: '#94a3b8',
-          500: '#64748b',
-          600: '#475569',
-          700: '#334155',
-          800: '#1e293b',
-          900: '#0f172a',
-          950: '#020617',
-        },
-      },
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
+        display: ['"Baloo 2"', 'sans-serif'],
+        body: ['"Be Vietnam Pro"', 'sans-serif'],
       },
-      animation: {
-        'fade-in': 'fadeIn 0.3s ease-in-out',
-        'slide-in': 'slideIn 0.3s ease-in-out',
-        'pulse-soft': 'pulseSoft 2s infinite',
-        'spin-slow': 'spin 3s linear infinite',
-        'float-x': 'floatX 1.5s linear infinite',
-      },
-      keyframes: {
-        fadeIn: {
-          '0%': { opacity: '0', transform: 'translateY(8px)' },
-          '100%': { opacity: '1', transform: 'translateY(0)' },
+      colors: {
+        cream: '#FCF7EC',
+        ink: '#4A3F35',
+        inkLight: '#8A7C6E',
+        teal: {
+          50: '#EFF9F7',
+          100: '#DDF1EC',
+          200: '#BEE5DC',
+          300: '#93D4C6',
+          400: '#66C0AD',
+          500: '#47A794',
+          600: '#358A79',
+          700: '#2C6F62'
         },
-        slideIn: {
-          '0%': { opacity: '0', transform: 'translateX(-12px)' },
-          '100%': { opacity: '1', transform: 'translateX(0)' },
+        pink: {
+          50: '#FDF1F5',
+          100: '#FBE1EA',
+          200: '#F6C4D8',
+          300: '#F0A0C0',
+          400: '#E87CA5',
+          500: '#DB5A8A'
         },
-        pulseSoft: {
-          '0%, 100%': { opacity: '1' },
-          '50%': { opacity: '0.6' },
+        sun: {
+          50: '#FDF8E9',
+          100: '#FBEECB',
+          200: '#F7DE9B',
+          300: '#F2C765',
+          400: '#EBAE38',
+          500: '#DD9620'
         },
-        floatX: {
-          '0%': { transform: 'translateX(10px)' },
-          '50%': { transform: 'translateX(0)' },
-        }
-      },
-      boxShadow: {
-        'card': '0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)',
-        'card-hover': '0 10px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.05)',
-        'sidebar': '2px 0 20px rgb(0 0 0 / 0.08)',
-        'glass': '0 8px 32px 0 rgba(31, 38, 135, 0.08)',
       },
     },
   },
   plugins: [],
-}
+};

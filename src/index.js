@@ -4,7 +4,7 @@ import { fileURLToPath } from "url";
 import { ENV } from "./config/env.js";
 import { db } from "./config/db.js";
 import { childrens, classes, users, healthRecords } from "./db/schema.js";
-import { eq, and } from "drizzle-orm";
+import { eq, and, sql } from "drizzle-orm";
 import session from "express-session";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -33,7 +33,7 @@ app.get("/api/v1/healthz", (req, res) => {
 
 /* CHILDRENS */
 app.get("/api/v1/get-all-childrens", async (req, res) => {
-  const results = await db.select({ ...childrens, className: classes.className, health: healthRecords.note }).from(childrens).innerJoin(classes, eq(childrens.classId, classes.id)).innerJoin(healthRecords, eq(childrens.id, healthRecords.childrenId));
+  const results = await db.select({ ...childrens, className: classes.className, weight: healthRecords.weight, height: healthRecords.height, bmi: sql`ROUND((${healthRecords.weight} / (${healthRecords.height} / 100.0 * ${healthRecords.height} / 100.0))::numeric, 2)`, statusHealth: healthRecords.note }).from(childrens).innerJoin(classes, eq(childrens.classId, classes.id)).leftJoin(healthRecords, eq(childrens.id, healthRecords.childrenId));
   if (results.length > 0) res.json({ status: 200, items: results });
   else res.json({ status: 404, message: "Empty list" });
 });
@@ -47,7 +47,7 @@ app.get("/api/v1/get-children-by-id/:id", async (req, res) => {
 
 app.get("/api/v1/get-children-by-class/:id", async (req, res) => {
   const { id } = req.params;
-  const results = await db.select({ ...childrens, className: classes.className, health: healthRecords.note }).from(childrens).innerJoin(classes, eq(childrens.classId, classes.id)).innerJoin(healthRecords, eq(childrens.id, healthRecords.childrenId)).where(eq(childrens.classId, parseInt(id)));
+  const results = await db.select({ ...childrens, className: classes.className, weight: healthRecords.weight, height: healthRecords.height, bmi: sql`ROUND((${healthRecords.weight} / (${healthRecords.height} / 100.0 * ${healthRecords.height} / 100.0))::numeric, 2)`, statusHealth: healthRecords.note }).from(childrens).innerJoin(classes, eq(childrens.classId, classes.id)).leftJoin(healthRecords, eq(childrens.id, healthRecords.childrenId)).where(eq(childrens.classId, parseInt(id)));
   if (results.length > 0) res.json({ status: 200, items: results});
   else res.json({ status: 404, message: `Not found children in class ID: ${id}` });
 });
@@ -108,6 +108,36 @@ app.post("/api/v1/auth-logout", (req, res) => {
     res.json({ status: 200, message: "Logout successful" });
   });
 });
+
+/* FUNCTION */
+function getAgeInMonths(dob) {
+  const birth = new Date(dob);
+  const now = new Date();
+  return (now.getFullYear() - birth.getFullYear()) * 12 + (now.getMonth() - birth.getMonth());
+}
+
+function classifyBMI(bmi, ageMonths, gender = "Nam") {
+  if (!bmi || !ageMonths) return "Chưa xác định";
+
+  // Ngưỡng tham khảo đơn giản hóa cho trẻ 24-72 tháng tuổi (2-6 tuổi)
+  // Dựa theo xu hướng chung BMI-for-age percentile của WHO
+  let thin = 14.0, normalMax = 16.5, overweight = 18.0;
+
+  if (ageMonths < 36) { // 2-3 tuổi
+    thin = 14.5; normalMax = 17.0; overweight = 18.5;
+  } else if (ageMonths < 48) { // 3-4 tuổi
+    thin = 14.0; normalMax = 16.5; overweight = 18.0;
+  } else if (ageMonths < 60) { // 4-5 tuổi
+    thin = 13.8; normalMax = 16.2; overweight = 17.8;
+  } else { // 5-6 tuổi
+    thin = 13.5; normalMax = 16.0; overweight = 17.5;
+  }
+
+  if (bmi < thin) return "Thiếu cân";
+  if (bmi <= normalMax) return "Bình thường";
+  if (bmi <= overweight) return "Thừa cân";
+  return "Béo phì";
+}
 
 /* SERVE REACT BUILD */
 const distPath = path.join(__dirname, "..", "dist");
