@@ -5,4 +5,5 @@ export const ENV = {
   PORT: process.env.PORT || 5001,
   DATABASE_URL: process.env.DATABASE_URL,
   SESSION_SECRET: process.env.SESSION_SECRET,
+  RESEND_API_KEY: process.env.RESEND_API_KEY,
 };

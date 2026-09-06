@@ -4,6 +4,22 @@
   --primay: #47a794;
   --secondary: #db5a8a;
   --third: #fdcb70;
+  
+  --color-cream: #FDF6EC;
+  --color-ink: #3E241E;
+  --color-ink-light: #8A6B57;
+
+  --color-red: #B3312C;
+  --color-red-hover: #9C2924;
+  --color-red-light: #E79486;
+
+  --color-gold: #D9A441;
+  --color-gold-hover: #C69236;
+  --color-gold-light: #F3D2B0;
+
+  --color-blush: #F3C9B9;
+  --color-peach: #F6DCC6;
+  --color-footer-bg: #5C231F;
 
   --font-primary: "Be Vietnam Pro", sans-serif;
 }
@@ -14,12 +30,12 @@ html {
 
 body {
   font-family: var(--font-primary);
-  background: #fcf7ec;
+  background: var(--color-cream);
 }
 
 ::selection {
-  background: #bee5dc;
-  color: #2c6f62;
+  background: var(--color-red-light);
+  color: var(--color-red-primary);
 }
 
 .wave-svg {
@@ -28,8 +44,8 @@ body {
 }
 
 .loader {
-  --color-1: #47a794;
-  --color-2: #db5a8a;
+  --color-1: #B3312C;
+  --color-2: #47a794;
   --size: 1px;
 
   position: relative;
