@@ -27,7 +27,7 @@ export default function Loader({ onFinish }) {
   if (!visible) return null;
 
   return (
-    <div className="fixed inset-0 z-9999 flex items-center justify-center bg-white transition-opacity duration-500">
+    <div className="fixed inset-0 z-99999 flex items-center justify-center bg-white transition-opacity duration-500">
       <span className="loader"></span>
     </div>
   );

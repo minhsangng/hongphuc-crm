@@ -6,7 +6,7 @@ import Loader from "./components/Loader";
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <Loader />
+    {/* <Loader /> */}
     <App />
   </StrictMode>,
 )
