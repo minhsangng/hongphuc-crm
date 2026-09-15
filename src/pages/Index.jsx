@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
-import { Megaphone, MessageSquareDot, Menu, X, ChevronRight, Phone, Form, MapPin,  FileText, HelpCircle, Bird, Crown, Clock, Baby, ArrowDown, ArrowUp } from 'lucide-react';
+import { Megaphone, MessageSquareDot, Menu, X, ChevronRight, Phone, Form, MapPin,  FileText, HelpCircle, Crown, Clock, Baby, ArrowDown, ArrowUp } from 'lucide-react';
 import { FaFacebookF, FaTiktok, FaPhoneVolume, FaRoute } from 'react-icons/fa';
+import useEmblaCarousel from 'embla-carousel-react';
+import Autoplay from 'embla-carousel-autoplay';
+import { images } from '../utils/helpers';
 
 const IMG = {
   hero: 'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=1600&q=80',
@@ -42,7 +45,7 @@ function Header({scroll}) {
 
   return (
     <header className={`${scroll ? "fixed inset-0 h-fit bg-white/35 " : "bg-white/95 "}z-9999 transition ease-linear backdrop-blur border-b border-(--color-red-light)/50`}>
-      <div className={`${scroll ? "md:hidden " : ""}hidden md:flex justify-end gap-6 px-8 py-1.5 text-xs text-(--color-ink-light) border-b border-(--color-red)/10 bg-(--color-gold-light)/25`}>
+      <div className={`${scroll ? "md:hidden " : ""}hidden md:flex justify-end gap-6 px-8 py-1.5 text-xs text-(--color-ink-light) border-b border-(--color-red)/10 bg-(--color-gold-light)/25 transition`}>
         <a href="#news" className="hover:text-(--color-red) transition-colors flex items-center gap-1"><Megaphone size={12} /> Thông báo từ trường</a>
         <a href="#" className="hover:text-(--color-red) transition-colors flex items-center gap-1"><MessageSquareDot size={12} />Tuyển dụng</a>
         <a href="https://maps.app.goo.gl/PyNq3radZb7agAXM6" target="_blank" className="hover:text-(--color-red) transition-colors flex items-center gap-1"><FaRoute size={12} />Chỉ đường</a>
@@ -54,7 +57,7 @@ function Header({scroll}) {
             <img src="/favicon.svg" />
           </span>
           <span className="leading-tight">
-            <span className="block text-xs italic tracking-wide text-(--color-ink-light) pb-1">Trường Mầm Non</span>
+            <span className="block text-xs italic tracking-wide text-(--color-ink-light) pb-1">Trường Mầm non</span>
             <span className="block font-display uppercase font-bold text-xl text-(--color-red)">Hồng Phúc</span>
           </span>
         </a>
@@ -106,13 +109,13 @@ function Header({scroll}) {
 function SocialRail() {
   return (
     <div className="hidden md:flex flex-col gap-3 fixed left-4 top-1/2 -translate-y-1/2 z-40">
-      <a target="_blank" href="https://www.facebook.com/hongphuc.mannon.9" aria-label="Facebook" className="w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center text-(--color-red) hover:bg-(--color-red) hover:text-white transition-colors">
+      <a target="_blank" href="https://www.facebook.com/hongphuc.mannon.9" aria-label="Facebook" className="w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center text-(--color-red) hover:bg-(--color-red) hover:text-white transition ease-linear">
         <FaFacebookF size={17} />
       </a>
-      <a target="_blank" href="https://www.tiktok.com/@vannguenjkkk" aria-label="Tiktok" className="w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center text-(--color-red) hover:bg-(--color-red) hover:text-white transition-colors">
+      <a target="_blank" href="https://www.tiktok.com/@vannguenjkkk" aria-label="Tiktok" className="w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center text-(--color-red) hover:bg-(--color-red) hover:text-white transition ease-linear">
         <FaTiktok size={17} />
       </a>
-      <a target="_blank" href="tel:+84396053054" aria-label="Hotline" className="w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center text-(--color-red) hover:bg-(--color-red) hover:text-white transition-colors">
+      <a target="_blank" href="tel:+84396053054" aria-label="Hotline" className="w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center text-(--color-red) hover:bg-(--color-red) hover:text-white transition ease-linear">
         <FaPhoneVolume size={17} />
       </a>
     </div>
@@ -186,9 +189,6 @@ function NewsSection() {
 function ThoughtsSection() {
   return (
     <section id="about" className="scroll-mt-28 relative max-w-6xl mx-auto px-5 md:px-8 pt-6 pb-14 md:pb-20">
-      <div className="absolute left-4 md:left-8 top-0 w-12 h-12 rounded-full bg-(--color-red-light) flex items-center justify-center text-(--color-red)">
-        <Bird size={22} />
-      </div>
       <div className="grid md:grid-cols-[1fr_1.1fr] gap-8 md:gap-16 items-start pt-12">
         <div>
           <p className="font-display text-(--color-red) text-xs tracking-[0.25em] mb-2">THOUGHTS</p>
@@ -215,17 +215,22 @@ function ThoughtsSection() {
   );
 }
 
-/* Thư viện ảnh */
+/* Thư viện ảnh (Gallery) */
 function GallerySection() {
-  const photos = [IMG.gal1, IMG.gal2, IMG.gal3, IMG.gal4];
+  const photos = [IMG.gal1, IMG.gal2, IMG.gal3, IMG.gal4, IMG.gal1, IMG.gal2, IMG.gal3, IMG.gal4, IMG.gal1, IMG.gal2, IMG.gal3, IMG.gal4];
+  const [emblaRef] = useEmblaCarousel({ loop: true, align: 'start' }, [Autoplay({ delay: 2000 })]);
+
   return (
     <section className="max-w-6xl mx-auto px-5 md:px-8 pb-16 md:pb-24">
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5">
-        {photos.map((src, i) => (
-          <div key={i} className={`rounded-3xl overflow-hidden aspect-3/4 shadow-sm ${i % 2 === 1 ? 'md:mt-8' : ''}`}>
-            <img src={src} alt="Khoảnh khắc tại Hồng Phúc" className="w-full h-full object-cover cursor-pointer hover:scale-105 transition duration-300 ease-linear" />
-          </div>
-        ))}
+      <div className="overflow-x-hidden" ref={emblaRef}>
+        <div className="flex gap-4 md:gap-5">
+          {photos.map((src, i) => (
+            <div key={i} className={`flex-shrink-0 w-[calc(50%-8px)] md:w-[calc(25%-15px)] overflow-hidden rounded-3xl shadow-sm ${i % 2 === 1 ? 'md:mt-8' : 'md:mb-8'}`}>
+              <img src={src} alt="Khoảnh khắc tại Hồng Phúc"
+                className="w-full h-full object-cover rounded-3xl cursor-pointer hover:scale-105 transition duration-300 ease-linear"/>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -329,9 +334,9 @@ function DaysSection() {
       <div className="grid md:grid-cols-2 gap-10 md:gap-16 items-center mb-16">
         <div className="relative">
           <img src={IMG.daysMain} alt="Một ngày ở trường Hồng Phúc" className="rounded-4xl w-full aspect-4/3 object-cover" />
-          <div className="absolute -top-5 -left-5 w-24 h-24 rounded-full bg-(--color-gold) flex flex-col items-center justify-center text-center text-(--color-ink) font-display text-xs leading-tight shadow-lg">
-            <span>Một ngày</span>
-            <span>ở trường</span>
+          <div className="absolute -top-14 md:-top-20 -left-2 md:-left-8 w-24 md:w-28 h-fit aspect-3/4 drop-shadow-xl flex flex-col items-center justify-center text-center text-(--color-ink) font-display text-[0.75rem] leading-tight bg-cover bg-full bg-center bg-no-repeat" style={{ backgroundImage: `url(${images('book.png')})`}}>
+            <span className="mr-4">Một ngày</span>
+            <span className="mr-4">ở trường</span>
           </div>
         </div>
         <div>
@@ -414,14 +419,14 @@ function GuideSection() {
           Hồng Phúc luôn chào đón phụ huynh đến tham quan trường để yên tâm gửi gắm con em mình, và thường xuyên tổ chức các buổi giao lưu giữa phụ huynh và giáo viên. Nếu có bất kỳ thắc mắc nào, xin đừng ngần ngại liên hệ với chúng tôi.
         </p>
         <div className="grid sm:grid-cols-2 gap-4 max-w-xl mx-auto">
-          <a href="#" className="bg-white rounded-2xl p-6 flex flex-col items-center gap-2 text-(--color-ink) hover:-translate-y-1 transition-transform">
+          <a href="/huong-dan-nhap-hoc" className="bg-white rounded-2xl p-6 flex flex-col items-center gap-2 text-(--color-ink) hover:-translate-y-1 transition-transform">
             <span className="w-12 h-12 rounded-full bg-(--color-red-light)/50 flex items-center justify-center text-(--color-red)">
               <FileText size={22} />
             </span>
             <span className="font-display font-bold text-(--color-red)">Hướng dẫn nhập học</span>
             <span className="text-[11px] tracking-[0.2em] text-(--color-ink-light)">ADMISSION</span>
           </a>
-          <a href="#" className="bg-white rounded-2xl p-6 flex flex-col items-center gap-2 text-(--color-ink) hover:-translate-y-1 transition-transform">
+          <a href="/ho-tro" className="bg-white rounded-2xl p-6 flex flex-col items-center gap-2 text-(--color-ink) hover:-translate-y-1 transition-transform">
             <span className="w-12 h-12 rounded-full bg-(--color-gold-light)/50 flex items-center justify-center text-(--color-gold)">
               <HelpCircle size={22} />
             </span>
@@ -448,27 +453,27 @@ function ContactSection() {
         Nhà trường luôn sẵn sàng đón tiếp phụ huynh đến tham quan, tìm hiểu môi trường học tập của các em.
       </p>
       <div className="flex flex-col sm:flex-row items-center justify-center gap-5">
-        <div className="flex items-center gap-3 bg-(--color-gold-light) rounded-2xl px-6 py-4">
-          <button className="w-11 h-11 rounded-full bg-(--color-red) text-white flex items-center justify-center shrink-0 cursor-pointer">
-            <a href="tel:0396053054"><Phone size={18} /></a>
-          </button>
+        <button className="flex items-center gap-3 bg-(--color-gold-light) rounded-2xl px-6 py-4 cursor-pointer">
+          <span className="w-11 h-11 rounded-full bg-(--color-red) text-white flex items-center justify-center shrink-0">
+            <Phone size={18} />
+          </span>
           <span className="text-left">
             <span className="block text-xs text-(--color-ink-light)">Gọi điện tư vấn</span>
             <span className="block font-display font-bold text-xl text-(--color-ink)">0396 053 054</span>
             <span className="block text-[11px] text-(--color-ink-light)">T2–T7 (6:30-17:00)</span>
           </span>
-        </div>
+        </button>
         <div className="text-xs">HOẶC</div>
-        <div className="flex items-center gap-3 bg-(--color-red) rounded-2xl px-6 py-4">
-          <button className="w-11 h-11 rounded-full bg-(--color-gold-light) text-(--color-red) flex items-center justify-center shrink-0 cursor-pointer">
+        <button className="flex items-center gap-3 bg-(--color-red) rounded-2xl px-6 py-4 cursor-pointer">
+          <span className="w-11 h-11 rounded-full bg-(--color-gold-light) text-(--color-red) flex items-center justify-center shrink-0">
             <Form size={18} />
-          </button>
+          </span>
           <span className="text-left">
             <span className="block text-xs text-white/75">Để lại thông tin qua</span>
             <span className="block font-display font-bold text-xl text-white">Mẫu đăng ký</span>
             <span className="block text-[11px] text-white/75">Chúng tôi sẽ liên hệ</span>
           </span>
-        </div>
+        </button>
       </div>
     </section>
   );
@@ -485,39 +490,40 @@ function Footer() {
   return (
     <footer className="bg-white border-t border-(--color-red-light)/50 pt-14 pb-8">
       <div className="max-w-6xl mx-auto px-5 md:px-8">
-        <div className="grid md:grid-cols-[1.3fr_repeat(4,1fr) gap-10 mb-10">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-10">
           <div>
             <div className="flex items-center gap-2.5 mb-3">
               <span className="w-11 h-11 rounded-full flex items-center justify-center text-white">
                 <img src="/favicon.svg" />
               </span>
               <span className="leading-tight">
-                <span className="block text-xs italic tracking-wide text-(--color-ink-light) pb-1">Trường Mầm Non</span>
+                <span className="block text-xs italic tracking-wide text-(--color-ink-light) pb-1">Trường Mầm non</span>
                 <span className="block font-display uppercase font-bold text-xl text-(--color-red)">Hồng Phúc</span>
               </span>
             </div>
             <p className="text-sm text-(--color-ink-light) flex items-start gap-2 mb-1.5">
-              <MapPin size={15} className="mt-0.5 shrink-0" /> Lộ Vàm, Xã Chợ Gạo, Tỉnh Đồng Tháp
+              <MapPin size={15} className="mt-0.5 shrink-0" /> Lộ Vàm, Chợ Gạo, Đồng Tháp
             </p>
             <p className="text-sm text-(--color-ink-light) flex items-center gap-2">
-              <Phone size={15} className="shrink-0" /> 0396 053 054 (Cô Vân) 
+              <Phone size={13} className="shrink-0" /> 0396 053 054 (Cô Vân) 
             </p>
           </div>
-
-          {cols.map((c) => (
-            <div key={c.title}>
-              <p className="font-display font-bold text-sm text-(--color-ink) hover:text-(--color-ink-light) mb-3">{c.title}</p>
-              <ul className="space-y-2">
-                {c.links.map((l) => (
-                  <li key={l}>
-                    <a href="#" className="text-sm text-(--color-ink-light) hover:text-(--color-red) transition-colors">
-                      {l}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+          <div className="grid grid-cols-2 md:grid-cols-4 md:col-span-3 gap-2">
+            {cols.map((c) => (
+              <div key={c.title}>
+                <p className="font-display font-bold text-sm text-(--color-ink) hover:text-(--color-ink-light) mb-3">{c.title}</p>
+                <ul className="space-y-2">
+                  {c.links.map((l) => (
+                    <li key={l}>
+                      <a href="#" className="text-sm text-(--color-ink-light) hover:text-(--color-red) transition-colors">
+                        {l}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
         </div>
         <div className="border-t border-(--color-red-light)/50 pt-6 text-center text-xs text-(--color-ink-light)">
           © 2026 <a href="/" className="hover:text-(--color-red)">Trường Mầm non Hồng Phúc</a>.
@@ -554,7 +560,7 @@ export default function Index() {
       <ContactSection />
       <Footer />
       
-      <button onClick={()=>{window.scrollTo({ top: 0, behavior: 'smooth' })}} className={`${scroll ? "flex items-center justify-center " : "hidden "}fixed right-4 bottom-6 z-9999 cursor-pointer bg-(--color-red-light)/25 hover:bg-(--color-red-light) text-(--color-red) hover:text-(--color-red-hover) rounded-full size-12 transition ease-linear`}>
+      <button onClick={()=>{window.scrollTo({ top: 0, behavior: 'smooth' })}} className={`${scroll ? "flex items-center justify-center " : "hidden "}fixed right-4 bottom-6 z-9999 cursor-pointer bg-(--color-red-light)/25 hover:bg-(--color-red-light) text-(--color-red) hover:text-(--color-red-hover) rounded-full size-12 shadow-[0px_0px_2px_var(--color-red)] transition ease-linear`}>
         <ArrowUp />
       </button>
     </div>
