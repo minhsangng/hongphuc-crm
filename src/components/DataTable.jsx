@@ -105,7 +105,7 @@ export default function DataTable({
           <div className="relative sm:w-56">
             <Search size={14} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-dark-400" />
             <input type="text" placeholder="Tìm kiếm..." value={search}
-              onChange={e => { setSearch(e.target.value); setPage(1) }} className="pl-8 h-8 text-xs outline-none border border-(--color-red-light) rounded-lg"
+              onChange={e => { setSearch(e.target.value); setPage(1) }} className="input-field pl-8 h-8 text-xs"
             />
           </div>
         )}
@@ -115,7 +115,7 @@ export default function DataTable({
         <table className="w-full min-w-max">
           <thead className="bg-dark-50">
             <tr>
-              <th>
+              <th className="table-header">
                 {paged.length > 0 && (
                   <button onClick={toggleSelectAll} className={isAllSelected || isPartialSelected ? "text-green-400" : "text-dark-400"}>
                     {isAllSelected ? (
@@ -129,7 +129,7 @@ export default function DataTable({
                 )}
               </th>
               {columns.map(col => (
-                <th key={col.key}>
+                <th key={col.key} className="table-header">
                   {col.sortable !== false ? (
                     <button onClick={() => handleSort(col.key)}
                       className="flex items-center gap-1.5 hover:text-dark-700 transition group"
@@ -165,7 +165,7 @@ export default function DataTable({
                       </button>
                     </td>
                     {columns.map(col => (
-                      <td key={col.key}>
+                      <td key={col.key} className="table-cell">
                         {col.render ? col.render(row[col.key], row) : row[col.key]}
                       </td>
                     ))}

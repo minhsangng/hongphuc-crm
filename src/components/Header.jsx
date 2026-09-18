@@ -52,8 +52,7 @@ export default function Header({ user, currentPage, onExitAdmin }) {
     <header className="sticky top-0 z-30 bg-white/90 dark:bg-dark-900/90 backdrop-blur-md border-b border-dark-100 dark:border-dark-800">
       <div className="flex items-center justify-between h-16 px-4 lg:px-6 gap-4">
         <div className="flex items-center gap-3 min-w-0">
-          <button
-            onClick={() => setMobileOpen(!mobileOpen)}
+          <button onClick={() => setMobileOpen(!mobileOpen)}
             className="lg:hidden p-2 rounded-lg hover:bg-dark-100 dark:hover:bg-dark-800 text-dark-500 dark:text-dark-400 transition-colors"
           >
             {mobileOpen ? <X size={20} /> : <Menu size={20} />}
@@ -68,11 +67,9 @@ export default function Header({ user, currentPage, onExitAdmin }) {
 
         <div className="flex-1 max-w-md hidden md:block">
           <div className="relative">
-            <div className="absolute left-0 top-1/2 -translate-y-1/2 bg-(--color-red) text-white rounded-bl-lg rounded-tl-lg h-full w-fit aspect-4/3 flex items-center justify-center cursor-pointer hover:bg-(--color-red-hover)">
-              <Search size={16} />
-            </div>
+            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-black-400" />
             <input type="text" placeholder="Tìm học sinh, lớp học, phụ huynh..." value={search}
-              onChange={e => setSearch(e.target.value)} className="outline-none border border-(--color-red)/25 focus:border-(--color-red) rounded-lg w-full pl-14 h-9 text-xs"
+              onChange={e => setSearch(e.target.value)} className="input-field pl-9 h-9 text-xs"
             />
           </div>
         </div>
@@ -90,7 +87,7 @@ export default function Header({ user, currentPage, onExitAdmin }) {
             >
               <Bell size={18} />
               {unread > 0 && (
-                <span className="absolute top-0 right-1 w-4 h-4 bg-(--color-red) text-white text-[0.5rem] font-bold rounded-full flex items-center justify-center">
+                <span className="absolute top-1.5 right-1.5 w-4 h-4 bg-(--color-red) text-white text-[0.5rem] font-bold rounded-full flex items-center justify-center">
                   {unread}
                 </span>
               )}

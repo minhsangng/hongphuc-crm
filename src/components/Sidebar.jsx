@@ -22,7 +22,7 @@ export default function Sidebar({ currentPage, onNavigate }) {
     return (
       <li className="relative group">
         <button onClick={() => { onNavigate(item.id); setMobileOpen(false) }}
-          className={`flex items-center gap-2 px-3 py-2 cursor-pointer w-full text-white hover:bg-(--color-red) ${isActive ? 'bg-(--color-red)' : 'nav-item-inactive'} ${collapsed ? 'justify-center px-2' : ''}`}
+          className={`nav-item w-full ${isActive ? 'nav-item-active' : 'nav-item-inactive'} ${collapsed ? 'justify-center px-2' : ''}`}
         >
           <Icon size={18} strokeWidth={isActive ? 2.5 : 2} className="flex-shrink-0" />
           {!collapsed && <span className="truncate">{item.label}</span>}
