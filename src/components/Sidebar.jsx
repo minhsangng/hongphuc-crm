@@ -22,7 +22,7 @@ export default function Sidebar({ currentPage, onNavigate }) {
     return (
       <li className="relative group">
         <button onClick={() => { onNavigate(item.id); setMobileOpen(false) }}
-          className={`nav-item w-full ${isActive ? 'nav-item-active' : 'nav-item-inactive'} ${collapsed ? 'justify-center px-2' : ''}`}
+          className={`nav-item w-full text-white hover:text-black ${isActive ? 'nav-item-active hover:text-white' : 'nav-item-inactive'} ${collapsed ? 'justify-center px-2' : ''}`}
         >
           <Icon size={18} strokeWidth={isActive ? 2.5 : 2} className="flex-shrink-0" />
           {!collapsed && <span className="truncate">{item.label}</span>}
@@ -67,7 +67,7 @@ export default function Sidebar({ currentPage, onNavigate }) {
       {!collapsed && (
         <div className="px-4 pb-4">
           <div className="rounded-xl bg-gradient-to-br from-(--color-gold) to-(--color-red) p-3 border border-white">
-            <p className="text-xs font-semibold text-dark-700 dark:text-dark-300 mb-0.5">Năm học 2025–2026</p>
+            <p className="text-xs font-semibold text-dark-700 mb-0.5">Năm học 2025–2026</p>
             <p className="text-xs text-dark-500 dark:text-dark-500">Học kỳ II • Tháng 12</p>
           </div>
         </div>

@@ -63,7 +63,7 @@ export default function DataTable({
   }
 
   const SortIcon = ({ col }) => {
-    if (sortKey !== col.key) return <ArrowUpDown size={13} className="text-dark-300 dark:text-dark-600" />
+    if (sortKey !== col.key) return <ArrowUpDown size={13} className="text-black" />
     return sortDir === "asc"
       ? <ArrowUp size={13} className="text-(--color-red)" />
       : <ArrowDown size={13} className="text-(--color-red)" />
@@ -71,7 +71,7 @@ export default function DataTable({
 
   if (loading) {
     return (
-      <div className="bg-white rounded-2xl border border-black/100 overflow-hidden animate-fade-in">
+      <div className="bg-white rounded-2xl border border-black/10 overflow-hidden animate-fade-in">
         <div className="px-5 py-4 border-b border-black/100">
           <div className="w-40 h-5 bg-dark-100 rounded animate-pulse" />
         </div>
