@@ -52,8 +52,7 @@ export default function Header({ user, currentPage, onExitAdmin }) {
     <header className="sticky top-0 z-30 bg-white/90 dark:bg-dark-900/90 backdrop-blur-md border-b border-dark-100 dark:border-dark-800">
       <div className="flex items-center justify-between h-16 px-4 lg:px-6 gap-4">
         <div className="flex items-center gap-3 min-w-0">
-          <button
-            onClick={() => setMobileOpen(!mobileOpen)}
+          <button onClick={() => setMobileOpen(!mobileOpen)}
             className="lg:hidden p-2 rounded-lg hover:bg-dark-100 dark:hover:bg-dark-800 text-dark-500 dark:text-dark-400 transition-colors"
           >
             {mobileOpen ? <X size={20} /> : <Menu size={20} />}
@@ -68,7 +67,7 @@ export default function Header({ user, currentPage, onExitAdmin }) {
 
         <div className="flex-1 max-w-md hidden md:block">
           <div className="relative">
-            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-dark-400" />
+            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-black-400" />
             <input type="text" placeholder="Tìm học sinh, lớp học, phụ huynh..." value={search}
               onChange={e => setSearch(e.target.value)} className="input-field pl-9 h-9 text-xs"
             />
@@ -84,11 +83,11 @@ export default function Header({ user, currentPage, onExitAdmin }) {
 
           <div className="relative" ref={notifRef}>
             <button onClick={() => { setShowNotif(v => !v); setShowProfile(false) }}
-              className="relative w-9 h-9 rounded-lg flex items-center justify-center text-dark-500 dark:text-dark-400 hover:bg-dark-100 dark:hover:bg-dark-800 transition-colors"
+              className="relative w-9 h-9 rounded-lg flex items-center justify-center text-dark-500 hover:bg-dark-100 transition"
             >
               <Bell size={18} />
               {unread > 0 && (
-                <span className="absolute top-1.5 right-1.5 w-4 h-4 bg-primary-600 text-white text-[10px] font-bold rounded-full flex items-center justify-center">
+                <span className="absolute top-1.5 right-1.5 w-4 h-4 bg-(--color-red) text-white text-[0.5rem] font-bold rounded-full flex items-center justify-center">
                   {unread}
                 </span>
               )}
@@ -140,7 +139,7 @@ export default function Header({ user, currentPage, onExitAdmin }) {
                     { icon: User, label: 'Hồ sơ cá nhân' },
                     { icon: Settings, label: 'Cài đặt' },
                   ].map(({ icon: Icon, label }) => (
-                    <button key={label} className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-dark-700 dark:text-dark-300 hover:bg-dark-50 dark:hover:bg-dark-700 transition-colors">
+                    <button key={label} className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-dark-700 dark:text-dark-300 hover:bg-dark-50 dark:hover:bg-dark-700 transition">
                       <Icon size={15} />
                       {label}
                     </button>
@@ -148,12 +147,12 @@ export default function Header({ user, currentPage, onExitAdmin }) {
                 </div>
                 <div className="py-1 border-t border-dark-100 dark:border-dark-700">
                   {onExitAdmin && (
-                    <button onClick={onExitAdmin} className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors">
+                    <button onClick={onExitAdmin} className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition">
                       <Home size={15} />
                       Về trang chủ
                     </button>
                   )}
-                  <button onClick={onExitAdmin} className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors">
+                  <button onClick={onExitAdmin} className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition">
                     <LogOut size={15} />
                     Đăng xuất
                   </button>

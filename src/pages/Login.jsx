@@ -95,7 +95,7 @@ export default function LoginPage() {
       <div className="min-h-screen max-h-screen relative overflow-hidden flex items-center justify-center p-4">
         <div className="absolute inset-0" style={{backgroundImage: `url("${images("background_login.png")}")`, backgroundSize: "100%", backgroundPosition: "center"}}></div>
         {bubbles.map((b, i) => <Bubble key={i} {...b} />)}
-        {["sky.png","tree.png","sun.png","car.png","pencil.png","tubelight.png","coun-shape.png","follwer.png"].map((em, i) => (
+        {["sky.png","tree.png","sun.png","car.png","pencil.png","tubelight.png","sun.png","follwer.png"].map((em, i) => (
           <div key={i} className="absolute text-2xl pointer-events-none select-none"
             style={{ left: `${8 + i * 12}%`, top: `${15 + (i % 3) * 25}%`, opacity: 0.25, animation: `floatBubble ${3 + i * 0.4}s ease-in-out ${i * 0.3}s infinite alternate`,
           }}><img src={images(em)} alt="Icon" /></div>
@@ -109,10 +109,10 @@ export default function LoginPage() {
             <div className="relative bg-gradient-to-r from-blue-500 to-red-400 px-8 pt-2 pb-6 text-center overflow-hidden">
               <div className="absolute -right-10 -top-10 w-40 h-40 bg-white/10 rounded-full"></div>
               <div className="absolute -left-8 -bottom-8 w-32 h-32 bg-white/10 rounded-full"></div>
-              <div className="flex justify-center items-center gap-1 flex-wrap mt-4">
-                <div className="relative inline-flex items-center justify-center w-20 h-20 rounded-full shadow-xl mb-4 mx-auto">
-                  <span className="text-4xl bg-white rounded-full"><img src="/favicon_v3.svg" alt="Logo" /></span>
-                  <div className="absolute -inset-1.5 rounded-full border-2 border-dashed border-white/50" style={{ animation: "spinSlow 8s linear infinite" }}/>
+              <div className="flex justify-center items-center gap-6 flex-wrap mt-4">
+                <div className="relative inline-flex items-center justify-center w-20 h-20 rounded-full shadow-xl mb-4">
+                  <span className="text-4xl bg-white/75 rounded-full"><img src="/favicon.svg" alt="Logo" className="p-2" /></span>
+                  <div className="absolute -inset-1.5 rounded-full border-2 border-dashed border-white/50 animate-spin duration-[50s] transition-all ease-linear"/>
                 </div>
                 <h1 className="text-2xl font-black text-white drop-shadow-sm">Hệ thống quản trị</h1>
               </div>
@@ -124,7 +124,7 @@ export default function LoginPage() {
             </div>
             <div className="px-8 pb-4">
               <div className="flex justify-between items-center gap-2 flex-wrap mb-4">
-                <h2 className="text-xl font-bold text-gray-900 dark:text-white">Đăng nhập</h2>
+                <h2 className="text-xl font-bold text-(--color-red)">Đăng nhập</h2>
                 <p className="text-gray-400 text-sm">Chào mừng trở lại!</p>
               </div>
               <form onSubmit={handleSubmit} className="space-y-4">
@@ -143,20 +143,14 @@ export default function LoginPage() {
                   <div className="relative">
                     <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-base"><LockKeyhole size={20}/></span>
                     <input type={showPass ? "text" : "password"} autoComplete="current-password" placeholder="Nhập mật khẩu..." value={form.password} onChange={e => setForm(v => ({ ...v, password: e.target.value }))}
-                      className="input-hp w-full pl-10 pr-12 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white text-sm outline-none focus:border-red-400 focus:bg-white dark:focus:bg-gray-700 transition-all"
+                      className="input-hp w-full pl-10 pr-12 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white text-sm outline-none focus:border-red-400 focus:bg-white dark:focus:bg-gray-700 transition-all [&::-ms-reveal]:hidden [&::-ms-clear]:hidden [&::-webkit-textfield-decoration-container]:hidden"
                     />
-                    <button type="button" className="absolute right-3.5 top-1/2 -translate-y-1/2" onClick={()=>setShowPass(!showPass)}>{showPass ? <Eye size={20} /> : <EyeClosed size={20}/>}</button>
+                    <button tabIndex={-1} type="button" className="absolute right-3.5 top-1/2 -translate-y-1/2" onClick={()=>setShowPass(!showPass)}>{showPass ? <Eye size={20} /> : <EyeClosed size={20}/>}</button>
                   </div>
                 </div>
 
                 <div className="flex items-center justify-end">
-                  {/* <label className="flex items-center gap-2 cursor-pointer group" onClick={() => setForm(v => ({ ...v, remember: !v.remember }))}>
-                    <div className={`w-3 h-3 rounded-sm border-2 flex items-center justify-center transition-all ${form.remember ? 'bg-red-500 border-red-500' : 'border-gray-300 dark:border-gray-600 group-hover:border-red-300'}`}>
-                      {form.remember && <span className="text-white text-xs font-bold">✓</span>}
-                    </div>
-                    <span className="text-sm text-gray-600 dark:text-gray-400 select-none">Ghi nhớ đăng nhập</span>
-                  </label> */}
-                  <button type="button" className="text-sm text-red-500 hover:text-red-600 font-medium transition-colors hover:underline">Quên mật khẩu?</button>
+                  <button tabIndex={-1} type="button" className="text-sm text-red-500 hover:text-red-600 font-medium transition-colors hover:underline">Quên mật khẩu?</button>
                 </div>
 
                 {error && (
@@ -177,7 +171,7 @@ export default function LoginPage() {
                 </button>
               </form>
 
-              <p className="text-center text-xs text-gray-400 dark:text-gray-600 mt-3">© 2026 <Link to="/">Mầm non Hồng Phúc</Link></p>
+              <p className="text-center text-xs text-gray-400 dark:text-gray-600 mt-3">© 2026 <Link to="/" tabIndex={-1}>Mầm non Hồng Phúc</Link></p>
             </div>
           </div>
         </div>

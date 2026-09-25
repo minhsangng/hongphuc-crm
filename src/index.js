@@ -19,6 +19,7 @@ app.use(session({
   secret: ENV.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
+  rolling: true,
   cookie: {
     maxAge: 1000 * 60 * 15, // 15 mins
     secure: ENV.NODE_ENV === "production",

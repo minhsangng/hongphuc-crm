@@ -33,10 +33,10 @@ export default function Pagination({ total, pageSize, page, onChange }) {
           p === "..."
             ? <span key={`e${i}`} className="w-7 h-7 flex items-center justify-center text-dark-400 text-xs">…</span>
             : <button key={p} onClick={() => onChange(p)}
-                className={`w-7 h-7 rounded-lg text-xs font-medium transition-colors ${
+                className={`w-7 h-7 rounded-lg text-xs font-medium transition hover:bg-(--color-red-hover) hover:text-white ${
                   p === page
-                    ? "bg-primary-600 text-white shadow-sm"
-                    : "text-dark-600 dark:text-dark-400 hover:bg-dark-100 dark:hover:bg-dark-700"
+                    ? "bg-(--color-red) text-white shadow-sm"
+                    : "text-dark-600 dark:text-dark-400 hover:bg-dark-100"
                 }`}>
                 {p}
               </button>

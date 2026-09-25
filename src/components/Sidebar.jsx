@@ -21,8 +21,7 @@ export default function Sidebar({ currentPage, onNavigate }) {
     const Icon = item.icon
     return (
       <li className="relative group">
-        <button
-          onClick={() => { onNavigate(item.id); setMobileOpen(false) }}
+        <button onClick={() => { onNavigate(item.id); setMobileOpen(false) }}
           className={`nav-item w-full ${isActive ? 'nav-item-active' : 'nav-item-inactive'} ${collapsed ? 'justify-center px-2' : ''}`}
         >
           <Icon size={18} strokeWidth={isActive ? 2.5 : 2} className="flex-shrink-0" />
@@ -40,12 +39,14 @@ export default function Sidebar({ currentPage, onNavigate }) {
   const sidebarContent = (
     <div className={`flex flex-col h-full ${collapsed ? 'w-16' : 'w-60'} transition-all duration-300`}>
       {/* Logo */}
-      <a href="/">
-        <div className={`flex justify-center items-center px-4 mb-5 border-b border-dark-100 dark:border-dark-800 ${collapsed ? 'justify-center px-2' : ''}`}>
-          <div className="flex items-center mt-2">
-              <img src="/favicon_v3.svg" className="h-20" alt="Logo" />
-          </div>
-        </div>
+      <a href="/" className="flex justify-center items-center gap-2 border-r border-black shrink-0 pt-4 pb-2 mb-4 border-b border-dark">
+        <span className="w-11 h-11 rounded-full flex items-center justify-center">
+          <img src="/favicon.svg" className="drop-shadow-xs drop-shadow-white" />
+        </span>
+        <span className="leading-tight">
+          <span className="block text-[0.65rem] italic tracking-wide text-(--color-ink-light) pb-0.5 text-shadow-2xs text-shadow-white">Trường Mầm non</span>
+          <span className="block font-display uppercase font-bold text-xl text-(--color-red) text-shadow-xs text-shadow-white">Hồng Phúc</span>
+        </span>
       </a>
 
       {/* Nav */}
@@ -56,8 +57,8 @@ export default function Sidebar({ currentPage, onNavigate }) {
       </nav>
 
       {/* Collapse toggle – desktop only */}
-      <div className="hidden lg:flex items-center justify-end p-2 border-t border-dark-100 dark:border-dark-800">
-        <button onClick={() => setCollapsed(c => !c)} className="p-2 rounded-lg text-dark-400 hover:text-dark-700 dark:hover:text-dark-200 hover:bg-dark-100 dark:hover:bg-dark-800 transition-colors" title={collapsed ? 'Mở rộng' : 'Thu gọn'}>
+      <div className="hidden lg:flex items-center justify-end p-2 border-t border-white">
+        <button onClick={() => setCollapsed(c => !c)} className="p-2 rounded-lg text-white hover:bg-white hover:text-black cursor-pointer transition ease-linear" title={collapsed ? 'Mở rộng' : 'Thu gọn'}>
           {collapsed ? <ChevronRight size={16} /> : <ChevronLeft size={16} />}
         </button>
       </div>
@@ -65,7 +66,7 @@ export default function Sidebar({ currentPage, onNavigate }) {
       {/* Footer info */}
       {!collapsed && (
         <div className="px-4 pb-4">
-          <div className="rounded-xl bg-gradient-to-br from-accent-600/10 to-primary-600/10 dark:from-accent-900/30 dark:to-primary-900/30 p-3 border border-accent-200/50 dark:border-accent-800/30">
+          <div className="rounded-xl bg-gradient-to-br from-(--color-gold) to-(--color-red) p-3 border border-white">
             <p className="text-xs font-semibold text-dark-700 dark:text-dark-300 mb-0.5">Năm học 2025–2026</p>
             <p className="text-xs text-dark-500 dark:text-dark-500">Học kỳ II • Tháng 12</p>
           </div>
@@ -77,7 +78,7 @@ export default function Sidebar({ currentPage, onNavigate }) {
   return (
     <>
       {/* Desktop sidebar */}
-      <aside className={`hidden lg:flex flex-col h-screen sticky top-0 bg-white dark:bg-dark-900 border-r border-dark-100 dark:border-dark-800 shadow-sidebar flex-shrink-0 transition-all duration-300 ${collapsed ? 'w-16' : 'w-60'}`}>
+      <aside className={`hidden lg:flex flex-col h-screen sticky top-0 bg-gray-700 border-r border-black shadow-xl flex-shrink-0 transition-all duration-300 ${collapsed ? 'w-16' : 'w-60'}`}>
         {sidebarContent}
       </aside>
 
@@ -85,10 +86,10 @@ export default function Sidebar({ currentPage, onNavigate }) {
       {mobileOpen && (
         <div className="lg:hidden fixed inset-0 z-40">
           <div className="absolute inset-0 bg-dark-900/50 backdrop-blur-sm" onClick={() => setMobileOpen(false)} />
-          <aside className="relative z-50 flex flex-col h-full w-60 bg-white dark:bg-dark-900 shadow-2xl animate-slide-in">
+          <aside className="relative z-50 flex flex-col h-full w-60 bg-white shadow-2xl animate-slide-in">
             <button
               onClick={() => setMobileOpen(false)}
-              className="absolute top-4 right-4 p-1.5 rounded-lg text-dark-400 hover:bg-dark-100 dark:hover:bg-dark-800"
+              className="absolute top-4 right-4 p-1.5 rounded-lg text-dark-400 hover:bg-dark-100"
             >
               <X size={18} />
             </button>

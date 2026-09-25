@@ -65,17 +65,17 @@ export default function DataTable({
   const SortIcon = ({ col }) => {
     if (sortKey !== col.key) return <ArrowUpDown size={13} className="text-dark-300 dark:text-dark-600" />
     return sortDir === "asc"
-      ? <ArrowUp size={13} className="text-primary-500" />
-      : <ArrowDown size={13} className="text-primary-500" />
+      ? <ArrowUp size={13} className="text-(--color-red)" />
+      : <ArrowDown size={13} className="text-(--color-red)" />
   };
 
   if (loading) {
     return (
-      <div className="bg-white dark:bg-dark-800 rounded-2xl border border-dark-100 dark:border-dark-700 overflow-hidden animate-fade-in">
-        <div className="px-5 py-4 border-b border-dark-100 dark:border-dark-700">
-          <div className="w-40 h-5 bg-dark-100 dark:bg-dark-700 rounded animate-pulse" />
+      <div className="bg-white rounded-2xl border border-black/100 overflow-hidden animate-fade-in">
+        <div className="px-5 py-4 border-b border-black/100">
+          <div className="w-40 h-5 bg-dark-100 rounded animate-pulse" />
         </div>
-        <div className="divide-y divide-dark-50 dark:divide-dark-700/50">
+        <div className="divide-y divide-dark-50">
           {Array.from({ length: pageSize }).map((_, i) => (
             <div key={i} className="flex gap-4 px-5 py-3 animate-pulse">
               {columns.map(c => (
@@ -113,7 +113,7 @@ export default function DataTable({
 
       <div className="overflow-x-auto">
         <table className="w-full min-w-max">
-          <thead className="bg-dark-50 dark:bg-dark-900/50">
+          <thead className="bg-dark-50">
             <tr>
               <th className="table-header">
                 {paged.length > 0 && (
@@ -132,20 +132,20 @@ export default function DataTable({
                 <th key={col.key} className="table-header">
                   {col.sortable !== false ? (
                     <button onClick={() => handleSort(col.key)}
-                      className="flex items-center gap-1.5 hover:text-dark-700 dark:hover:text-dark-200 transition-colors group"
+                      className="flex items-center gap-1.5 hover:text-dark-700 transition group"
                     >{col.label}<SortIcon col={col} /></button>
                   ) : col.label}
                 </th>
               ))}
             </tr>
           </thead>
-          <tbody className="divide-y divide-dark-50 dark:divide-dark-700/50">
+          <tbody className="divide-y divide-dark-50">
             {paged.length === 0 ? (
               <tr>
                 <td colSpan={columns.length + 1} className="py-16 text-center">
                   <div className="flex flex-col items-center gap-2">
-                    <Filter size={32} className="text-dark-200 dark:text-dark-700" />
-                    <p className="text-sm text-dark-400 dark:text-dark-500">{emptyMessage}</p>
+                    <Filter size={32} className="text-dark-200" />
+                    <p className="text-sm text-dark-400">{emptyMessage}</p>
                     {search && (
                       <button onClick={() => setSearch("")} className="text-xs text-accent-600 hover:underline">Xóa tìm kiếm</button>
                     )}
@@ -158,7 +158,7 @@ export default function DataTable({
                 const isSelected = selectedRows.has(rowId);
                 return (
                   <tr key={rowId}
-                    className="hover:bg-dark-50 dark:hover:bg-dark-700/30 transition-colors group">
+                    className="hover:bg-dark-50 transition group">
                     <td className="table-cell">
                       <button onClick={() => toggleRow(rowId)} className={isSelected ? "text-green-400" : "text-dark-400"}>
                         {isSelected ? <SquareCheck size={16} /> : <Square size={16} />}
