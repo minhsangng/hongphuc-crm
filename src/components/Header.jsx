@@ -47,11 +47,11 @@ export default function Header({ user, currentPage, onExitAdmin }) {
   }, [currentPage]);
 
   return (
-    <header className="sticky top-0 z-30 ml-2 mr-6 rounded-xl bg-white/50 backdrop-blur-md shadow shadow-md">
+    <header className="sticky top-0 z-30 ml-2 mb-2 rounded-xl bg-white/50 backdrop-blur-md shadow-md">
       <div className="flex items-center justify-between h-16 px-4 lg:px-6 gap-4">
         <div className="flex items-center gap-3 min-w-0">
           <button onClick={() => setMobileOpen(!mobileOpen)}
-            className="lg:hidden p-2 rounded-lg hover:bg-dark-100 text-dark-500 transition-colors"
+            className="lg:hidden p-2 rounded-lg hover:bg-dark-100 text-black transition-colors"
           >
             {mobileOpen ? <X size={20} /> : <Menu size={20} />}
           </button>

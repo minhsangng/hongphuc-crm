@@ -22,7 +22,7 @@ const columns = [
   )},
   { key: "role", label: "Chức danh", sortable: false, render: (v, row) => <div className="flex flex-col items-center gap-1"><span className="badge badge-blue">{v}</span><span className="text-xs">({row.className})</span></div> },
   { key: "gross", label: "Lương", sortable: false, render: v => (
-    <span className="flex items-center gap-1 text-xs text-dark-500">{formatVND(v)}</span>
+    <span className="flex items-center gap-1 text-xs text-black">{formatVND(v)}</span>
   )},
   { key: "status", label: "Trạng thái", sortable: false, render: v => {
     const map = { "Đang làm": "badge-green", "Tạm nghỉ": "badge-yellow", "Đã nghỉ": "badge-red" };
@@ -51,8 +51,8 @@ export default function Teachers({ user }) {
   if (!show) return <div className="p-4 lg:p-6 animate-fade-in flex items-center gap-2"><Ban color="#d05858" /><p>Chức năng này chỉ dành cho Quản lý.</p></div>;
 
   return (
-    <div className="p-1 lg:p-2 space-y-2 animate-fade-in">
-      <div className="bg-white/50 backdrop-blur-md shadow shadow-lg p-4 pt-6 rounded-xl">
+    <div className="p-1 lg:p-2 lg:pt-0 space-y-2 animate-fade-in">
+      <div className="bg-white/50 backdrop-blur-md shadow-lg p-4 pt-6 rounded-xl">
         <div className="flex items-center justify-between mb-2">
           <div>
             <h2 className="text-xl font-bold text-(--color-red)">Giáo viên</h2>
