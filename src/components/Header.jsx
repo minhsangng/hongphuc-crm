@@ -1,12 +1,10 @@
 import { useState, useRef, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { Bell, Search, Menu, X, Sun, Moon, ChevronDown, LogOut, User, Settings, Home } from "lucide-react";
 import { useTheme, useSidebar } from "../context/AppContext";
 import { notifications } from "../data/mockData";
 import Avatar from "./Avatar";
 
 export default function Header({ user, currentPage, onExitAdmin }) {
-  const navigate = useNavigate();
   const { dark, toggle } = useTheme();
   const { setMobileOpen, mobileOpen } = useSidebar();
   const [showNotif, setShowNotif] = useState(false);
@@ -49,20 +47,20 @@ export default function Header({ user, currentPage, onExitAdmin }) {
   }, [currentPage]);
 
   return (
-    <header className="sticky top-0 z-30 bg-white/90 dark:bg-dark-900/90 backdrop-blur-md border-b border-dark-100 dark:border-dark-800">
+    <header className="sticky top-0 z-30 ml-2 mr-6 rounded-xl bg-white/50 backdrop-blur-md shadow shadow-md">
       <div className="flex items-center justify-between h-16 px-4 lg:px-6 gap-4">
         <div className="flex items-center gap-3 min-w-0">
           <button onClick={() => setMobileOpen(!mobileOpen)}
-            className="lg:hidden p-2 rounded-lg hover:bg-dark-100 dark:hover:bg-dark-800 text-dark-500 dark:text-dark-400 transition-colors"
+            className="lg:hidden p-2 rounded-lg hover:bg-dark-100 text-dark-500 transition-colors"
           >
             {mobileOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
           <div className="hidden sm:flex items-center gap-1 text-sm">
-            <span className="text-dark-400 dark:text-dark-500">Quản trị</span>
-            <span className="text-dark-300 dark:text-dark-600 mx-1">/</span>
-            <span className="font-semibold text-dark-800 dark:text-dark-100">{pageNames[currentPage] || currentPage}</span>
+            <span className="text-dark-400">Quản trị</span>
+            <span className="text-dark-300 mx-1">/</span>
+            <span className="font-semibold text-dark-800">{pageNames[currentPage] || currentPage}</span>
           </div>
-          <h1 className="sm:hidden font-bold text-dark-900 dark:text-white text-base">{pageNames[currentPage]}</h1>
+          <h1 className="sm:hidden font-bold text-dark-900 text-base">{pageNames[currentPage]}</h1>
         </div>
 
         <div className="flex-1 max-w-md hidden md:block">
@@ -76,7 +74,7 @@ export default function Header({ user, currentPage, onExitAdmin }) {
 
         <div className="flex items-center gap-1.5">
           <button onClick={toggle} title={dark ? 'Chế độ sáng' : 'Chế độ tối'}
-            className="w-9 h-9 rounded-lg flex items-center justify-center text-dark-500 dark:text-dark-400 hover:bg-dark-100 dark:hover:bg-dark-800 transition-colors"
+            className="w-9 h-9 rounded-lg flex items-center justify-center text-dark-500 hover:bg-dark-100 transition-colors"
           >
             {dark ? <Sun size={18} /> : <Moon size={18} />}
           </button>
@@ -94,25 +92,25 @@ export default function Header({ user, currentPage, onExitAdmin }) {
             </button>
 
             {showNotif && (
-              <div className="absolute right-0 mt-2 w-80 bg-white dark:bg-dark-800 rounded-2xl shadow-xl border border-dark-100 dark:border-dark-700 overflow-hidden animate-fade-in z-50">
-                <div className="flex items-center justify-between px-4 py-3 border-b border-dark-100 dark:border-dark-700">
-                  <h3 className="font-semibold text-dark-900 dark:text-white text-sm">Thông báo</h3>
+              <div className="absolute right-0 mt-2 w-80 bg-white rounded-2xl shadow-xl border border-dark-100 overflow-hidden animate-fade-in z-50">
+                <div className="flex items-center justify-between px-4 py-3 border-b border-dark-100">
+                  <h3 className="font-semibold text-dark-900 text-sm">Thông báo</h3>
                   <span className="badge badge-red">{unread} mới</span>
                 </div>
-                <div className="divide-y divide-dark-50 dark:divide-dark-700/50 max-h-72 overflow-y-auto">
+                <div className="divide-y divide-dark-50 max-h-72 overflow-y-auto">
                   {notifications.map(n => (
-                    <div key={n.id} className={`flex gap-3 px-4 py-3 hover:bg-dark-50 dark:hover:bg-dark-700/50 transition-colors cursor-pointer ${!n.read ? 'bg-accent-50/50 dark:bg-accent-900/10' : ''}`}>
+                    <div key={n.id} className={`flex gap-3 px-4 py-3 hover:bg-dark-50 transition-colors cursor-pointer ${!n.read ? 'bg-accent-50/50' : ''}`}>
                       <div className={`mt-1 w-2 h-2 rounded-full flex-shrink-0 ${notifTypeColor[n.type]}`} />
                       <div className="min-w-0">
-                        <p className={`text-sm font-medium truncate ${!n.read ? 'text-dark-900 dark:text-white' : 'text-dark-600 dark:text-dark-400'}`}>{n.title}</p>
-                        <p className="text-xs text-dark-500 dark:text-dark-500 truncate">{n.desc}</p>
-                        <p className="text-xs text-dark-400 dark:text-dark-600 mt-0.5">{n.time}</p>
+                        <p className={`text-sm font-medium truncate ${!n.read ? 'text-dark-900' : 'text-dark-600'}`}>{n.title}</p>
+                        <p className="text-xs text-dark-500 truncate">{n.desc}</p>
+                        <p className="text-xs text-dark-400 mt-0.5">{n.time}</p>
                       </div>
                     </div>
                   ))}
                 </div>
-                <div className="px-4 py-2.5 border-t border-dark-100 dark:border-dark-700">
-                  <button className="text-xs text-accent-600 dark:text-accent-400 font-medium hover:underline">Xem tất cả thông báo</button>
+                <div className="px-4 py-2.5 border-t border-dark-100">
+                  <button className="text-xs text-accent-600 font-medium hover:underline">Xem tất cả thông báo</button>
                 </div>
               </div>
             )}
@@ -121,38 +119,38 @@ export default function Header({ user, currentPage, onExitAdmin }) {
           <div className="relative" ref={profileRef}>
             <button
               onClick={() => { setShowProfile(v => !v); setShowNotif(false) }}
-              className="flex items-center gap-2 pl-1 pr-2 py-1 rounded-xl hover:bg-dark-100 dark:hover:bg-dark-800 transition-colors"
+              className="flex items-center gap-2 pl-1 pr-2 py-1 rounded-xl hover:bg-dark-100 transition-colors"
             >
               <Avatar name={user?.fullName || "Vân An"} size="sm" />
-              <span className="hidden sm:block text-sm font-medium text-dark-700 dark:text-dark-200">{user?.userName || "Vân An"}</span>
+              <span className="hidden sm:block text-sm font-medium text-dark-700">{user?.userName || "Vân An"}</span>
               <ChevronDown size={14} className="hidden sm:block text-dark-400" />
             </button>
 
             {showProfile && (
-              <div className="absolute right-0 mt-2 w-56 bg-white dark:bg-dark-800 rounded-2xl shadow-xl border border-dark-100 dark:border-dark-700 overflow-hidden animate-fade-in z-50">
-                <div className="px-4 py-3 border-b border-dark-100 dark:border-dark-700">
-                  <p className="font-semibold text-sm text-dark-900 dark:text-white">Hi, {user?.fullName || 'Vân An'}!</p>
-                  <p className="text-xs text-dark-500 dark:text-dark-400">{user?.role || 'Quản trị viên'}</p>
+              <div className="absolute right-0 mt-2 w-56 bg-white rounded-2xl shadow-xl border border-dark-100 overflow-hidden animate-fade-in z-50">
+                <div className="px-4 py-3 border-b border-dark-100">
+                  <p className="font-semibold text-sm text-dark-900">Hi, {user?.fullName || 'Vân An'}!</p>
+                  <p className="text-xs text-dark-500">{user?.role || 'Quản trị viên'}</p>
                 </div>
                 <div className="py-1">
                   {[
                     { icon: User, label: 'Hồ sơ cá nhân' },
                     { icon: Settings, label: 'Cài đặt' },
                   ].map(({ icon: Icon, label }) => (
-                    <button key={label} className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-dark-700 dark:text-dark-300 hover:bg-dark-50 dark:hover:bg-dark-700 transition">
+                    <button key={label} className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-dark-700 hover:bg-dark-50 transition">
                       <Icon size={15} />
                       {label}
                     </button>
                   ))}
                 </div>
-                <div className="py-1 border-t border-dark-100 dark:border-dark-700">
+                <div className="py-1 border-t border-dark-100">
                   {onExitAdmin && (
-                    <button onClick={onExitAdmin} className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition">
+                    <button onClick={onExitAdmin} className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-blue-600 hover:bg-blue-50 transition">
                       <Home size={15} />
                       Về trang chủ
                     </button>
                   )}
-                  <button onClick={onExitAdmin} className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition">
+                  <button onClick={onExitAdmin} className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition">
                     <LogOut size={15} />
                     Đăng xuất
                   </button>

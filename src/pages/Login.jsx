@@ -20,8 +20,6 @@ export default function LoginPage() {
 
   useEffect(() => {
     document.title = "Đăng nhập - Hệ thống quản trị";
-  
-    if (document.documentElement.hasAttribute("class")) document.documentElement.removeAttribute("class");
     setTimeout(() => setMounted(true), 50);
   }, []);
 

@@ -32,31 +32,11 @@ html {
 
 body {
   font-family: var(--font-primary);
-  background: var(--color-cream);
 }
 
 ::selection {
   background: var(--color-red-light);
   color: var(--color-red-primary);
-}
-
-* {
-  scrollbar-width: thin;
-  scrollbar-color: var(--color-red-light) var(--color-gold-light);
-}
-
-*::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-
-*::-webkit-scrollbar-track {
-  background: var(--color-red);
-}
-
-*::-webkit-scrollbar-thumb {
-  background-color: var(--color-red);
-  border-radius: 3px;
 }
 
 @layer components {

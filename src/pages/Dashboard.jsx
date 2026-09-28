@@ -30,7 +30,7 @@ const childrenColumns = [
     <div className="flex items-center gap-2.5">
       <Avatar name={v} size="sm" />
       <div>
-        <p className="font-medium text-black dark:text-white text-sm">{v}</p>
+        <p className="font-medium text-black text-sm">{v}</p>
         <p className="text-xs text-dark-400">{row.dob}</p>
       </div>
     </div>
@@ -49,7 +49,7 @@ const teacherColumns = [
     <div className="flex items-center gap-2.5">
       <Avatar name={v} size="sm" />
       <div>
-        <p className="font-medium text-black dark:text-white text-sm">{v}</p>
+        <p className="font-medium text-black text-sm">{v}</p>
         <p className="text-xs text-dark-400">{row.email}</p>
       </div>
     </div>

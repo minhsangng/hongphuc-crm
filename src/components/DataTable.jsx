@@ -71,8 +71,8 @@ export default function DataTable({
 
   if (loading) {
     return (
-      <div className="bg-white rounded-2xl border border-black/10 overflow-hidden animate-fade-in">
-        <div className="px-5 py-4 border-b border-black/100">
+      <div className="bg-white/50 rounded-lg overflow-hidden animate-fade-in">
+        <div className="px-5 py-4">
           <div className="w-40 h-5 bg-dark-100 rounded animate-pulse" />
         </div>
         <div className="divide-y divide-dark-50">
@@ -89,21 +89,21 @@ export default function DataTable({
   }
 
   return (
-    <div className="bg-white dark:bg-dark-800 rounded-2xl border border-dark-100 dark:border-dark-700 overflow-hidden animate-fade-in">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-5 py-4 border-b border-dark-100 dark:border-dark-700">
+    <div className="bg-white/50 backdrop-blur-md rounded-xl shadow shadow-lg overflow-hidden animate-fade-in">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-5 py-4 border-b border-black/25">
         <div>
-          <h3 className="font-semibold text-dark-900 dark:text-white text-sm">{title}</h3>
-          <div className="flex items-center gap-4">
-            <p className="text-xs text-dark-400 dark:text-dark-500 mt-0.5">
+          <h3 className="font-semibold text-black text-sm">{title}</h3>
+          <div className="flex items-center gap-4 h-6">
+            <p className="text-xs text-gray-600 mt-0.5">
               {data.length > 0 ? filtered.length : 0} kết quả  
-              {selectedRows.size > 0 ? ` · ${selectedRows.size} đã chọn` : ""}
+              {selectedRows.size > 0 && !search ? ` · ${selectedRows.size} đã chọn` : ""}
             </p>
-            {selectedRows.size > 0 ? (<div className="flex items-center gap-1"><button className="flex items-center gap-1 bg-red-400 hover:bg-red-500 text-gray-200 hover:text-white transition ease-linear rounded-md px-1.5 py-0.5 text-xs"><Trash2 size="10" />Xóa {selectedRows.size > 1 ? " tất cả" : ""} dòng</button><button className="flex items-center gap-1 bg-blue-400 hover:bg-blue-500 text-gray-200 hover:text-white transition ease-linear rounded-md px-1.5 py-0.5 text-xs"><FilePenLine size="10" />Sửa dòng</button></div>) : "" }
+            {selectedRows.size > 0 && !search ? (<div className="flex items-center gap-1"><button className="flex items-center gap-1 bg-red-400 hover:bg-red-500 text-gray-200 hover:text-white transition ease-linear rounded-md px-1.5 py-0.5 text-xs"><Trash2 size="10" />Xóa {selectedRows.size > 1 ? " tất cả" : ""} dòng</button><button className="flex items-center gap-1 bg-blue-400 hover:bg-blue-500 text-gray-200 hover:text-white transition ease-linear rounded-md px-1.5 py-0.5 text-xs"><FilePenLine size="10" />Sửa dòng</button></div>) : "" }
           </div>
         </div>
         {searchable && (
           <div className="relative sm:w-56">
-            <Search size={14} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-dark-400" />
+            <Search size={14} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-black" />
             <input type="text" placeholder="Tìm kiếm..." value={search}
               onChange={e => { setSearch(e.target.value); setPage(1) }} className="input-field pl-8 h-8 text-xs"
             />
@@ -113,11 +113,11 @@ export default function DataTable({
 
       <div className="overflow-x-auto">
         <table className="w-full min-w-max">
-          <thead className="bg-dark-50">
+          <thead className="bg-gray-200 border-b border-black/25">
             <tr>
               <th className="table-header">
                 {paged.length > 0 && (
-                  <button onClick={toggleSelectAll} className={isAllSelected || isPartialSelected ? "text-green-400" : "text-dark-400"}>
+                  <button onClick={toggleSelectAll} className={isAllSelected || isPartialSelected ? "text-green-400" : "text-black"}>
                     {isAllSelected ? (
                       <SquareCheck size={16} />
                     ) : isPartialSelected ? (
@@ -132,22 +132,22 @@ export default function DataTable({
                 <th key={col.key} className="table-header">
                   {col.sortable !== false ? (
                     <button onClick={() => handleSort(col.key)}
-                      className="flex items-center gap-1.5 hover:text-dark-700 transition group"
+                      className="flex items-center gap-1.5 hover:text-black/75 uppercase transition group"
                     >{col.label}<SortIcon col={col} /></button>
                   ) : col.label}
                 </th>
               ))}
             </tr>
           </thead>
-          <tbody className="divide-y divide-dark-50">
+          <tbody className="divide-y divide-black/25">
             {paged.length === 0 ? (
               <tr>
                 <td colSpan={columns.length + 1} className="py-16 text-center">
                   <div className="flex flex-col items-center gap-2">
-                    <Filter size={32} className="text-dark-200" />
-                    <p className="text-sm text-dark-400">{emptyMessage}</p>
+                    <Filter size={32} className="text-gray-600/75" />
+                    <p className="text-sm text-gray-600/75">{emptyMessage}</p>
                     {search && (
-                      <button onClick={() => setSearch("")} className="text-xs text-accent-600 hover:underline">Xóa tìm kiếm</button>
+                      <button onClick={() => setSearch("")} className="text-xs text-(--color-red) hover:underline">Xóa tìm kiếm</button>
                     )}
                   </div>
                 </td>
