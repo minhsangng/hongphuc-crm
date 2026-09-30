@@ -13,14 +13,22 @@ const columns = [
   )},
   { key: "phoneNumber", label: "Liên hệ", sortable: false, render: (v, row) => (
     <div className="flex flex-col gap-1">
-      <span className="flex items-center gap-1 text-black"><Phone size={12} />{v}</span>
-      <span className="flex items-center gap-1 text-black text-xs"><Mail size={10} />{row.email}</span>
+      <a href={`tel:${v}`} title={`Gọi ${row.fullName}`} className="flex items-center gap-1 text-black"><Phone size={12} />{v}</a>
+      <a href={`mailto:${row.email}`} title={`Gửi thư ${row.fullName}`} className="flex items-center gap-1 text-xs text-gray-400"><Mail size={10} />{row.email}</a>
     </div>
   )},
-  { key: "email", label: "Email", sortable: false, render: v => (
-    <span className="flex items-center gap-1 text-black text-xs"><Mail size={12} />{v}</span>
-  )},
-  { key: "role", label: "Chức danh", sortable: false, render: (v, row) => <div className="flex flex-col items-center gap-1"><span className="badge badge-blue">{v}</span><span className="text-xs">({row.className})</span></div> },
+  { key: "hireDate", label: "Ngày vào làm", sortable: false, render: v => {
+    const date = new Date();
+    const diffDays = Math.floor((date - new Date(v)) / (1000 * 60 * 60 * 24) + 1);
+    const result = diffDays >= 365 ? ('> ' + Math.floor(diffDays / 365) + ' năm') : diffDays + ' ngày';
+    return (
+      <div className="flex flex-col gap-1">
+        <span className="flex items-center gap-1 text-black">{v}</span>
+        <span className="flex items-center gap-1 text-xs text-gray-400">({result})</span>
+      </div>
+    )
+  }},
+  { key: "role", label: "Chức danh", sortable: false, render: (v, row) => <div className="flex flex-col items-center gap-1"><span className="badge badge-blue">{v}</span><span className="text-xs text-gray-400">({row.className})</span></div> },
   { key: "gross", label: "Lương", sortable: false, render: v => (
     <span className="flex items-center gap-1 text-xs text-black">{formatVND(v)}</span>
   )},

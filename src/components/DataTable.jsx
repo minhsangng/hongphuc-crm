@@ -73,13 +73,13 @@ export default function DataTable({
     return (
       <div className="bg-white/50 rounded-lg overflow-hidden animate-fade-in">
         <div className="px-5 py-4">
-          <div className="w-40 h-5 bg-dark-100 rounded animate-pulse" />
+          <div className="w-40 h-5 bg-black/10 rounded animate-pulse" />
         </div>
-        <div className="divide-y divide-dark-50">
+        <div className="divide-y divide-black/25">
           {Array.from({ length: pageSize }).map((_, i) => (
             <div key={i} className="flex gap-4 px-5 py-3 animate-pulse">
               {columns.map(c => (
-                <div key={c.key} className="h-4 bg-dark-100 dark:bg-dark-700 rounded flex-1" />
+                <div key={c.key} className="h-4 bg-black/10 rounded flex-1" />
               ))}
             </div>
           ))}
@@ -158,9 +158,9 @@ export default function DataTable({
                 const isSelected = selectedRows.has(rowId);
                 return (
                   <tr key={rowId}
-                    className="hover:bg-dark-50 transition group">
+                    className="hover:bg-black/10 transition group">
                     <td className="table-cell">
-                      <button onClick={() => toggleRow(rowId)} className={isSelected ? "text-green-400" : "text-dark-400"}>
+                      <button onClick={() => toggleRow(rowId)} className={isSelected ? "text-green-400" : "text-black"}>
                         {isSelected ? <SquareCheck size={16} /> : <Square size={16} />}
                       </button>
                     </td>
