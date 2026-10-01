@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Plus, CalendarFold, Phone, Mail, Ban } from "lucide-react";
+import { Plus, Cake, PhoneCall, Mail, Ban } from "lucide-react";
 import DataTable from "../components/DataTable";
 import Avatar from "../components/Avatar";
 import { getDataFromAPI, formatVND } from "../utils/helpers";
@@ -8,12 +8,12 @@ const columns = [
   { key: "fullName", label: "Họ tên", render: (v, row) => (
     <div className="flex items-center gap-2.5">
       <Avatar name={v} size="sm" />
-      <span className="font-medium text-black text-sm">{v} <br/><span className="text-xs text-gray-400 flex items-center gap-1"><CalendarFold size={10} />{row.dob}</span></span>
+      <span className="font-medium text-black text-sm">{v} <br/><span className="text-xs text-gray-400 flex items-center gap-1"><Cake size={10} />{row.dob}</span></span>
     </div>
   )},
   { key: "phoneNumber", label: "Liên hệ", sortable: false, render: (v, row) => (
     <div className="flex flex-col gap-1">
-      <a href={`tel:${v}`} title={`Gọi ${row.fullName}`} className="flex items-center gap-1 text-black"><Phone size={12} />{v}</a>
+      <a href={`tel:${v}`} title={`Gọi ${row.fullName}`} className="flex items-center gap-1"><PhoneCall size={12} />{v}</a>
       <a href={`mailto:${row.email}`} title={`Gửi thư ${row.fullName}`} className="flex items-center gap-1 text-xs text-gray-400"><Mail size={10} />{row.email}</a>
     </div>
   )},
@@ -79,7 +79,7 @@ export default function Teachers({ user }) {
             { label: "Tạm nghỉ", value: data.length > 0 ? data.filter(p => p.status !== "Đang làm" && p.status !== "Đã nghỉ").length : 0, color: "text-amber-600", bg: "bg-amber-100" },
             { label: "Đã nghỉ", value: data.length > 0 ? data.filter(p => p.status === "Đã nghỉ").length : 0, color: "text-red-600", bg: "bg-red-100" },
           ].map(s => (
-            <div key={s.label} className={`${s.bg} rounded-2xl p-4 backdrop-blur-md shadow-md border border-white`}>
+            <div key={s.label} className={`${s.bg} rounded-2xl p-4 backdrop-blur-md shadow-md border border-gray-200/50`}>
               <p className={`text-2xl font-bold ${s.color}`}>{s.value}</p>
               <p className="text-xs text-black mt-1">{s.label}</p>
             </div>

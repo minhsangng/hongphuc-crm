@@ -12,13 +12,13 @@ import { formatVND, formatVNDShort, getDataFromAPI } from '../utils/helpers';
 function CustomTooltip({ active, payload, label, formatter }) {
   if (!active || !payload?.length) return null
   return (
-    <div className="bg-white dark:bg-dark-800 rounded-xl shadow-xl border border-dark-100 dark:border-dark-700 p-3 text-xs">
-      <p className="font-semibold text-dark-700 dark:text-dark-200 mb-2">{label}</p>
+    <div className="bg-white rounded-xl shadow-xl border border-gray-100 p-3 text-xs">
+      <p className="font-semibold text-gray-700 mb-2">{label}</p>
       {payload.map(p => (
         <div key={p.dataKey} className="flex items-center gap-2 mb-1">
           <div className="w-2.5 h-2.5 rounded-full" style={{ background: p.color }} />
-          <span className="text-black dark:text-dark-400">{p.name}:</span>
-          <span className="font-semibold text-dark-800 dark:text-dark-200">{formatter ? formatter(p.value) : p.value}</span>
+          <span className="text-black">{p.name}:</span>
+          <span className="font-semibold text-gray-800">{formatter ? formatter(p.value) : p.value}</span>
         </div>
       ))}
     </div>
@@ -31,7 +31,7 @@ const childrenColumns = [
       <Avatar name={v} size="sm" />
       <div>
         <p className="font-medium text-black text-sm">{v}</p>
-        <p className="text-xs text-dark-400">{row.dob}</p>
+        <p className="text-xs text-gray-500">{row.dob}</p>
       </div>
     </div>
   )},
@@ -50,7 +50,7 @@ const teacherColumns = [
       <Avatar name={v} size="sm" />
       <div>
         <p className="font-medium text-black text-sm">{v}</p>
-        <p className="text-xs text-dark-400">{row.email}</p>
+        <p className="text-xs text-gray-400">{row.email}</p>
       </div>
     </div>
   )},
@@ -97,29 +97,31 @@ export default function Dashboard() {
   ]
 
   return (
-    <div className="p-4 lg:p-6 space-y-6 animate-fade-in">
+    <div className="p-1 lg:p-2 lg:pt-0 space-y-2 animate-fade-in">
       {/* Page title */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h2 className="text-xl font-bold text-black">Tổng quan</h2>
-          <p className="text-sm text-black-500 mt-0.5">{ new Date().toLocaleDateString('vi-VN', {month: 'long'}) } năm { new Date().toLocaleDateString('vi-VN', {year: 'numeric'}) } • Cập nhật lúc {new Date().toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' })}</p>
+      <div className="bg-white/50 backdrop-blur-md shadow-lg p-4 pt-6 rounded-xl">
+        <div className="flex items-center justify-between mb-2">
+          <div>
+            <h2 className="text-xl font-bold text-(--color-red)">Tổng quan</h2>
+            <p className="text-sm text-gray-500 mt-0.5">{ new Date().toLocaleDateString('vi-VN', {month: 'long'}) } năm { new Date().toLocaleDateString('vi-VN', {year: 'numeric'}) } • Cập nhật lúc {new Date().toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' })}</p>
+          </div>
+          <div className="flex items-center gap-2">
+            <button onClick={() => window.location.reload()} className="btn-secondary gap-1.5 text-xs hidden sm:inline-flex">
+              <RefreshCw size={13} /> Làm mới
+            </button>
+            <button className="btn-primary gap-1.5 text-xs hidden sm:inline-flex">
+              <Download size={13} /> Xuất báo cáo
+            </button>
+          </div>
         </div>
-        <div className="flex items-center gap-2">
-          <button onClick={() => window.location.reload()} className="btn-secondary gap-1.5 text-xs hidden sm:inline-flex">
-            <RefreshCw size={13} /> Làm mới
-          </button>
-          <button className="btn-primary gap-1.5 text-xs hidden sm:inline-flex">
-            <Download size={13} /> Xuất báo cáo
-          </button>
+        {/* Stats grid */}
+        <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-3 lg:gap-4">
+          {stats.map((s, i) => (
+            <StatCard key={i} {...s} loading={loading} />
+          ))}
         </div>
       </div>
 
-      {/* Stats grid */}
-      <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-3 lg:gap-4">
-        {stats.map((s, i) => (
-          <StatCard key={i} {...s} loading={loading} />
-        ))}
-      </div>
 
       {/* Charts */}
       <div className="grid grid-cols-1 xl:grid-cols-5 gap-4">
@@ -127,20 +129,16 @@ export default function Dashboard() {
         <div className="xl:col-span-3 bg-white rounded-2xl p-5 border border-black/10 shadow-card animate-fade-in">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5">
             <div>
-              <h3 className="font-semibold text-black text-sm">Thu học phí & Chi phí</h3>
-              <p className="text-xs text-dark-400 mt-0.5">12 tháng qua</p>
+              <h3 className="font-semibold text-(--color-red) text-sm">Thu học phí & Chi phí</h3>
+              <p className="text-xs text-gray-700 mt-0.5">12 tháng qua</p>
             </div>
-            <div className="flex bg-dark-100 rounded-lg p-0.5">
+            <div className="flex bg-gray-100 rounded-lg p-0.5">
               {[
                 { key: 'tuition', label: 'Học phí' },
                 { key: 'enrollment', label: 'Học sinh' },
               ].map(t => (
                 <button key={t.key} onClick={() => setActiveChart(t.key)}
-                  className={`px-3 py-1.5 rounded-md text-xs font-medium transition-all ${
-                    activeChart === t.key
-                      ? 'bg-white text-black shadow-sm'
-                      : 'text-black hover:text-black/70'
-                  }`}>
+                  className={`px-3 py-1.5 rounded-md text-xs font-medium transition-all ${activeChart === t.key ? 'bg-white text-black shadow-sm' : 'text-black hover:text-black/70'}`}>
                   {t.label}
                 </button>
               ))}
@@ -160,7 +158,7 @@ export default function Dashboard() {
                     <stop offset="95%" stopColor="#dc2626" stopOpacity={0} />
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" className="dark:stroke-dark-700" />
+                <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
                 <XAxis dataKey="month" tick={{ fontSize: 11, fill: '#94a3b8' }} axisLine={false} tickLine={false} />
                 <YAxis tickFormatter={formatVNDShort} tick={{ fontSize: 11, fill: '#94a3b8' }} axisLine={false} tickLine={false} width={52} />
                 <Tooltip content={<CustomTooltip formatter={formatVND} />} />
@@ -172,7 +170,7 @@ export default function Dashboard() {
           ) : (
             <ResponsiveContainer width="100%" height={240}>
               <BarChart data={enrollmentChartData} margin={{ top: 5, right: 5, bottom: 0, left: 0 }} barGap={4}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" className="dark:stroke-dark-700" />
+                <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
                 <XAxis dataKey="month" tick={{ fontSize: 11, fill: '#94a3b8' }} axisLine={false} tickLine={false} />
                 <YAxis tick={{ fontSize: 11, fill: '#94a3b8' }} axisLine={false} tickLine={false} />
                 <Tooltip content={<CustomTooltip />} />
@@ -188,7 +186,7 @@ export default function Dashboard() {
         <div className="xl:col-span-2 space-y-4">
           {/* Tuition collection rate */}
           <div className="bg-white rounded-2xl p-5 border border-black/10 shadow-card animate-fade-in">
-            <h3 className="font-semibold text-black text-sm mb-4">Thu học phí tháng 12</h3>
+            <h3 className="font-semibold text-(--color-red) text-sm mb-4">Thu học phí tháng 12</h3>
             <div className="space-y-3">
               {[
                 { label: 'Đã đóng', count: 74, total: 87, color: 'bg-green-500' },
@@ -197,10 +195,10 @@ export default function Dashboard() {
               ].map(item => (
                 <div key={item.label}>
                   <div className="flex items-center justify-between text-xs mb-1.5">
-                    <span className="text-dark-600 font-medium">{item.label}</span>
-                    <span className="font-semibold text-black">{item.count}/{item.total}</span>
+                    <span className="text-gray-600 font-medium">{item.label}</span>
+                    <span className="font-semibold text-gray-800">{item.count}/{item.total}</span>
                   </div>
-                  <div className="h-2 rounded-full bg-black/10 overflow-hidden">
+                  <div className="h-2 rounded-full bg-gray-200 overflow-hidden">
                     <div
                       className={`h-full rounded-full ${item.color} transition-all duration-1000`}
                       style={{ width: `${(item.count / item.total) * 100}%` }}
@@ -210,14 +208,14 @@ export default function Dashboard() {
               ))}
             </div>
             <div className="mt-4 pt-4 border-t border-black/10 flex items-center justify-between">
-              <span className="text-xs text-black">Tỷ lệ thu được</span>
+              <span className="text-xs text-gray-700">Tỷ lệ thu được</span>
               <span className="text-lg font-bold text-green-600">85%</span>
             </div>
           </div>
 
           {/* Class occupancy */}
           <div className="bg-white rounded-2xl p-5 border border-black/10 shadow-card animate-fade-in">
-            <h3 className="font-semibold text-black text-sm mb-4">Sĩ số lớp học</h3>
+            <h3 className="font-semibold text-(--color-red) text-sm mb-4">Sĩ số lớp học</h3>
             <div className="space-y-2.5">
               {[
                 { name: 'Lá 1', students: 15, cap: 20 },
@@ -231,11 +229,11 @@ export default function Dashboard() {
                 const color = pct >= 90 ? 'bg-red-500' : pct >= 70 ? 'bg-yellow-500' : 'bg-accent-500'
                 return (
                   <div key={cls.name} className="flex items-center gap-3">
-                    <span className="text-xs text-black w-12 flex-shrink-0">{cls.name}</span>
-                    <div className="flex-1 h-1.5 rounded-full bg-black/10 overflow-hidden">
+                    <span className="text-xs text-gray-700 w-12 flex-shrink-0">{cls.name}</span>
+                    <div className="flex-1 h-1.5 rounded-full bg-gray-200 overflow-hidden">
                       <div className={`h-full rounded-full ${color}`} style={{ width: `${pct}%` }} />
                     </div>
-                    <span className="text-xs font-medium text-black w-14 text-right">{cls.students}/{cls.cap}</span>
+                    <span className="text-xs font-medium text-gray-700 w-14 text-right">{cls.students}/{cls.cap}</span>
                   </div>
                 )
               })}

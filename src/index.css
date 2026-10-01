@@ -34,6 +34,11 @@ body {
   font-family: var(--font-primary);
 }
 
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #0303033b #FDFDFD;
+}
+
 ::selection {
   background: var(--color-red-light);
   color: var(--color-red-primary);
@@ -492,7 +497,6 @@ button {
 }
 
 @keyframes shake {
-
   0%,
   100% {
     -webkit-transform: translate3d(0, 0, 0);
@@ -1041,7 +1045,6 @@ button {
 }
 
 @keyframes bounceInRight {
-
   0%,
   60%,
   75%,
@@ -1085,7 +1088,6 @@ button {
 }
 
 @-webkit-keyframes bounceInUp {
-
   0%,
   60%,
   75%,

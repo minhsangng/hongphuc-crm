@@ -11,12 +11,12 @@ export default function Avatar({ name, size = 'md', src, className = '' }) {
 
   if (src) {
     return (
-      <img src={src} alt={name} className={`${sizes[size]} rounded-full object-cover ring-2 ring-white dark:ring-dark-800 ${className}`} />
+      <img src={src} alt={name} className={`${sizes[size]} rounded-full object-cover ring-2 ring-white ${className}`} />
     )
   }
 
   return (
-    <div className={`${sizes[size]} ${avatarColor(name)} rounded-full flex items-center justify-center text-white font-semibold ring-2 ring-white dark:ring-dark-800 select-none ${className}`}>
+    <div className={`${sizes[size]} ${avatarColor(name)} rounded-full flex items-center justify-center text-white font-semibold ring-2 ring-white select-none ${className}`}>
       {getInitials(name)}
     </div>
   )

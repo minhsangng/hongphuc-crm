@@ -92,7 +92,7 @@ export default function DataTable({
     <div className="bg-white/50 backdrop-blur-md rounded-xl shadow shadow-lg overflow-hidden animate-fade-in">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-5 py-4 border-b border-black/25">
         <div>
-          <h3 className="font-semibold text-black text-sm">{title}</h3>
+          <h3 className="font-semibold text-(--color-red) text-sm">{title}</h3>
           <div className="flex items-center gap-4 h-6">
             <p className="text-xs text-gray-600 mt-0.5">
               {data.length > 0 ? filtered.length : 0} kết quả  
