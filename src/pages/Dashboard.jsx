@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
-import { DollarSign, Users, Baby, BookOpen, TrendingUp, Download, RefreshCw, Plus } from 'lucide-react';
+import { DollarSign, Users, Baby, BookOpen, TrendingUp, Download, RefreshCw } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Area, AreaChart } from 'recharts';
 import StatCard from '../components/StatCard';
 import DataTable from '../components/DataTable';
@@ -93,7 +93,7 @@ export default function Dashboard() {
     { icon: Baby, label: 'Tổng học sinh', value: statsData.totalChildren, change: statsData.childrenChange, changeLabel: 'Tháng này nhập học thêm 4', color: 'green' },
     { icon: Users, label: 'Giáo viên & NV', value: statsData.totalTeachers, change: statsData.teachersChange, changeLabel: 'Ổn định', color: 'purple' },
     { icon: BookOpen, label: 'Lớp học', value: statsData.totalClasses, change: statsData.classesChange, changeLabel: '2 lá, 2 chồi, 2 mầm', color: 'yellow' },
-    { icon: TrendingUp, label: 'Tỷ lệ tăng trưởng', value: `${statsData.growthRate}%`, change: statsData.growthChange, changeLabel: 'Năm học 2025–2026', color: 'pink' },
+    { icon: TrendingUp, label: 'Tỷ lệ tăng trưởng', value: `${statsData.growthRate}%`, change: statsData.growthChange, changeLabel: 'Năm học 2025-2026', color: 'pink' },
   ]
 
   return (
@@ -229,7 +229,7 @@ export default function Dashboard() {
                 const color = pct >= 90 ? 'bg-red-500' : pct >= 70 ? 'bg-yellow-500' : 'bg-accent-500'
                 return (
                   <div key={cls.name} className="flex items-center gap-3">
-                    <span className="text-xs text-gray-700 w-12 flex-shrink-0">{cls.name}</span>
+                    <span className="text-xs text-gray-700 w-12 shrink-0">{cls.name}</span>
                     <div className="flex-1 h-1.5 rounded-full bg-gray-200 overflow-hidden">
                       <div className={`h-full rounded-full ${color}`} style={{ width: `${pct}%` }} />
                     </div>
@@ -244,20 +244,8 @@ export default function Dashboard() {
 
       {/* Tables */}
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
-        <DataTable
-          title="Danh sách học sinh"
-          columns={childrenColumns}
-          data={childrenData}
-          pageSize={5}
-          loading={loading}
-        />
-        <DataTable
-          title="Danh sách giáo viên & nhân viên"
-          columns={teacherColumns}
-          data={teachersData}
-          pageSize={5}
-          loading={loading}
-        />
+        <DataTable title="Danh sách học sinh" columns={childrenColumns} data={childrenData} pageSize={5} loading={loading} />
+        <DataTable title="Danh sách giáo viên & nhân viên" columns={teacherColumns} data={teachersData} pageSize={5} loading={loading} />
       </div>
     </div>
   )

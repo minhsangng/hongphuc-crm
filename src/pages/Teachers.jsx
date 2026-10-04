@@ -1,23 +1,28 @@
 import { useState, useEffect } from "react";
-import { Plus, Cake, PhoneCall, Mail, Ban } from "lucide-react";
+import { RefreshCw, Plus, Cake, PhoneCall, Mail, Ban } from "lucide-react";
 import DataTable from "../components/DataTable";
 import Avatar from "../components/Avatar";
-import { getDataFromAPI, formatVND } from "../utils/helpers";
+import { getDataFromAPI, formatVND, formatDateVN } from "../utils/helpers";
 
 const columns = [
-  { key: "fullName", label: "Họ tên", render: (v, row) => (
-    <div className="flex items-center gap-2.5">
-      <Avatar name={v} size="sm" />
-      <span className="font-medium text-black text-sm">{v} <br/><span className="text-xs text-gray-400 flex items-center gap-1"><Cake size={10} />{row.dob}</span></span>
-    </div>
-  )},
+  { key: "fullName", label: "Họ tên", render: (v, row) => {
+    const date = new Date();
+    const dob = new Date(row.dob);
+    const isBirthday = date.getDate() === dob.getDate() && date.getMonth() === dob.getMonth();
+    return (
+      <div className="flex items-center gap-2.5">
+        <Avatar name={v} size="sm" />
+        <span className="font-medium text-black text-sm">{v} <br/><span className="text-xs text-gray-400 flex items-center gap-1"><Cake size={isBirthday ? 14 : 12} color={isBirthday ? "#FFC0CB" : "#99A1AF"} className={isBirthday ? "animate-bounce" : ""} />{formatDateVN(row.dob)}</span></span>
+      </div>
+    )
+  }},
   { key: "phoneNumber", label: "Liên hệ", sortable: false, render: (v, row) => (
     <div className="flex flex-col gap-1">
       <a href={`tel:${v}`} title={`Gọi ${row.fullName}`} className="flex items-center gap-1"><PhoneCall size={12} />{v}</a>
       <a href={`mailto:${row.email}`} title={`Gửi thư ${row.fullName}`} className="flex items-center gap-1 text-xs text-gray-400"><Mail size={10} />{row.email}</a>
     </div>
   )},
-  { key: "hireDate", label: "Ngày vào làm", sortable: false, render: v => {
+  { key: "hireDate", label: "Ngày vào làm", render: v => {
     const date = new Date();
     const diffDays = Math.floor((date - new Date(v)) / (1000 * 60 * 60 * 24) + 1);
     const result = diffDays >= 365 ? ('> ' + Math.floor(diffDays / 365) + ' năm') : diffDays + ' ngày';
@@ -32,7 +37,7 @@ const columns = [
   { key: "gross", label: "Lương", sortable: false, render: v => (
     <span className="flex items-center gap-1 text-xs text-black">{formatVND(v)}</span>
   )},
-  { key: "status", label: "Trạng thái", sortable: false, render: v => {
+  { key: "status", label: "Trạng thái", render: v => {
     const map = { "Đang làm": "badge-green", "Tạm nghỉ": "badge-yellow", "Đã nghỉ": "badge-red" };
     const cls = map[v] || "badge-gray";
     return <span className={`badge ${cls}`}>{v}</span>
@@ -43,17 +48,17 @@ export default function Teachers({ user }) {
   const [data, setData] = useState([]);
   const show = Boolean(user && ["Quản trị viên", "Quản lý"].includes(user.role));
   
-  async function fetchTeacherData() {
+  async function getTeacherData() {
     try {
       const response = await getDataFromAPI("get-all-teachers");
       setData(response);
     } catch (err) {
-      console.error("Fetch class data failed: ", err);
+      console.error("Fetch teacher data failed: ", err);
     }
   } 
   
   useEffect(() => {
-    fetchTeacherData();
+    getTeacherData();
   }, []);
   
   if (!show) return <div className="p-4 lg:p-6 animate-fade-in flex items-center gap-2"><Ban color="#d05858" /><p>Chức năng này chỉ dành cho Quản lý.</p></div>;
@@ -66,9 +71,14 @@ export default function Teachers({ user }) {
             <h2 className="text-xl font-bold text-(--color-red)">Giáo viên</h2>
             <p className="text-sm text-gray-700 mt-0.5">Quản lý thông tin tất cả giáo viên</p>
           </div>
-          <button className="btn-primary text-xs">
-            <Plus size={13} /> Thêm giáo viên
-          </button>
+          <div className="flex items-center gap-2">
+            <button onClick={getTeacherData} className="btn-secondary gap-1.5 text-xs hidden sm:inline-flex">
+              <RefreshCw size={13} /> Làm mới
+            </button>
+            <button className="btn-primary text-xs">
+              <Plus size={13} /> Thêm giáo viên
+            </button>
+          </div>
         </div>
 
         {/* Summary cards */}

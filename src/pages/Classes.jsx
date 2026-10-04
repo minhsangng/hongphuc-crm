@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Plus, Users, BookOpen } from "lucide-react";
+import { RefreshCw, Plus, Users, BookOpen } from "lucide-react";
 import { getDataFromAPI } from "../utils/helpers";
 import Avatar from "../components/Avatar";
 
@@ -11,7 +11,7 @@ function ClassCard({ cls, active }) {
     <div className="relative bg-white rounded-2xl p-5 border border-gray-100 shadow-card hover:shadow-card-hover transition-all duration-300 group animate-fade-in">
       <div className="flex items-start justify-between mb-4">
         <div className="flex items-center gap-3">
-          <div className="w-11 h-11 rounded-xl gradient-accent flex items-center justify-center shadow-lg shadow-accent-600/20 group-hover:scale-110 transition-transform duration-300">
+          <div className={`w-11 h-11 rounded-xl ${(cls.className.includes("Mầm") ? "bg-amber-500" : cls.className.includes("Chồi") ? "bg-sky-400" : "bg-green-500")} flex items-center justify-center shadow-lg shadow-accent-600/20 group-hover:scale-110 transition-transform duration-300`}>
             <BookOpen size={18} className="text-white" />
           </div>
           <div>
@@ -57,7 +57,7 @@ function ClassCard({ cls, active }) {
 export default function Classes({ user }) {
   const [data, setData] = useState([]);
   
-  async function fetchClassData() {
+  async function getClassData() {
     try {
       if (user) {
         const response = await getDataFromAPI("get-all-classes");
@@ -69,7 +69,7 @@ export default function Classes({ user }) {
   }
   
   useEffect(()=> {
-    fetchClassData();
+    getClassData();
   }, []);
   
   return (
@@ -78,21 +78,25 @@ export default function Classes({ user }) {
         <div className="flex items-center justify-between mb-2">
           <div>
             <h2 className="text-xl font-bold text-(--color-red)">Lớp học</h2>
-            <p className="text-sm text-gray-600 mt-0.5">Quản lý {(user.classId === 0 ? "danh sách" : "")} lớp</p>
+            <p className="text-sm text-gray-600 mt-0.5">Quản lý {(user.classId === 0 ? "danh sách các" : "")} lớp</p>
           </div>
-          <button className={`btn-primary text-xs ${!["Quản trị viên", "Quản lý"].includes(user.role) ? "cursor-not-allowed" : "cursor-pointer"}`} disabled={["Quản trị viên", "Quản lý"].includes(user.role)}>
-            <Plus size={13} /> Thêm lớp học
-          </button>
+          <div className="flex items-center gap-2">
+            <button onClick={getClassData} className="btn-secondary gap-1.5 text-xs hidden sm:inline-flex">
+              <RefreshCw size={13} /> Làm mới
+            </button>
+            <button className={`btn-primary text-xs ${!["Quản trị viên", "Quản lý"].includes(user.role) ? "cursor-not-allowed" : "cursor-pointer"}`} disabled={["Quản trị viên", "Quản lý"].includes(user.role)}>
+              <Plus size={13} /> Thêm lớp học
+            </button>
+          </div>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
           {[
-            { label: "Tổng lớp", value: data.length > 0 ? data.length : 0, color: "text-blue-600", bg: "bg-blue-100" },
-            { label: "Lớp Mầm", value: 2, color: "text-green-600", bg: "bg-green-100" },
-            { label: "Lớp Chồi", value: 2, color: "text-yellow-600", bg: "bg-yellow-100" },
-            { label: "Lớp Thỏ Ngọc", value: 2, color: "text-purple-600", bg: "bg-purple-100" },
-            { label: "Tổng học sinh", value: data.length > 0 ? data.reduce((s, c) => s + c.quantity, 0) : 0, color: "text-(--color-red)", bg: "bg-(--color-red-light)/10" },
-            { label: "Chỗ trống", value: data.length > 0 ? data.reduce((s, c) => s + (c.quantity - c.quantity), 0) : 0, color: "text-gray-600", bg: "bg-gray-200" },
+            { label: "Tổng lớp", value: data.length > 0 ? data.length : 0, color: "text-black", bg: "bg-gray-200" },
+            { label: "Tổng học sinh", value: data.length > 0 ? data.reduce((s, c) => s + c.quantity, 0) : 0, color: "text-red-600", bg: "bg-red-100" },
+            { label: "Lớp Mầm", value: 2, color: "text-amber-500", bg: "bg-amber-100" },
+            { label: "Lớp Chồi", value: 2, color: "text-sky-400", bg: "bg-sky-100" },
+            { label: "Lớp Thỏ Ngọc", value: 2, color: "text-green-500", bg: "bg-green-100" },
           ].map(s => (
             <div key={s.label} className={`${s.bg} rounded-2xl p-4 border border-gray-100`}>
               <p className={`text-2xl font-bold ${s.color}`}>{s.value}</p>

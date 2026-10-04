@@ -48,6 +48,8 @@ export default function LoginPage() {
         getDataFromAPI("auth-login", "post", form),
         new Promise((_, reject) => setTimeout(() => reject(new Error("timeout")), 6000)),
       ]);
+      
+      form.password = "";
 
       if (response.status === 200) {
         navigate("/admin");

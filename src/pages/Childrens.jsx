@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Plus, PhoneCall, Cake } from "lucide-react";
+import { RefreshCw, Plus, PhoneCall, Cake } from "lucide-react";
 import DataTable from "../components/DataTable";
 import Avatar from "../components/Avatar";
 import { formatVND, formatDateVN } from "../utils/helpers";
@@ -8,15 +8,20 @@ import Modal from "../components/Modal";
 import Swal from "sweetalert2";
 
 const columns = [
-  { key: "fullName", label: "Họ tên", render: (v, row) => (
-    <div className="flex items-center gap-2.5">
-      <Avatar name={v} size="sm" />
-      <div>
-        <p className="font-medium text-sm">{v}</p>
-        <div className="flex items-center gap-1 text-gray-400"><Cake size={10} /><p className="text-xs">{formatDateVN(row.dob)}</p></div>
+  { key: "fullName", label: "Họ tên", render: (v, row) => {
+    const date = new Date();
+    const dob = new Date(row.dob);
+    const isBirthday = date.getDate() === dob.getDate() && date.getMonth() === dob.getMonth();
+    return (
+      <div className="flex items-center gap-2.5">
+        <Avatar name={v} size="sm" />
+        <div>
+          <p className="font-medium text-sm">{v}</p>
+          <div className="flex items-center gap-1 text-gray-400"><Cake size={isBirthday ? 14 : 12} color={isBirthday ? "#FFC0CB" : "#99A1AF"} className={isBirthday ? "animate-bounce" : ""} /><p className="text-xs">{formatDateVN(row.dob)}</p></div>
+        </div>
       </div>
-    </div>
-  )},
+    )
+  }},
   { key: "className", label: "Lớp", render: v => <span className="badge badge-blue">{v}</span> },
   { key: "parentName", label: "Phụ huynh", sortable: false, render: (v, row) => 
     <div>
@@ -38,11 +43,11 @@ const columns = [
     );
   }},
   { key: "status", label: "Trạng thái", render: (v, row) => {
-    const map = { "Đang học": "badge-green", "Đã nghỉ": "badge-red", "Theo dõi": "badge-yellow" };
+    const map = { "Đang học": "badge-green", "Đã tốt nghiệp": "badge-blue", "Đã nghỉ": "badge-red", "Theo dõi": "badge-yellow" };
     return (
       <div>
         <p className={`badge ${map[v] || "baddge-gray"}`}>{v}</p>
-        <p className="px-2 px-2 text-xs text-gray-400">(Diện {row.subsidyType})</p>
+        <p className="px-2 text-xs text-gray-400">(Diện {row.subsidyType})</p>
       </div>
     );
   }},
@@ -125,16 +130,22 @@ export default function Childrens({ user }) {
             <h2 className="text-xl font-bold text-(--color-red)">Học sinh</h2>
             <p className="text-sm text-gray-700 mt-0.5">Quản lý danh sách học sinh {(user.classId !== 0 ? "" : "toàn trường")}</p>
           </div>
-          <button onClick={() => setShowModal({ open: true, title: "Thêm học sinh mới", content: <AddChildrenForm />})} className="btn-primary text-xs">
-            <Plus size={13} /> Thêm trẻ mới
-          </button>
+          <div className="flex items-center gap-2">
+            <button onClick={getChildrenData} className="btn-secondary gap-1.5 text-xs hidden sm:inline-flex">
+              <RefreshCw size={13} /> Làm mới
+            </button>
+            <button onClick={() => setShowModal({ open: true, title: "Thêm học sinh mới", content: <AddChildrenForm />})} className="btn-primary text-xs">
+              <Plus size={13} /> Thêm trẻ mới
+            </button>
+          </div>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
           {[
             { label: "Tổng học sinh", value: data.length > 0 ? data.length : 0, color: "text-black", bg: "bg-gray-200" },
-            { label: "Đang theo học", value: data.length > 0 ? data.filter(c => c.status === "Đang học").length : 0, color: "text-green-600", bg: "bg-green-100" },
-            { label: "Đã tốt nghiệp", value: data.length > 0 ? data.filter(c => c.status === "Đã tốt nghiệp").length : 0, color: "text-amber-600", bg: "bg-amber-100" },
+            { label: "Đang theo học", value: data.length > 0 ? data.filter(c => (c.status === "Đang học" || c.status === "Theo dõi")).length : 0, color: "text-green-600", bg: "bg-green-100" },
+            { label: "Đã tốt nghiệp", value: data.length > 0 ? data.filter(c => c.status === "Đã tốt nghiệp").length : 0, color: "text-blue-600", bg: "bg-blue-100" },
+            { label: "Cần theo dõi", value: data.length > 0 ? data.filter(c => c.status === "Theo dõi").length : 0, color: "text-yellow-600", bg: "bg-yellow-100" },
             { label: "Đã nghỉ học", value: data.length > 0 ? data.filter(c => c.status === "Đã nghỉ").length : 0, color: "text-red-600", bg: "bg-red-100" },
           ].map(s => (
             <div key={s.label} className={`${s.bg} rounded-2xl p-4 backdrop-blur-md shadow-md border border-gray-200/50`}>

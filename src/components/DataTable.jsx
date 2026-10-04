@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import { useState, useMemo } from "react";
 import { ArrowUpDown, ArrowUp, ArrowDown, Search, Filter, Square, SquareCheck, MinusSquare, Trash2, FilePenLine } from "lucide-react";
 import Pagination from "./Pagination";
 
@@ -89,7 +89,7 @@ export default function DataTable({
   }
 
   return (
-    <div className="bg-white/50 backdrop-blur-md rounded-xl shadow shadow-lg overflow-hidden animate-fade-in">
+    <div className="bg-white/50 backdrop-blur-md rounded-xl shadow-lg overflow-hidden animate-fade-in">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-5 py-4 border-b border-black/25">
         <div>
           <h3 className="font-semibold text-(--color-red) text-sm">{title}</h3>

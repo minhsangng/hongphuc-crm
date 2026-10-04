@@ -58,6 +58,9 @@ function AdminShell() {
         <Header user={user} currentPage={currentPage} onExitAdmin={handleLogout} />
         <main className="flex-1 overflow-y-auto">
           <PageComponent user={user} />
+          <div className="px-2 py-3">
+            <p className="text-right text-xs text-gray-500 italic">Bản cập nhật V1.0.26261002</p>
+          </div>
         </main>
       </div>
     </div>

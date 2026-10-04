@@ -63,15 +63,16 @@ export const cookTables = pgTable("cook_tables", {
   id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
   startDate: date("start_date").notNull().defaultNow(),
   endDate: date("end_date").notNull().default(sql`CURRENT_DATE + INTERVAL '5 days'`),
+  status: varchar("status", { length: 10 }).notNull().default("Sử dụng"),
 });
 
 export const cookTableDetails = pgTable("cook_table_details", {
   id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
   cookTableId: integer("cook_table_id").notNull(),
-  dayweek: varchar("dayweek", { length: 10 }).notNull(),
-  breakfast: varchar("breakfast", { length: 30 }).notNull(),
-  lunch: varchar("lunch", { length: 30 }).notNull(),
-  afternoon: varchar("afternoon", { length: 30 }).notNull(),
+  dayweek: varchar("dayweek", { length: 15 }).notNull(),
+  breakfast: varchar("breakfast", { length: 50 }).notNull(),
+  lunch: varchar("lunch", { length: 50 }).notNull(),
+  afternoon: varchar("afternoon", { length: 50 }).notNull(),
   dessert: varchar("dessert", { length: 30 }).notNull(),
 });
 

@@ -3,7 +3,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { ENV } from "./config/env.js";
 import { db } from "./config/db.js";
-import { childrens, classes, users, healthRecords } from "./db/schema.js";
+import { childrens, classes, users, healthRecords, cookTables, cookTableDetails } from "./db/schema.js";
 import { eq, and, sql } from "drizzle-orm";
 import session from "express-session";
 
@@ -72,6 +72,34 @@ app.get("/api/v1/get-all-teachers", async (req, res) => {
   const results = await db.select({...classes, ...users }).from(classes).innerJoin(users, eq(users.classId, classes.id));
   if (results.length > 0) res.json(results);
   else res.json({ status: 404, message: "Empty list" });
+});
+
+/* MENUS */
+app.get("/api/v1/get-all-menus", async (req, res) => {
+  try {
+    const rows = await db
+      .select({ id: cookTables.id, startDate: cookTables.startDate, endDate: cookTables.endDate, status: cookTables.status, detailId: cookTableDetails.id, dayweek: cookTableDetails.dayweek, breakfast: cookTableDetails.breakfast, lunch: cookTableDetails.lunch, afternoon: cookTableDetails.afternoon, dessert: cookTableDetails.dessert })
+      .from(cookTables).leftJoin(cookTableDetails, eq(cookTables.id, cookTableDetails.cookTableId)).orderBy(cookTables.id, cookTableDetails.id);
+
+    const map = new Map();
+    for (const r of rows) {
+      if (!map.has(r.id)) {
+        map.set(r.id, {
+          id: r.id, startDate: r.startDate, endDate: r.endDate, status: r.status, items: [],
+        });
+      }
+      if (r.detailId !== null) {
+        map.get(r.id).items.push({
+          id: r.detailId, dayweek: r.dayweek, breakfast: r.breakfast, lunch: r.lunch, afternoon: r.afternoon, dessert: r.dessert,
+        });
+      }
+    }
+
+    res.status(200).json([...map.values()]);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ status: 500, message: "Server error" });
+  }
 });
 
 /* AUTH */
