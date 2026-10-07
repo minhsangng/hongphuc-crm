@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react';
-import { Megaphone, MessageSquareDot, Menu, X, ChevronRight, Phone, Form, MapPin,  FileText, HelpCircle, Crown, Clock, Baby, ArrowDown, ArrowUp } from 'lucide-react';
-import { FaFacebookF, FaTiktok, FaPhoneVolume, FaRoute } from 'react-icons/fa';
-import useEmblaCarousel from 'embla-carousel-react';
-import Autoplay from 'embla-carousel-autoplay';
-import { images } from '../utils/helpers';
+import { useEffect, useState } from "react";
+import { Megaphone, MessageSquareDot, Menu, X, ChevronRight, Phone, Form, MapPin,  FileText, HelpCircle, Crown, Clock, Baby, ArrowDown, ArrowUp } from "lucide-react";
+import { FaFacebookF, FaTiktok, FaPhoneVolume, FaRoute } from "react-icons/fa";
+import useEmblaCarousel from "embla-carousel-react";
+import Autoplay from "embla-carousel-autoplay";
+import { images } from "../utils/helpers";
+import Loader from "../components/Loader";
 
 const IMG = {
   hero: 'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=1600&q=80',
@@ -535,8 +536,27 @@ function Footer() {
 
 export default function Index() {
   const [scroll, setScroll] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const minTime = 1200;
+    const start = Date.now();
+  
+    function handleLoad() {
+        const elapsed = Date.now() - start;
+        const remaining = Math.max(minTime - elapsed, 0);
+        setTimeout(() => {
+          setLoading(false);
+        }, remaining);
+    }
+    
+    if (document.readyState === 'complete') {
+        handleLoad();
+    } else {
+        window.addEventListener('load', handleLoad);
+        return () => window.removeEventListener('load', handleLoad);
+    }
+  
     const handleScroll = () => {
       setScroll(window.scrollY > 10);
     };
@@ -546,23 +566,26 @@ export default function Index() {
   }, []);
   
   return (
-    <div className="bg-(--color-cream) text-(--color-ink) font-body overflow-x-hidden relative">
-      <Header scroll={scroll} />
-      <SocialRail />
-      <Hero />
-      <NewsSection />
-      <ThoughtsSection />
-      <GallerySection />
-      <ClassSection />
-      <DaysSection />
-      <FacilitySection />
-      <GuideSection />
-      <ContactSection />
-      <Footer />
-      
-      <button onClick={()=>{window.scrollTo({ top: 0, behavior: 'smooth' })}} className={`${scroll ? "flex items-center justify-center " : "hidden "}fixed right-4 bottom-6 z-9999 cursor-pointer bg-(--color-red-light)/25 hover:bg-(--color-red-light) text-(--color-red) hover:text-(--color-red-hover) rounded-full size-12 shadow-[0px_0px_2px_var(--color-red)] transition ease-linear`}>
-        <ArrowUp />
-      </button>
+    <div id="index" className="bg-(--color-cream) text-(--color-ink) font-body overflow-x-hidden relative">
+      {loading ? <div className="w-screen h-screen fixed inset-0 bg-white"><Loader /></div> :
+      <div>
+        <Header scroll={scroll} />
+        <SocialRail />
+        <Hero />
+        <NewsSection />
+        <ThoughtsSection />
+        <GallerySection />
+        <ClassSection />
+        <DaysSection />
+        <FacilitySection />
+        <GuideSection />
+        <ContactSection />
+        <Footer />
+        
+        <button onClick={()=>{window.scrollTo({ top: 0, behavior: 'smooth' })}} className={`${scroll ? "flex items-center justify-center " : "hidden "}fixed right-4 bottom-6 z-9999 cursor-pointer bg-(--color-red-light)/25 hover:bg-(--color-red-light) text-(--color-red) hover:text-(--color-red-hover) rounded-full size-12 shadow-[0px_0px_2px_var(--color-red)] transition ease-linear`}>
+          <ArrowUp />
+        </button>
+      </div>}
     </div>
   );
 }

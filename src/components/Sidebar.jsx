@@ -2,7 +2,7 @@ import { LayoutDashboard, Users, Baby, GraduationCap, ChefHat, BarChart3, Settin
 import { useSidebar } from '../context/AppContext';
 
 const navItems = [
-  { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
+  { id: 'dashboard', label: 'Tổng quan', icon: LayoutDashboard },
   { id: 'teachers', label: 'Giáo viên', icon: Users },
   { id: 'childrens', label: 'Học sinh', icon: Baby },
   { id: 'classes', label: 'Lớp học', icon: GraduationCap },

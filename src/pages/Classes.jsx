@@ -54,6 +54,22 @@ function ClassCard({ cls, active }) {
   )
 };
 
+const GROUP_ORDER = ["Mầm", "Chồi", "Thỏ"];
+
+const getGroupIndex = (className) => {
+  const index = GROUP_ORDER.findIndex((g) => className.startsWith(g));
+  return index === -1 ? GROUP_ORDER.length : index;
+};
+
+const sortClasses = (list) =>
+  [...list].sort((a, b) => {
+    const diff = getGroupIndex(a.className) - getGroupIndex(b.className);
+    if (diff !== 0) return diff;
+
+    return a.className.localeCompare(b.className, "vi", { numeric: true });
+  }
+);
+
 export default function Classes({ user }) {
   const [data, setData] = useState([]);
   
@@ -61,7 +77,7 @@ export default function Classes({ user }) {
     try {
       if (user) {
         const response = await getDataFromAPI("get-all-classes");
-        setData(response);
+        setData(sortClasses(response));
       }
     } catch (err) {
       console.error("Fetch class data failed: ", err);

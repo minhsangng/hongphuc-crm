@@ -1,11 +1,10 @@
 import { useState, useRef, useEffect } from "react";
-import { Bell, Search, Menu, X, Sun, Moon, ChevronDown, LogOut, User, Settings, Home } from "lucide-react";
-import { useTheme, useSidebar } from "../context/AppContext";
+import { Bell, Search, Menu, X, ChevronDown, LogOut, User, Settings, Home } from "lucide-react";
+import { useSidebar } from "../context/AppContext";
 import { notifications } from "../data/mockData";
 import Avatar from "./Avatar";
 
 export default function Header({ user, currentPage, onExitAdmin }) {
-  const { dark, toggle } = useTheme();
   const { setMobileOpen, mobileOpen } = useSidebar();
   const [showNotif, setShowNotif] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
@@ -73,12 +72,6 @@ export default function Header({ user, currentPage, onExitAdmin }) {
         </div>
 
         <div className="flex items-center gap-1.5">
-          <button onClick={toggle} title={dark ? 'Chế độ sáng' : 'Chế độ tối'}
-            className="w-9 h-9 rounded-lg flex items-center justify-center text-gray-500 hover:bg-gray-100 transition-colors"
-          >
-            {dark ? <Sun size={18} /> : <Moon size={18} />}
-          </button>
-
           <div className="relative" ref={notifRef}>
             <button onClick={() => { setShowNotif(v => !v); setShowProfile(false) }}
               className="relative w-9 h-9 rounded-lg flex items-center justify-center text-gray-500 hover:bg-gray-100 transition"
