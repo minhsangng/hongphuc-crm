@@ -93,7 +93,7 @@ export default function Header({ user, currentPage, onExitAdmin }) {
                 <div className="divide-y divide-gray-50 max-h-72 overflow-y-auto">
                   {notifications.map(n => (
                     <div key={n.id} className={`flex gap-3 px-4 py-3 hover:bg-gray-50 transition-colors cursor-pointer ${!n.read ? 'bg-blue-50/50' : ''}`}>
-                      <div className={`mt-1 w-2 h-2 rounded-full flex-shrink-0 ${notifTypeColor[n.type]}`} />
+                      <div className={`mt-1 w-2 h-2 rounded-full shrink-0 ${notifTypeColor[n.type]}`} />
                       <div className="min-w-0">
                         <p className={`text-sm font-medium truncate ${!n.read ? 'text-gray-900' : 'text-gray-600'}`}>{n.title}</p>
                         <p className="text-xs text-gray-500 truncate">{n.desc}</p>

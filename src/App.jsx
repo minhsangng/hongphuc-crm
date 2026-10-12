@@ -39,13 +39,17 @@ function AdminShell() {
     else navigate("/");
   }
   
-  async function loadUser() {
-    const response = await getDataFromAPI("auth-checker");
-    if (response.status === 200 && response.authenticated) setUser(response.user);
-    else navigate("/login", { replace: true });
-  }
-  
   useEffect(() => {
+    async function loadUser() {
+      try{
+        const response = await getDataFromAPI("auth-checker");
+      if (response.status === 200 && response.authenticated && response.user) setUser(response.user);
+      else navigate("/login", { replace: true });
+      } catch (err) {
+        console.log("Xác thực đăng nhập lỗi: ", err);
+        navigate("/login", { replace: true });
+      }
+    }
     loadUser();
   }, []);
   

@@ -2,7 +2,12 @@ import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { User, LockKeyhole, UserKey, MessageCircleWarning, Eye, EyeClosed } from "lucide-react";
 import { images, getDataFromAPI } from "../utils/helpers";
-// import { generateKey, encryptData, decryptData } from "../utils/webCryptoAPI";
+
+async function prehash(userName, password) {
+  const data = new TextEncoder().encode(`hp-crm:${userName.trim().toLowerCase()}:${password}`);
+  const buf = await crypto.subtle.digest("SHA-256", data);
+  return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, "0")).join("");
+}
 
 function Bubble({ size, color, x, y, delay, duration }) {
   return (
@@ -44,17 +49,17 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
+      const passwordHash = await prehash(form.userName, form.password);
       const response = await Promise.race([
-        getDataFromAPI("auth-login", "post", form),
+        getDataFromAPI("auth-login", "post", { userName: form.userName, password: passwordHash }),
         new Promise((_, reject) => setTimeout(() => reject(new Error("timeout")), 6000)),
       ]);
-      
-      form.password = "";
 
       if (response.status === 200) {
         navigate("/admin");
       } else {
         setError("Tên đăng nhập hoặc mật khẩu không đúng.");
+        setForm((prev) => ({ ...prev, password: "" }));
       }
     } catch (err) {
       if (err.message === "timeout") {
@@ -62,6 +67,7 @@ export default function LoginPage() {
       } else {
         setError("Đã có lỗi xảy ra. Vui lòng thử lại.");
       }
+      setForm((prev) => ({ ...prev, password: "" }));
     } finally {
       setLoading(false);
     }
@@ -106,7 +112,7 @@ export default function LoginPage() {
 
         <div className={`relative z-10 w-full max-w-md card-enter ${mounted ? "card-enter-active" : ""}`} style={{ transitionDelay: "150ms" }} >
           <div className="relative bg-white rounded-3xl shadow-2xl shadow-gray/50 overflow-hidden">
-            <div className="relative bg-gradient-to-r from-blue-500 to-red-400 px-8 pt-2 pb-6 text-center overflow-hidden">
+            <div className="relative bg-linear-to-r from-blue-500 to-red-400 px-8 pt-2 pb-6 text-center overflow-hidden">
               <div className="absolute -right-10 -top-10 w-40 h-40 bg-white/10 rounded-full"></div>
               <div className="absolute -left-8 -bottom-8 w-32 h-32 bg-white/10 rounded-full"></div>
               <div className="flex justify-center items-center gap-6 flex-wrap mt-4">
@@ -160,7 +166,7 @@ export default function LoginPage() {
                   </div>
                 )}
 
-                <button type="submit" disabled={loading} className={`relative w-full py-3.5 rounded-xl text-white font-bold text-sm transition-all hover:scale-[1.02] active:scale-[0.98] shadow-lg overflow-hidden disabled:opacity-80 disabled:cursor-not-allowed ${loading ? 'shimmer-btn' : 'bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 shadow-red-300/50 hover:shadow-red-400/60'}`}>
+                <button type="submit" disabled={loading} className={`relative w-full py-3.5 rounded-xl text-white font-bold text-sm transition-all hover:scale-[1.02] active:scale-[0.98] shadow-lg overflow-hidden disabled:opacity-80 disabled:cursor-not-allowed ${loading ? 'shimmer-btn' : 'bg-linear-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 shadow-red-300/50 hover:shadow-red-400/60'}`}>
                   {loading ? (
                     <span className="flex items-center justify-center gap-2">
                       <span className="w-4 h-4 border-2 border-white/40 border-t-white rounded-full inline-block" style={{ animation: 'spinSlow 0.7s linear infinite' }} />Đang xác thực...

@@ -36,6 +36,17 @@ export default function Kitchens({ user }) {
     const [data, setData] = useState([]);
     const [selected, setSelected] = useState('--');
     
+    async function addMenu() {
+        try {
+            setLoading(true);
+            await getDataFromAPI("send-email", "post", { subject: "Xin chào!", html: "<p>Xin chào!</p>" });
+        } catch (err) {
+            console.error(err);
+        } finally {
+            setLoading(false);
+        }
+    }
+    
     async function getMenuData() {
         try {
             setLoading(true);

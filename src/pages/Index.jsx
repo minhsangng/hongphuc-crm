@@ -3,31 +3,29 @@ import { Megaphone, MessageSquareDot, Menu, X, ChevronRight, Phone, Form, MapPin
 import { FaFacebookF, FaTiktok, FaPhoneVolume, FaRoute } from "react-icons/fa";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
+// import { Mascot } from "page-mascot";
 import { images } from "../utils/helpers";
 import Loader from "../components/Loader";
 
 const IMG = {
-  hero: 'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=1600&q=80',
-  gal1: 'https://images.unsplash.com/photo-1578349035260-9f3d4042f1f7?auto=format&fit=crop&w=500&q=80',
-  gal2: 'https://images.unsplash.com/photo-1484820540004-14229fe36ca4?auto=format&fit=crop&w=500&q=80',
-  gal3: 'https://images.unsplash.com/photo-1516627145497-ae6968895b74?auto=format&fit=crop&w=500&q=80',
-  gal4: 'https://images.unsplash.com/photo-1600880291319-1a7499c191e8?auto=format&fit=crop&w=500&q=80',
-  class1: 'https://images.unsplash.com/photo-1537655780520-1e392ead81f2?auto=format&fit=crop&w=200&q=80',
-  class2: 'https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?auto=format&fit=crop&w=200&q=80',
-  daysMain: 'https://images.unsplash.com/photo-1587323655395-b1c77a12c89a?auto=format&fit=crop&w=900&q=80',
-  daysEvents: 'https://images.unsplash.com/photo-1536825919521-ab78da56193b?auto=format&fit=crop&w=700&q=80',
-  daysExtra: 'https://images.unsplash.com/photo-1501686637-b7aa9c48a882?auto=format&fit=crop&w=700&q=80',
-  facility: 'https://images.unsplash.com/photo-1567746455504-cb3213f8f5b8?auto=format&fit=crop&w=900&q=80',
+  hero: "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=1600&q=80",
+  gal1: "https://images.unsplash.com/photo-1578349035260-9f3d4042f1f7?auto=format&fit=crop&w=500&q=80",
+  gal2: "https://images.unsplash.com/photo-1484820540004-14229fe36ca4?auto=format&fit=crop&w=500&q=80",
+  gal3: "https://images.unsplash.com/photo-1516627145497-ae6968895b74?auto=format&fit=crop&w=500&q=80",
+  gal4: "https://images.unsplash.com/photo-1600880291319-1a7499c191e8?auto=format&fit=crop&w=500&q=80",
+  class1: "https://images.unsplash.com/photo-1537655780520-1e392ead81f2?auto=format&fit=crop&w=200&q=80",
+  class2: "https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?auto=format&fit=crop&w=200&q=80",
+  daysMain: "https://images.unsplash.com/photo-1587323655395-b1c77a12c89a?auto=format&fit=crop&w=900&q=80",
+  daysEvents: "https://images.unsplash.com/photo-1536825919521-ab78da56193b?auto=format&fit=crop&w=700&q=80",
+  daysExtra: "https://images.unsplash.com/photo-1501686637-b7aa9c48a882?auto=format&fit=crop&w=700&q=80",
+  facility: "https://images.unsplash.com/photo-1567746455504-cb3213f8f5b8?auto=format&fit=crop&w=900&q=80",
 };
 
-function Wave({ fill = '#FCF7EC', flip = false }) {
+function Wave({ fill = "#FCF7EC", flip = false }) {
   return (
-    <div className={`w-full overflow-hidden leading-none ${flip ? 'rotate-180' : ''}`} aria-hidden="true">
+    <div className={`w-full overflow-hidden leading-none ${flip ? "rotate-180" : ""}`} aria-hidden="true">
       <svg className="wave-svg h-10 md:h-16" viewBox="0 0 1440 90" preserveAspectRatio="none">
-        <path
-          d="M0,40 C220,90 420,0 700,28 C980,56 1180,92 1440,36 L1440,90 L0,90 Z"
-          fill={fill}
-        />
+        <path d="M0,40 C220,90 420,0 700,28 C980,56 1180,92 1440,36 L1440,90 L0,90 Z" fill={fill} />
       </svg>
     </div>
   );
@@ -116,7 +114,7 @@ function SocialRail() {
       <a target="_blank" href="https://www.tiktok.com/@vannguenjkkk" aria-label="Tiktok" className="w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center text-(--color-red) hover:bg-(--color-red) hover:text-white transition ease-linear">
         <FaTiktok size={17} />
       </a>
-      <a target="_blank" href="tel:+84396053054" aria-label="Hotline" className="w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center text-(--color-red) hover:bg-(--color-red) hover:text-white transition ease-linear">
+      <a href="tel:0396053054" aria-label="Hotline" className="w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center text-(--color-red) hover:bg-(--color-red) hover:text-white transition ease-linear">
         <FaPhoneVolume size={17} />
       </a>
     </div>
@@ -152,15 +150,14 @@ function Hero() {
 /* Thông báo (News) */
 function NewsSection() {
   const items = [
-    { tag: 'Cập nhật', date: '28.08.2026', title: 'Website của trường vừa được làm mới hoàn toàn!' },
-    { tag: 'Bản tin', date: '04.08.2026', title: 'Bắt đầu nhận hồ sơ lớp Chồi (1-2 tuổi) HK2 năm học 2027 - 2028' },
-    { tag: 'Bản tin', date: '04.07.2026', title: 'Lớp Chồi (1-2 tuổi) HK1 năm học 2026 vẫn đang nhận hồ sơ nhập học' },
+    { tag: "Cập nhật", date: "28.08.2026", title: "Website của trường vừa được làm mới hoàn toàn!" },
+    { tag: "Bản tin", date: "04.08.2026", title: "Bắt đầu nhận hồ sơ lớp Chồi (1-2 tuổi) HK2 năm học 2027 - 2028" },
+    { tag: "Bản tin", date: "04.07.2026", title: "Lớp Chồi (1-2 tuổi) HK1 năm học 2026 vẫn đang nhận hồ sơ nhập học" },
   ];
   return (
     <section id="news" className="scroll-mt-28 max-w-5xl mx-auto px-5 md:px-8 py-16 md:py-20">
       <div className="flex items-end justify-between mb-8">
         <div>
-          <p className="font-display text-(--color-red) text-xs tracking-[0.25em] mb-1">NEWS</p>
           <h2 className="font-display font-bold text-2xl md:text-3xl text-(--color-ink)">Thông báo</h2>
         </div>
         <a href="#" className="hidden sm:flex items-center gap-1 text-sm text-(--color-red) font-display hover:gap-2 transition-all">
@@ -192,7 +189,6 @@ function ThoughtsSection() {
     <section id="about" className="scroll-mt-28 relative max-w-6xl mx-auto px-5 md:px-8 pt-6 pb-14 md:pb-20">
       <div className="grid md:grid-cols-[1fr_1.1fr] gap-8 md:gap-16 items-start pt-12">
         <div>
-          <p className="font-display text-(--color-red) text-xs tracking-[0.25em] mb-2">THOUGHTS</p>
           <h2 className="font-display font-bold text-2xl text-justify md:text-[32px] leading-snug text-(--color-ink)">
             Bồi dưỡng tâm hồn và thể chất phong phú cho những mầm non của tương lai
           </h2>
@@ -219,14 +215,14 @@ function ThoughtsSection() {
 /* Thư viện ảnh (Gallery) */
 function GallerySection() {
   const photos = [IMG.gal1, IMG.gal2, IMG.gal3, IMG.gal4, IMG.gal1, IMG.gal2, IMG.gal3, IMG.gal4, IMG.gal1, IMG.gal2, IMG.gal3, IMG.gal4];
-  const [emblaRef] = useEmblaCarousel({ loop: true, align: 'start' }, [Autoplay({ delay: 2000 })]);
+  const [emblaRef] = useEmblaCarousel({ loop: true, align: "start" }, [Autoplay({ delay: 2000 })]);
 
   return (
     <section className="max-w-6xl mx-auto px-5 md:px-8 pb-16 md:pb-24">
       <div className="overflow-x-hidden" ref={emblaRef}>
-        <div className="flex gap-4 md:gap-5">
+        <div className="flex">
           {photos.map((src, i) => (
-            <div key={i} className={`flex-shrink-0 w-[calc(50%-8px)] md:w-[calc(25%-15px)] overflow-hidden rounded-3xl shadow-sm ${i % 2 === 1 ? 'md:mt-8' : 'md:mb-8'}`}>
+            <div key={i} className={`shrink-0 w-[calc(50%-8px)] md:w-[calc(25%-15px)] mr-4 md:mr-5 overflow-hidden rounded-3xl shadow-sm ${i % 2 === 1 ? 'md:mt-8' : 'md:mb-8'}`}>
               <img src={src} alt="Khoảnh khắc tại Hồng Phúc"
                 className="w-full h-full object-cover rounded-3xl cursor-pointer hover:scale-105 transition duration-300 ease-linear"/>
             </div>
@@ -239,34 +235,34 @@ function GallerySection() {
 
 /* Phân lớp theo độ tuổi (Class) */
 function ClassSection() {
-  const ages = ['0 tuổi', '1 tuổi', '2 tuổi', '3-5 tuổi'];
+  const ages = ["0 tuổi", "1 tuổi", "2 tuổi", "3-5 tuổi"];
   const [active, setActive] = useState(0);
 
   const steps = [
     {
-      title: 'Khu vui chơi Hồng Phúc',
-      desc: 'Chương trình hỗ trợ nuôi dạy con dành cho phụ huynh có bé chưa đến tuổi vào lớp.',
-      type: 'support',
+      title: "Khu vui chơi Hồng Phúc",
+      desc: "Chương trình hỗ trợ nuôi dạy con dành cho phụ huynh có bé chưa đến tuổi vào lớp.",
+      type: "support",
     },
     {
-      title: 'Lớp Mầm',
-      sub: '1 tuổi',
-      desc: 'Cha mẹ và bé cùng vui chơi, làm quen dần với môi trường trường lớp.',
-      type: 'photo',
+      title: "Lớp Mầm",
+      sub: "1 tuổi",
+      desc: "Cha mẹ và bé cùng vui chơi, làm quen dần với môi trường trường lớp.",
+      type: "photo",
       photo: IMG.class1,
     },
     {
-      title: 'Lớp Chồi',
-      sub: '2 tuổi',
-      desc: 'Bé bắt đầu khám phá, giao lưu cùng các bạn nhỏ khác.',
-      type: 'photo',
+      title: "Lớp Chồi",
+      sub: "2 tuổi",
+      desc: "Bé bắt đầu khám phá, giao lưu cùng các bạn nhỏ khác.",
+      type: "photo",
       photo: IMG.class2,
     },
     {
-      title: 'Lớp Thỏ ngọc',
-      sub: '3-5 tuổi',
-      desc: 'Điểm bức phá phát triển trong hành trình tại Hồng Phúc.',
-      type: 'photo',
+      title: "Lớp Thỏ ngọc",
+      sub: "3-5 tuổi",
+      desc: "Điểm bức phá phát triển trong hành trình tại Hồng Phúc.",
+      type: "photo",
       photo: IMG.class2,
     },
   ];
@@ -276,7 +272,6 @@ function ClassSection() {
       <Wave fill="#FCF7EC" />
       <div className="max-w-5xl mx-auto px-5 md:px-8 pb-16 md:pb-20 pt-2">
         <div className="text-center max-w-2xl mx-auto mb-10">
-          <p className="font-display text-sun-500 text-xs tracking-[0.25em] mb-2">CLASS</p>
           <h2 className="font-display font-bold text-2xl md:text-3xl text-(--color-ink) mb-4">
             Phân lớp theo độ tuổi &amp; Hỗ trợ nuôi dạy con
           </h2>
@@ -287,7 +282,7 @@ function ClassSection() {
 
         <div className="flex flex-wrap justify-center gap-2 mb-12">
           {ages.map((a, i) => (
-            <button key={a} onClick={() => setActive(i)} className={`px-4 py-2 rounded-full text-sm font-display border-2 hover:bg-(--color-red) hover:border-(--color-red) hover:text-white cursor-pointer transition-colors ${active === i ? 'bg-(--color-red) border-(--color-red)/100 text-white' : 'border-(--color-red-light) text-(--color-red) hover:border-(--color-red)'}`}>
+            <button key={a} onClick={() => setActive(i)} className={`px-4 py-2 rounded-full text-sm font-display border-2 hover:bg-(--color-red) hover:border-(--color-red) hover:text-white cursor-pointer transition-colors ${active === i ? 'bg-(--color-red) border-(--color-red) text-white' : 'border-(--color-red-light) text-(--color-red) hover:border-(--color-red)'}`}>
               {a}
             </button>
           ))}
@@ -341,7 +336,6 @@ function DaysSection() {
           </div>
         </div>
         <div>
-          <p className="font-display text-(--color-red) text-xs tracking-[0.25em] mb-2">DAYS</p>
           <h2 className="font-display font-bold text-2xl md:text-3xl text-(--color-ink) mb-4">Sinh hoạt tại trường</h2>
           <p className="text-sm md:text-base text-(--color-ink-light) leading-relaxed mb-4">
             Chúng tôi lên kế hoạch cho từng ngày, từng mùa theo đúng nhịp phát triển của các em. Qua việc chơi cùng bạn bè, trẻ học cách chia sẻ niềm vui, biết quan tâm và cảm thông — đó là những bài học quý giá mỗi ngày.
@@ -390,7 +384,6 @@ function FacilitySection() {
       <div className="grid md:grid-cols-2 gap-10 items-center">
         <img src={IMG.facility} alt="Không gian trường Hồng Phúc" className="rounded-4xl w-full aspect-4/3 object-cover order-2 md:order-1" />
         <div className="order-1 md:order-2">
-          <p className="font-display text-(--color-red) text-xs tracking-[0.25em] mb-2">FACILITY</p>
           <h2 className="font-display font-bold text-2xl md:text-[30px] leading-snug text-(--color-ink) mb-4">
             Không gian để các em chạy nhảy, vui chơi thỏa thích mỗi ngày
           </h2>
@@ -412,7 +405,6 @@ function GuideSection() {
     <section id="guide" className="scroll-mt-28 relative bg-(--color-red)">
       <Wave fill="#FCF7EC" flip />
       <div className="max-w-4xl mx-auto px-5 md:px-8 pb-16 md:pb-20 pt-2 text-center text-white">
-        <p className="font-display text-white/80 text-xs tracking-[0.25em] mb-2">GUIDE</p>
         <h2 className="font-display font-bold text-2xl md:text-3xl mb-4">
           Dành cho phụ huynh
         </h2>
@@ -445,7 +437,6 @@ function GuideSection() {
 function ContactSection() {
   return (
     <section id="contact" className="scroll-mt-28 max-w-4xl mx-auto px-5 md:px-8 py-16 md:py-20 text-center">
-      <p className="font-display text-(--color-red) text-xs tracking-[0.25em] mb-2">CONTACT</p>
       <h2 className="font-display font-bold text-2xl md:text-3xl text-(--color-ink) mb-3 leading-snug">
         Mọi thắc mắc hoặc góp ý,
         <br className="hidden md:block" /> xin đừng ngần ngại liên hệ với chúng tôi.
@@ -454,7 +445,7 @@ function ContactSection() {
         Nhà trường luôn sẵn sàng đón tiếp phụ huynh đến tham quan, tìm hiểu môi trường học tập của các em.
       </p>
       <div className="flex flex-col sm:flex-row items-center justify-center gap-5">
-        <button className="flex items-center gap-3 bg-(--color-gold-light) rounded-2xl px-6 py-4 cursor-pointer">
+        <a href="tel:0396053054" className="flex items-center gap-3 bg-(--color-gold-light) rounded-2xl px-6 py-4 cursor-pointer">
           <span className="w-11 h-11 rounded-full bg-(--color-red) text-white flex items-center justify-center shrink-0">
             <Phone size={18} />
           </span>
@@ -463,9 +454,9 @@ function ContactSection() {
             <span className="block font-display font-bold text-xl text-(--color-ink)">0396 053 054</span>
             <span className="block text-[11px] text-(--color-ink-light)">T2–T7 (6:30-17:00)</span>
           </span>
-        </button>
+        </a>
         <div className="text-xs">HOẶC</div>
-        <button className="flex items-center gap-3 bg-(--color-red) rounded-2xl px-6 py-4 cursor-pointer">
+        <a href="" className="flex items-center gap-3 bg-(--color-red) rounded-2xl px-6 py-4 cursor-pointer">
           <span className="w-11 h-11 rounded-full bg-(--color-gold-light) text-(--color-red) flex items-center justify-center shrink-0">
             <Form size={18} />
           </span>
@@ -474,7 +465,7 @@ function ContactSection() {
             <span className="block font-display font-bold text-xl text-white">Mẫu đăng ký</span>
             <span className="block text-[11px] text-white/75">Chúng tôi sẽ liên hệ</span>
           </span>
-        </button>
+        </a>
       </div>
     </section>
   );
@@ -483,10 +474,10 @@ function ContactSection() {
 /* Footer */
 function Footer() {
   const cols = [
-    { title: 'Trang chủ', links: ['Giới thiệu về trường', 'Đội ngũ giáo viên'] },
-    { title: 'Lớp học & Nuôi dạy', links: ['Khu vui chơi Hồng Phúc', 'Lớp Mầm', 'Lớp Chồi', 'Lớp Thỏ ngọc', 'Giữ trẻ ngoài giờ'] },
-    { title: 'Sinh hoạt tại trường', links: ['Một ngày ở trường', 'Sự kiện trong năm', 'Lớp học ngoại khóa'] },
-    { title: 'Thông tin khác', links: ['Thông báo từ trường', 'Câu hỏi thường gặp', 'Hướng dẫn nhập học', 'Chính sách bảo mật', 'Tuyển dụng'] },
+    { title: "Trang chủ", links: ["Giới thiệu về trường", "Đội ngũ giáo viên"] },
+    { title: "Lớp học & Nuôi dạy", links: ["Khu vui chơi Hồng Phúc", "Lớp Mầm", "Lớp Chồi", "Lớp Thỏ ngọc", "Giữ trẻ ngoài giờ"] },
+    { title: "Sinh hoạt tại trường", links: ["Một ngày ở trường", "Sự kiện trong năm", "Lớp học ngoại khóa"] },
+    { title: "Thông tin khác", links: ["Thông báo từ trường", "Câu hỏi thường gặp", "Hướng dẫn nhập học", "Chính sách bảo mật", "Tuyển dụng"] },
   ];
   return (
     <footer className="bg-white border-t border-(--color-red-light)/50 pt-14 pb-8">
@@ -537,6 +528,7 @@ function Footer() {
 export default function Index() {
   const [scroll, setScroll] = useState(false);
   const [loading, setLoading] = useState(true);
+  // const [showGreeting, setShowGreeting] = useState({status: false, msg: ""});
 
   useEffect(() => {
     const minTime = 1200;
@@ -550,20 +542,39 @@ export default function Index() {
         }, remaining);
     }
     
-    if (document.readyState === 'complete') {
+    if (document.readyState === "complete") {
         handleLoad();
     } else {
-        window.addEventListener('load', handleLoad);
-        return () => window.removeEventListener('load', handleLoad);
+        window.addEventListener("load", handleLoad);
+        return () => window.removeEventListener("load", handleLoad);
     }
   
     const handleScroll = () => {
       setScroll(window.scrollY > 10);
     };
     handleScroll();
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+  
+  /* useEffect(() => {
+    if (loading) return;
+
+    let hideTimer;
+    const show = () => {
+      setShowGreeting(true);
+      hideTimer = setTimeout(() => setShowGreeting(false), 3000);
+    };
+
+    const firstTimer = setTimeout(show, 1500);
+    const interval = setInterval(show, 12000);
+
+    return () => {
+      clearTimeout(firstTimer);
+      clearTimeout(hideTimer);
+      clearInterval(interval);
+    };
+  }, [loading]); */
   
   return (
     <div id="index" className="bg-(--color-cream) text-(--color-ink) font-body overflow-x-hidden relative">
@@ -582,9 +593,16 @@ export default function Index() {
         <ContactSection />
         <Footer />
         
-        <button onClick={()=>{window.scrollTo({ top: 0, behavior: 'smooth' })}} className={`${scroll ? "flex items-center justify-center " : "hidden "}fixed right-4 bottom-6 z-9999 cursor-pointer bg-(--color-red-light)/25 hover:bg-(--color-red-light) text-(--color-red) hover:text-(--color-red-hover) rounded-full size-12 shadow-[0px_0px_2px_var(--color-red)] transition ease-linear`}>
+        <button onClick={()=>{window.scrollTo({ top: 0, behavior: "smooth" })}} className={`${scroll ? "flex items-center justify-center " : "hidden "}fixed right-4 bottom-6 z-9999 cursor-pointer bg-(--color-red-light)/25 hover:bg-(--color-red-light) text-(--color-red) hover:text-(--color-red-hover) rounded-full size-12 shadow-[0px_0px_2px_var(--color-red)] transition ease-linear`}>
           <ArrowUp />
         </button>
+        
+        {/* <div className="fixed -left-2 md:left-3 -bottom-10">
+          <Mascot directions="/mascots/penguin-directions.webp" reactions="/mascots/penguin-reactions.webp" />
+          <div className={`absolute right-[-75%] -top-6 ${showGreeting ? "opacity-100" : "opacity-0"}  transition-all duration-300 ease-linear text-white bg-(--color-red) border-2 border-dashed-white drop-shadow-lg text-md md:text-lg px-3 py-1 rounded-xl rounded-bl-none after:content-[''] after:absolute after:left-0 after:top-[80%] after:w-0 after:h-0 after:border-r-14 after:border-l-0 after:border-r-transparent after:border-t-12 after:border-t-(--color-red)`}>
+            Xin chào bạn!
+          </div>
+        </div> */}
       </div>}
     </div>
   );

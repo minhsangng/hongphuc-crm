@@ -23,7 +23,7 @@ export default function Sidebar({ currentPage, onNavigate }) {
         <button onClick={() => { onNavigate(item.id); setMobileOpen(false) }}
           className={`nav-item w-full text-black/75 hover:text-black ${isActive ? 'nav-item-active text-white hover:text-white' : 'nav-item-inactive'} ${collapsed ? 'justify-center px-2' : ''}`}
         >
-          <Icon size={18} strokeWidth={isActive ? 2.5 : 2} className="flex-shrink-0" />
+          <Icon size={18} strokeWidth={isActive ? 2.5 : 2} className="shrink-0" />
           {!collapsed && <span className="truncate">{item.label}</span>}
         </button>
         {collapsed && (
@@ -42,10 +42,12 @@ export default function Sidebar({ currentPage, onNavigate }) {
         <span className="w-11 h-11 rounded-full flex items-center justify-center">
           <img src="/favicon.svg" className="drop-shadow-xs drop-shadow-white" />
         </span>
-        <span className="leading-tight">
+        {!collapsed && 
+          <span className="leading-tight">
           <span className="block text-[0.65rem] italic tracking-wide text-(--color-ink-light) pb-0.5 text-shadow-2xs text-shadow-white">Trường Mầm non</span>
           <span className="block font-display uppercase font-bold text-xl text-(--color-red) text-shadow-xs text-shadow-white">Hồng Phúc</span>
         </span>
+        }
       </a>
 
       {/* Nav */}

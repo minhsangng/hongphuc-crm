@@ -56,7 +56,6 @@ export default function Teachers({ user }) {
       console.error("Fetch teacher data failed: ", err);
     }
   } 
-  
   useEffect(() => {
     getTeacherData();
   }, []);

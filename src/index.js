@@ -3,24 +3,38 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { ENV } from "./config/env.js";
 import { db } from "./config/db.js";
+import Mailer from "./mailer.js";
 import { childrens, classes, users, healthRecords, cookTables, cookTableDetails } from "./db/schema.js";
 import { eq, and, sql } from "drizzle-orm";
 import session from "express-session";
+import bcrypt from "bcrypt";
+import rateLimit from "express-rate-limit";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
 const PORT = ENV.PORT || 5001;
+const DUMMY_HASH = bcrypt.hashSync("dummy-password", 10);
+const loginLimiter = rateLimit({
+  windowMs: 60_000,          // khung thời gian: 60 giây
+  max: 5,                    // tối đa 5 request / IP / khung
+  standardHeaders: true,     // trả header RateLimit-* cho client biết còn bao nhiêu lượt
+  legacyHeaders: false,
+  skipSuccessfulRequests: true,
+  message: { status: 429, message: "Thử đăng nhập quá nhiều lần, vui lòng đợi 1 phút." },
+});
 
 app.set("trust proxy", 1);
 app.use(express.json());
 
 /* SESSION */
 app.use(session({
+  name: "sid",
   secret: ENV.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
   rolling: true,
   cookie: {
+    httpOnly: true,
     maxAge: 1000 * 60 * 15, // 15 mins
     secure: ENV.NODE_ENV === "production",
     sameSite: "lax",
@@ -103,30 +117,49 @@ app.get("/api/v1/get-all-menus", async (req, res) => {
 });
 
 /* AUTH */
-app.post("/api/v1/auth-login", async (req, res) => {
-  const { userName, password } = req.body;
-  const result = await db.select({ id: users.id, fullName: users.fullName, role: users.role, classId: users.classId }).from(users).where(and(eq(users.loginName, userName), eq(users.password, password))).limit(1);
-  if (result.length === 1) {
-    const id = parseInt(result[0].id);
-    const fullName = result[0].fullName;
-    const role = result[0].role.trim();
-    const classId = result[0].classId;
-    req.session.user = { fullName: fullName, userName: userName, uid: id, role: role, classId: classId };
-    res.json({ status: 200, message: "Login successfull" });
-  } else res.json({ status: 401, message: "Login failed" });
+app.post("/api/v1/auth-login", loginLimiter, async (req, res) => {
+  try {
+    const { userName, password } = req.body ?? {};
+    if (typeof userName !== "string" || typeof password !== "string" || !/^[a-f0-9]{64}$/.test(password)) {
+      return res.status(400).json({ status: 400, message: "Dữ liệu không hợp lệ" });
+    }
+
+    const [user] = await db
+      .select({ id: users.id, fullName: users.fullName, role: users.role, classId: users.classId, password: users.password })
+      .from(users).where(eq(users.loginName, userName)).limit(1);
+
+    const hash = user?.password ?? DUMMY_HASH;
+    const ok = await bcrypt.compare(password, hash);
+    if (!user || !ok) {
+      return res.status(401).json({ status: 401, message: "Sai tên đăng nhập hoặc mật khẩu" });
+    }
+
+    req.session.regenerate((err) => {
+      if (err) return res.json({ status: 500, message: "Lỗi phiên đăng nhập" });
+
+      req.session.user = { uid: Number(user.id), fullName: user.fullName, userName, role: user.role.trim(), classId: user.classId };
+      req.session.save((err2) => {
+        if (err2) return res.json({ status: 500, message: "Lỗi phiên đăng nhập" });
+        res.json({ status: 200, message: "Login successful" });
+      });
+    });
+  } catch (e) {
+    console.error(e);
+    res.json({ status: 500, message: "Lỗi máy chủ" });
+  }
 });
 
 app.get("/api/v1/auth-checker", (req, res) => {
   if (!req.session.user) {
-    return res.json({ status: 401, authenticated: false });
+    return res.json({ status: 401, authenticated: false, user: null });
   }
   res.json({ status: 200, authenticated: true, user: req.session.user });
 });
 
-app.post("/api/v1/auth-logout", (req, res) => {
+app.post("/api/v1/auth-logout", async (req, res) => {
   req.session.destroy((err) => {
     if (err) {
-      return res.status(500).json({ status: 500, message: "Logout failed" });
+      return res.json({ status: 500, message: "Logout failed" });
     }
     res.clearCookie("connect.sid", {
       path: "/",
@@ -136,6 +169,24 @@ app.post("/api/v1/auth-logout", (req, res) => {
     });
     res.json({ status: 200, message: "Logout successful" });
   });
+});
+
+/* EMAIL */
+app.post("/api/v1/send-email", async (req, res) => {
+  try {
+    const { subject, html } = req.body ?? {};
+    if (typeof subject !== "string" || typeof html !== "string") {
+      return res.status(400).json({ status: 400, message: "Dữ liệu không hợp lệ" });
+    }
+
+    //await Mailer.sendEmail("nmsangtg26@gmail.com", subject, html);
+    const data = await Mailer.getAllMail();
+    console.log(data);
+    res.json({ status: 200, message: "Gửi mail thành công" });
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ status: 500, message: "Gửi mail thất bại" });
+  }
 });
 
 /* FUNCTION */
