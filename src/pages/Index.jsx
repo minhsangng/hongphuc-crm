@@ -3,9 +3,9 @@ import { Megaphone, MessageSquareDot, Menu, X, ChevronRight, Phone, Form, MapPin
 import { FaFacebookF, FaTiktok, FaPhoneVolume, FaRoute } from "react-icons/fa";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
-// import { Mascot } from "page-mascot";
 import { images } from "../utils/helpers";
 import Loader from "../components/Loader";
+import Modal from "../components/Modal";
 
 const IMG = {
   hero: "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=1600&q=80",
@@ -434,7 +434,7 @@ function GuideSection() {
 }
 
 /* Liên hệ (Contact) */
-function ContactSection() {
+function ContactSection({ toggle }) {
   return (
     <section id="contact" className="scroll-mt-28 max-w-4xl mx-auto px-5 md:px-8 py-16 md:py-20 text-center">
       <h2 className="font-display font-bold text-2xl md:text-3xl text-(--color-ink) mb-3 leading-snug">
@@ -456,7 +456,7 @@ function ContactSection() {
           </span>
         </a>
         <div className="text-xs">HOẶC</div>
-        <a href="" className="flex items-center gap-3 bg-(--color-red) rounded-2xl px-6 py-4 cursor-pointer">
+        <button onClick={toggle} className="flex items-center gap-3 bg-(--color-red) rounded-2xl px-6 py-4 cursor-pointer">
           <span className="w-11 h-11 rounded-full bg-(--color-gold-light) text-(--color-red) flex items-center justify-center shrink-0">
             <Form size={18} />
           </span>
@@ -465,7 +465,7 @@ function ContactSection() {
             <span className="block font-display font-bold text-xl text-white">Mẫu đăng ký</span>
             <span className="block text-[11px] text-white/75">Chúng tôi sẽ liên hệ</span>
           </span>
-        </a>
+        </button>
       </div>
     </section>
   );
@@ -525,10 +525,36 @@ function Footer() {
   );
 }
 
+/* Form */
+function ContactForm() {
+  return (
+    <div className="w-full">
+      <form method="post">
+        <label htmlFor="fullName">
+          <b>Họ tên</b><span className="text-(--color-red)">*</span> <br />
+          <input type="text" name="fullName" id="fullName" required placeholder="Họ tên phụ huynh" className="w-full outline-none border-b border-(--color-red-light) capitalize placeholder:normal-case mb-2" />
+        </label>
+        <label htmlFor="phoneNumber">
+          <b>Liên lạc</b><span className="text-(--color-red)">*</span>  <br />
+          <input type="number" inputMode="numeric" pattern="[0-9]*" onInput={(e) => {if (e.target.value.length > 10) {e.target.value = e.target.value.slice(0, 10);}}} required name="phoneNumber" id="phoneNumber" placeholder="Số liên lạc phụ huynh" className="w-full outline-none border-b border-(--color-red-light) mb-2" />
+        </label>
+        <label htmlFor="email">
+          <b>Email</b> <br />
+          <input type="email" name="email" id="email" placeholder="Địa chỉ email" className="w-full outline-none border-b border-(--color-red-light) mb-2" />
+        </label>
+        
+        <div>
+          <button type="submit">Gửi</button>
+        </div>
+      </form>
+    </div>
+  );
+}
+
 export default function Index() {
   const [scroll, setScroll] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
   const [loading, setLoading] = useState(true);
-  // const [showGreeting, setShowGreeting] = useState({status: false, msg: ""});
 
   useEffect(() => {
     const minTime = 1200;
@@ -557,27 +583,10 @@ export default function Index() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
   
-  /* useEffect(() => {
-    if (loading) return;
-
-    let hideTimer;
-    const show = () => {
-      setShowGreeting(true);
-      hideTimer = setTimeout(() => setShowGreeting(false), 3000);
-    };
-
-    const firstTimer = setTimeout(show, 1500);
-    const interval = setInterval(show, 12000);
-
-    return () => {
-      clearTimeout(firstTimer);
-      clearTimeout(hideTimer);
-      clearInterval(interval);
-    };
-  }, [loading]); */
-  
   return (
     <div id="index" className="bg-(--color-cream) text-(--color-ink) font-body overflow-x-hidden relative">
+      <Modal isOpen={openModal} onClose={()=>setOpenModal(false)} title="Tư vấn thông tin" children={<ContactForm/>} />
+    
       {loading ? <div className="w-screen h-screen fixed inset-0 bg-white"><Loader /></div> :
       <div>
         <Header scroll={scroll} />
@@ -590,19 +599,12 @@ export default function Index() {
         <DaysSection />
         <FacilitySection />
         <GuideSection />
-        <ContactSection />
+        <ContactSection toggle={()=>setOpenModal(true)} />
         <Footer />
         
-        <button onClick={()=>{window.scrollTo({ top: 0, behavior: "smooth" })}} className={`${scroll ? "flex items-center justify-center " : "hidden "}fixed right-4 bottom-6 z-9999 cursor-pointer bg-(--color-red-light)/25 hover:bg-(--color-red-light) text-(--color-red) hover:text-(--color-red-hover) rounded-full size-12 shadow-[0px_0px_2px_var(--color-red)] transition ease-linear`}>
+        <button title="Lên đầu trang" onClick={()=>{window.scrollTo({ top: 0, behavior: "smooth" })}} className={`${scroll ? "flex items-center justify-center " : "hidden "}fixed right-4 bottom-6 z-9999 cursor-pointer bg-(--color-red-light)/25 hover:bg-(--color-red-light) text-(--color-red) hover:text-(--color-red-hover) rounded-full size-12 shadow-[0px_0px_2px_var(--color-red)] transition ease-linear`}>
           <ArrowUp />
         </button>
-        
-        {/* <div className="fixed -left-2 md:left-3 -bottom-10">
-          <Mascot directions="/mascots/penguin-directions.webp" reactions="/mascots/penguin-reactions.webp" />
-          <div className={`absolute right-[-75%] -top-6 ${showGreeting ? "opacity-100" : "opacity-0"}  transition-all duration-300 ease-linear text-white bg-(--color-red) border-2 border-dashed-white drop-shadow-lg text-md md:text-lg px-3 py-1 rounded-xl rounded-bl-none after:content-[''] after:absolute after:left-0 after:top-[80%] after:w-0 after:h-0 after:border-r-14 after:border-l-0 after:border-r-transparent after:border-t-12 after:border-t-(--color-red)`}>
-            Xin chào bạn!
-          </div>
-        </div> */}
       </div>}
     </div>
   );

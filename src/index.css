@@ -148,6 +148,17 @@ button {
   width: 100%;
 }
 
+/* Ẩn mũi tên trên các trình duyệt dựa trên Chromium (Chrome, Safari, Edge, Opera) */
+#index input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/* Ẩn mũi tên trên trình duyệt Firefox */
+#index input[type="number"] {
+  -moz-appearance: textfield;
+}
+
 /* Home loader */
 #index .loader {
   --color-1: var(--color-red-light);
