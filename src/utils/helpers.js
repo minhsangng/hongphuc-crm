@@ -43,13 +43,13 @@ export async function getDataFromAPI(url, type = "get", body = null) {
   const fetchUrl = "/api/v1/" + url;
   switch (type) {
     case "get":
-      const resGet = await axios.get(fetchUrl);
+      { const resGet = await axios.get(fetchUrl);
       if (resGet) data = resGet.data;
-    break;
+    break; }
     case "post":
-      const resPost = await axios.post(fetchUrl, body);
+      { const resPost = await axios.post(fetchUrl, body);
       if (resPost) data = resPost.data;
-    break;
+    break; }
     case "put":
     
     break;

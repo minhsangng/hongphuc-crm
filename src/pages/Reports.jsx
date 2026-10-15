@@ -1,11 +1,7 @@
-import React from 'react'
-import { BarChart3, Download, TrendingUp, DollarSign, Users, BookOpen } from 'lucide-react'
-import {
-  BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid,
-  Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell, Sector
-} from 'recharts'
-import { tuitionChartData, enrollmentChartData } from '../data/mockData'
-import { formatVND, formatVNDShort } from '../utils/helpers'
+import { Download, TrendingUp, DollarSign, Users, BookOpen } from 'lucide-react';
+import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
+import { tuitionChartData, enrollmentChartData } from '../data/mockData';
+import { formatVND, formatVNDShort } from '../utils/helpers';
 
 const COLORS = ['#2563eb', '#dc2626', '#16a34a', '#d97706', '#7c3aed']
 
@@ -19,7 +15,7 @@ const pieData = [
 
 function SectionCard({ title, desc, children }) {
   return (
-    <div className="bg-white dark:bg-dark-800 rounded-2xl p-5 border border-dark-100 dark:border-dark-700 shadow-card animate-fade-in">
+    <div className="bg-white/50 backdrop-blur-md rounded-xl shadow-lg p-5 animate-fade-in">
       <div className="flex items-center justify-between mb-4">
         <div>
           <h3 className="font-semibold text-dark-900 dark:text-white text-sm">{title}</h3>
@@ -36,36 +32,38 @@ function SectionCard({ title, desc, children }) {
 
 export default function Reports() {
   return (
-    <div className="p-4 lg:p-6 space-y-6 animate-fade-in">
-      <div className="flex items-center justify-between">
-        <div>
-          <h2 className="text-xl font-bold text-dark-900 dark:text-white">Báo cáo</h2>
-          <p className="text-sm text-dark-400 dark:text-dark-500 mt-0.5">Thống kê & phân tích năm học 2025–2026</p>
-        </div>
-        <button className="btn-primary text-xs">
-          <Download size={13} /> Xuất tất cả
-        </button>
-      </div>
-
-      {/* KPI row */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-        {[
-          { icon: DollarSign, label: 'Doanh thu năm', value: '1.224.500.000 đ', sub: '+12.1% so với năm ngoái', color: 'from-accent-600 to-accent-700' },
-          { icon: TrendingUp,  label: 'Chi phí năm',   value: '519.200.000 đ',  sub: '-3.2% so với năm ngoái', color: 'from-primary-600 to-primary-700' },
-          { icon: Users,       label: 'Học sinh mới',  value: '34',             sub: 'Trong năm học này',        color: 'from-green-600 to-green-700' },
-          { icon: BookOpen,    label: 'Ra trường',      value: '28',             sub: 'Hoàn thành chương trình',  color: 'from-purple-600 to-purple-700' },
-        ].map(({ icon: Icon, label, value, sub, color }) => (
-          <div key={label} className={`rounded-2xl p-5 bg-gradient-to-br ${color} text-white shadow-lg`}>
-            <Icon size={20} className="opacity-80 mb-3" />
-            <p className="text-xl font-bold leading-tight">{value}</p>
-            <p className="text-xs font-medium mt-1 opacity-90">{label}</p>
-            <p className="text-xs mt-0.5 opacity-70">{sub}</p>
+    <div className="p-1 lg:p-2 lg:pt-0 space-y-2 animate-fade-in">
+      <div className="bg-white/50 backdrop-blur-md rounded-xl shadow-lg p-4 pt-6">
+        <div className="flex items-center justify-between mb-2">
+          <div>
+            <h2 className="text-xl font-bold text-(--color-red)">Báo cáo</h2>
+            <p className="text-sm text-gray-600 mt-0.5">Thống kê & phân tích năm học 2025–2026</p>
           </div>
-        ))}
+          <button className="btn-primary text-xs">
+            <Download size={13} /> Xuất tất cả
+          </button>
+        </div>
+
+        {/* KPI row */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+          {[
+            { icon: DollarSign, label: 'Doanh thu năm', value: '1.224.500.000 đ', sub: '+12.1% so với năm ngoái', color: 'from-red-600 to-red-700' },
+            { icon: TrendingUp,  label: 'Chi phí năm',   value: '519.200.000 đ',  sub: '-3.2% so với năm ngoái', color: 'from-blue-600 to-blue-700' },
+            { icon: Users,       label: 'Học sinh mới',  value: '34',             sub: 'Trong năm học này',        color: 'from-green-600 to-green-700' },
+            { icon: BookOpen,    label: 'Ra trường',      value: '28',             sub: 'Hoàn thành chương trình',  color: 'from-purple-600 to-purple-700' },
+          ].map(({ icon: Icon, label, value, sub, color }) => (
+            <div key={label} className={`rounded-2xl p-5 bg-linear-to-br ${color} text-white shadow-lg`}>
+              <Icon size={20} className="opacity-80 mb-3" />
+              <p className="text-xl font-bold leading-tight">{value}</p>
+              <p className="text-xs font-medium mt-1 opacity-90">{label}</p>
+              <p className="text-xs mt-0.5 opacity-70">{sub}</p>
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* Charts */}
-      <div className="grid grid-cols-1 xl:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-2">
         <SectionCard title="Doanh thu theo tháng" desc="Học phí & Chi phí 2025" className="xl:col-span-2">
           <ResponsiveContainer width="100%" height={220}>
             <BarChart data={tuitionChartData} barGap={4}>

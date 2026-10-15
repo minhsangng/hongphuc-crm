@@ -39,25 +39,32 @@ function AdminShell() {
     else navigate("/");
   }
   
-  async function loadUser() {
-    const response = await getDataFromAPI("auth-checker");
-    if (response.status === 200 && response.authenticated) setUser(response.user);
-    else navigate("/login", { replace: true });
-  }
-  
   useEffect(() => {
+    async function loadUser() {
+      try{
+        const response = await getDataFromAPI("auth-checker");
+      if (response.status === 200 && response.authenticated && response.user) setUser(response.user);
+      else navigate("/login", { replace: true });
+      } catch (err) {
+        console.log("Xác thực đăng nhập lỗi: ", err);
+        navigate("/login", { replace: true });
+      }
+    }
     loadUser();
   }, []);
   
   if (!user) return (<div className="bg-white w-screen h-screen"></div>);
 
   return (
-    <div id="admin" className="flex h-screen overflow-hidden bg-dark-50 dark:bg-dark-950">
+    <div id="admin" className="flex h-screen overflow-hidden bg-gray-200 p-2">
       <Sidebar currentPage={currentPage} onNavigate={setCurrentPage} />
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
         <Header user={user} currentPage={currentPage} onExitAdmin={handleLogout} />
         <main className="flex-1 overflow-y-auto">
           <PageComponent user={user} />
+          <div className="px-2 py-3">
+            <p className="text-right text-xs text-gray-500 italic">Bản cập nhật V1.0.26261002</p>
+          </div>
         </main>
       </div>
     </div>

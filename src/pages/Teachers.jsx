@@ -1,28 +1,41 @@
 import { useState, useEffect } from "react";
-import { Plus, CalendarFold, Phone, Mail, Ban } from "lucide-react";
+import { RefreshCw, Plus, Cake, PhoneCall, Mail, Ban } from "lucide-react";
 import DataTable from "../components/DataTable";
 import Avatar from "../components/Avatar";
-import { getDataFromAPI, formatVND } from "../utils/helpers";
+import { getDataFromAPI, formatVND, formatDateVN } from "../utils/helpers";
 
 const columns = [
-  { key: "fullName", label: "Họ tên", render: (v, row) => (
-    <div className="flex items-center gap-2.5">
-      <Avatar name={v} size="sm" />
-      <span className="font-medium text-dark-900 dark:text-white text-sm">{v} <br/><span className="text-xs text-gray-400 flex items-center gap-1"><CalendarFold size={10} />{row.dob}</span></span>
-    </div>
-  )},
+  { key: "fullName", label: "Họ tên", render: (v, row) => {
+    const date = new Date();
+    const dob = new Date(row.dob);
+    const isBirthday = date.getDate() === dob.getDate() && date.getMonth() === dob.getMonth();
+    return (
+      <div className="flex items-center gap-2.5">
+        <Avatar name={v} size="sm" />
+        <span className="font-medium text-black text-sm">{v} <br/><span className="text-xs text-gray-400 flex items-center gap-1"><Cake size={isBirthday ? 14 : 12} color={isBirthday ? "#FFC0CB" : "#99A1AF"} className={isBirthday ? "animate-bounce" : ""} />{formatDateVN(row.dob)}</span></span>
+      </div>
+    )
+  }},
   { key: "phoneNumber", label: "Liên hệ", sortable: false, render: (v, row) => (
     <div className="flex flex-col gap-1">
-      <span className="flex items-center gap-1 text-dark-600 dark:text-dark-400"><Phone size={12} />{v}</span>
-      <span className="flex items-center gap-1 text-dark-600 dark:text-dark-400 text-xs"><Mail size={10} />{row.email}</span>
+      <a href={`tel:${v}`} title={`Gọi ${row.fullName}`} className="flex items-center gap-1"><PhoneCall size={12} />{v}</a>
+      <a href={`mailto:${row.email}`} title={`Gửi thư ${row.fullName}`} className="flex items-center gap-1 text-xs text-gray-400"><Mail size={10} />{row.email}</a>
     </div>
   )},
-  { key: "email", label: "Email", sortable: false, render: v => (
-    <span className="flex items-center gap-1 text-dark-600 dark:text-dark-400 text-xs"><Mail size={12} />{v}</span>
-  )},
-  { key: "role", label: "Chức danh", render: (v, row) => <div className="flex flex-col items-center gap-1"><span className="badge badge-blue">{v}</span><span className="text-xs">({row.className})</span></div> },
+  { key: "hireDate", label: "Ngày vào làm", render: v => {
+    const date = new Date();
+    const diffDays = Math.floor((date - new Date(v)) / (1000 * 60 * 60 * 24) + 1);
+    const result = diffDays >= 365 ? ('> ' + Math.floor(diffDays / 365) + ' năm') : diffDays + ' ngày';
+    return (
+      <div className="flex flex-col gap-1">
+        <span className="flex items-center gap-1 text-black">{v}</span>
+        <span className="flex items-center gap-1 text-xs text-gray-400">({result})</span>
+      </div>
+    )
+  }},
+  { key: "role", label: "Chức danh", sortable: false, render: (v, row) => <div className="flex flex-col items-center gap-1"><span className="badge badge-blue">{v}</span><span className="text-xs text-gray-400">({row.className})</span></div> },
   { key: "gross", label: "Lương", sortable: false, render: v => (
-    <span className="flex items-center gap-1 text-xs text-dark-500 dark:text-dark-400">{formatVND(v)}</span>
+    <span className="flex items-center gap-1 text-xs text-black">{formatVND(v)}</span>
   )},
   { key: "status", label: "Trạng thái", render: v => {
     const map = { "Đang làm": "badge-green", "Tạm nghỉ": "badge-yellow", "Đã nghỉ": "badge-red" };
@@ -35,46 +48,52 @@ export default function Teachers({ user }) {
   const [data, setData] = useState([]);
   const show = Boolean(user && ["Quản trị viên", "Quản lý"].includes(user.role));
   
-  async function fetchTeacherData() {
+  async function getTeacherData() {
     try {
       const response = await getDataFromAPI("get-all-teachers");
       setData(response);
     } catch (err) {
-      console.error("Fetch class data failed: ", err);
+      console.error("Fetch teacher data failed: ", err);
     }
   } 
-  
   useEffect(() => {
-    fetchTeacherData();
+    getTeacherData();
   }, []);
   
   if (!show) return <div className="p-4 lg:p-6 animate-fade-in flex items-center gap-2"><Ban color="#d05858" /><p>Chức năng này chỉ dành cho Quản lý.</p></div>;
 
   return (
-    <div className="p-4 lg:p-6 space-y-6 animate-fade-in">
-      <div className="flex items-center justify-between">
-        <div>
-          <h2 className="text-xl font-bold text-dark-900 dark:text-white">Giáo viên</h2>
-          <p className="text-sm text-dark-400 dark:text-dark-500 mt-0.5">Quản lý thông tin tất cả giáo viên</p>
-        </div>
-        <button className="btn-primary text-xs">
-          <Plus size={13} /> Thêm giáo viên
-        </button>
-      </div>
-
-      {/* Summary cards */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        {[
-          { label: "Tổng giáo viên", value: data.length > 0 ? data.length : 0, color: "text-accent-600 dark:text-accent-400", bg: "bg-accent-50 dark:bg-accent-900/20" },
-          { label: "Đang làm", value: data.length > 0 ? data.filter(p => p.status === "Đang làm").length : 0, color: "text-green-600 dark:text-green-400", bg: "bg-green-50 dark:bg-green-900/20" },
-          { label: "Tạm nghỉ", value: data.length > 0 ? data.filter(p => p.status !== "Đang làm" && p.status !== "Đã nghỉ").length : 0, color: "text-yellow-600 dark:text-yellow-400", bg: "bg-yellow-50 dark:bg-yellow-900/20" },
-          { label: "Đã nghỉ", value: data.length > 0 ? data.filter(p => p.status === "Đã nghỉ").length : 0, color: "text-red-600 dark:text-red-400", bg: "bg-red-50 dark:bg-red-900/20" },
-        ].map(s => (
-          <div key={s.label} className={`${s.bg} rounded-2xl p-4 border border-dark-100/50 dark:border-dark-700/50`}>
-            <p className={`text-2xl font-bold ${s.color}`}>{s.value}</p>
-            <p className="text-xs text-dark-500 dark:text-dark-400 mt-1">{s.label}</p>
+    <div className="p-1 lg:p-2 lg:pt-0 space-y-2 animate-fade-in">
+      <div className="bg-white/50 backdrop-blur-md shadow-lg p-4 pt-6 rounded-xl">
+        <div className="flex items-center justify-between mb-2">
+          <div>
+            <h2 className="text-xl font-bold text-(--color-red)">Giáo viên</h2>
+            <p className="text-sm text-gray-700 mt-0.5">Quản lý thông tin tất cả giáo viên</p>
           </div>
-        ))}
+          <div className="flex items-center gap-2">
+            <button onClick={getTeacherData} className="btn-secondary gap-1.5 text-xs hidden sm:inline-flex">
+              <RefreshCw size={13} /> Làm mới
+            </button>
+            <button className="btn-primary text-xs">
+              <Plus size={13} /> Thêm giáo viên
+            </button>
+          </div>
+        </div>
+
+        {/* Summary cards */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          {[
+            { label: "Tổng giáo viên", value: data.length > 0 ? data.length : 0, color: "text-black", bg: "bg-gray-200" },
+            { label: "Đang làm", value: data.length > 0 ? data.filter(p => p.status === "Đang làm").length : 0, color: "text-green-600", bg: "bg-green-100" },
+            { label: "Tạm nghỉ", value: data.length > 0 ? data.filter(p => p.status !== "Đang làm" && p.status !== "Đã nghỉ").length : 0, color: "text-amber-600", bg: "bg-amber-100" },
+            { label: "Đã nghỉ", value: data.length > 0 ? data.filter(p => p.status === "Đã nghỉ").length : 0, color: "text-red-600", bg: "bg-red-100" },
+          ].map(s => (
+            <div key={s.label} className={`${s.bg} rounded-2xl p-4 backdrop-blur-md shadow-md border border-gray-200/50`}>
+              <p className={`text-2xl font-bold ${s.color}`}>{s.value}</p>
+              <p className="text-xs text-black mt-1">{s.label}</p>
+            </div>
+          ))}
+        </div>
       </div>
 
       <DataTable title="Danh sách giáo viên" columns={columns} data={data} pageSize={6} />

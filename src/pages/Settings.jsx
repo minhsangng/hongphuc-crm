@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
-import { Bell, Shield, Globe, Palette, Save, ChevronRight, Moon, Sun, Monitor } from 'lucide-react'
+import { useState } from 'react'
+import { Bell, Shield, Globe, Palette, Save, Moon, Sun, Monitor } from 'lucide-react'
 import { useTheme } from '../context/AppContext'
 
 function SettingSection({ icon: Icon, title, desc, children }) {
   return (
-    <div className="bg-white dark:bg-dark-800 rounded-2xl border border-dark-100 dark:border-dark-700 shadow-card overflow-hidden animate-fade-in">
-      <div className="flex items-center gap-3 px-5 py-4 border-b border-dark-100 dark:border-dark-700 bg-dark-50/50 dark:bg-dark-900/50">
+    <div className="bg-white/50 backdrop-blur-md shadow-lg rounded-xl overflow-hidden animate-fade-in">
+      <div className="flex items-center gap-3 px-5 py-4 border-b border-black/10 bg-gray-200/50">
         <div className="w-8 h-8 rounded-lg bg-primary-50 dark:bg-primary-900/30 flex items-center justify-center">
           <Icon size={15} className="text-primary-600 dark:text-primary-400" />
         </div>
@@ -23,12 +23,12 @@ function ToggleRow({ label, desc, checked, onChange }) {
   return (
     <div className="flex items-center justify-between gap-4">
       <div>
-        <p className="text-sm font-medium text-dark-800 dark:text-dark-200">{label}</p>
-        {desc && <p className="text-xs text-dark-400 dark:text-dark-500 mt-0.5">{desc}</p>}
+        <p className="text-sm font-medium text-black">{label}</p>
+        {desc && <p className="text-xs text-black/50 mt-0.5">{desc}</p>}
       </div>
       <button
         onClick={() => onChange(!checked)}
-        className={`relative w-11 h-6 rounded-full transition-colors duration-200 focus:outline-none flex-shrink-0 ${checked ? 'bg-accent-600' : 'bg-dark-200 dark:bg-dark-600'}`}
+        className={`relative w-11 h-6 rounded-full transition-colors duration-200 focus:outline-none shrink-0 ${checked ? 'bg-green-600' : 'bg-black/10'}`}
       >
         <div className={`absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white shadow transition-transform duration-200 ${checked ? 'translate-x-5' : 'translate-x-0'}`} />
       </button>
@@ -40,7 +40,7 @@ export default function Settings() {
   const { dark, toggle } = useTheme()
   const [notifs, setNotifs] = useState({ email: true, push: false, sms: true, weekly: true })
   const [schoolName, setSchoolName] = useState('Lớp Trẻ Tư Thục Hồng Phúc')
-  const [address, setAddress] = useState('Quận 3, TP. Hồ Chí Minh')
+  const [address, setAddress] = useState('Lộ Vàm, Chợ Gạo, Đồng Tháp')
   const [phone, setPhone] = useState('028-1234-5678')
   const [saved, setSaved] = useState(false)
 
@@ -53,8 +53,8 @@ export default function Settings() {
     <div className="p-4 lg:p-6 space-y-6 animate-fade-in">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-xl font-bold text-dark-900 dark:text-white">Cài đặt</h2>
-          <p className="text-sm text-dark-400 dark:text-dark-500 mt-0.5">Tùy chỉnh hệ thống quản lý trường</p>
+          <h2 className="text-xl font-bold text-(--color-red)">Cài đặt</h2>
+          <p className="text-sm text-gray-600 mt-0.5">Tùy chỉnh hệ thống quản lý trường</p>
         </div>
         <button onClick={handleSave} className={`btn-primary text-xs transition-all ${saved ? 'bg-green-600 hover:bg-green-700' : ''}`}>
           <Save size={13} />

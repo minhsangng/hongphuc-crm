@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
-import { DollarSign, Users, Baby, BookOpen, TrendingUp, Download, RefreshCw, Plus } from 'lucide-react';
+import { DollarSign, Users, Baby, BookOpen, TrendingUp, Download, RefreshCw } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Area, AreaChart } from 'recharts';
 import StatCard from '../components/StatCard';
 import DataTable from '../components/DataTable';
@@ -12,13 +12,13 @@ import { formatVND, formatVNDShort, getDataFromAPI } from '../utils/helpers';
 function CustomTooltip({ active, payload, label, formatter }) {
   if (!active || !payload?.length) return null
   return (
-    <div className="bg-white dark:bg-dark-800 rounded-xl shadow-xl border border-dark-100 dark:border-dark-700 p-3 text-xs">
-      <p className="font-semibold text-dark-700 dark:text-dark-200 mb-2">{label}</p>
+    <div className="bg-white rounded-xl shadow-xl border border-gray-100 p-3 text-xs">
+      <p className="font-semibold text-gray-700 mb-2">{label}</p>
       {payload.map(p => (
         <div key={p.dataKey} className="flex items-center gap-2 mb-1">
           <div className="w-2.5 h-2.5 rounded-full" style={{ background: p.color }} />
-          <span className="text-dark-500 dark:text-dark-400">{p.name}:</span>
-          <span className="font-semibold text-dark-800 dark:text-dark-200">{formatter ? formatter(p.value) : p.value}</span>
+          <span className="text-black">{p.name}:</span>
+          <span className="font-semibold text-gray-800">{formatter ? formatter(p.value) : p.value}</span>
         </div>
       ))}
     </div>
@@ -30,8 +30,8 @@ const childrenColumns = [
     <div className="flex items-center gap-2.5">
       <Avatar name={v} size="sm" />
       <div>
-        <p className="font-medium text-dark-900 dark:text-white text-sm">{v}</p>
-        <p className="text-xs text-dark-400">{row.dob}</p>
+        <p className="font-medium text-black text-sm">{v}</p>
+        <p className="text-xs text-gray-500">{row.dob}</p>
       </div>
     </div>
   )},
@@ -49,8 +49,8 @@ const teacherColumns = [
     <div className="flex items-center gap-2.5">
       <Avatar name={v} size="sm" />
       <div>
-        <p className="font-medium text-dark-900 dark:text-white text-sm">{v}</p>
-        <p className="text-xs text-dark-400">{row.email}</p>
+        <p className="font-medium text-black text-sm">{v}</p>
+        <p className="text-xs text-gray-400">{row.email}</p>
       </div>
     </div>
   )},
@@ -93,54 +93,52 @@ export default function Dashboard() {
     { icon: Baby, label: 'Tổng học sinh', value: statsData.totalChildren, change: statsData.childrenChange, changeLabel: 'Tháng này nhập học thêm 4', color: 'green' },
     { icon: Users, label: 'Giáo viên & NV', value: statsData.totalTeachers, change: statsData.teachersChange, changeLabel: 'Ổn định', color: 'purple' },
     { icon: BookOpen, label: 'Lớp học', value: statsData.totalClasses, change: statsData.classesChange, changeLabel: '2 lá, 2 chồi, 2 mầm', color: 'yellow' },
-    { icon: TrendingUp, label: 'Tỷ lệ tăng trưởng', value: `${statsData.growthRate}%`, change: statsData.growthChange, changeLabel: 'Năm học 2025–2026', color: 'pink' },
+    { icon: TrendingUp, label: 'Tỷ lệ tăng trưởng', value: `${statsData.growthRate}%`, change: statsData.growthChange, changeLabel: 'Năm học 2025-2026', color: 'pink' },
   ]
 
   return (
-    <div className="p-4 lg:p-6 space-y-6 animate-fade-in">
+    <div className="p-1 lg:p-2 lg:pt-0 space-y-2 animate-fade-in">
       {/* Page title */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h2 className="text-xl font-bold text-dark-900 dark:text-white">Tổng quan</h2>
-          <p className="text-sm text-dark-400 dark:text-dark-500 mt-0.5">{ new Date().toLocaleDateString('vi-VN', {month: 'long'}) } năm { new Date().toLocaleDateString('vi-VN', {year: 'numeric'}) } • Cập nhật lúc {new Date().toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' })}</p>
+      <div className="bg-white/50 backdrop-blur-md shadow-lg p-4 pt-6 rounded-xl">
+        <div className="flex items-center justify-between mb-2">
+          <div>
+            <h2 className="text-xl font-bold text-(--color-red)">Tổng quan</h2>
+            <p className="text-sm text-gray-500 mt-0.5">{ new Date().toLocaleDateString('vi-VN', {month: 'long'}) } năm { new Date().toLocaleDateString('vi-VN', {year: 'numeric'}) } • Cập nhật lúc {new Date().toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' })}</p>
+          </div>
+          <div className="flex items-center gap-2">
+            <button onClick={() => window.location.reload()} className="btn-secondary gap-1.5 text-xs hidden sm:inline-flex">
+              <RefreshCw size={13} /> Làm mới
+            </button>
+            <button className="btn-primary gap-1.5 text-xs hidden sm:inline-flex">
+              <Download size={13} /> Xuất báo cáo
+            </button>
+          </div>
         </div>
-        <div className="flex items-center gap-2">
-          <button onClick={() => window.location.reload()} className="btn-secondary gap-1.5 text-xs hidden sm:inline-flex">
-            <RefreshCw size={13} /> Làm mới
-          </button>
-          <button className="btn-primary gap-1.5 text-xs hidden sm:inline-flex">
-            <Download size={13} /> Xuất báo cáo
-          </button>
+        {/* Stats grid */}
+        <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-3 lg:gap-4">
+          {stats.map((s, i) => (
+            <StatCard key={i} {...s} loading={loading} />
+          ))}
         </div>
       </div>
 
-      {/* Stats grid */}
-      <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-3 lg:gap-4">
-        {stats.map((s, i) => (
-          <StatCard key={i} {...s} loading={loading} />
-        ))}
-      </div>
 
       {/* Charts */}
       <div className="grid grid-cols-1 xl:grid-cols-5 gap-4">
         {/* Main chart */}
-        <div className="xl:col-span-3 bg-white dark:bg-dark-800 rounded-2xl p-5 border border-dark-100 dark:border-dark-700 shadow-card animate-fade-in">
+        <div className="xl:col-span-3 bg-white rounded-2xl p-5 border border-black/10 shadow-card animate-fade-in">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5">
             <div>
-              <h3 className="font-semibold text-dark-900 dark:text-white text-sm">Thu học phí & Chi phí</h3>
-              <p className="text-xs text-dark-400 dark:text-dark-500 mt-0.5">12 tháng qua</p>
+              <h3 className="font-semibold text-(--color-red) text-sm">Thu học phí & Chi phí</h3>
+              <p className="text-xs text-gray-700 mt-0.5">12 tháng qua</p>
             </div>
-            <div className="flex bg-dark-100 dark:bg-dark-700 rounded-lg p-0.5">
+            <div className="flex bg-gray-100 rounded-lg p-0.5">
               {[
                 { key: 'tuition', label: 'Học phí' },
                 { key: 'enrollment', label: 'Học sinh' },
               ].map(t => (
                 <button key={t.key} onClick={() => setActiveChart(t.key)}
-                  className={`px-3 py-1.5 rounded-md text-xs font-medium transition-all ${
-                    activeChart === t.key
-                      ? 'bg-white dark:bg-dark-600 text-dark-900 dark:text-white shadow-sm'
-                      : 'text-dark-500 dark:text-dark-400 hover:text-dark-700 dark:hover:text-dark-200'
-                  }`}>
+                  className={`px-3 py-1.5 rounded-md text-xs font-medium transition-all ${activeChart === t.key ? 'bg-white text-black shadow-sm' : 'text-black hover:text-black/70'}`}>
                   {t.label}
                 </button>
               ))}
@@ -160,7 +158,7 @@ export default function Dashboard() {
                     <stop offset="95%" stopColor="#dc2626" stopOpacity={0} />
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" className="dark:stroke-dark-700" />
+                <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
                 <XAxis dataKey="month" tick={{ fontSize: 11, fill: '#94a3b8' }} axisLine={false} tickLine={false} />
                 <YAxis tickFormatter={formatVNDShort} tick={{ fontSize: 11, fill: '#94a3b8' }} axisLine={false} tickLine={false} width={52} />
                 <Tooltip content={<CustomTooltip formatter={formatVND} />} />
@@ -172,7 +170,7 @@ export default function Dashboard() {
           ) : (
             <ResponsiveContainer width="100%" height={240}>
               <BarChart data={enrollmentChartData} margin={{ top: 5, right: 5, bottom: 0, left: 0 }} barGap={4}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" className="dark:stroke-dark-700" />
+                <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
                 <XAxis dataKey="month" tick={{ fontSize: 11, fill: '#94a3b8' }} axisLine={false} tickLine={false} />
                 <YAxis tick={{ fontSize: 11, fill: '#94a3b8' }} axisLine={false} tickLine={false} />
                 <Tooltip content={<CustomTooltip />} />
@@ -187,8 +185,8 @@ export default function Dashboard() {
         {/* Mini stats + quick info */}
         <div className="xl:col-span-2 space-y-4">
           {/* Tuition collection rate */}
-          <div className="bg-white dark:bg-dark-800 rounded-2xl p-5 border border-dark-100 dark:border-dark-700 shadow-card animate-fade-in">
-            <h3 className="font-semibold text-dark-900 dark:text-white text-sm mb-4">Thu học phí tháng 12</h3>
+          <div className="bg-white rounded-2xl p-5 border border-black/10 shadow-card animate-fade-in">
+            <h3 className="font-semibold text-(--color-red) text-sm mb-4">Thu học phí tháng 12</h3>
             <div className="space-y-3">
               {[
                 { label: 'Đã đóng', count: 74, total: 87, color: 'bg-green-500' },
@@ -197,10 +195,10 @@ export default function Dashboard() {
               ].map(item => (
                 <div key={item.label}>
                   <div className="flex items-center justify-between text-xs mb-1.5">
-                    <span className="text-dark-600 dark:text-dark-400 font-medium">{item.label}</span>
-                    <span className="font-semibold text-dark-800 dark:text-dark-200">{item.count}/{item.total}</span>
+                    <span className="text-gray-600 font-medium">{item.label}</span>
+                    <span className="font-semibold text-gray-800">{item.count}/{item.total}</span>
                   </div>
-                  <div className="h-2 rounded-full bg-dark-100 dark:bg-dark-700 overflow-hidden">
+                  <div className="h-2 rounded-full bg-gray-200 overflow-hidden">
                     <div
                       className={`h-full rounded-full ${item.color} transition-all duration-1000`}
                       style={{ width: `${(item.count / item.total) * 100}%` }}
@@ -209,15 +207,15 @@ export default function Dashboard() {
                 </div>
               ))}
             </div>
-            <div className="mt-4 pt-4 border-t border-dark-100 dark:border-dark-700 flex items-center justify-between">
-              <span className="text-xs text-dark-500 dark:text-dark-400">Tỷ lệ thu được</span>
-              <span className="text-lg font-bold text-green-600 dark:text-green-400">85%</span>
+            <div className="mt-4 pt-4 border-t border-black/10 flex items-center justify-between">
+              <span className="text-xs text-gray-700">Tỷ lệ thu được</span>
+              <span className="text-lg font-bold text-green-600">85%</span>
             </div>
           </div>
 
           {/* Class occupancy */}
-          <div className="bg-white dark:bg-dark-800 rounded-2xl p-5 border border-dark-100 dark:border-dark-700 shadow-card animate-fade-in">
-            <h3 className="font-semibold text-dark-900 dark:text-white text-sm mb-4">Sĩ số lớp học</h3>
+          <div className="bg-white rounded-2xl p-5 border border-black/10 shadow-card animate-fade-in">
+            <h3 className="font-semibold text-(--color-red) text-sm mb-4">Sĩ số lớp học</h3>
             <div className="space-y-2.5">
               {[
                 { name: 'Lá 1', students: 15, cap: 20 },
@@ -231,11 +229,11 @@ export default function Dashboard() {
                 const color = pct >= 90 ? 'bg-red-500' : pct >= 70 ? 'bg-yellow-500' : 'bg-accent-500'
                 return (
                   <div key={cls.name} className="flex items-center gap-3">
-                    <span className="text-xs text-dark-600 dark:text-dark-400 w-12 flex-shrink-0">{cls.name}</span>
-                    <div className="flex-1 h-1.5 rounded-full bg-dark-100 dark:bg-dark-700 overflow-hidden">
+                    <span className="text-xs text-gray-700 w-12 shrink-0">{cls.name}</span>
+                    <div className="flex-1 h-1.5 rounded-full bg-gray-200 overflow-hidden">
                       <div className={`h-full rounded-full ${color}`} style={{ width: `${pct}%` }} />
                     </div>
-                    <span className="text-xs font-medium text-dark-700 dark:text-dark-300 w-14 text-right">{cls.students}/{cls.cap}</span>
+                    <span className="text-xs font-medium text-gray-700 w-14 text-right">{cls.students}/{cls.cap}</span>
                   </div>
                 )
               })}
@@ -246,20 +244,8 @@ export default function Dashboard() {
 
       {/* Tables */}
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
-        <DataTable
-          title="Danh sách học sinh"
-          columns={childrenColumns}
-          data={childrenData}
-          pageSize={5}
-          loading={loading}
-        />
-        <DataTable
-          title="Danh sách giáo viên & nhân viên"
-          columns={teacherColumns}
-          data={teachersData}
-          pageSize={5}
-          loading={loading}
-        />
+        <DataTable title="Danh sách học sinh" columns={childrenColumns} data={childrenData} pageSize={5} loading={loading} />
+        <DataTable title="Danh sách giáo viên & nhân viên" columns={teacherColumns} data={teachersData} pageSize={5} loading={loading} />
       </div>
     </div>
   )
