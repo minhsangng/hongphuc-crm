@@ -35,11 +35,11 @@ function Wave({ fill = "#FCF7EC", flip = false }) {
 function Header({scroll}) {
   const [open, setOpen] = useState(false);
   const navLinks = [
-    { label: 'Giới thiệu', href: '#about' },
-    { label: 'Lớp học', href: '#class' },
-    { label: 'Sinh hoạt', href: '#days' },
-    { label: 'Ngoại khóa', href: '#extra' },
-    { label: 'Hỏi đáp', href: '#guide' },
+    { label: "Giới thiệu", href: "#about" },
+    { label: "Lớp học", href: "#class" },
+    { label: "Sinh hoạt", href: "#days" },
+    { label: "Ngoại khóa", href: "#extra" },
+    { label: "Hỏi đáp", href: "#guide" },
   ];
 
   return (
@@ -125,11 +125,11 @@ function SocialRail() {
 function Hero() {
   return (
     <section id="top" className="relative">
-      <div className="relative h-[82vh] min-h-[82vh] max-h-screen w-full overflow-hidden">
+      <div className="relative h-[42vh] md:h-screen md:min-h-[82vh] max-h-screen w-full overflow-hidden">
         <img src={IMG.hero} alt="Trẻ em vui chơi sáng tạo tại Hồng Phúc"
           className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0 bg-linear-to-t from-ink/75 via-ink/15 to-transparent" />
-        <div className="relative h-full max-w-7xl mx-auto px-6 md:px-24 flex flex-col justify-end pb-16 md:pb-24">
+        <div className="relative h-full max-w-7xl mx-auto px-6 md:px-24 flex flex-col justify-end pb-2 md:pb-24">
           <p className="font-display text-white/90 text-base md:text-xl mb-2">Nuôi dưỡng trẻ cho</p>
           <h1 className="font-display font-bold text-white text-4xl md:text-6xl leading-[1.15] mb-4 max-w-2xl">
             Ước mơ, tự do,<br />và sự tự lập.
@@ -187,7 +187,7 @@ function NewsSection() {
 function ThoughtsSection() {
   return (
     <section id="about" className="scroll-mt-28 relative max-w-6xl mx-auto px-5 md:px-8 pt-6 pb-14 md:pb-20">
-      <div className="grid md:grid-cols-[1fr_1.1fr] gap-8 md:gap-16 items-start pt-12">
+      <div className="grid md:grid-cols-[1fr_1.1fr] gap-8 md:gap-16 items-start pt-0 md:pt-12">
         <div>
           <h2 className="font-display font-bold text-2xl text-justify md:text-[32px] leading-snug text-(--color-ink)">
             Bồi dưỡng tâm hồn và thể chất phong phú cho những mầm non của tương lai
@@ -326,13 +326,13 @@ function ClassSection() {
 /* Sinh hoạt tại trường (Days) */
 function DaysSection() {
   return (
-    <section id="days" className="scroll-mt-28 max-w-6xl mx-auto px-5 md:px-8 py-16 md:py-24">
+    <section id="days" className="scroll-mt-28 max-w-6xl mx-auto px-5 md:px-8 pb-16 pt-0 md:pt-16 md:py-24">
       <div className="grid md:grid-cols-2 gap-10 md:gap-16 items-center mb-16">
         <div className="relative">
           <img src={IMG.daysMain} alt="Một ngày ở trường Hồng Phúc" className="rounded-4xl w-full aspect-4/3 object-cover" />
-          <div className="absolute -top-14 md:-top-20 -left-2 md:-left-8 w-24 md:w-28 h-fit aspect-3/4 drop-shadow-xl flex flex-col items-center justify-center text-center text-(--color-ink) font-display text-[0.75rem] leading-tight bg-cover bg-full bg-center bg-no-repeat" style={{ backgroundImage: `url(${images('book.png')})`}}>
-            <span className="mr-4">Một ngày</span>
-            <span className="mr-4">ở trường</span>
+          <div className="absolute -top-10 md:-top-14 -left-8 md:-left-12 drop-shadow-xl flex items-center justify-center gap-0 text-(--color-ink) font-display text-[0.75rem] tracking-widest">
+            <img src={images("quality.svg")} alt="1" className="size-20 md:size-24" />
+            <span className="-ml-2 mb-4 uppercase">ngày ở trường</span>
           </div>
         </div>
         <div>
@@ -542,9 +542,14 @@ function ContactForm() {
           <b>Email</b> <br />
           <input type="email" name="email" id="email" placeholder="Địa chỉ email" className="w-full outline-none border-b border-(--color-red-light) mb-2" />
         </label>
+        <label htmlFor="content">
+          <b>Nội dung</b><span className="text-(--color-red)">*</span> <br />
+          <textarea name="content" id="content" cols={1} rows={3} className="w-full outline-none border-b border-(--color-red-light) mb-2" />
+        </label>
         
-        <div>
-          <button type="submit">Gửi</button>
+        <div className="mt-6 flex items-center justify-between gap-2">
+          <button type="reset" className="w-full py-2 rounded-xl text-gray-500 bg-gray-300 hover:text-white hover:bg-gray-400 uppercase">Hủy</button>
+          <button type="submit" className="w-full py-2 rounded-xl text-white bg-(--color-red) hover:bg-(--color-red-hover) uppercase">Gửi</button>
         </div>
       </form>
     </div>
