@@ -99,7 +99,7 @@ export default function LoginPage() {
       `}</style>
 
       <div className="min-h-screen max-h-screen relative overflow-hidden flex items-center justify-center p-4">
-        <div className="absolute inset-0" style={{backgroundImage: `url("${images("background_login.png")}")`, backgroundSize: "100%", backgroundPosition: "center"}}></div>
+        <div className="absolute inset-0" style={{backgroundImage: `url("${images("background_login.png")}")`, backgroundSize: "cover", backgroundPosition: "center"}}></div>
         {bubbles.map((b, i) => <Bubble key={i} {...b} />)}
         {["sky.png","tree.png","sun.png","car.png","pencil.png","tubelight.png","sun.png","follwer.png"].map((em, i) => (
           <div key={i} className="absolute text-2xl pointer-events-none select-none"

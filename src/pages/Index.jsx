@@ -23,7 +23,7 @@ const IMG = {
 
 function Wave({ fill = "#FCF7EC", flip = false }) {
   return (
-    <div className={`w-full overflow-hidden leading-none ${flip ? "rotate-180" : ""}`} aria-hidden="true">
+    <div className={`w-full overflow-hidden leading-none${flip ? " rotate-180" : ""}`} aria-hidden="true">
       <svg className="wave-svg h-10 md:h-16" viewBox="0 0 1440 90" preserveAspectRatio="none">
         <path d="M0,40 C220,90 420,0 700,28 C980,56 1180,92 1440,36 L1440,90 L0,90 Z" fill={fill} />
       </svg>
@@ -125,7 +125,7 @@ function SocialRail() {
 function Hero() {
   return (
     <section id="top" className="relative">
-      <div className="relative h-[42vh] md:h-screen md:min-h-[82vh] max-h-screen w-full overflow-hidden">
+      <div className="relative h-[42vh] md:h-[85vh] w-full overflow-hidden">
         <img src={IMG.hero} alt="Trẻ em vui chơi sáng tạo tại Hồng Phúc"
           className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0 bg-linear-to-t from-ink/75 via-ink/15 to-transparent" />
@@ -138,7 +138,7 @@ function Hero() {
             Trong không gian tự do rộng mở, Hồng Phúc nuôi dưỡng, thúc đẩy sức mạnh tự nỗ lực của mỗi em nhỏ.
           </p>
         </div>
-        <div className="hidden md:flex flex-col absolute right-10 bottom-10 items-center gap-1 text-white/85">
+        <div className="hidden md:flex flex-col absolute right-10 bottom-10 items-center gap-1 text-white/85 animate-[fadeInDown_2s_infinite_linear]">
           <span className="[writing-mode:vertical-rl] text-xs tracking-[0.3em] font-display rotate-180">SCROLL</span>
           <ArrowDown />
         </div>
