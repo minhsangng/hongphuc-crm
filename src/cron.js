@@ -1,11 +1,9 @@
-const { CronJob } = require("cron");
-const https = require("https");
+import { CronJob } from "cron";
+import https from "https";
 
-const job = new CronJob(
-  "*/14 * * * *",
-  () => {
+const job = new CronJob("*/14 * * * *", () => {
     https
-      .get("https://mamnonhongphuc.onrender.com", (res) => {
+      .get("https://mamnonhongphuc.id.vn", (res) => {
         if (res.statusCode === 200)
           console.log("GET request sent successfully");
         else
@@ -20,4 +18,4 @@ const job = new CronJob(
   "Asia/Ho_Chi_Minh"
 );
 
-module.exports = job;
+export default job;

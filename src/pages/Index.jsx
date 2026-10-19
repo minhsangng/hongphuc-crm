@@ -3,9 +3,10 @@ import { Megaphone, MessageSquareDot, Menu, X, ChevronRight, Phone, Form, MapPin
 import { FaFacebookF, FaTiktok, FaPhoneVolume, FaRoute } from "react-icons/fa";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
-import { images } from "../utils/helpers";
 import Loader from "../components/Loader";
 import Modal from "../components/Modal";
+import { images } from "../utils/helpers";
+import { getDataFromAPI } from "../utils/helpers";
 
 const IMG = {
   hero: "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=1600&q=80",
@@ -23,7 +24,7 @@ const IMG = {
 
 function Wave({ fill = "#FCF7EC", flip = false }) {
   return (
-    <div className={`w-full overflow-hidden leading-none ${flip ? "rotate-180" : ""}`} aria-hidden="true">
+    <div className={`w-full overflow-hidden leading-none${flip ? " rotate-180" : ""}`} aria-hidden="true">
       <svg className="wave-svg h-10 md:h-16" viewBox="0 0 1440 90" preserveAspectRatio="none">
         <path d="M0,40 C220,90 420,0 700,28 C980,56 1180,92 1440,36 L1440,90 L0,90 Z" fill={fill} />
       </svg>
@@ -125,7 +126,7 @@ function SocialRail() {
 function Hero() {
   return (
     <section id="top" className="relative">
-      <div className="relative h-[42vh] md:h-screen md:min-h-[82vh] max-h-screen w-full overflow-hidden">
+      <div className="relative h-[42vh] md:h-[85vh] w-full overflow-hidden">
         <img src={IMG.hero} alt="Trẻ em vui chơi sáng tạo tại Hồng Phúc"
           className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0 bg-linear-to-t from-ink/75 via-ink/15 to-transparent" />
@@ -138,7 +139,7 @@ function Hero() {
             Trong không gian tự do rộng mở, Hồng Phúc nuôi dưỡng, thúc đẩy sức mạnh tự nỗ lực của mỗi em nhỏ.
           </p>
         </div>
-        <div className="hidden md:flex flex-col absolute right-10 bottom-10 items-center gap-1 text-white/85">
+        <div className="hidden md:flex flex-col absolute right-10 bottom-10 items-center gap-1 text-white/85 animate-[fadeInDown_2s_infinite_linear]">
           <span className="[writing-mode:vertical-rl] text-xs tracking-[0.3em] font-display rotate-180">SCROLL</span>
           <ArrowDown />
         </div>
@@ -527,29 +528,49 @@ function Footer() {
 
 /* Form */
 function ContactForm() {
+  const [form, setForm] = useState({fullName: "", email: "", phoneNumber: "", content: ""});
+  let TEMPLATE = '<h3>Kính chào phụ huynh ' + form.fullName + '!</h3>';
+  TEMPLATE += '<p>Trường Mầm non Hồng Phúc đã nhận được ý kiến của quý phụ huynh và sẽ phản hồi trong thời gian sớm nhất. Rất mong quý phụ huynh kiên nhẫn. Nếu có vấn đề cấp thiết, quý phụ huynh có thể liên hệ trực tiếp qua số di động <a href="tel:0396053054">0396.053.054</a>.</p><p>Nhà trường xin chân thành cảm ơn sự quan tâm của quý phụ huynh. Chúc quý phụ huynh có một ngày thật ý nghĩa.</p><br/><p><b>TRƯỜNG MẦM NON HỒNG PHÚC</b> <br/> <b>SDT:</b> 0396.053.054 (Cô Vân) <br/> <b>ĐC:</b> Lộ Vàm, Chợ Gạo, Đồng Tháp</p>';
+  TEMPLATE += '<img src="https://mamnonhongphuc.id.vn/favicon.svg" height="54px" />';
+  
+  async function sendContactMail(e) {
+    e.preventDefault();
+    if (form.fullName === "" || form.email === "" || form.content === "")
+      return;
+    
+    try {
+      const response = await getDataFromAPI("send-email", "post", { to: form.email, subject: "Phản hồi hệ thống - Mầm non Hồng Phúc", html: TEMPLATE });
+      if (response.status === 200) {
+        alert("Gửi mail thành công");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  
   return (
     <div className="w-full">
-      <form method="post">
+      <form onSubmit={sendContactMail}>
         <label htmlFor="fullName">
           <b>Họ tên</b><span className="text-(--color-red)">*</span> <br />
-          <input type="text" name="fullName" id="fullName" required placeholder="Họ tên phụ huynh" className="w-full outline-none border-b border-(--color-red-light) capitalize placeholder:normal-case mb-2" />
+          <input type="text" name="fullName" id="fullName" required placeholder="Họ tên phụ huynh" value={form.fullName} onChange={(e) => setForm(v => ({...v, fullName: e.target.value }))} className="w-full outline-none border-b border-(--color-red-light) capitalize placeholder:normal-case mb-2" />
         </label>
         <label htmlFor="phoneNumber">
           <b>Liên lạc</b><span className="text-(--color-red)">*</span>  <br />
-          <input type="number" inputMode="numeric" pattern="[0-9]*" onInput={(e) => {if (e.target.value.length > 10) {e.target.value = e.target.value.slice(0, 10);}}} required name="phoneNumber" id="phoneNumber" placeholder="Số liên lạc phụ huynh" className="w-full outline-none border-b border-(--color-red-light) mb-2" />
+          <input type="number" inputMode="numeric" pattern="[0-9]*" value={form.phoneNumber} onInput={(e) => {if (e.target.value.length > 10) {e.target.value = e.target.value.slice(0, 10);}}} onChange={(e) => setForm(v => ({...v, phoneNumber: e.target.value }))} required name="phoneNumber" id="phoneNumber" placeholder="Số liên lạc phụ huynh" className="w-full outline-none border-b border-(--color-red-light) mb-2" />
         </label>
         <label htmlFor="email">
           <b>Email</b> <br />
-          <input type="email" name="email" id="email" placeholder="Địa chỉ email" className="w-full outline-none border-b border-(--color-red-light) mb-2" />
+          <input type="email" name="email" id="email" placeholder="Địa chỉ email" value={form.email} onChange={(e) => setForm(v => ({...v, email: e.target.value }))} className="w-full outline-none border-b border-(--color-red-light) mb-2" />
         </label>
         <label htmlFor="content">
           <b>Nội dung</b><span className="text-(--color-red)">*</span> <br />
-          <textarea name="content" id="content" cols={1} rows={3} className="w-full outline-none border-b border-(--color-red-light) mb-2" />
+          <textarea name="content" id="content" cols={1} rows={3} value={form.content} onChange={(e) => setForm(v => ({...v, content: e.target.value }))} className="w-full outline-none border-b border-(--color-red-light) mb-2" />
         </label>
         
         <div className="mt-6 flex items-center justify-between gap-2">
-          <button type="reset" className="w-full py-2 rounded-xl text-gray-500 bg-gray-300 hover:text-white hover:bg-gray-400 uppercase">Hủy</button>
-          <button type="submit" className="w-full py-2 rounded-xl text-white bg-(--color-red) hover:bg-(--color-red-hover) uppercase">Gửi</button>
+          <button type="reset" onClick={()=>setForm({fullName: "", email: "", phoneNumber: "", content: ""})} className="w-full py-2 rounded-xl text-gray-500 bg-gray-300 hover:text-white hover:bg-gray-400 uppercase">Hủy</button>
+          <button type="submit" onClick={sendContactMail} className="w-full py-2 rounded-xl text-white bg-(--color-red) hover:bg-(--color-red-hover) uppercase">Gửi</button>
         </div>
       </form>
     </div>
@@ -562,7 +583,7 @@ export default function Index() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const minTime = 1200;
+    const minTime = 1180;
     const start = Date.now();
   
     function handleLoad() {
@@ -604,7 +625,7 @@ export default function Index() {
         <DaysSection />
         <FacilitySection />
         <GuideSection />
-        <ContactSection toggle={()=>setOpenModal(true)} />
+        <ContactSection toggle={()=>setOpenModal(true)} loading={setLoading}/>
         <Footer />
         
         <button title="Lên đầu trang" onClick={()=>{window.scrollTo({ top: 0, behavior: "smooth" })}} className={`${scroll ? "flex items-center justify-center " : "hidden "}fixed right-4 bottom-6 z-9999 cursor-pointer bg-(--color-red-light)/25 hover:bg-(--color-red-light) text-(--color-red) hover:text-(--color-red-hover) rounded-full size-12 shadow-[0px_0px_2px_var(--color-red)] transition ease-linear`}>

@@ -3,6 +3,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { ENV } from "./config/env.js";
 import { db } from "./config/db.js";
+import cronjob from "./cron.js";
 import Mailer from "./mailer.js";
 import { childrens, classes, users, healthRecords, cookTables, cookTableDetails } from "./db/schema.js";
 import { eq, and, sql } from "drizzle-orm";
@@ -40,6 +41,8 @@ app.use(session({
     sameSite: "lax",
   }
 }));
+
+cronjob.start();
 
 /* HEALTHZ */
 app.get("/api/v1/healthz", (req, res) => {
@@ -174,14 +177,12 @@ app.post("/api/v1/auth-logout", async (req, res) => {
 /* EMAIL */
 app.post("/api/v1/send-email", async (req, res) => {
   try {
-    const { subject, html } = req.body ?? {};
+    const { to, subject, html } = req.body ?? {};
     if (typeof subject !== "string" || typeof html !== "string") {
       return res.status(400).json({ status: 400, message: "Dữ liệu không hợp lệ" });
     }
 
-    //await Mailer.sendEmail("nmsangtg26@gmail.com", subject, html);
-    const data = await Mailer.getAllMail();
-    console.log(data);
+    await Mailer.sendEmail("lienhe", to,  ["nmsangtg26@gmail.com"], subject, html);
     res.json({ status: 200, message: "Gửi mail thành công" });
   } catch (e) {
     console.error(e);
