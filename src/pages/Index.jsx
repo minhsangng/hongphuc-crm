@@ -3,9 +3,11 @@ import { Megaphone, MessageSquareDot, Menu, X, ChevronRight, Phone, Form, MapPin
 import { FaFacebookF, FaTiktok, FaPhoneVolume, FaRoute } from "react-icons/fa";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
-import { images } from "../utils/helpers";
 import Loader from "../components/Loader";
 import Modal from "../components/Modal";
+import { images } from "../utils/helpers";
+import { getDataFromAPI } from "../utils/helpers";
+import e from "express";
 
 const IMG = {
   hero: "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=1600&q=80",
@@ -527,24 +529,38 @@ function Footer() {
 
 /* Form */
 function ContactForm() {
+  const [form, setForm] = useState({fullName: "", email: "", phoneNumber: "", content: ""});
+  
+  async function sendContactMail(e) {
+    e.preventDefault();
+    try {
+      const response = await getDataFromAPI("send-email", "post", { subject: "Tư vấn thông tin", html: form.content + form.email });
+      if (response) {
+        alert("Gửi mail thành công");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  
   return (
     <div className="w-full">
-      <form method="post">
+      <form onSubmit={sendContactMail}>
         <label htmlFor="fullName">
           <b>Họ tên</b><span className="text-(--color-red)">*</span> <br />
-          <input type="text" name="fullName" id="fullName" required placeholder="Họ tên phụ huynh" className="w-full outline-none border-b border-(--color-red-light) capitalize placeholder:normal-case mb-2" />
+          <input type="text" name="fullName" id="fullName" required placeholder="Họ tên phụ huynh" value={form.fullName} onChange={(e) => setForm(v => ({...v, fullName: e.target.value }))} className="w-full outline-none border-b border-(--color-red-light) capitalize placeholder:normal-case mb-2" />
         </label>
         <label htmlFor="phoneNumber">
           <b>Liên lạc</b><span className="text-(--color-red)">*</span>  <br />
-          <input type="number" inputMode="numeric" pattern="[0-9]*" onInput={(e) => {if (e.target.value.length > 10) {e.target.value = e.target.value.slice(0, 10);}}} required name="phoneNumber" id="phoneNumber" placeholder="Số liên lạc phụ huynh" className="w-full outline-none border-b border-(--color-red-light) mb-2" />
+          <input type="number" inputMode="numeric" pattern="[0-9]*" value={form.phoneNumber} onInput={(e) => {if (e.target.value.length > 10) {e.target.value = e.target.value.slice(0, 10);}}} onChange={(e) => setForm(v => ({...v, phoneNumber: e.target.value }))} required name="phoneNumber" id="phoneNumber" placeholder="Số liên lạc phụ huynh" className="w-full outline-none border-b border-(--color-red-light) mb-2" />
         </label>
         <label htmlFor="email">
           <b>Email</b> <br />
-          <input type="email" name="email" id="email" placeholder="Địa chỉ email" className="w-full outline-none border-b border-(--color-red-light) mb-2" />
+          <input type="email" name="email" id="email" placeholder="Địa chỉ email" value={form.email} onChange={(e) => setForm(v => ({...v, email: e.target.value }))} className="w-full outline-none border-b border-(--color-red-light) mb-2" />
         </label>
         <label htmlFor="content">
           <b>Nội dung</b><span className="text-(--color-red)">*</span> <br />
-          <textarea name="content" id="content" cols={1} rows={3} className="w-full outline-none border-b border-(--color-red-light) mb-2" />
+          <textarea name="content" id="content" cols={1} rows={3} value={form.content} onChange={(e) => setForm(v => ({...v, content: e.target.value }))} className="w-full outline-none border-b border-(--color-red-light) mb-2" />
         </label>
         
         <div className="mt-6 flex items-center justify-between gap-2">
@@ -562,7 +578,7 @@ export default function Index() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const minTime = 1200;
+    const minTime = 1180;
     const start = Date.now();
   
     function handleLoad() {

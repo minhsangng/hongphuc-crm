@@ -3,6 +3,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { ENV } from "./config/env.js";
 import { db } from "./config/db.js";
+import cronjob from "./cron.js";
 import Mailer from "./mailer.js";
 import { childrens, classes, users, healthRecords, cookTables, cookTableDetails } from "./db/schema.js";
 import { eq, and, sql } from "drizzle-orm";
@@ -40,6 +41,8 @@ app.use(session({
     sameSite: "lax",
   }
 }));
+
+cronjob.start();
 
 /* HEALTHZ */
 app.get("/api/v1/healthz", (req, res) => {
