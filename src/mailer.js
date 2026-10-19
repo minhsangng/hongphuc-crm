@@ -5,7 +5,7 @@ const resend = new Resend(ENV.RESEND_API_KEY);
 
 
 async function sendEmail(prefix = "lienhe", to, cc = ["vanan9756@gmail.com, nmsangtg26@gmail.com"], subject, html) {
-  const FROM = "Mầm non Hồng Phúc <" + prefix + "@mamnonhongphuc.id.vn>";
+  const FROM = "Trường Mầm non Hồng Phúc <" + prefix + "@mamnonhongphuc.id.vn>";
   const { data, error } = await resend.emails.send({ from: FROM, to, cc, subject, html });
   
   if (error) {

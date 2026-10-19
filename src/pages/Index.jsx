@@ -7,7 +7,6 @@ import Loader from "../components/Loader";
 import Modal from "../components/Modal";
 import { images } from "../utils/helpers";
 import { getDataFromAPI } from "../utils/helpers";
-import e from "express";
 
 const IMG = {
   hero: "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=1600&q=80",
@@ -530,12 +529,18 @@ function Footer() {
 /* Form */
 function ContactForm() {
   const [form, setForm] = useState({fullName: "", email: "", phoneNumber: "", content: ""});
+  let TEMPLATE = '<h3>Kính chào phụ huynh ' + form.fullName + '!</h3>';
+  TEMPLATE += '<p>Trường Mầm non Hồng Phúc đã nhận được ý kiến của quý phụ huynh và sẽ phản hồi trong thời gian sớm nhất. Rất mong quý phụ huynh kiên nhẫn. Nếu có vấn đề cấp thiết, quý phụ huynh có thể liên hệ trực tiếp qua số di động <a href="tel:0396053054">0396.053.054</a>.</p><p>Nhà trường xin chân thành cảm ơn sự quan tâm của quý phụ huynh. Chúc quý phụ huynh có một ngày thật ý nghĩa.</p><br/><p><b>TRƯỜNG MẦM NON HỒNG PHÚC</b> <br/> <b>SDT:</b> 0396.053.054 (Cô Vân) <br/> <b>ĐC:</b> Lộ Vàm, Chợ Gạo, Đồng Tháp</p>';
+  TEMPLATE += '<img src="https://mamnonhongphuc.id.vn/favicon.svg" height="54px" />';
   
   async function sendContactMail(e) {
     e.preventDefault();
+    if (form.fullName === "" || form.email === "" || form.content === "")
+      return;
+    
     try {
-      const response = await getDataFromAPI("send-email", "post", { subject: "Tư vấn thông tin", html: form.content + form.email });
-      if (response) {
+      const response = await getDataFromAPI("send-email", "post", { to: form.email, subject: "Phản hồi hệ thống - Mầm non Hồng Phúc", html: TEMPLATE });
+      if (response.status === 200) {
         alert("Gửi mail thành công");
       }
     } catch (err) {
@@ -564,8 +569,8 @@ function ContactForm() {
         </label>
         
         <div className="mt-6 flex items-center justify-between gap-2">
-          <button type="reset" className="w-full py-2 rounded-xl text-gray-500 bg-gray-300 hover:text-white hover:bg-gray-400 uppercase">Hủy</button>
-          <button type="submit" className="w-full py-2 rounded-xl text-white bg-(--color-red) hover:bg-(--color-red-hover) uppercase">Gửi</button>
+          <button type="reset" onClick={()=>setForm({fullName: "", email: "", phoneNumber: "", content: ""})} className="w-full py-2 rounded-xl text-gray-500 bg-gray-300 hover:text-white hover:bg-gray-400 uppercase">Hủy</button>
+          <button type="submit" onClick={sendContactMail} className="w-full py-2 rounded-xl text-white bg-(--color-red) hover:bg-(--color-red-hover) uppercase">Gửi</button>
         </div>
       </form>
     </div>
@@ -620,7 +625,7 @@ export default function Index() {
         <DaysSection />
         <FacilitySection />
         <GuideSection />
-        <ContactSection toggle={()=>setOpenModal(true)} />
+        <ContactSection toggle={()=>setOpenModal(true)} loading={setLoading}/>
         <Footer />
         
         <button title="Lên đầu trang" onClick={()=>{window.scrollTo({ top: 0, behavior: "smooth" })}} className={`${scroll ? "flex items-center justify-center " : "hidden "}fixed right-4 bottom-6 z-9999 cursor-pointer bg-(--color-red-light)/25 hover:bg-(--color-red-light) text-(--color-red) hover:text-(--color-red-hover) rounded-full size-12 shadow-[0px_0px_2px_var(--color-red)] transition ease-linear`}>
