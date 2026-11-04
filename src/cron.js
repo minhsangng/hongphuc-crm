@@ -3,7 +3,7 @@ import https from "https";
 
 const job = new CronJob("*/14 * * * *", () => {
     https
-      .get("https://mamnonhongphuc.id.vn", (res) => {
+      .get("https://mamnonhongphuc.onrender.com", (res) => {
         if (res.statusCode === 200)
           console.log("GET request sent successfully");
         else

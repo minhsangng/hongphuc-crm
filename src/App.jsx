@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { BrowserRouter, Routes, Route, Navigate, useNavigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import { ThemeProvider, SidebarProvider } from "./context/AppContext";
 import { getDataFromAPI } from "./utils/helpers";
 import Sidebar from "./components/Sidebar";
@@ -14,6 +14,7 @@ import Feedbacks from './pages/Feedbacks';
 import Settings from "./pages/Settings";
 import Index from "./pages/Index";
 import Login from "./pages/Login";
+import NotFound from "./pages/NotFound";
 
 const pages = {
   dashboard: Dashboard,
@@ -84,7 +85,7 @@ export default function App() {
               </SidebarProvider>
             </ThemeProvider>
         } />
-        <Route path="*" element={<Navigate to="/" replace />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );
