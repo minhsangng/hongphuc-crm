@@ -44,33 +44,27 @@ function Header({scroll}) {
   ];
 
   return (
-    <header className={`${scroll ? "fixed inset-0 h-fit bg-white/35 " : "bg-white/95 "}z-9999 transition ease-linear backdrop-blur border-b border-(--color-red-light)/50`}>
-      <div className={`${scroll ? "md:hidden " : ""}hidden md:flex justify-end gap-6 px-8 py-1.5 text-xs text-(--color-ink-light) border-b border-(--color-red)/10 bg-(--color-gold-light)/25 transition`}>
-        <a href="#news" className="hover:text-(--color-red) transition-colors flex items-center gap-1"><Megaphone size={12} /> Thông báo từ trường</a>
-        <a href="#" className="hover:text-(--color-red) transition-colors flex items-center gap-1"><MessageSquareDot size={12} />Tuyển dụng</a>
-        <a href="https://maps.app.goo.gl/PyNq3radZb7agAXM6" target="_blank" className="hover:text-(--color-red) transition-colors flex items-center gap-1"><FaRoute size={12} />Chỉ đường</a>
-      </div>
-
-      <div className="max-w-7xl mx-auto flex items-center justify-between gap-4 px-5 md:px-8 py-3">
+    <header className={`${scroll ? "bg-white/35 backdrop-blur " : "bg-white/50 "}fixed inset-0 h-fit z-9999 transition-all ease-linear`}>
+      <div className="max-w-7xl mx-auto rounded-4xl flex items-center justify-between gap-4 px-5 md:px-0 py-3">
+        <nav className="hidden lg:flex items-center gap-7 font-display text-[15px] text-(--color-ink) w-[40%]">
+            <a href="#about" className="hover:text-(--color-red) transition-colors">Giới thiệu</a>
+            <a href="#class" className="hover:text-(--color-red) transition-colors">Lớp học</a>
+            <a href="#days" className="hover:text-(--color-red) transition-colors">Dạy học</a>
+            <a href="#guide" className="hover:text-(--color-red) transition-colors">Hỏi đáp</a>
+        </nav>
+        
         <a href="#top" className="flex items-center gap-2.5 shrink-0">
-          <span className="w-11 h-11 rounded-full flex items-center justify-center">
+          <span className="block font-display uppercase -mt-0.5 font-bold text-lg text-(--color-red)">Hồng</span>
+          <span className="w-12 h-12 rounded-full flex items-center justify-center">
             <img src="/favicon.svg" />
           </span>
-          <span className="leading-tight">
-            <span className="block text-xs italic tracking-wide text-(--color-ink-light) pb-1">Trường Mầm non</span>
-            <span className="block font-display uppercase font-bold text-xl text-(--color-red)">Hồng Phúc</span>
-          </span>
+          <span className="block font-display uppercase -mt-0.5 font-bold text-lg text-(--color-red)">Phúc</span>
+          {/* <span className="leading-tight">
+            <span className={`block text-[.65rem] italic tracking-wide pb-1 transition-colors ease-linear${scroll ? " text-(--color-ink)" : " text-(--color-ink-light)"}`}>Trường Mầm non</span>
+          </span> */}
         </a>
 
-        <nav className="hidden lg:flex items-center gap-7 font-display text-[15px] text-(--color-ink)">
-          {navLinks.map((l) => (
-            <a key={l.label} href={l.href} className="hover:text-(--color-red) transition-colors">
-              {l.label}
-            </a>
-          ))}
-        </nav>
-
-        <div className="hidden md:flex items-center gap-3">
+        <div className="hidden md:flex items-center justify-end gap-3 w-[40%]">
           <a href="#guide" className="text-sm font-display px-4 py-2 rounded-full border border-(--color-red) text-(--color-red) hover:text-white hover:bg-(--color-red) transition-colors">
             Hướng dẫn nhập học
           </a>
@@ -126,7 +120,7 @@ function SocialRail() {
 function Hero() {
   return (
     <section id="top" className="relative">
-      <div className="relative h-[42vh] md:h-[85vh] w-full overflow-hidden">
+      <div className="relative h-[42vh] md:h-screen w-full overflow-hidden">
         <img src={IMG.hero} alt="Trẻ em vui chơi sáng tạo tại Hồng Phúc"
           className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0 bg-linear-to-t from-ink/75 via-ink/15 to-transparent" />

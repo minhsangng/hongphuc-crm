@@ -1,6 +1,5 @@
+
 @import "tailwindcss";
-@tailwind components;
-@tailwind utilities;
 
 :root {
   --primay: #47a794;
@@ -54,7 +53,7 @@ body {
   }
 
   .nav-item-active {
-    @apply bg-gradient-to-r from-[#dc2626] to-[#ef4444] text-white shadow-lg shadow-[#dc2626]/25;
+    @apply bg-linear-to-r from-[#dc2626] to-[#ef4444] text-white shadow-lg shadow-[#dc2626]/25;
   }
 
   .nav-item-inactive {
