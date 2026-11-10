@@ -14,7 +14,12 @@ import Feedbacks from './pages/Feedbacks';
 import Settings from "./pages/Settings";
 import Index from "./pages/Index";
 import Login from "./pages/Login";
+<<<<<<< HEAD
 import NotFound from "./pages/NotFound";
+=======
+import Posts from "./components/Posts";
+import PostDetail from "./components/PostDetail";
+>>>>>>> ec28b3277d55757496afd5217a598434030a7114
 
 const pages = {
   dashboard: Dashboard,
@@ -77,15 +82,17 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Index />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/admin" element={
+        <Route path="/dang-nhap" element={<Login />} />
+        <Route path="/quan-tri" element={
             <ThemeProvider>
               <SidebarProvider>
                 <AdminShell />
               </SidebarProvider>
             </ThemeProvider>
         } />
-        <Route path="*" element={<NotFound />} />
+        <Route path="/bai-viet" element={<Posts />} />
+        <Route path="/bai-viet/:slug" element={<PostDetail />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
   );
