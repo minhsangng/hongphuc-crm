@@ -1,0 +1,44 @@
+/* khoá cuộn trong lúc intro */
+html.sky-lock, html.sky-lock body { overflow: hidden; }
+
+.sky-canvas { display: block; }
+
+.sky-intro { position: fixed; inset: 0; z-index: 10000; }
+.sky-intro__layer { position: absolute; left: 0; right: 0; height: 62%; will-change: transform; }
+.sky-intro__layer--top { top: 0; transition: transform 2.5s cubic-bezier(.7, 0, .25, 1); }
+.sky-intro__layer--bottom { bottom: 0; transition: transform 2.9s cubic-bezier(.7, 0, .25, 1); }
+.sky-intro[data-state="opening"] .sky-intro__layer--top { transform: translateY(-104%); }
+.sky-intro[data-state="opening"] .sky-intro__layer--bottom { transform: translateY(104%); }
+
+.sky-intro__mist {
+  position: absolute; inset: 0; opacity: 1;
+  background: radial-gradient(65% 55% at 50% 50%, #fff 0%, rgba(255, 255, 255, .8) 38%, rgba(255, 255, 255, 0) 100%);
+  transition: opacity 1.8s ease .25s;
+}
+.sky-intro[data-state="opening"] .sky-intro__mist { opacity: 0; }
+
+.sky-intro__logo {
+  position: absolute; left: 50%; top: 50%; width: 76px; height: 76px; margin: -38px 0 0 -38px;
+  animation: sky-pulse 1.4s ease-in-out infinite; transition: opacity .35s ease;
+}
+.sky-intro[data-state="opening"] .sky-intro__logo { opacity: 0; }
+@keyframes sky-pulse { 50% { transform: scale(1.1); } }
+
+.sky-hero {
+  background: linear-gradient(180deg, #4f7fe6 0%, #7f9bf0 24%, #b5a7ee 48%, #eab3d0 70%, #fbd5c8 88%, #fcf7ec 100%);
+}
+.sky-title { text-shadow: 0 2px 28px rgba(40, 55, 130, .35); }
+
+.sky-hero [data-reveal] {
+  opacity: 0; transform: translateY(22px);
+  transition: opacity .9s ease var(--d, 0s), transform .9s cubic-bezier(.2, .7, .2, 1) var(--d, 0s);
+}
+.sky-hero[data-ready="true"] [data-reveal] { opacity: 1; transform: none; }
+
+.cloud-band { position: relative; height: clamp(220px, 38vh, 380px); }
+
+@media (prefers-reduced-motion: reduce) {
+  .sky-intro__layer, .sky-intro__mist { transition-duration: .01s; }
+  .sky-intro__logo { animation: none; }
+  .sky-hero [data-reveal] { transition: none; opacity: 1; transform: none; }
+}

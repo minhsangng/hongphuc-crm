@@ -3,10 +3,13 @@ import { Megaphone, MessageSquareDot, Menu, X, ChevronRight, Phone, Form, MapPin
 import { FaFacebookF, FaTiktok, FaPhoneVolume, FaRoute } from "react-icons/fa";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
-import Loader from "../components/Loader";
 import Modal from "../components/Modal";
 import { images } from "../utils/helpers";
 import { getDataFromAPI } from "../utils/helpers";
+import SkyIntro from "../components/sky/SkyIntro";
+import SkyCanvas from "../components/sky/SkyCanvas";
+import FlyingPlane from "../components/sky/FlyingPlane";
+import "../assets/sky.css";
 
 const IMG = {
   hero: "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=1600&q=80",
@@ -32,7 +35,6 @@ function Wave({ fill = "#FCF7EC", flip = false }) {
   );
 }
 
-/* Header */
 function Header({scroll}) {
   const [open, setOpen] = useState(false);
   const navLinks = [
@@ -99,7 +101,6 @@ function Header({scroll}) {
   );
 }
 
-/* Thanh mạng xã hội */
 function SocialRail() {
   return (
     <div className="hidden md:flex flex-col gap-3 fixed left-4 top-1/2 -translate-y-1/2 z-40">
@@ -116,33 +117,31 @@ function SocialRail() {
   );
 }
 
-/* Hero */
-function Hero() {
+function CloudBand({ id, variant, seed }) {
   return (
-    <section id="top" className="relative">
-      <div className="relative h-[42vh] md:h-screen w-full overflow-hidden">
-        <img src={IMG.hero} alt="Trẻ em vui chơi sáng tạo tại Hồng Phúc"
-          className="absolute inset-0 w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-linear-to-t from-ink/75 via-ink/15 to-transparent" />
-        <div className="relative h-full max-w-7xl mx-auto px-6 md:px-24 flex flex-col justify-end pb-2 md:pb-24">
-          <p className="font-display text-white/90 text-base md:text-xl mb-2">Nuôi dưỡng trẻ cho</p>
-          <h1 className="font-display font-bold text-white text-4xl md:text-6xl leading-[1.15] mb-4 max-w-2xl">
-            Ước mơ, tự do,<br />và sự tự lập.
-          </h1>
-          <p className="text-white/90 max-w-md text-sm md:text-base leading-relaxed">
-            Trong không gian tự do rộng mở, Hồng Phúc nuôi dưỡng, thúc đẩy sức mạnh tự nỗ lực của mỗi em nhỏ.
-          </p>
-        </div>
-        <div className="hidden md:flex flex-col absolute right-10 bottom-10 items-center gap-1 text-white/85 animate-[fadeInDown_2s_infinite_linear]">
-          <span className="[writing-mode:vertical-rl] text-xs tracking-[0.3em] font-display rotate-180">SCROLL</span>
-          <ArrowDown />
-        </div>
+    <div id={id} className="cloud-band" aria-hidden="true">
+      <SkyCanvas kind="band" variant={variant} seed={seed} className="absolute inset-0 w-full h-full" />
+    </div>
+  );
+}
+
+function Hero({ opened }) {
+  return (
+    <section id="top" data-ready={opened} className="sky-hero relative min-h-svh overflow-hidden">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-24 pt-14 md:pt-[15vh] pb-[40vh] md:pb-[30vh] text-center md:text-left">
+        <p data-reveal style={{ "--d": ".9s" }} className="text-white text-2xl md:text-4xl mb-1">Nuôi dưỡng trẻ cho</p>
+        <h1 data-reveal style={{ "--d": "1.1s" }} className="sky-title font-display font-bold text-white text-5xl md:text-7xl leading-[1.1] mb-5">
+          Ước mơ, tự do,<br />và sự tự lập.
+        </h1>
+        <p data-reveal style={{ "--d": "1.3s" }} className="text-white/95 max-w-md mx-auto md:mx-0 text-sm md:text-base leading-relaxed">
+          Trong không gian tự do rộng mở, Hồng Phúc nuôi dưỡng, thúc đẩy sức mạnh tự nỗ lực của mỗi em nhỏ.
+        </p>
       </div>
+      <SkyCanvas kind="floor" seed={5} className="absolute inset-x-0 bottom-0 h-[36%] w-full z-0" />
     </section>
   );
 }
 
-/* Thông báo (News) */
 function NewsSection() {
   const items = [
     { tag: "Cập nhật", date: "28.08.2026", title: "Website của trường vừa được làm mới hoàn toàn!" },
@@ -178,7 +177,6 @@ function NewsSection() {
   );
 }
 
-/* Tâm huyết (Thoughts) */
 function ThoughtsSection() {
   return (
     <section id="about" className="scroll-mt-28 relative max-w-6xl mx-auto px-5 md:px-8 pt-6 pb-14 md:pb-20">
@@ -187,6 +185,11 @@ function ThoughtsSection() {
           <h2 className="font-display font-bold text-2xl text-justify md:text-[32px] leading-snug text-(--color-ink)">
             Bồi dưỡng tâm hồn và thể chất phong phú cho những mầm non của tương lai
           </h2>
+          <div className="mt-8 w-56 md:w-72 aspect-square rounded-full p-2 bg-linear-to-br from-(--color-gold-light) to-(--color-gold) shadow-lg">
+            <div className="w-full h-full rounded-full overflow-hidden ring-4 ring-white">
+              <img src={IMG.hero} alt="Trẻ em vui chơi sáng tạo tại Hồng Phúc" className="w-full h-full object-cover" />
+            </div>
+          </div>
         </div>
         <div className="relative">
           <p className="text-sm md:text-base leading-loose text-justify text-(--color-ink-light) mb-3">
@@ -207,13 +210,12 @@ function ThoughtsSection() {
   );
 }
 
-/* Thư viện ảnh (Gallery) */
 function GallerySection() {
   const photos = [IMG.gal1, IMG.gal2, IMG.gal3, IMG.gal4, IMG.gal1, IMG.gal2, IMG.gal3, IMG.gal4, IMG.gal1, IMG.gal2, IMG.gal3, IMG.gal4];
   const [emblaRef] = useEmblaCarousel({ loop: true, align: "start" }, [Autoplay({ delay: 2000 })]);
 
   return (
-    <section className="max-w-6xl mx-auto px-5 md:px-8 pb-16 md:pb-24">
+    <section id="gallery" className="max-w-6xl mx-auto px-5 md:px-8 pb-16 md:pb-24">
       <div className="overflow-x-hidden" ref={emblaRef}>
         <div className="flex">
           {photos.map((src, i) => (
@@ -228,7 +230,6 @@ function GallerySection() {
   );
 }
 
-/* Phân lớp theo độ tuổi (Class) */
 function ClassSection() {
   const ages = ["0 tuổi", "1 tuổi", "2 tuổi", "3-5 tuổi"];
   const [active, setActive] = useState(0);
@@ -318,7 +319,6 @@ function ClassSection() {
   );
 }
 
-/* Sinh hoạt tại trường (Days) */
 function DaysSection() {
   return (
     <section id="days" className="scroll-mt-28 max-w-6xl mx-auto px-5 md:px-8 pb-16 pt-0 md:pt-16 md:py-24">
@@ -372,10 +372,9 @@ function DaysSection() {
   );
 }
 
-/* Cơ sở vật chất (Facility) */
 function FacilitySection() {
   return (
-    <section className="max-w-6xl mx-auto px-5 md:px-8 pb-16 md:pb-24">
+    <section id="facility" className="scroll-mt-28 max-w-6xl mx-auto px-5 md:px-8 pb-16 md:pb-24">
       <div className="grid md:grid-cols-2 gap-10 items-center">
         <img src={IMG.facility} alt="Không gian trường Hồng Phúc" className="rounded-4xl w-full aspect-4/3 object-cover order-2 md:order-1" />
         <div className="order-1 md:order-2">
@@ -394,7 +393,6 @@ function FacilitySection() {
   );
 }
 
-/* Hướng dẫn nhập học (Guide) */
 function GuideSection() {
   return (
     <section id="guide" className="scroll-mt-28 relative bg-(--color-red)">
@@ -428,7 +426,6 @@ function GuideSection() {
   );
 }
 
-/* Liên hệ (Contact) */
 function ContactSection({ toggle }) {
   return (
     <section id="contact" className="scroll-mt-28 max-w-4xl mx-auto px-5 md:px-8 py-16 md:py-20 text-center">
@@ -466,7 +463,6 @@ function ContactSection({ toggle }) {
   );
 }
 
-/* Footer */
 function Footer() {
   const cols = [
     { title: "Trang chủ", links: ["Giới thiệu về trường", "Đội ngũ giáo viên"] },
@@ -520,7 +516,6 @@ function Footer() {
   );
 }
 
-/* Form */
 function ContactForm() {
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({fullName: "", email: "", phoneNumber: "", content: ""});
@@ -547,7 +542,6 @@ function ContactForm() {
         setMsg({status: "error", mess: "Đã có lỗi xảy ra, vui lòng thử lại!"});
       } finally {
         setLoading(false);
-        setMsg({status: "", mess: ""});
       }
     }
   }
@@ -572,7 +566,7 @@ function ContactForm() {
           <textarea name="content" id="content" cols={1} rows={3} value={form.content} onChange={(e) => setForm(v => ({...v, content: e.target.value }))} className="w-full outline-none border-b border-(--color-red-light) mb-2" />
         </label>
         
-        {msg.mess !== "" && (<div className={`flex items-center gap-1 rounded-xl px-2 py-1 text-white ${msg.status === "success" ? "bg-green-400" : msg.sttus === "warning" ? "bg-orange-400" : "bg-red-400"}`}><span><MessageCircleMore /></span>{msg.mess}</div>)}
+        {msg.mess !== "" && (<div className={`flex items-center gap-1 rounded-xl px-2 py-1 text-white ${msg.status === "success" ? "bg-green-400" : msg.status === "warning" ? "bg-orange-400" : "bg-red-400"}`}><span><MessageCircleMore /></span>{msg.mess}</div>)}
 
         <div className="mt-6 flex items-center justify-between gap-2">
           <button type="reset" onClick={()=>setForm({fullName: "", email: "", phoneNumber: "", content: ""})} className="w-full py-2 rounded-xl text-gray-500 bg-gray-300 hover:text-white hover:bg-gray-400 uppercase">Hủy</button>
@@ -586,58 +580,61 @@ function ContactForm() {
 export default function Index() {
   const [scroll, setScroll] = useState(false);
   const [openModal, setOpenModal] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [ready, setReady] = useState(false);
+  const [opened, setOpened] = useState(false);
+  const [introDone, setIntroDone] = useState(false);
 
   useEffect(() => {
-    const minTime = 1180;
-    const start = Date.now();
-  
-    function handleLoad() {
-        const elapsed = Date.now() - start;
-        const remaining = Math.max(minTime - elapsed, 0);
-        setTimeout(() => {
-          setLoading(false);
-        }, remaining);
-    }
-    
-    if (document.readyState === "complete") {
-        handleLoad();
-    } else {
-        window.addEventListener("load", handleLoad);
-        return () => window.removeEventListener("load", handleLoad);
-    }
-  
-    const handleScroll = () => {
-      setScroll(window.scrollY > 10);
-    };
-    handleScroll();
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    const t0 = Date.now();
+    let timer;
+    const go = () => { timer = setTimeout(() => setReady(true), Math.max(1400 - (Date.now() - t0), 0)); };
+    if (document.readyState === "complete") go();
+    else window.addEventListener("load", go, { once: true });
+    return () => { clearTimeout(timer); window.removeEventListener("load", go); };
   }, []);
-  
+
+  useEffect(() => {
+    const onScroll = () => setScroll(window.scrollY > 10);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+    window.scrollTo(0, 0);
+    document.documentElement.classList.add("sky-lock");
+    return () => document.documentElement.classList.remove("sky-lock");
+  }, []);
+  useEffect(() => {
+    if (introDone) document.documentElement.classList.remove("sky-lock");
+  }, [introDone]);
+
   return (
-    <div id="index" className="bg-(--color-cream) text-(--color-ink) font-body overflow-x-hidden relative">
-      <Modal isOpen={openModal} onClose={()=>setOpenModal(false)} title="Tư vấn thông tin" children={<ContactForm/>} />
-    
-      {loading ? <div className="w-screen h-screen fixed inset-0 bg-white"><Loader /></div> :
-      <div>
-        <Header scroll={scroll} />
-        <SocialRail />
-        <Hero />
-        <NewsSection />
-        <ThoughtsSection />
-        <GallerySection />
-        <ClassSection />
-        <DaysSection />
-        <FacilitySection />
-        <GuideSection />
-        <ContactSection toggle={()=>setOpenModal(true)} loading={setLoading}/>
-        <Footer />
-        
-        <button title="Lên đầu trang" onClick={()=>{window.scrollTo({ top: 0, behavior: "smooth" })}} className={`${scroll ? "flex items-center justify-center " : "hidden "}fixed right-4 bottom-6 z-9999 cursor-pointer bg-(--color-red-light)/25 hover:bg-(--color-red-light) text-(--color-red) hover:text-(--color-red-hover) rounded-full size-12 shadow-[0px_0px_2px_var(--color-red)] transition ease-linear`}>
-          <ArrowUp />
-        </button>
-      </div>}
+    <div id="index" className="bg-(--color-cream) text-(--color-ink) overflow-x-hidden relative">
+      <Modal isOpen={openModal} onClose={() => setOpenModal(false)} title="Tư vấn thông tin" children={<ContactForm />} />
+
+      <SkyIntro ready={ready} onOpen={() => setOpened(true)} />
+      <FlyingPlane play={opened} onIntroDone={() => setIntroDone(true)} />
+
+      <Header scroll={scroll} />
+      <SocialRail />
+      <Hero opened={opened} />
+      <NewsSection />
+      <ThoughtsSection />
+      <GallerySection />
+      <CloudBand id="band-1" variant="day" seed={11} />
+      <ClassSection />
+      <DaysSection />
+      <CloudBand id="band-2" variant="dusk" seed={33} />
+      <FacilitySection />
+      <GuideSection />
+      <ContactSection toggle={() => setOpenModal(true)} />
+      <Footer />
+
+      <button title="Lên đầu trang" onClick={() => { window.scrollTo({ top: 0, behavior: "smooth" }); }} className={`${scroll ? "flex items-center justify-center " : "hidden "}fixed right-4 bottom-6 z-9999 cursor-pointer bg-(--color-red-light)/25 hover:bg-(--color-red-light) text-(--color-red) hover:text-(--color-red-hover) rounded-full size-12 shadow-[0px_0px_2px_var(--color-red)] transition ease-linear`}>
+        <ArrowUp />
+      </button>
     </div>
   );
 }
