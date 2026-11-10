@@ -14,12 +14,8 @@ import Feedbacks from './pages/Feedbacks';
 import Settings from "./pages/Settings";
 import Index from "./pages/Index";
 import Login from "./pages/Login";
-<<<<<<< HEAD
-import NotFound from "./pages/NotFound";
-=======
 import Posts from "./components/Posts";
 import PostDetail from "./components/PostDetail";
->>>>>>> ec28b3277d55757496afd5217a598434030a7114
 
 const pages = {
   dashboard: Dashboard,
