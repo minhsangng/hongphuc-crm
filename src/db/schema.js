@@ -118,3 +118,11 @@ export const logs = pgTable("logs", {
   userId: integer("user_id").notNull(),
   timeAction: timestamp("time_action").notNull().defaultNow(),
 });
+
+export const posts = pgTable("posts", {
+  id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
+  title: varchar("title", { length: 100 }).notNull(),
+  content: text("content").notNull(),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  status: varchar("status", { length: 15 }).notNull().default("Công khai") 
+});

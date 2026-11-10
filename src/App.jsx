@@ -14,6 +14,8 @@ import Feedbacks from './pages/Feedbacks';
 import Settings from "./pages/Settings";
 import Index from "./pages/Index";
 import Login from "./pages/Login";
+import Posts from "./components/Posts";
+import PostDetail from "./components/PostDetail";
 
 const pages = {
   dashboard: Dashboard,
@@ -76,14 +78,16 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Index />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/admin" element={
+        <Route path="/dang-nhap" element={<Login />} />
+        <Route path="/quan-tri" element={
             <ThemeProvider>
               <SidebarProvider>
                 <AdminShell />
               </SidebarProvider>
             </ThemeProvider>
         } />
+        <Route path="/bai-viet" element={<Posts />} />
+        <Route path="/bai-viet/:slug" element={<PostDetail />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>

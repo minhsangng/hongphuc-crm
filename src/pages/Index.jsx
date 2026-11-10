@@ -35,26 +35,48 @@ function Wave({ fill = "#FCF7EC", flip = false }) {
   );
 }
 
+function useActiveSection(ids) {
+  const [active, setActive] = useState("");
+  useEffect(() => {
+    const onScroll = () => {
+      const line = window.innerHeight * 0.35;
+      let cur = "";
+      for (const id of ids) {
+        const el = document.getElementById(id);
+        if (!el) continue;
+        const r = el.getBoundingClientRect();
+        if (r.top <= line && r.bottom > line) cur = id;
+      }
+      setActive((p) => (p === cur ? p : cur));
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, [ids]);
+  return active;
+}
+
+const navLinks = [
+  { label: "Giới thiệu", href: "#about" },
+  { label: "Lớp học", href: "#class" },
+  { label: "Sinh hoạt", href: "#days" },
+  { label: "Ngoại khóa", href: "#extra" },
+  { label: "Hỏi đáp", href: "#guide" },
+];
+const navIds = navLinks.map((l) => l.href.slice(1));
+
 function Header({scroll}) {
   const [open, setOpen] = useState(false);
-  const navLinks = [
-    { label: "Giới thiệu", href: "#about" },
-    { label: "Lớp học", href: "#class" },
-    { label: "Sinh hoạt", href: "#days" },
-    { label: "Ngoại khóa", href: "#extra" },
-    { label: "Hỏi đáp", href: "#guide" },
-  ];
+  const active = useActiveSection(navIds);
 
   return (
-    <header className={`${scroll ? "fixed inset-0 h-fit bg-white/35 " : "bg-white/95 "}z-9999 transition ease-linear backdrop-blur border-b border-(--color-red-light)/50`}>
-      <div className={`${scroll ? "md:hidden " : ""}hidden md:flex justify-end gap-6 px-8 py-1.5 text-xs text-(--color-ink-light) border-b border-(--color-red)/10 bg-(--color-gold-light)/25 transition`}>
-        <a href="#news" className="hover:text-(--color-red) transition-colors flex items-center gap-1"><Megaphone size={12} /> Thông báo từ trường</a>
-        <a href="#" className="hover:text-(--color-red) transition-colors flex items-center gap-1"><MessageSquareDot size={12} />Tuyển dụng</a>
-        <a href="https://maps.app.goo.gl/PyNq3radZb7agAXM6" target="_blank" className="hover:text-(--color-red) transition-colors flex items-center gap-1"><FaRoute size={12} />Chỉ đường</a>
-      </div>
-
+    <header className={`${scroll ? "bg-white/35 " : "bg-white/90 "} fixed inset-0 h-fit z-9999 transition ease-linear backdrop-blur border-b border-(--color-red-light)/50`}>
       <div className="max-w-7xl mx-auto flex items-center justify-between gap-4 px-5 md:px-8 py-3">
-        <a href="#top" className="flex items-center gap-2.5 shrink-0">
+        <a href="/" className="flex items-center gap-2.5 shrink-0">
           <span className="w-11 h-11 rounded-full flex items-center justify-center">
             <img src="/favicon.svg" />
           </span>
@@ -65,11 +87,16 @@ function Header({scroll}) {
         </a>
 
         <nav className="hidden lg:flex items-center gap-7 font-display text-[15px] text-(--color-ink)">
-          {navLinks.map((l) => (
-            <a key={l.label} href={l.href} className="hover:text-(--color-red) transition-colors">
-              {l.label}
-            </a>
-          ))}
+          {navLinks.map((l) => {
+            const on = active === l.href.slice(1);
+            return (
+              <a key={l.label} href={l.href} aria-current={on ? "true" : undefined}
+                className={`relative transition-colors hover:text-(--color-red) ${on ? "text-(--color-red) is-active" : ""}`}>
+                {l.label}
+                <span className={`absolute left-0 -bottom-1.5 h-0.5 bg-(--color-red) rounded-full transition-all duration-300 ${on ? "w-full" : "w-0"}`} />
+              </a>
+            );
+          })}
         </nav>
 
         <div className="hidden md:flex items-center gap-3">
@@ -89,7 +116,7 @@ function Header({scroll}) {
       {open && (
         <div className="lg:hidden pb-5 flex flex-col gap-3 font-display text-(--color-ink) border-t border-(--color-red-light)/50">
           {navLinks.map((l) => (
-            <a key={l.label} href={l.href} onClick={() => setOpen(false)} className="py-1 hover:bg-(--color-red-light) hover:text-white px-5 transition ease-linear">
+            <a key={l.label} href={l.href} onClick={() => setOpen(false)} className={`py-1 px-5 transition ease-linear hover:bg-(--color-red-light) hover:text-white ${active === l.href.slice(1) ? "bg-(--color-red-light)/30 text-(--color-red)" : ""}`}>
               {l.label}
             </a>
           ))}
@@ -126,7 +153,7 @@ function SocialRail() {
 function CloudBand({ id, variant, seed }) {
   return (
     <div id={id} className="cloud-band" aria-hidden="true">
-      <SkyCanvas kind="band" variant={variant} seed={seed} className="absolute inset-0 w-full h-full" />
+      <SkyCanvas kind="band" variant={variant} seed={seed} className={`absolute inset-y-0 -left-[3%] w-[106%] h-full cloud-drift ${variant === "dusk" ? "cloud-drift--slow" : ""}`} />
     </div>
   );
 }
@@ -134,7 +161,7 @@ function CloudBand({ id, variant, seed }) {
 function Hero({ opened }) {
   return (
     <section id="top" data-ready={opened} className="sky-hero relative min-h-svh overflow-hidden">
-      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-24 pt-14 md:pt-[15vh] pb-[40vh] md:pb-[30vh] text-center md:text-left">
+      <div className="relative z-10 max-w-7xl mx-auto px-2 md:px-24 pt-40 md:pt-[20vh] pb-[40vh] md:pb-[20vh] text-center md:text-left">
         <p data-reveal style={{ "--d": ".9s" }} className="text-white text-2xl md:text-4xl mb-1">Nuôi dưỡng trẻ cho</p>
         <h1 data-reveal style={{ "--d": "1.1s" }} className="sky-title font-display font-bold text-white text-5xl md:text-7xl leading-[1.1] mb-5">
           Ước mơ, tự do,<br />và sự tự lập.
@@ -621,7 +648,7 @@ export default function Index() {
       <Modal isOpen={openModal} onClose={() => setOpenModal(false)} title="Tư vấn thông tin" children={<ContactForm />} />
 
       <SkyIntro ready={ready} onOpen={() => setOpened(true)} />
-      <FlyingPlane play={opened} onIntroDone={() => setIntroDone(true)} />
+      <FlyingPlane play={opened} hidden={openModal} onIntroDone={() => setIntroDone(true)} />
 
       <Header scroll={scroll} />
       <SocialRail />
