@@ -5,7 +5,7 @@ import { ENV } from "./config/env.js";
 import { db } from "./config/db.js";
 import cronjob from "./cron.js";
 import Mailer from "./mailer.js";
-import { childrens, classes, users, healthRecords, cookTables, cookTableDetails } from "./db/schema.js";
+import { childrens, classes, users, healthRecords, cookTables, cookTableDetails, posts } from "./db/schema.js";
 import { eq, and, sql } from "drizzle-orm";
 import session from "express-session";
 import bcrypt from "bcrypt";
@@ -116,6 +116,17 @@ app.get("/api/v1/get-all-menus", async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({ status: 500, message: "Server error" });
+  }
+});
+
+/* POSTS */
+app.get("/api/v1/get-all-posts", async (req, res) => {
+  try {
+    const results = await db.select().from(posts);
+    if (results.length > 0) res.json({ status: 200, items: results });
+  } catch (err) {
+    console.error(err);
+    res.json({ status: 500, message: "Lỗi máy chủ" });
   }
 });
 

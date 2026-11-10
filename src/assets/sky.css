@@ -35,10 +35,17 @@ html.sky-lock, html.sky-lock body { overflow: hidden; }
 }
 .sky-hero[data-ready="true"] [data-reveal] { opacity: 1; transform: none; }
 
-.cloud-band { position: relative; height: clamp(220px, 38vh, 380px); }
+.cloud-band { position: relative; height: clamp(220px, 38vh, 380px); overflow: hidden; }
 
 @media (prefers-reduced-motion: reduce) {
   .sky-intro__layer, .sky-intro__mist { transition-duration: .01s; }
   .sky-intro__logo { animation: none; }
   .sky-hero [data-reveal] { transition: none; opacity: 1; transform: none; }
 }
+
+@keyframes cloud-drift {
+  0%   { transform: translate3d(-1.6%, 0, 0); }
+  100% { transform: translate3d(1.6%, -7px, 0); }
+}
+.cloud-drift      { animation: cloud-drift 18s ease-in-out infinite alternate; will-change: transform; }
+.cloud-drift--slow { animation-duration: 28s; animation-direction: alternate-reverse; }

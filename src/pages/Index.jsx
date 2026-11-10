@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { Megaphone, MessageSquareDot, Menu, X, ChevronRight, Phone, Form, MapPin,  FileText, HelpCircle, MessageCircleMore, Crown, Clock, Baby, ArrowDown, ArrowUp } from "lucide-react";
-import { FaFacebookF, FaTiktok, FaPhoneVolume, FaRoute } from "react-icons/fa";
+import { Menu, X, ChevronRight, Phone, Form, MapPin,  FileText, HelpCircle, MessageCircleMore, Crown, Clock, Baby, ArrowUp } from "lucide-react";
+import { FaFacebookF, FaTiktok, FaPhoneVolume } from "react-icons/fa";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import Modal from "../components/Modal";
@@ -35,29 +35,49 @@ function Wave({ fill = "#FCF7EC", flip = false }) {
   );
 }
 
+function useActiveSection(ids) {
+  const [active, setActive] = useState("");
+  useEffect(() => {
+    const onScroll = () => {
+      const line = window.innerHeight * 0.35;
+      let cur = "";
+      for (const id of ids) {
+        const el = document.getElementById(id);
+        if (!el) continue;
+        const r = el.getBoundingClientRect();
+        if (r.top <= line && r.bottom > line) cur = id;
+      }
+      setActive((p) => (p === cur ? p : cur));
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, [ids]);
+  return active;
+}
+
+const navLinks = [
+  { label: "Giới thiệu", href: "#about" },
+  { label: "Lớp học", href: "#class" },
+  { label: "Sinh hoạt", href: "#days" },
+  { label: "Ngoại khóa", href: "#extra" },
+  { label: "Hỏi đáp", href: "#guide" },
+];
+const navIds = navLinks.map((l) => l.href.slice(1));
+
 function Header({scroll}) {
   const [open, setOpen] = useState(false);
-  const navLinks = [
-    { label: "Giới thiệu", href: "#about" },
-    { label: "Lớp học", href: "#class" },
-    { label: "Sinh hoạt", href: "#days" },
-    { label: "Ngoại khóa", href: "#extra" },
-    { label: "Hỏi đáp", href: "#guide" },
-  ];
+  const active = useActiveSection(navIds);
 
   return (
-    <header className={`${scroll ? "bg-white/35 backdrop-blur " : "bg-white/50 "}fixed inset-0 h-fit z-9999 transition-all ease-linear`}>
-      <div className="max-w-7xl mx-auto rounded-4xl flex items-center justify-between gap-4 px-5 md:px-0 py-3">
-        <nav className="hidden lg:flex items-center gap-7 font-display text-[15px] text-(--color-ink) w-[40%]">
-            <a href="#about" className="hover:text-(--color-red) transition-colors">Giới thiệu</a>
-            <a href="#class" className="hover:text-(--color-red) transition-colors">Lớp học</a>
-            <a href="#days" className="hover:text-(--color-red) transition-colors">Dạy học</a>
-            <a href="#guide" className="hover:text-(--color-red) transition-colors">Hỏi đáp</a>
-        </nav>
-        
-        <a href="#top" className="flex items-center gap-2.5 shrink-0">
-          <span className="block font-display uppercase -mt-0.5 font-bold text-lg text-(--color-red)">Hồng</span>
-          <span className="w-12 h-12 rounded-full flex items-center justify-center">
+    <header className={`${scroll ? "bg-white/35 " : "bg-white/90 "} fixed inset-0 h-fit z-9999 transition ease-linear backdrop-blur border-b border-(--color-red-light)/50`}>
+      <div className="max-w-7xl mx-auto flex items-center justify-between gap-4 px-5 md:px-8 py-3">
+        <a href="/" className="flex items-center gap-2.5 shrink-0">
+          <span className="w-11 h-11 rounded-full flex items-center justify-center">
             <img src="/favicon.svg" />
           </span>
           <span className="block font-display uppercase -mt-0.5 font-bold text-lg text-(--color-red)">Phúc</span>
@@ -66,7 +86,20 @@ function Header({scroll}) {
           </span> */}
         </a>
 
-        <div className="hidden md:flex items-center justify-end gap-3 w-[40%]">
+        <nav className="hidden lg:flex items-center gap-7 font-display text-[15px] text-(--color-ink)">
+          {navLinks.map((l) => {
+            const on = active === l.href.slice(1);
+            return (
+              <a key={l.label} href={l.href} aria-current={on ? "true" : undefined}
+                className={`relative transition-colors hover:text-(--color-red) ${on ? "text-(--color-red) is-active" : ""}`}>
+                {l.label}
+                <span className={`absolute left-0 -bottom-1.5 h-0.5 bg-(--color-red) rounded-full transition-all duration-300 ${on ? "w-full" : "w-0"}`} />
+              </a>
+            );
+          })}
+        </nav>
+
+        <div className="hidden md:flex items-center gap-3">
           <a href="#guide" className="text-sm font-display px-4 py-2 rounded-full border border-(--color-red) text-(--color-red) hover:text-white hover:bg-(--color-red) transition-colors">
             Hướng dẫn nhập học
           </a>
@@ -83,7 +116,7 @@ function Header({scroll}) {
       {open && (
         <div className="lg:hidden pb-5 flex flex-col gap-3 font-display text-(--color-ink) border-t border-(--color-red-light)/50">
           {navLinks.map((l) => (
-            <a key={l.label} href={l.href} onClick={() => setOpen(false)} className="py-1 hover:bg-(--color-red-light) hover:text-white px-5 transition ease-linear">
+            <a key={l.label} href={l.href} onClick={() => setOpen(false)} className={`py-1 px-5 transition ease-linear hover:bg-(--color-red-light) hover:text-white ${active === l.href.slice(1) ? "bg-(--color-red-light)/30 text-(--color-red)" : ""}`}>
               {l.label}
             </a>
           ))}
@@ -120,7 +153,7 @@ function SocialRail() {
 function CloudBand({ id, variant, seed }) {
   return (
     <div id={id} className="cloud-band" aria-hidden="true">
-      <SkyCanvas kind="band" variant={variant} seed={seed} className="absolute inset-0 w-full h-full" />
+      <SkyCanvas kind="band" variant={variant} seed={seed} className={`absolute inset-y-0 left-[-3%] w-[106%] h-full cloud-drift ${variant === "dusk" ? "cloud-drift--slow" : ""}`} />
     </div>
   );
 }
@@ -128,7 +161,7 @@ function CloudBand({ id, variant, seed }) {
 function Hero({ opened }) {
   return (
     <section id="top" data-ready={opened} className="sky-hero relative min-h-svh overflow-hidden">
-      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-24 pt-14 md:pt-[15vh] pb-[40vh] md:pb-[30vh] text-center md:text-left">
+      <div className="relative z-10 max-w-7xl mx-auto px-2 md:px-24 pt-40 md:pt-[20vh] pb-[40vh] md:pb-[20vh] text-center md:text-left">
         <p data-reveal style={{ "--d": ".9s" }} className="text-white text-2xl md:text-4xl mb-1">Nuôi dưỡng trẻ cho</p>
         <h1 data-reveal style={{ "--d": "1.1s" }} className="sky-title font-display font-bold text-white text-5xl md:text-7xl leading-[1.1] mb-5">
           Ước mơ, tự do,<br />và sự tự lập.
@@ -615,7 +648,7 @@ export default function Index() {
       <Modal isOpen={openModal} onClose={() => setOpenModal(false)} title="Tư vấn thông tin" children={<ContactForm />} />
 
       <SkyIntro ready={ready} onOpen={() => setOpened(true)} />
-      <FlyingPlane play={opened} onIntroDone={() => setIntroDone(true)} />
+      <FlyingPlane play={opened} hidden={openModal} onIntroDone={() => setIntroDone(true)} />
 
       <Header scroll={scroll} />
       <SocialRail />

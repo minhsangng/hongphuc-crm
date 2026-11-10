@@ -9,16 +9,16 @@ const FOV = 22;
 
 const FLIGHT_PLAN = [
   { sel: "#top", x: 0.7, y: 0.65, s: 1, mx: 0.66, my: 0.78 },
-  { sel: "#news", x: 0.86, y: 0.2, s: 0.38 },
+  { sel: "#news", x: 0.86, y: 0.22, s: 0.38 },
   { sel: "#about", x: 0.84, y: 0.84, s: 0.42, mx: 0.8, my: 0.9 },
-  { sel: "#gallery", x: 0.16, y: 0.2, s: 0.4 },
+  { sel: "#gallery", x: 0.16, y: 0.22, s: 0.4 },
   { sel: "#band-1", x: 0.5, y: 0.5, s: 0.78 },
-  { sel: "#class", x: 0.88, y: 0.22, s: 0.4 },
-  { sel: "#days", x: 0.94, y: 0.12, s: 0.36 },
+  { sel: "#class", x: 0.88, y: 0.32, s: 0.4 },
+  { sel: "#days", x: 0.84, y: 0.22, s: 0.36 },
   { sel: "#band-2", x: 0.3, y: 0.5, s: 0.78 },
   { sel: "#facility", x: 0.5, y: 0.08, s: 0.4 },
   { sel: "#guide", x: 0.1, y: 0.3, s: 0.5 },
-  { sel: "#contact", x: 0.5, y: 0.16, s: 0.7 },
+  { sel: "#contact", x: 0.5, y: 0.26, s: 0.7 },
 ];
 
 
@@ -29,10 +29,11 @@ const damp = (cur, target, k, dt) => cur + (target - cur) * (1 - Math.exp(-k * d
 const wrap = (a) => Math.atan2(Math.sin(a), Math.cos(a));
 const dampAngle = (cur, target, k, dt) => cur + wrap(target - cur) * (1 - Math.exp(-k * dt));
 
-export default function FlyingPlane({ play, onIntroDone }) {
+export default function FlyingPlane({ play, hidden, onIntroDone }) {
   const host = useRef(null);
   const ctl = useRef({ start: null, onDone: null });
   ctl.current.onDone = onIntroDone;
+  ctl.current.hidden = hidden;
 
   useEffect(() => {
     if (play && ctl.current.start == null) ctl.current.start = performance.now() + INTRO_DELAY;
@@ -85,7 +86,7 @@ export default function FlyingPlane({ play, onIntroDone }) {
       camera.aspect = vw / vh;
       camera.position.set(0, 0, camZ);
       camera.updateProjectionMatrix();
-      unit = (vw < 768 ? Math.min(vw * 0.5, 230) : Math.min(vw * 0.3, 460)) / 10; // chừa chỗ cho băng rôn phía sau
+      unit = (vw < 768 ? Math.min(vw * 0.5, 230) : Math.min(vw * 0.3, 460)) / 10;
       computeKeys();
     }
 
@@ -177,6 +178,7 @@ export default function FlyingPlane({ play, onIntroDone }) {
       if (++n % 30 === 0) computeKeys();
 
       if (c.start == null) return;
+      if (c.hidden) return;
       const k = (now - c.start) / INTRO_MS;
       if (k < 0) return;
 
@@ -249,5 +251,5 @@ export default function FlyingPlane({ play, onIntroDone }) {
     };
   }, []);
 
-  return <div ref={host} aria-hidden="true" className="fixed inset-0 pointer-events-none" style={{ zIndex: 9000 }} />;
+  return <div ref={host} aria-hidden="true" className="fixed inset-0 pointer-events-none" style={{ zIndex: 9000, opacity: hidden ? 0 : 1, transition: "opacity .3s" }} />;
 }
