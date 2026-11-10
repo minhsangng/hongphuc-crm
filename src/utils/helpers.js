@@ -42,20 +42,24 @@ export async function getDataFromAPI(url, type = "get", body = null) {
   let data = [];
   const fetchUrl = "/api/v1/" + url;
   switch (type) {
-    case "get":
-      { const resGet = await axios.get(fetchUrl);
+    case "get": {
+      const resGet = await axios.get(fetchUrl);
       if (resGet) data = resGet.data;
-    break; }
-    case "post":
-      { const resPost = await axios.post(fetchUrl, body);
+      break;
+    }
+    case "post": {
+      const resPost = await axios.post(fetchUrl, body);
       if (resPost) data = resPost.data;
-    break; }
-    case "put":
+      break;
+    }
+    case "put": {
+          
+      break;
+    }
+    case "delete": {
     
-    break;
-    case "delete":
-    
-    break;
+      break;
+    }
     default:
       console.error("Invalid request type");
   }

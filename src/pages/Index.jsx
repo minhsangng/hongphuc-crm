@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Megaphone, MessageSquareDot, Menu, X, ChevronRight, Phone, Form, MapPin,  FileText, HelpCircle, Crown, Clock, Baby, ArrowDown, ArrowUp } from "lucide-react";
+import { Megaphone, MessageSquareDot, Menu, X, ChevronRight, Phone, Form, MapPin,  FileText, HelpCircle, MessageCircleMore, Crown, Clock, Baby, ArrowDown, ArrowUp } from "lucide-react";
 import { FaFacebookF, FaTiktok, FaPhoneVolume, FaRoute } from "react-icons/fa";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
@@ -528,23 +528,33 @@ function Footer() {
 
 /* Form */
 function ContactForm() {
+  const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({fullName: "", email: "", phoneNumber: "", content: ""});
+  const [msg, setMsg] = useState({status: "", mess: ""});
+  
   let TEMPLATE = '<h3>Kính chào phụ huynh ' + form.fullName + '!</h3>';
   TEMPLATE += '<p>Trường Mầm non Hồng Phúc đã nhận được ý kiến của quý phụ huynh và sẽ phản hồi trong thời gian sớm nhất. Rất mong quý phụ huynh kiên nhẫn. Nếu có vấn đề cấp thiết, quý phụ huynh có thể liên hệ trực tiếp qua số di động <a href="tel:0396053054">0396.053.054</a>.</p><p>Nhà trường xin chân thành cảm ơn sự quan tâm của quý phụ huynh. Chúc quý phụ huynh có một ngày thật ý nghĩa.</p><br/><p><b>TRƯỜNG MẦM NON HỒNG PHÚC</b> <br/> <b>SDT:</b> 0396.053.054 (Cô Vân) <br/> <b>ĐC:</b> Lộ Vàm, Chợ Gạo, Đồng Tháp</p>';
   TEMPLATE += '<img src="https://mamnonhongphuc.id.vn/favicon.svg" height="54px" />';
   
   async function sendContactMail(e) {
     e.preventDefault();
-    if (form.fullName === "" || form.email === "" || form.content === "")
-      return;
-    
-    try {
-      const response = await getDataFromAPI("send-email", "post", { to: form.email, subject: "Phản hồi hệ thống - Mầm non Hồng Phúc", html: TEMPLATE });
-      if (response.status === 200) {
-        alert("Gửi mail thành công");
+    if (form.fullName === "" || form.email === "" || form.content === "") {
+      setMsg({status: "warning", mess: "Vui lòng nhập đầy đủ thông tin liên hệ!"});
+    } else {
+      try {
+        setLoading(true);
+        const response = await getDataFromAPI("send-email", "post", { to: form.email, subject: "Phản hồi hệ thống - Mầm non Hồng Phúc", html: TEMPLATE });
+        if (response.status === 200) {
+          setMsg({status: "success", mess: "Thông tin đã được gửi đi thành công"});
+          setForm({fullName: "", email: "", phoneNumber: "", content: ""});
+        }
+      } catch (err) {
+        console.log(err);
+        setMsg({status: "error", mess: "Đã có lỗi xảy ra, vui lòng thử lại!"});
+      } finally {
+        setLoading(false);
+        setMsg({status: "", mess: ""});
       }
-    } catch (err) {
-      console.log(err);
     }
   }
   
@@ -568,9 +578,11 @@ function ContactForm() {
           <textarea name="content" id="content" cols={1} rows={3} value={form.content} onChange={(e) => setForm(v => ({...v, content: e.target.value }))} className="w-full outline-none border-b border-(--color-red-light) mb-2" />
         </label>
         
+        {msg.mess !== "" && (<div className={`flex items-center gap-1 rounded-xl px-2 py-1 text-white ${msg.status === "success" ? "bg-green-400" : msg.sttus === "warning" ? "bg-orange-400" : "bg-red-400"}`}><span><MessageCircleMore /></span>{msg.mess}</div>)}
+
         <div className="mt-6 flex items-center justify-between gap-2">
           <button type="reset" onClick={()=>setForm({fullName: "", email: "", phoneNumber: "", content: ""})} className="w-full py-2 rounded-xl text-gray-500 bg-gray-300 hover:text-white hover:bg-gray-400 uppercase">Hủy</button>
-          <button type="submit" onClick={sendContactMail} className="w-full py-2 rounded-xl text-white bg-(--color-red) hover:bg-(--color-red-hover) uppercase">Gửi</button>
+          <button type="submit" onClick={sendContactMail} className={`w-full py-2 rounded-xl text-white bg-(--color-red) hover:bg-(--color-red-hover) uppercase ${loading ? "cursor-progress" : "cursor-pointer"}`}>{loading ? "Đang gửi" : "Gửi"}</button>
         </div>
       </form>
     </div>
