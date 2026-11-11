@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import { ThemeProvider, SidebarProvider } from "./context/AppContext";
 import { getDataFromAPI } from "./utils/helpers";
 import Sidebar from "./components/Sidebar";
@@ -37,7 +37,7 @@ function AdminShell() {
   
   async function handleLogout() {
     const response = await getDataFromAPI("auth-logout", "post");
-    if (response.status === 200) navigate("/login");
+    if (response.status === 200) navigate("/dang-nhap");
     else navigate("/");
   }
   
@@ -46,10 +46,10 @@ function AdminShell() {
       try{
         const response = await getDataFromAPI("auth-checker");
       if (response.status === 200 && response.authenticated && response.user) setUser(response.user);
-      else navigate("/login", { replace: true });
+      else navigate("/dang-nhap", { replace: true });
       } catch (err) {
         console.log("Xác thực đăng nhập lỗi: ", err);
-        navigate("/login", { replace: true });
+        navigate("/dang-nhap", { replace: true });
       }
     }
     loadUser();

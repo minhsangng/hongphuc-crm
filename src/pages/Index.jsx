@@ -99,7 +99,7 @@ function Header({scroll}) {
           })}
         </nav>
 
-        <div className="hidden md:flex items-center gap-3">
+        <div className="hidden lg:flex items-center gap-3">
           <a href="#guide" className="text-sm font-display px-4 py-2 rounded-full border border-(--color-red) text-(--color-red) hover:text-white hover:bg-(--color-red) transition-colors">
             Hướng dẫn nhập học
           </a>
@@ -114,9 +114,9 @@ function Header({scroll}) {
       </div>
 
       {open && (
-        <div className="lg:hidden pb-5 flex flex-col gap-3 font-display text-(--color-ink) border-t border-(--color-red-light)/50">
+        <div className="ld:hidden pb-5 flex flex-col gap-3 text-(--color-ink) border-t border-(--color-red-light)/50">
           {navLinks.map((l) => (
-            <a key={l.label} href={l.href} onClick={() => setOpen(false)} className={`py-1 px-5 transition ease-linear hover:bg-(--color-red-light) hover:text-white ${active === l.href.slice(1) ? "bg-(--color-red-light)/30 text-(--color-red)" : ""}`}>
+            <a key={l.label} href={l.href} onClick={() => setOpen(false)} className={`py-1 px-5 transition ease-linear hover:bg-(--color-red-light) hover:text-white text-center ${active === l.href.slice(1) ? "bg-(--color-red-light)/30 text-(--color-red)" : ""}`}>
               {l.label}
             </a>
           ))}
@@ -187,7 +187,7 @@ function NewsSection() {
         <div>
           <h2 className="font-display font-bold text-2xl md:text-3xl text-(--color-ink)">Thông báo</h2>
         </div>
-        <a href="#" className="hidden sm:flex items-center gap-1 text-sm text-(--color-red) font-display hover:gap-2 transition-all">
+        <a href="/bai-viet" className="hidden sm:flex items-center gap-1 text-sm text-(--color-red) font-display hover:gap-2 transition-all">
           Xem tất cả thông báo <ChevronRight size={16} />
         </a>
       </div>
@@ -371,7 +371,7 @@ function DaysSection() {
           <p className="text-sm text-(--color-ink-light) leading-relaxed mb-5">
             Hồng Phúc chú trọng nuôi dưỡng thể chất và tâm hồn khỏe mạnh, phong phú cho các em ngay từ những năm tháng đầu đời.
           </p>
-          <a href="#" className="inline-flex items-center gap-1 text-sm text-(--color-red) font-display hover:gap-2 transition-all">
+          <a href="/bai-viet/mot-ngay-sinh-hoat-o-truong" className="inline-flex items-center gap-1 text-sm text-(--color-red) font-display hover:gap-2 transition-all">
             Xem chi tiết <ChevronRight size={16} />
           </a>
         </div>
@@ -385,7 +385,7 @@ function DaysSection() {
           <p className="text-sm text-(--color-ink-light) leading-relaxed mb-3">
             Xuân, hạ, thu, đông — mỗi mùa Hồng Phúc đều tổ chức những hoạt động thú vị để các em cùng trải nghiệm và ghi nhớ.
           </p>
-          <a href="#" className="inline-flex items-center gap-1 text-sm text-(--color-red) font-display">
+          <a href="/bai-viet/su-kien-trong-nam-2026" className="inline-flex items-center gap-1 text-sm text-(--color-red) font-display">
             Xem chi tiết <ChevronRight size={16} />
           </a>
         </div>
@@ -396,7 +396,7 @@ function DaysSection() {
           <p className="text-sm text-(--color-ink-light) leading-relaxed mb-3">
             Nhà trường đưa vào chương trình các môn năng khiếu: múa, thể dục dụng cụ, bóng đá, tiếng Anh, âm nhạc — giúp trẻ phát triển toàn diện qua vui chơi và thể thao.
           </p>
-          <a href="#" className="inline-flex items-center gap-1 text-sm text-(--color-red) font-display">
+          <a href="/bai-viet/lop-hoc-ngoai-khoa" className="inline-flex items-center gap-1 text-sm text-(--color-red) font-display">
             Xem chi tiết <ChevronRight size={16} />
           </a>
         </div>
@@ -417,7 +417,7 @@ function FacilitySection() {
           <p className="text-sm md:text-base text-(--color-ink-light) leading-relaxed mb-5">
             Ngôi trường được thiết kế theo kiến trúc hiện đại, thoáng đãng và tràn ngập ánh sáng tự nhiên. Không gian rộng rãi giúp các em thỏa sức vận động, đồng thời là bệ phóng cho sự phát triển khỏe mạnh của mỗi trẻ. An toàn luôn là ưu tiên hàng đầu trong mọi hoạt động tại trường.
           </p>
-          <a href="#" className="inline-flex items-center gap-1 text-sm text-(--color-red) font-display hover:gap-2 transition-all">
+          <a href="/bai-viet/khong-gian-truong" className="inline-flex items-center gap-1 text-sm text-(--color-red) font-display hover:gap-2 transition-all">
             Xem chi tiết <ChevronRight size={16} />
           </a>
         </div>
@@ -438,14 +438,14 @@ function GuideSection() {
           Hồng Phúc luôn chào đón phụ huynh đến tham quan trường để yên tâm gửi gắm con em mình, và thường xuyên tổ chức các buổi giao lưu giữa phụ huynh và giáo viên. Nếu có bất kỳ thắc mắc nào, xin đừng ngần ngại liên hệ với chúng tôi.
         </p>
         <div className="grid sm:grid-cols-2 gap-4 max-w-xl mx-auto">
-          <a href="/huong-dan-nhap-hoc" className="bg-white rounded-2xl p-6 flex flex-col items-center gap-2 text-(--color-ink) hover:-translate-y-1 transition-transform">
+          <a href="/bai-viet/huong-dan-nhap-hoc" className="bg-white rounded-2xl p-6 flex flex-col items-center gap-2 text-(--color-ink) hover:-translate-y-1 transition-transform">
             <span className="w-12 h-12 rounded-full bg-(--color-red-light)/50 flex items-center justify-center text-(--color-red)">
               <FileText size={22} />
             </span>
             <span className="font-display font-bold text-(--color-red)">Hướng dẫn nhập học</span>
             <span className="text-[11px] tracking-[0.2em] text-(--color-ink-light)">ADMISSION</span>
           </a>
-          <a href="/ho-tro" className="bg-white rounded-2xl p-6 flex flex-col items-center gap-2 text-(--color-ink) hover:-translate-y-1 transition-transform">
+          <a href="bai-viet/ho-tro" className="bg-white rounded-2xl p-6 flex flex-col items-center gap-2 text-(--color-ink) hover:-translate-y-1 transition-transform">
             <span className="w-12 h-12 rounded-full bg-(--color-gold-light)/50 flex items-center justify-center text-(--color-gold)">
               <HelpCircle size={22} />
             </span>
